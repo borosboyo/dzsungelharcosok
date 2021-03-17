@@ -1,1 +1,2 @@
-# dzsungelharcosok
+# Aszteroidabányászat
+Skeleton tesztelő program
