@@ -21,5 +21,4 @@ public class Robot extends Entity implements Steppable{
     @Override
     public void Step() { }
 
-
 }
