@@ -12,17 +12,17 @@ public class Teleport {
      * @param e the entity using the teleport
      */
     public void Transfer(Entity e){
-        Asteroid a1 = null;
-        Asteroid a2 = null;
+        Asteroid CurrentAsteroid = null;
+        Asteroid DestAsteroid = null;
         if (asteroids.size() == 2) {
-            a1 = e.getAsteroid();
-            if(asteroids.get(0).equals(a1)) {
-                a2 = asteroids.get(1);
+            CurrentAsteroid = e.getAsteroid();
+            if(asteroids.get(0).equals(CurrentAsteroid)) {
+                DestAsteroid = asteroids.get(1);
             }
-            else { a2 = asteroids.get(0); }
+            else { DestAsteroid = asteroids.get(0); }
         }
-        a2.Accept(e);
-        a1.Remove(e);
+        DestAsteroid.Accept(e);
+        CurrentAsteroid.Remove(e);
     }
 
     /**
@@ -32,6 +32,14 @@ public class Teleport {
      */
     public void RemoveAsteroid(Asteroid a){
         asteroids.remove(a);
+    }
+
+    public ArrayList<Asteroid> getAsteroids() {
+        return asteroids;
+    }
+
+    public void setAsteroids(ArrayList<Asteroid> asteroids) {
+        this.asteroids = asteroids;
     }
 
 

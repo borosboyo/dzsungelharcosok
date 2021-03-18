@@ -36,7 +36,6 @@ public class Field implements Steppable {
         for (Asteroid a : asteroids) {
             a.CheckTrigger();
         }
-
     }
 
     /**
