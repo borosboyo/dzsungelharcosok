@@ -19,7 +19,7 @@ public class Asteroid {
     public Asteroid GetRandomNeighbour(){ return null; }
     public Teleport GetRandomTeleport(){return null;}
     public Material MinedBy(){return null;}
-    public void Remove(Entity e){}
+    public void RemoveEntity(Entity e){}
     public void RemoveMaterial(Material m){}
     public void Sunstorm(){}
 

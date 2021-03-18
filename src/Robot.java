@@ -13,7 +13,7 @@ public class Robot extends Entity implements Steppable {
 
     @Override
     public void Die() {
-        getAsteroid().Remove(this);
+        getAsteroid().RemoveEntity(this);
         Timer.timer.RemoveSteppable(this);
     }
 
