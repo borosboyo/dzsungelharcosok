@@ -22,8 +22,4 @@ public class Asteroid {
     public void Remove(Entity e){}
     public void RemoveMaterial(Material m){}
     public void Sunstorm(){}
-
-
-
-
 }
