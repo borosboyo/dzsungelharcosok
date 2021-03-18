@@ -1,8 +1,16 @@
 import java.util.ArrayList;
 
+/**
+ * The type Teleport.
+ */
 public class Teleport {
     private ArrayList<Asteroid> asteroids;
 
+    /**
+     * Transfer.
+     *
+     * @param e the entity using the teleport
+     */
     public void Transfer(Entity e){
         Asteroid a1 = null;
         Asteroid a2 = null;
@@ -16,7 +24,15 @@ public class Teleport {
         a2.Accept(e);
         a1.Remove(e);
     }
-    public void RemoveAsteroid(Asteroid a){}
+
+    /**
+     * Remove asteroid.
+     *
+     * @param a the asteroid to remove
+     */
+    public void RemoveAsteroid(Asteroid a){
+        asteroids.remove(a);
+    }
 
 
 }
