@@ -1,3 +1,5 @@
+import java.io.ObjectInputStream;
+
 /**
  * The type Robot.
  */
@@ -11,8 +13,7 @@ public class Robot extends Entity implements Steppable{
 
     @Override
     public void Die() {
-
-
+        Timer.timer.RemoveSteppable(this);
     }
 
     @Override

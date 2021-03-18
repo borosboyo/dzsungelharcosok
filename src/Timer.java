@@ -6,6 +6,10 @@ public class Timer {
 
     private ArrayList<Steppable> steppables;
 
+    public void RemoveSteppable(Steppable s){
+        steppables.remove(s);
+    }
+
     public void Tick(){}
 
 }
