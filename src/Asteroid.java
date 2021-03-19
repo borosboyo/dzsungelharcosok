@@ -46,20 +46,14 @@ public class Asteroid {
     public void CheckBase(){
         boolean required = false;
 
-        //Ez így nagyon ronda. Szerintem másik megoldás kéne.
         ArrayList<Material> required_material = new ArrayList<>();
-        required_material.add(new Coal());
-        required_material.add(new Coal());
-        required_material.add(new Coal());
-        required_material.add(new Ice());
-        required_material.add(new Ice());
-        required_material.add(new Ice());
-        required_material.add(new Uranium());
-        required_material.add(new Uranium());
-        required_material.add(new Uranium());
-        required_material.add(new Iron());
-        required_material.add(new Iron());
-        required_material.add(new Iron());
+        //Ez így nagyon ronda. Szerintem másik megoldás kéne.
+        for (int i = 0; i < 3; i++){
+            required_material.add(new Coal());
+            required_material.add(new Ice());
+            required_material.add(new Uranium());
+            required_material.add(new Iron());
+        }
 
         /*
         for(int i= 0; i < settlers.size(); i++){
