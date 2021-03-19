@@ -15,8 +15,6 @@ public class Asteroid {
         this.nearSun = nearSun;
         this.material = material;
         this.entities = entities;
-
-        AddRandomMaterial();
     }
 
     public void Accept(Entity e){
@@ -29,19 +27,6 @@ public class Asteroid {
 
     public void BuildTeleport(Teleport t){
         teleports.add(t);
-    }
-
-    //TODO: Sztem ezt érdemes egy fájlból csinálni mint random, vagy ha random akkor lehet érdemes átírni a random részét
-    public void AddRandomMaterial(){
-        Random rand = new Random();
-
-        int r_num = rand.nextInt(4);
-        switch (r_num){
-            case 0 -> material = new Uranium();
-            case 1 -> material = new Ice();
-            case 2 -> material = new Coal();
-            case 3 -> material = new Iron();
-        }
     }
 
     //TODO: újragondolni a játék megnyerésének ellenőrzését
