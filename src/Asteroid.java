@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Asteroid {
     private long crustThickness;
@@ -7,7 +8,6 @@ public class Asteroid {
     private ArrayList<Asteroid> neigbours;
     private ArrayList<Teleport> teleports;
     private ArrayList<Entity> entities;
-    private Game game;
 
 
     public Asteroid(long crustThickness, boolean nearSun, Material material, ArrayList<Entity> entities) {
@@ -25,20 +25,50 @@ public class Asteroid {
         this.material = m;
     }
 
-    //TODO: kitalálni, hogy mi alapján töltse fel az aszteroidákat
-    public void AddRandomMaterial(){
-
-    }
-
     public void BuildTeleport(Teleport t){
         teleports.add(t);
     }
 
+    //TODO: Sztem ezt érdemes egy fájlból csinálni mint random, vagy ha random akkor lehet érdemes átírni a random részét
+    public void AddRandomMaterial(){
+        Random rand = new Random();
 
+        int r_num = rand.nextInt(4);
+        switch (r_num){
+            case 0 -> material = new Uranium();
+            case 1 -> material = new Ice();
+            case 2 -> material = new Coal();
+            case 3 -> material = new Iron();
+        }
+    }
+
+    //TODO: újragondolni a játék megnyerésének ellenőrzését
     public void CheckBase(){
         boolean required = false;
 
-        //TODO:nyeréshez szükséges dolgokat ki kell találni, vagy megnézni neten ha fent van.
+        //Ez így nagyon ronda. Szerintem másik megoldás kéne.
+        ArrayList<Material> required_material = new ArrayList<>();
+        required_material.add(new Coal());
+        required_material.add(new Coal());
+        required_material.add(new Coal());
+        required_material.add(new Ice());
+        required_material.add(new Ice());
+        required_material.add(new Ice());
+        required_material.add(new Uranium());
+        required_material.add(new Uranium());
+        required_material.add(new Uranium());
+        required_material.add(new Iron());
+        required_material.add(new Iron());
+        required_material.add(new Iron());
+
+        /*
+        for(int i= 0; i < settlers.size(); i++){
+            settler.getInventory().
+        }
+
+        required = true;
+         */
+
 
         if(required){
             Game.game.WinGame();
@@ -64,16 +94,73 @@ public class Asteroid {
         CheckTrigger();
     }
 
-    public void Exlode(){
+    public Material MinedBy(){
+        Material ret_material = material;
+        if (ret_material != null && crustThickness == 0){
+            CheckBase();
+            RemoveMaterial();
+            return ret_material;
+        }
+        return null;
+    }
+
+    public void Sunstorm(){
+        if(crustThickness == 0 && material != null){
+            for (Entity entity : entities) {
+                entity.Die();
+            }
+        }
+    }
+
+    public void Explode(){
+        Game.game.field.RemoveAsteroid(this);
+
+        for (Teleport teleport : teleports) {
+            teleport.RemoveAsteroid(this);
+        }
+
+        for (Entity entity : entities) {
+            entity.Blow();
+        }
+
+        for (Asteroid neighbour : neigbours) {
+            neighbour.RemoveNeighbour(this);
+        }
 
     }
-    
-    public Asteroid GetRandomNeighbour(){ return null; }
-    public Teleport GetRandomTeleport(){return null;}
-    public Material MinedBy(){return null;}
-    public void RemoveEntity(Entity e){}
-    public void RemoveMaterial(Material m){}
-    public void Sunstorm(){}
+
+    public void RemoveEntity(Entity e){
+        entities.remove(e);
+    }
+
+    public void RemoveMaterial(){
+        material = null;
+    }
+
+    public void RemoveNeighbour(Asteroid a){
+        neigbours.remove(a);
+    }
+
+    public Asteroid GetRandomNeighbour() {
+        if (neigbours.size() < 1) {
+            return null;
+        }
+
+        Random rand = new Random();
+        int r_index = rand.nextInt(neigbours.size());
+
+        return  neigbours.get(r_index);
+    }
+
+    public Teleport GetRandomTeleport(){
+        if (teleports.size() < 1) {
+            return null;
+        }
+        Random rand = new Random();
+        int r_index = rand.nextInt(teleports.size());
+
+        return  teleports.get(r_index);
+    }
 
 
 
