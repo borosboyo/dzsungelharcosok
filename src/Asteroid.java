@@ -29,29 +29,8 @@ public class Asteroid {
         teleports.add(t);
     }
 
-    //TODO: újragondolni a játék megnyerésének ellenőrzését
     public void CheckBase(){
-        boolean required = false;
-
-        ArrayList<Material> required_material = new ArrayList<>();
-        //Ez így nagyon ronda. Szerintem másik megoldás kéne.
-        for (int i = 0; i < 3; i++){
-            required_material.add(new Coal());
-            required_material.add(new Ice());
-            required_material.add(new Uranium());
-            required_material.add(new Iron());
-        }
-
-        /*
-        for(int i= 0; i < settlers.size(); i++){
-            settler.getInventory().
-        }
-
-        required = true;
-         */
-
-
-        if(required){
+        if(Game.game.field.CheckReqMat(this)){
             Game.game.WinGame();
         }
     }
