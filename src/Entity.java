@@ -15,9 +15,14 @@ public abstract class Entity {
     public abstract void Die();
 
     public void Drill() {
+
     }
 
     public void Move(Asteroid a) {
+        if(this.getAsteroid().CheckNeighbour(a)){
+            this.getAsteroid().RemoveEntity(this);
+            this.setAsteroid(a);
+        }
     }
 
     public void UseTeleport(Teleport t) {

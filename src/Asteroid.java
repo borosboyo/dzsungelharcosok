@@ -7,13 +7,13 @@ public class Asteroid {
     private  Material material;
     private long crustThickness;
     private  boolean nearSun;
-
     public void Accept(Entity e){ }
     public void AddMaterial(Material m){}
     public void AddRandomMaterial(Material m){}
     public void BuildTeleport(Teleport t){ }
     public void CheckBase(){}
     public void CheckTrigger(){}
+    public boolean CheckNeighbour(Asteroid a){return a benne van-e a neighbourbe}
     public void DrilledBy(){}
     public void Exlode(){}
     public Asteroid GetRandomNeighbour(){ return null; }
