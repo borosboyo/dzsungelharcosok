@@ -15,6 +15,8 @@ public class Asteroid {
         this.nearSun = nearSun;
         this.material = material;
         this.entities = entities;
+
+        AddRandomMaterial();
     }
 
     public void Accept(Entity e){
