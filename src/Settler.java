@@ -6,12 +6,36 @@ public class Settler extends Entity{
     private ArrayList<Teleport> teleportlist;
 
     @Override
-    public void Blow() { }
+    public void Blow() {
+        this.Die();
+    }
 
     @Override
-    public void Die(){}
+    public void Die(){
+        //aszteroidarol levenni? és ksizedni a settler aszteroidáját?
+    }
 
-    public void BuildRobot(){}
+    //kell hogy megnézzuk van e elég
+    public boolean CanBuildRobot(){}
+    public boolean CanBuildTeleport(){}
+    public void BuildRobot(){
+        int iron=0;
+        int coal=0;
+        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
+        for (Material m : inventory)
+        {
+           if(m instanceof Iron){
+               iron++;
+           }
+            if(m instanceof Coal){
+                coal+;
+            }
+            if(m instanceof Uranium){
+                uranium++;
+            }
+        }
+
+    }
     public void MakeTeleport(){}
     public void Mine(){}
     public void PlaceMaterial(){}

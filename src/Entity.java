@@ -16,6 +16,9 @@ public abstract class Entity {
 
     public void Drill() {
 
+        if(this.getAsteroid().getCrustThickness()>0){
+            this.getAsteroid().DrilledBy(); //drilled by csökkenti a réteget eggyel és ha kell hívja meg a triggert
+        }
     }
 
     public void Move(Asteroid a) {
@@ -33,6 +36,7 @@ public abstract class Entity {
     }
 
     public void UseTeleport(Teleport t) {
+        t.Transfer(this);
     }
 
 
