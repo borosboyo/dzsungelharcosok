@@ -4,7 +4,12 @@ import java.util.ArrayList;
  * The type Teleport.
  */
 public class Teleport {
+
     private ArrayList<Asteroid> asteroids;
+
+    public Teleport() {
+        asteroids = null;
+    }
 
     /**
      * Transfer.
@@ -22,7 +27,7 @@ public class Teleport {
             else { DestAsteroid = asteroids.get(0); }
         }
         DestAsteroid.Accept(e);
-        CurrentAsteroid.Remove(e);
+        CurrentAsteroid.RemoveEntity(e);
     }
 
     /**
@@ -34,10 +39,20 @@ public class Teleport {
         asteroids.remove(a);
     }
 
+    /**
+     * Gets asteroids.
+     *
+     * @return the asteroids
+     */
     public ArrayList<Asteroid> getAsteroids() {
         return asteroids;
     }
 
+    /**
+     * Sets asteroids.
+     *
+     * @param asteroids the asteroids
+     */
     public void setAsteroids(ArrayList<Asteroid> asteroids) {
         this.asteroids = asteroids;
     }
