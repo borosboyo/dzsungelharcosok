@@ -19,10 +19,17 @@ public abstract class Entity {
     }
 
     public void Move(Asteroid a) {
+        //ha szomszédos akkor mozog
         if(this.getAsteroid().CheckNeighbour(a)){
+            //mozgás
             this.getAsteroid().RemoveEntity(this);
+            a.Accept(this);
             this.setAsteroid(a);
+
+            //check hogy megynerték-e
+            a.CheckBase();
         }
+        //különben nem mozog
     }
 
     public void UseTeleport(Teleport t) {
