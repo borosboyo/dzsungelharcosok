@@ -41,6 +41,7 @@ public class Settler extends Entity{
     public void PlaceMaterial(){}
     public void PlaceTeleport(){}
 
-
-
+    public ArrayList<Material> getInventory() {
+        return inventory;
+    }
 }
