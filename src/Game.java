@@ -13,7 +13,7 @@ public class Game {
         System.out.println("Hello world");
     }
 
-
+    //TODO: a startGamenel az aszteroida paraméterében kell majd átadni
      Material RandomMaterial(){
         Random rand = new Random();
         Material mat = null;
