@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * The type Field.
@@ -99,5 +100,21 @@ public class Field implements Steppable {
         return false;
     }
 
+    //TODO: az aszteroida paraméterében kell majd átadni
+    Material RandomMaterial(){
+        Random rand = new Random();
+        Material mat = null;
+
+        int r_num = rand.nextInt(5);
+        switch (r_num){
+            case 0 -> mat = new Uranium();
+            case 1 -> mat = new Ice();
+            case 2 -> mat = new Coal();
+            case 3 -> mat = new Iron();
+            case 4 -> mat = null;
+        }
+
+        return mat;
+    }
 
 }
