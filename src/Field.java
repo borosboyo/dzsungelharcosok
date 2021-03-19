@@ -56,27 +56,44 @@ public class Field implements Steppable {
         asteroids.remove(a);
     }
 
-    boolean CheckReqMat(Asteroid a){
-        boolean required = false;
 
+    boolean CheckReqMat(Asteroid a){
+        int coal = 3;
+        int ice = 3;
+        int iron = 3;
+        int uran = 3;
+
+        /*
         ArrayList<Material> required_material = new ArrayList<>();
         for (int i = 0; i < 3; i++){
             required_material.add(new Coal());
             required_material.add(new Ice());
             required_material.add(new Uranium());
             required_material.add(new Iron());
-        }
+        }*/
 
+        ArrayList<Material> settler_mat;
 
-        for(int i= 0; i < settlers.size(); i++){
-            if(settlers.get(i).getAsteroid() == a){
-                settlers.get(i).getInventory();
+        for (Settler settler : settlers) {
+            if (settler.getAsteroid() == a) {
+                settler_mat = settler.getInventory();
+
+                for (Material material : settler_mat) {
+                    if (material instanceof Coal) {
+                        coal--;
+                    } else if (material instanceof Iron) {
+                        iron--;
+                    } else if (material instanceof Uranium) {
+                        uran--;
+                    } else if (material instanceof Ice) {
+                        ice--;
+                    }
+                }
             }
         }
 
-
-        if(required){
-            Game.game.WinGame();
+        if(coal == 0 && iron == 0 && uran == 0 && ice ==0){
+            return true;
         }
 
         return false;
