@@ -15,7 +15,6 @@ public abstract class Entity {
     public abstract void Die();
 
     public void Drill() {
-
         if(this.getAsteroid().getCrustThickness()>0){
             this.getAsteroid().DrilledBy(); //drilled by csökkenti a réteget eggyel és ha kell hívja meg a triggert
         }
