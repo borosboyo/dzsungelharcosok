@@ -12,4 +12,12 @@ public abstract class Material {
      * Trigger of special materials in case of special events.
      */
     public abstract void Trigger();
+
+    public Asteroid getAsteroid() {
+        return asteroid;
+    }
+
+    public void setAsteroid(Asteroid asteroid) {
+        this.asteroid = asteroid;
+    }
 }
