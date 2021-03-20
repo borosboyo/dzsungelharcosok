@@ -1,4 +1,7 @@
 import java.util.Scanner;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class Skeleton {
 
@@ -61,6 +64,8 @@ public class Skeleton {
         switch (number){
             case 1:
                 Settler_Moves_test();
+                //setUp();
+                //Settler_Moves_test2();
             case 2:
                 Settler_wins_game_with_move_test();
             case 3:
@@ -150,7 +155,45 @@ public class Skeleton {
         };
         WriteTest(func);
     }
-    public void Settler_tries_to_move_on_not_neighbour(){}
+
+
+
+    //proba teszteles
+    private Settler s1;
+    private Settler s2;
+    private Asteroid a1;
+    private Asteroid a2;
+
+    @Before
+    public void setUp(){
+        s1 = new Settler();
+        s2 = new Settler();
+        this.a1 = new Asteroid(1,false, new Iron());
+        this.a2 = new Asteroid(3,true, null);
+        a1.Accept(s1);
+        s1.setAsteroid(a1);
+        a2.Accept(s2);
+        s2.setAsteroid(a2);
+        a1.AddNeighbour(a2);
+        Game.game.field.AddSettler(s1);
+        Game.game.field.AddSettler(s2);
+    }
+
+    @Test
+    public void Settler_Moves_test2(){
+        Assert.assertTrue(a1.getEntities().get(0) == s1);
+        Assert.assertTrue(a2.getEntities().get(0) == s2);
+        s1.Move(a2);
+        Assert.assertTrue(a1.getEntities().size() == 0);
+        Assert.assertTrue(a2.getEntities().size() == 2);
+        Assert.assertTrue(a2.getEntities().get(0) == s2);
+        Assert.assertTrue(a2.getEntities().get(1) == s1);
+
+        System.out.println("Sikeres teszt");
+    }
+
+
     public void Robot_Moves(){}
+
 
 }
