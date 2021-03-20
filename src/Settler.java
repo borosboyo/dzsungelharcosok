@@ -1,6 +1,9 @@
 import javax.lang.model.type.NullType;
 import java.util.ArrayList;
 
+/**
+ * The type Settler.
+ */
 public class Settler extends Entity{
 
 
@@ -8,6 +11,9 @@ public class Settler extends Entity{
     private ArrayList<Teleport> teleportlist;
 
 
+    /**
+     * Instantiates a new Settler.
+     */
     public Settler() {
         inventory= new ArrayList<Material>();
         teleportlist= new ArrayList<Teleport>();
@@ -21,9 +27,12 @@ public class Settler extends Entity{
     @Override
     public void Die(){
         getAsteroid().RemoveEntity(this);
-        //aszteroidarol levenni? és ksizedni a settler aszteroidáját?
+        setAsteroid(null);
     }
 
+    /**
+     * Build robot.
+     */
     public void BuildRobot(){
         int iron=0;
         int coal=0;
@@ -70,6 +79,10 @@ public class Settler extends Entity{
         }
 
     }
+
+    /**
+     * Make teleport.
+     */
     public void MakeTeleport(){
         int iron=0;
         int ice=0;
@@ -112,6 +125,9 @@ public class Settler extends Entity{
         }
     }
 
+    /**
+     * Mine.
+     */
     public void Mine(){
         if(getAsteroid().getCrustThickness()==0 && inventory.size()<=10){
             Material i=getAsteroid().MinedBy();
@@ -120,22 +136,31 @@ public class Settler extends Entity{
         }
     }
 
+    /**
+     * Place material.
+     */
     public void PlaceMaterial(){
         if(getAsteroid().getMaterial()==null && getAsteroid().getCrustThickness() == 0){
-            //mit teszunk le?
-            getAsteroid().AddMaterial(inventory.get(0));
+            getAsteroid().AddMaterial(inventory.get(inventory.size()-1));
             inventory.remove(0);
         }
     }
 
+    /**
+     * Place teleport.
+     */
     public void PlaceTeleport(){
-        getAsteroid().BuildTeleport(teleportlist.get(0)); //lehetne csak egy sima teleport
-        //hol removeoljuk?, egyiket leteszi és figyeljuk a másikat mikor teszi?
+        getAsteroid().BuildTeleport(teleportlist.get(0));
         if(teleportlist.get(0).getAsteroids().size()==2){
             teleportlist.remove(0);
         }
     }
 
+    /**
+     * Gets inventory.
+     *
+     * @return the inventory
+     */
     public ArrayList<Material> getInventory() {
         return inventory;
     }
