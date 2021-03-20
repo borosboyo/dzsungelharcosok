@@ -12,7 +12,7 @@ public class Robot extends Entity implements Steppable {
     }
 
     @Override
-    public void Die() {
+    public void Die() { //itt nem tudom hogy szukseges lenne e még torolni a robotban nullra allitani az aszteroidat
         getAsteroid().RemoveEntity(this);
         Timer.getInstance().RemoveSteppable(this);
     }

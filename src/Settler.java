@@ -20,6 +20,7 @@ public class Settler extends Entity{
 
     @Override
     public void Die(){
+        getAsteroid().RemoveEntity(this);
         //aszteroidarol levenni? és ksizedni a settler aszteroidáját?
     }
 
@@ -78,7 +79,7 @@ public class Settler extends Entity{
             if(m instanceof Iron){
                 iron++;
             }
-            if(m instanceof Coal){
+            if(m instanceof Ice){
                 ice++;
             }
             if(m instanceof Uranium){
