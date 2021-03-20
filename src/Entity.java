@@ -21,7 +21,7 @@ public abstract class Entity {
         }
     }
 
-    public void Move(Asteroid a) {
+    public  void Move(Asteroid a) {
         //ha szomszédos akkor mozog
         if(this.getAsteroid().CheckNeighbour(a)){
             //mozgás

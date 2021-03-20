@@ -233,13 +233,67 @@ public class Skeleton {
         WriteTest(func);
     }
 
-    public void Settler_tries_to_place_material_on_full_asteroid(){}
-    public void Settler_place_teleport(){}
-    public void Settler_makes_teleport(){}
-    public void Settler_uses_teleport(){}
-    public void Settler_tries_to_use_unpaired_teleport(){}
-    public void Robot_uses_teleport(){}
-    public void Robot_tries_to_use_unpaired_teleport(){}
+    public void Settler_tries_to_place_material_on_full_asteroid(){
+
+    }
+    public void Settler_place_teleport(){
+        String func[] = {
+                "Settler.PlaceTeleport()",
+                "Asteroid.BuildTeleport()",
+                "Teleport.AddAsteroid(Asteroid)"
+        };
+        WriteTest(func);
+    }
+    public void Settler_makes_teleport(){
+        System.out.println("Collect all materials? (0: no, else: yes");
+        int collect = input.nextInt();
+
+        String func[];
+        if(collect != null)
+        func = new String[] {
+                "Settler.MakeTeleport()",
+                "Teleport.Teleport()",
+                "Settler.AddTeleport(Teleport)"
+        };
+        else
+            func = new String[]{
+                    "Settler.MakeTeleport()"
+            };
+        WriteTest(func);
+    }
+    public void Settler_uses_teleport(){
+        String func[] = {
+                "Settler.UseTeleport(Teleport)",
+                "Teleport.Transfer(Settler)",
+                "Asteroid.Accept(Settler)",
+                "Asteroid.Remove(Settler)"
+        };
+        WriteTest(func);
+    }
+    public void Settler_tries_to_use_unpaired_teleport(){
+
+        String func[] = {
+                "Settler.UseTeleport(Teleport)",
+                "Teleport.Transfer(Settler)"
+        };
+        WriteTest(func);
+    }
+    public void Robot_uses_teleport(){
+        String func[] = {
+                "Robot.UseTeleport(Teleport)",
+                "Teleport.Transfer(Robot)",
+                "Asteroid.Accept(Robot)",
+                "Asteroid.Remove(Robot)"
+        };
+        WriteTest(func);
+    }
+    public void Robot_tries_to_use_unpaired_teleport(){
+        String func[] = {
+                "Robot.UseTeleport(Teleport)",
+                "Teleport.Transfer(Robot)"
+        };
+        WriteTest(func);
+    }
     public void Sunstorm_on_settler(){}
     public void Sunstorm_on_robot(){}
     public void Settler_builds_robot(){}
@@ -247,7 +301,13 @@ public class Skeleton {
     public void Settler_drills_non_trigger(){}
     public void Settler_drills_radioactive(){}
     public void Settler_drills_ice(){}
-    public void All_settlers_die(){}
+    public void All_settlers_die(){
+        String func[] = {
+                "Field.RemoveSettler(Settler)",
+                "Game.EndGame()"
+        };
+        WriteTest(func);
+    }
     public void Robot_drills_non_trigger(){}
     public void Robot_drills_radioactive(){}
     public void Robot_drills_ice(){}
