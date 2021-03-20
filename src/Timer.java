@@ -7,7 +7,7 @@ public class Timer {
     /**
      * The constant timer.
      */
-    private static Timer timer = new Timer();
+    public static Timer timer = new Timer();
 
     /**
      * Private constructor so the Timer stays singleton.

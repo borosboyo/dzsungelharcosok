@@ -8,7 +8,7 @@ public class Game {
     /**
      * The constant game.
      */
-    private static Game game = new Game();
+    public static Game game = new Game();
 
     /**
      * Private constructor so the class is Singleton.
