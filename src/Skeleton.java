@@ -213,7 +213,7 @@ public class Skeleton {
     }
 
     public void Settler_place_material(){
-        System.out.println("Current crustthickness? (Write a number between 0-10");
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
         int crust = input.nextInt();
         while(crust > 10 || crust < 0){
             System.out.println("The number was incorrect. Please enter a number between 0-10!)");
@@ -248,9 +248,8 @@ public class Skeleton {
     public void Settler_makes_teleport(){
         System.out.println("Collect all materials? (0: no, else: yes");
         int collect = input.nextInt();
-
         String func[];
-        if(collect != null)
+        if(collect != 0)
         func = new String[] {
                 "Settler.MakeTeleport()",
                 "Teleport.Teleport()",
@@ -295,8 +294,42 @@ public class Skeleton {
         };
         WriteTest(func);
     }
-    public void Sunstorm_on_settler(){}
-    public void Sunstorm_on_robot(){}
+
+    public void Sunstorm_on_settler(){
+        System.out.println("Is the asteroid empty? (0: no, else: yes");
+        int empty = input.nextInt();
+        String func[];
+        if(empty == 0)
+        func = new String[] {
+                "Asteroid.SunStorm()",
+                "Settler.Die()",
+                "Asteroid.Remove(Settler)",
+                "Field.RemoveSettler"
+        };
+        else
+            func = new String[]{
+                    "Asteroid.SunStorm()"
+            };
+        WriteTest(func);
+    }
+
+    public void Sunstorm_on_robot(){
+        System.out.println("Is the asteroid empty? (0: no, else: yes");
+        int empty = input.nextInt();
+        String func[];
+        if(empty == 0)
+            func = new String[] {
+                    "Asteroid.SunStorm()",
+                    "Robot.Die()",
+                    "Asteroid.Remove(Robot)"
+            };
+        else
+            func = new String[]{
+                    "Asteroid.SunStorm()"
+            };
+        WriteTest(func);
+    }
+
     public void Settler_builds_robot(){}
     public void Settler_mines(){}
     public void Settler_drills_non_trigger(){}
