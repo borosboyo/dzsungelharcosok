@@ -17,17 +17,19 @@ public class Teleport {
      * @param e the entity using the teleport
      */
     public void Transfer(Entity e){
-        Asteroid CurrentAsteroid = null;
-        Asteroid DestAsteroid = null;
+
         if (asteroids.size() == 2) {
-            CurrentAsteroid = e.getAsteroid();
-            if(asteroids.get(0).equals(CurrentAsteroid)) {
-                DestAsteroid = asteroids.get(1);
+            if(asteroids.get(0).equals(e.getAsteroid())) {
+                asteroids.get(1).Accept(e);
+                e.setAsteroid(asteroids.get(1));
             }
-            else { DestAsteroid = asteroids.get(0); }
+            else {
+                asteroids.get(0).Accept(e);
+                e.setAsteroid(asteroids.get(0));
+            }
+            e.getAsteroid().RemoveEntity(e);
+
         }
-        DestAsteroid.Accept(e);
-        CurrentAsteroid.RemoveEntity(e);
     }
 
     /**

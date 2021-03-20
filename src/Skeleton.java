@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.sun.source.tree.AssertTree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,11 +9,21 @@ import org.junit.Test;
 public class Skeleton {
     private Scanner input;
     private int crust;
+    private boolean nearsun;
 
     private Settler s1;
     private Settler s2;
+    private Robot r1;
     private Asteroid a1;
     private Asteroid a2;
+    private Asteroid a3;
+    private Asteroid a4;
+    private Asteroid a5;
+    private Ice ice;
+    private Iron iron;
+    private Uranium uran;
+    private Coal coal;
+    private Teleport t1;
 
     public Skeleton(){
         input = new Scanner(System.in);
@@ -180,21 +192,54 @@ public class Skeleton {
         System.out.print("\n");
     }
 
-
     @Before
     public void setUp(){
+        ice = new Ice();
+        coal = new Coal();
+        iron = new Iron();
+        uran = new Uranium();
         s1 = new Settler();
         s2 = new Settler();
-        a1 = new Asteroid(1,false, new Iron());
-        a2 = new Asteroid(3,true, null);
-        a2 = new Asteroid(3,true, null);
+        r1= new Robot();
+
+        a1 = new Asteroid(3,false, ice);
+        a2 = new Asteroid(3,false, coal);
+        a3 = new Asteroid(3,false, iron);
+        a4 = new Asteroid(3,false, uran);
+        a5 = new Asteroid(0,false, null);
+
+
         a1.Accept(s1);
         s1.setAsteroid(a1);
+
+        a1.Accept(r1);
+        r1.setAsteroid(a1);
+
         a2.Accept(s2);
         s2.setAsteroid(a2);
-        a1.AddNeighbour(a2);
+
+
+        Game.getInstance().field.AddAsteroid(a1);
+        Game.getInstance().field.AddAsteroid(a2);
+        Game.getInstance().field.AddAsteroid(a3);
+        Game.getInstance().field.AddAsteroid(a4);
+        Game.getInstance().field.AddAsteroid(a5);
+
         Game.getInstance().field.AddSettler(s1);
         Game.getInstance().field.AddSettler(s2);
+
+        a1.AddNeighbour(a2);
+        a2.AddNeighbour(a1);
+        a2.AddNeighbour(a3);
+        a3.AddNeighbour(a1);
+        a4.AddNeighbour(a5);
+        a5.AddNeighbour(a4);
+        a5.AddNeighbour(a1);
+        a1.AddNeighbour(a5);
+
+        t1 = new Teleport();
+        t1.getAsteroids().add(a1);
+        t1.getAsteroids().add(a2);
     }
 
     public int getCrust() {
@@ -243,8 +288,30 @@ public class Skeleton {
 
     @Test
     public void Settler_wins_game_with_move_test(){
-        ArrayList<Material> inv = s1.getInventory();
+        s1.getInventory().add(ice);
+        s1.getInventory().add(ice);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(coal);
+        s1.getInventory().add(coal);
+        s1.getInventory().add(uran);
+        s1.getInventory().add(uran);
 
+        s2.getInventory().add(ice);
+        s2.getInventory().add(iron);
+        s2.getInventory().add(coal);
+        s2.getInventory().add(uran);
+
+        Assert.assertEquals(8, s1.getInventory().size());
+        Assert.assertEquals(4, s2.getInventory().size());
+
+        s1.Move(a2);
+
+        Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(a2.getEntities().get(1), s1);
+
+
+        Game.getInstance().field.CheckReqMat(a2);
 
     }
 
@@ -345,6 +412,27 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+    @Test
+    public void Settler_uses_teleport_test(){
+        a1.getEntities().clear();
+        a1.getEntities().add(s1);
+        a2.getEntities().clear();
+        Assert.assertSame(a1.getEntities().get(0), s1);
+        Assert.assertEquals(1, a1.getEntities().size());
+        Assert.assertEquals(0, a2.getEntities().size());
+       // Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(s1.getAsteroid(), a1);
+      //  Assert.assertSame(s2.getAsteroid(), a2);
+
+        s1.UseTeleport(t1);
+
+     //   Assert.assertEquals(1, a2.getEntities().size());
+      //  Assert.assertEquals(0, a1.getEntities().size());
+      //  Assert.assertEquals(1, a2.getEntities().size());
+
+       Assert.assertSame(s1.getAsteroid(), a2);
+
+    }
     public void Settler_tries_to_use_unpaired_teleport(){
 
         String func[] = {
@@ -352,6 +440,22 @@ public class Skeleton {
                 "Teleport.Transfer(Settler)"
         };
         WriteTest(func);
+    }
+
+    @Test
+    public void Settler_tries_to_use_unpaired_teleport_test(){
+        Assert.assertSame(a1.getEntities().get(0), s1);
+        Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(s1.getAsteroid(), a1);
+        Assert.assertSame(s2.getAsteroid(), a2);
+        t1.getAsteroids().remove(1);
+
+        s1.UseTeleport(t1);
+
+        Assert.assertSame(a1.getEntities().get(0), s1);
+        Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(s1.getAsteroid(), a1);
+        Assert.assertSame(s2.getAsteroid(), a2);
     }
     public void Robot_uses_teleport(){
         String func[] = {
@@ -362,6 +466,29 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    @Test
+    public void Robot_uses_teleport_test(){
+        a1.getEntities().clear();
+        a1.getEntities().add(r1);
+        a2.getEntities().clear();
+        Assert.assertSame(a1.getEntities().get(0), r1);
+        Assert.assertEquals(1, a1.getEntities().size());
+        Assert.assertEquals(0, a2.getEntities().size());
+        // Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(r1.getAsteroid(), a1);
+        //  Assert.assertSame(s2.getAsteroid(), a2);
+
+        r1.UseTeleport(t1);
+
+        //   Assert.assertEquals(1, a2.getEntities().size());
+        //  Assert.assertEquals(0, a1.getEntities().size());
+        //  Assert.assertEquals(1, a2.getEntities().size());
+
+        Assert.assertSame(r1.getAsteroid(), a2);
+        Assert.assertSame(s2.getAsteroid(), a2);
+
+    }
     public void Robot_tries_to_use_unpaired_teleport(){
         String func[] = {
                 "Robot.UseTeleport(Teleport)",
@@ -369,6 +496,23 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    @Test
+    public void Robot_tries_to_use_unpaired_teleport_test(){
+        a1.getEntities().clear();
+        a1.getEntities().add(r1);
+        a2.getEntities().clear();
+        Assert.assertSame(a1.getEntities().get(0), r1);
+        Assert.assertSame(r1.getAsteroid(), a1);
+        t1.getAsteroids().remove(1);
+
+        r1.UseTeleport(t1);
+
+        Assert.assertSame(a1.getEntities().get(0), r1);
+        Assert.assertSame(r1.getAsteroid(), a1);
+
+    }
+
 
     public void Sunstorm_on_settler(){
         System.out.println("Is the asteroid empty? (0: no, else: yes");
