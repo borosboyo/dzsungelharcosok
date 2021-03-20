@@ -5,7 +5,8 @@ import org.junit.Test;
 
 public class Skeleton {
     private Scanner input;
-    Skeleton(){
+
+    public Skeleton(){
         input = new Scanner(System.in);
     }
 
@@ -255,6 +256,8 @@ public class Skeleton {
 
 
     //proba teszteles
+    //Nem fut le ha a kontruktora nem publikus, ezért átírtam
+
     private Settler s1;
     private Settler s2;
     private Asteroid a1;
@@ -271,8 +274,8 @@ public class Skeleton {
         a2.Accept(s2);
         s2.setAsteroid(a2);
         a1.AddNeighbour(a2);
-        Game.game.field.AddSettler(s1);
-        Game.game.field.AddSettler(s2);
+        Game.getInstance().field.AddSettler(s1);
+        Game.getInstance().field.AddSettler(s2);
     }
 
     @Test
