@@ -8,6 +8,10 @@ public class Skeleton {
         s.TestList();
         s.chooseTest();
     }
+
+    /**
+     * A tesztek listája
+     */
     public void TestList(){
         System.out.print(
                 "Please select a test!\n" +
@@ -37,6 +41,10 @@ public class Skeleton {
         );
     }
 
+    /**
+     * A felhasználótól beolvas egy számot
+     * @return a felhasználó által megadott szám
+     */
     public int  inputNumber(){
         Scanner input = new Scanner(System.in);
         int number = input.nextInt();
@@ -46,6 +54,7 @@ public class Skeleton {
         }
         return number;
     }
+
 
     public void chooseTest(){
         int number = inputNumber();
@@ -99,7 +108,10 @@ public class Skeleton {
         }
     }
 
-
+    /**
+     * Az esztétikus kiírást segítő függvény
+     * @param functions
+     */
     public void WriteTest(String[] functions){
         System.out.print("\n");
         for(int i = 0; i < functions.length; i++){
@@ -109,7 +121,11 @@ public class Skeleton {
         }
     }
 
+    /**
+     * Az konkrét tesztesetek függvényei
+     */
     public void Settler_Moves_test(){
+
 
         String func[] = {
                 "Settler.Move(Asteroid)",
