@@ -120,4 +120,5 @@ public class Field implements Steppable {
     public void AddSettler(Settler s) {
         settlers.add(s);
     }
+    public void AddAsteroid(Asteroid a) {asteroids.add(a);}
 }
