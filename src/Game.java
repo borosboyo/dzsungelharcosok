@@ -1,9 +1,21 @@
+import org.junit.Assert;
+
 import java.util.Random;
 
 /**
  * The Game singleton class that manages ending and starting a game.
  */
 public class Game {
+
+    private boolean win = false;
+
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
+    }
 
     /**
      * The constant game.
@@ -48,6 +60,7 @@ public class Game {
      * Ends the game if the Settlers collected the required materials and won the game.
      */
     public void WinGame() {
+        setWin(true);
         System.out.print("Settlers win!");
     }
 
