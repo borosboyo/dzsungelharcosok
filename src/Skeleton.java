@@ -110,7 +110,7 @@ public class Skeleton {
 
     /**
      * Az esztétikus kiírást segítő függvény
-     * @param functions
+     * @param functions a függvények neveit veszi át egy String[] tömbbe
      */
     public void WriteTest(String[] functions){
         System.out.print("\n");
@@ -126,7 +126,9 @@ public class Skeleton {
      */
     public void Settler_Moves_test(){
 
-
+        /*A meghívandó függvények neveit ki szeretném írni egy egy String[] tömbbe,
+        de ez nem valami szép megoldás..
+         */
         String func[] = {
                 "Settler.Move(Asteroid)",
                 "Asteroid.CheckNeighbour()",
