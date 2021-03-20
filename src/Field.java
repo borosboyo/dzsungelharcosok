@@ -8,6 +8,7 @@ public class Field implements Steppable {
     private ArrayList<Asteroid> asteroids = new ArrayList();
     private ArrayList<Settler> settlers = new ArrayList();
 
+
     @Override
     public void Step() {
         SetNearSun();
@@ -63,16 +64,6 @@ public class Field implements Steppable {
         int ice = 3;
         int iron = 3;
         int uran = 3;
-
-        /*
-        ArrayList<Material> required_material = new ArrayList<>();
-        for (int i = 0; i < 3; i++){
-            required_material.add(new Coal());
-            required_material.add(new Ice());
-            required_material.add(new Uranium());
-            required_material.add(new Iron());
-        }*/
-
         ArrayList<Material> settler_mat;
 
         for (Settler settler : settlers) {
@@ -93,11 +84,7 @@ public class Field implements Steppable {
             }
         }
 
-        if(coal == 0 && iron == 0 && uran == 0 && ice ==0){
-            return true;
-        }
-
-        return false;
+        return coal <= 0 && iron <= 0 && uran <= 0 && ice <= 0;
     }
 
     //TODO: az aszteroida paraméterében kell majd átadni
