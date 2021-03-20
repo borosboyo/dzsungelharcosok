@@ -5,8 +5,8 @@ import java.util.Random;
  * The type Field.
  */
 public class Field implements Steppable {
-    private ArrayList<Asteroid> asteroids;
-    private ArrayList<Settler> settlers;
+    private ArrayList<Asteroid> asteroids = new ArrayList();
+    private ArrayList<Settler> settlers = new ArrayList();
 
     @Override
     public void Step() {
@@ -117,4 +117,7 @@ public class Field implements Steppable {
         return mat;
     }
 
+    public void AddSettler(Settler s) {
+        settlers.add(s);
+    }
 }
