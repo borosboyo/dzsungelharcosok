@@ -5,16 +5,14 @@ public class Asteroid {
     private long crustThickness;
     private  boolean nearSun;
     private  Material material;
-    private ArrayList<Asteroid> neigbours;
-    private ArrayList<Teleport> teleports;
-    private ArrayList<Entity> entities;
+    private ArrayList<Asteroid> neigbours = new ArrayList();
+    private ArrayList<Teleport> teleports = new ArrayList();
+    private ArrayList<Entity> entities = new ArrayList();
 
-
-    public Asteroid(long crustThickness, boolean nearSun, Material material, ArrayList<Entity> entities) {
+    public Asteroid(long crustThickness, boolean nearSun, Material material) {
         this.crustThickness = crustThickness;
         this.nearSun = nearSun;
         this.material = material;
-        this.entities = entities;
     }
 
     public void Accept(Entity e){
@@ -172,4 +170,7 @@ public class Asteroid {
         this.nearSun = nearSun;
     }
 
+    public void AddNeighbour(Asteroid a) {
+        neigbours.add(a);
+    }
 }
