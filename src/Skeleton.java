@@ -333,7 +333,15 @@ public class Skeleton {
 
     @Test
     public void Settler_tries_to_move_on_not_neighbour_test(){
-        //
+        a1.RemoveNeighbour(a2);
+        a2.RemoveNeighbour(a1);
+        s1.setAsteroid(a1);
+
+        int a2entitysize = a2.getEntities().size();
+        Assert.assertTrue(s1.getAsteroid()==a1);
+        s1.Move(a2);
+        Assert.assertTrue(s1.getAsteroid()==a1);
+        Assert.assertEquals(a2entitysize,a2.getEntities().size());
     }
 
     public void Robot_Moves(){
@@ -345,6 +353,14 @@ public class Skeleton {
                 "Asteroid.Remove(Robot)"
         };
         WriteTest(func);
+    }
+
+    @Test
+    public void Robot_Moves_test(){
+        Asteroid ast= r1.getAsteroid();
+        r1.Move(a2);
+        Assert.assertEquals(a2, r1.getAsteroid());
+        Assert.assertNotEquals(ast, r1.getAsteroid());
     }
 
     public void Settler_place_material(){
@@ -368,6 +384,21 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    @Test
+    public void Settler_place_material_test(){
+
+        a1.setCrustThickness(0);
+        a1.RemoveMaterial();
+        Assert.assertEquals(null, a1.getMaterial());
+        s1.getInventory().add(iron);
+        System.out.println(s1.getInventory().get(0));
+        int inventorysize= s1.getInventory().size();
+        s1.PlaceMaterial();
+        Assert.assertTrue(iron == a1.getMaterial());
+        Assert.assertEquals(inventorysize-1, s1.getInventory().size());
+
+    }
+
     public void Settler_tries_to_place_material_on_full_asteroid(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
         int crust = input.nextInt();
@@ -386,6 +417,20 @@ public class Skeleton {
                     "Settler.PlaceMaterial()"};
         WriteTest(func);
     }
+
+    @Test
+    public void Settler_tries_to_place_material_on_full_asteroid_test(){
+        a1.setCrustThickness(0);
+        a1.setMaterial(new Iron());
+        Material mat= a1.getMaterial();
+        s1.getInventory().add(new Ice());
+        int inventorysize= s1.getInventory().size();
+        s1.PlaceMaterial();
+        Assert.assertEquals(mat, a1.getMaterial());
+        Assert.assertEquals(inventorysize, s1.getInventory().size());
+
+    }
+
     public void Settler_place_teleport(){
         String func[] = {
                 "Settler.PlaceTeleport()",
