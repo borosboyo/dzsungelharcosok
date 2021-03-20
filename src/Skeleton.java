@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -5,6 +6,12 @@ import org.junit.Test;
 
 public class Skeleton {
     private Scanner input;
+    private int crust;
+
+    private Settler s1;
+    private Settler s2;
+    private Asteroid a1;
+    private Asteroid a2;
 
     public Skeleton(){
         input = new Scanner(System.in);
@@ -25,6 +32,7 @@ public class Skeleton {
      * A tesztek listája
      */
     public void TestList(){
+        setUp();
         System.out.print("\n***************************New Test***************************");
         System.out.print(
                 "Please select a test!\n" +
@@ -79,12 +87,11 @@ public class Skeleton {
         int number = inputNumber();
         switch (number){
             case 1:
-                Settler_Moves_test();
-                //setUp();
-                //Settler_Moves_test2();
+                Settler_Moves();
+                Settler_Moves_Test();
                 break;
             case 2:
-                Settler_wins_game_with_move_test();
+                Settler_wins_game_with_move();
                 break;
             case 3:
                 Settler_tries_to_move_on_not_neighbour();
@@ -151,7 +158,14 @@ public class Skeleton {
                 break;
         }
     }
-
+    public void SetCrustthicknessforTest(int crust){
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+                crust = input.nextInt();
+                while (crust > 10 || crust < 0) {
+                    System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+                    crust = input.nextInt();
+                }
+    }
     /**
      * Az esztétikus kiírást segítő függvény
      * @param functions a függvények neveit veszi át egy String[] tömbbe
@@ -166,11 +180,29 @@ public class Skeleton {
         System.out.print("\n");
     }
 
-    /**
-     * Az konkrét tesztesetek függvényei
-     */
-    public void Settler_Moves_test(){
 
+    @Before
+    public void setUp(){
+        s1 = new Settler();
+        s2 = new Settler();
+        a1 = new Asteroid(1,false, new Iron());
+        a2 = new Asteroid(3,true, null);
+        a2 = new Asteroid(3,true, null);
+        a1.Accept(s1);
+        s1.setAsteroid(a1);
+        a2.Accept(s2);
+        s2.setAsteroid(a2);
+        a1.AddNeighbour(a2);
+        Game.getInstance().field.AddSettler(s1);
+        Game.getInstance().field.AddSettler(s2);
+    }
+
+    public int getCrust() {
+        return crust;
+    }
+
+
+    public void Settler_Moves(){
         String func[] = {
                 "Settler.Move(Asteroid)",
                 "Asteroid.CheckNeighbour()",
@@ -181,7 +213,23 @@ public class Skeleton {
         WriteTest(func);
     }
 
-    public void Settler_wins_game_with_move_test(){
+    /**
+     * Az konkrét tesztesetek függvényei
+     */
+    @Test
+    public void Settler_Moves_Test(){
+        Assert.assertTrue(a1.getEntities().get(0) == s1);
+        Assert.assertTrue(a2.getEntities().get(0) == s2);
+        s1.Move(a2);
+        Assert.assertTrue(a1.getEntities().size() == 0);
+        Assert.assertTrue(a2.getEntities().size() == 2);
+        Assert.assertTrue(a2.getEntities().get(0) == s2);
+        Assert.assertTrue(a2.getEntities().get(1) == s1);
+
+        System.out.println("Sikeres teszt.");
+    }
+
+    public void Settler_wins_game_with_move(){
         String func[] = {
                 "Settler.Move(Asteroid)",
                 "Asteroid.CheckNeighbour()",
@@ -193,12 +241,25 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    @Test
+    public void Settler_wins_game_with_move_test(){
+        ArrayList<Material> inv = s1.getInventory();
+
+
+    }
+
+
     public void Settler_tries_to_move_on_not_neighbour(){
         String func[] = {
                 "Settler.Move(Asteroid)",
                 "Asteroid.CheckNeighbour()",
         };
         WriteTest(func);
+    }
+
+    @Test
+    public void Settler_tries_to_move_on_not_neighbour_test(){
+        //
     }
 
     public void Robot_Moves(){
@@ -223,10 +284,9 @@ public class Skeleton {
         if(crust == 0)
         func = new String[]{
                 "Settler.PlaceMaterial()",
-                "Asteroid.CheckNeighbour()",
-                "Robot.Move(Asteroid)",
-                "Asteroid.Accept(Robot)",
-                "Asteroid.Remove(Robot)"
+                "Asteroid.Placeinside()",
+                "Asteroid.Addmaterial(Material)",
+                "Settler.RemoveInventory(Material)"
         };
         else
             func = new String[]{
@@ -235,7 +295,22 @@ public class Skeleton {
     }
 
     public void Settler_tries_to_place_material_on_full_asteroid(){
-
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+        int crust = input.nextInt();
+        while(crust > 10 || crust < 0){
+            System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+            crust = input.nextInt();
+        }
+        String func[];
+        if(crust == 0)
+            func = new String[]{
+                    "Settler.PlaceMaterial()",
+                    "Asteroid.PlaceInside()",
+            };
+        else
+            func = new String[]{
+                    "Settler.PlaceMaterial()"};
+        WriteTest(func);
     }
     public void Settler_place_teleport(){
         String func[] = {
@@ -370,8 +445,30 @@ public class Skeleton {
             };
         WriteTest(func);
     }
-    public void Settler_drills_non_trigger(){}
-    public void Settler_drills_radioactive(){}
+
+
+
+    public void Settler_drills_non_trigger() {
+        this.SetCrustthicknessforTest(crust);
+        String func[];
+        if (crust == 0) {
+            func = new String[]{
+                    "Settler.Drill()",
+                    "Asteroid.DrilledBy()"
+            };
+        }
+        else
+            func = new String[]{
+                    "Settler.Drill()"
+            };
+    }
+
+    public void Settler_drills_radioactive(){
+        SetCrustthicknessforTest(crust);
+        System.out.println("Do the settlers collect the required materials? (0: no, else: yes");
+        int empty = input.nextInt();
+    }
+
     public void Settler_drills_ice(){}
     public void All_settlers_die(){
         String func[] = {
@@ -384,42 +481,5 @@ public class Skeleton {
     public void Robot_drills_radioactive(){}
     public void Robot_drills_ice(){}
 
-
-
-    //proba teszteles
-    //Nem fut le ha a kontruktora nem publikus, ezért átírtam
-
-    private Settler s1;
-    private Settler s2;
-    private Asteroid a1;
-    private Asteroid a2;
-
-    @Before
-    public void setUp(){
-        s1 = new Settler();
-        s2 = new Settler();
-        this.a1 = new Asteroid(1,false, new Iron());
-        this.a2 = new Asteroid(3,true, null);
-        a1.Accept(s1);
-        s1.setAsteroid(a1);
-        a2.Accept(s2);
-        s2.setAsteroid(a2);
-        a1.AddNeighbour(a2);
-        Game.getInstance().field.AddSettler(s1);
-        Game.getInstance().field.AddSettler(s2);
-    }
-
-    @Test
-    public void Settler_Moves_test2(){
-        Assert.assertTrue(a1.getEntities().get(0) == s1);
-        Assert.assertTrue(a2.getEntities().get(0) == s2);
-        s1.Move(a2);
-        Assert.assertTrue(a1.getEntities().size() == 0);
-        Assert.assertTrue(a2.getEntities().size() == 2);
-        Assert.assertTrue(a2.getEntities().get(0) == s2);
-        Assert.assertTrue(a2.getEntities().get(1) == s1);
-
-        System.out.println("Sikeres teszt");
-    }
 
 }

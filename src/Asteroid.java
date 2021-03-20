@@ -5,7 +5,7 @@ public class Asteroid {
     private long crustThickness;
     private  boolean nearSun;
     private  Material material;
-    private ArrayList<Asteroid> neigbours = new ArrayList();
+    private ArrayList<Asteroid> neighbours = new ArrayList();
     private ArrayList<Teleport> teleports = new ArrayList();
     private ArrayList<Entity> entities = new ArrayList();
 
@@ -40,8 +40,8 @@ public class Asteroid {
     }
 
     public boolean CheckNeighbour(Asteroid a){
-        for (Asteroid neigbour : neigbours) {
-            if (a == neigbour)
+        for (Asteroid neighbour : neighbours) {
+            if (a == neighbour)
                 return true;
         }
         return false;
@@ -81,7 +81,7 @@ public class Asteroid {
             entity.Blow();
         }
 
-        for (Asteroid neighbour : neigbours) {
+        for (Asteroid neighbour : neighbours) {
             neighbour.RemoveNeighbour(this);
         }
 
@@ -96,18 +96,18 @@ public class Asteroid {
     }
 
     public void RemoveNeighbour(Asteroid a){
-        neigbours.remove(a);
+        neighbours.remove(a);
     }
 
     public Asteroid GetRandomNeighbour() {
-        if (neigbours.size() < 1) {
+        if (neighbours.size() < 1) {
             return null;
         }
 
         Random rand = new Random();
-        int r_index = rand.nextInt(neigbours.size());
+        int r_index = rand.nextInt(neighbours.size());
 
-        return  neigbours.get(r_index);
+        return  neighbours.get(r_index);
     }
 
     public Teleport GetRandomTeleport(){
@@ -123,11 +123,11 @@ public class Asteroid {
 
 
     public ArrayList<Asteroid> getNeigbours() {
-        return neigbours;
+        return neighbours;
     }
 
     public void setNeigbours(ArrayList<Asteroid> neigbours) {
-        this.neigbours = neigbours;
+        this.neighbours = neigbours;
     }
 
     public ArrayList<Teleport> getTeleports() {
@@ -171,6 +171,6 @@ public class Asteroid {
     }
 
     public void AddNeighbour(Asteroid a) {
-        neigbours.add(a);
+        neighbours.add(a);
     }
 }
