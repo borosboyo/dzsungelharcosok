@@ -8,7 +8,7 @@ public class Teleport {
     private ArrayList<Asteroid> asteroids;
 
     public Teleport() {
-        asteroids = null;
+        asteroids = new ArrayList<Asteroid>();
     }
 
     /**
