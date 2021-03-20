@@ -7,8 +7,25 @@ public class Timer {
     /**
      * The constant timer.
      */
-    public static Timer timer = new Timer();
+    private static Timer timer = new Timer();
 
+    /**
+     * Private constructor so the Timer stays singleton.
+     */
+    private Timer(){}
+
+    /**
+     * Get the only instance of timer.
+     *
+     * @return the timer
+     */
+    public static Timer getInstance(){
+        return timer;
+    }
+
+    /**
+     * The ArrayList that stores all the steppable objects of the game.
+     */
     private ArrayList<Steppable> steppables;
 
     /**

@@ -28,8 +28,8 @@ public class Asteroid {
     }
 
     public void CheckBase(){
-        if(Game.game.field.CheckReqMat(this)){
-            Game.game.WinGame();
+        if(Game.getInstance().field.CheckReqMat(this)){
+            Game.getInstance().WinGame();
         }
     }
 
@@ -71,7 +71,7 @@ public class Asteroid {
     }
 
     public void Explode(){
-        Game.game.field.RemoveAsteroid(this);
+        Game.getInstance().field.RemoveAsteroid(this);
 
         for (Teleport teleport : teleports) {
             teleport.RemoveAsteroid(this);
