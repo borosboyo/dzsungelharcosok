@@ -1,15 +1,28 @@
 import java.util.Random;
 
 /**
- * The type Game.
+ * The Game singleton class that manages ending and starting a game.
  */
 public class Game {
 
     /**
      * The constant game.
      */
-    public static Game game = new Game();
+    private static Game game = new Game();
 
+    /**
+     * Private constructor so the class is Singleton.
+     */
+    private Game(){ }
+
+    /**
+     * Get the only instance of timer.
+     *
+     * @return the game.
+     */
+    public static Game getInstance(){
+        return game;
+    }
 
     /**
      * The Field that contains all the asteroids and settlers.
@@ -20,18 +33,23 @@ public class Game {
     /**
      * Ends the game if the Settlers lose.
      */
-    public void EndGame(){}
+    public void EndGame(){
+        System.out.print("Settlers lose!");
+    }
 
 
     /**
-     * Start game.
+     * Starts the game.
      */
-    public void StartGame(){ }
+    public void StartGame(){
 
+    }
 
     /**
-     * Wins game if the
+     * Ends the game if the Settlers collected the required materials and won the game.
      */
-    public void WinGame() {}
+    public void WinGame() {
+        System.out.print("Settlers win!");
+    }
 
 }
