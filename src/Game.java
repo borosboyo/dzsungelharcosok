@@ -1,16 +1,37 @@
 import java.util.Random;
 
+/**
+ * The type Game.
+ */
 public class Game {
 
-    //Singleton
+    /**
+     * The constant game.
+     */
     public static Game game = new Game();
-    Field field = new Field();
-    public void EndGame(){}
-    public void StartGame(){ }
-    public void WinGame() {}
 
-    public static void main(String[] args) {
-        System.out.println("Hello world");
-    }
+
+    /**
+     * The Field that contains all the asteroids and settlers.
+     */
+    Field field = new Field();
+
+
+    /**
+     * Ends the game if the Settlers lose.
+     */
+    public void EndGame(){}
+
+
+    /**
+     * Start game.
+     */
+    public void StartGame(){ }
+
+
+    /**
+     * Wins game if the
+     */
+    public void WinGame() {}
 
 }
