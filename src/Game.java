@@ -41,9 +41,8 @@ public class Game {
     /**
      * Starts the game.
      */
-    public void StartGame(){
+    public void StartGame(){}
 
-    }
 
     /**
      * Ends the game if the Settlers collected the required materials and won the game.
