@@ -614,13 +614,83 @@ public class Skeleton {
             };
     }
 
-    public void Settler_drills_radioactive(){
-        SetCrustthicknessforTest(crust);
-        System.out.println("Do the settlers collect the required materials? (0: no, else: yes");
-        int empty = input.nextInt();
+    @Test
+    public void Settler_drills_radioactive_test(){
+        a1.setCrustThickness(3);
+        nearsun = false;
+        s1.Drill();
+        Assert.assertEquals(a1.getCrustThickness(), 2);
+        a1.setCrustThickness(1);
+        a1.setMaterial(uran);
+        nearsun = true;
+        s1.Drill();
+        a1.DrilledBy();
+        Assert.assertNull(a1);
     }
 
-    public void Settler_drills_ice(){}
+    public void Settler_drills_radioactive(){
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+        crust = input.nextInt();
+        while (crust > 10 || crust < 0) {
+            System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+            crust = input.nextInt();
+        }
+        System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
+        int nearsun = input.nextInt();
+        String func[];
+        if (nearsun != 0 && crust == 0) {
+            func = new String[]{
+                    "Settler.Drill()",
+                    "Asteroid.DrilledBy()",
+                    "Uranium.Trigger()",
+                    "Asteroid.Exolode()",
+                    "Settler.Blow()"
+            };
+        } else {
+            if (nearsun == 0 && crust != 0)
+                func = new String[]{
+                        "Settler.Drill()",
+                        "Asteroid.DrilledBy()"
+                };
+            else
+                func = new String[]{
+                        "Settler.Drill()"
+                };
+        }
+        WriteTest(func);
+    }
+
+    public void Settler_drills_ice(){
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+        crust = input.nextInt();
+        while (crust > 10 || crust < 0) {
+            System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+            crust = input.nextInt();
+        }
+        System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
+        int nearsun = input.nextInt();
+        String func[];
+        if (nearsun != 0 && crust == 0) {
+            func = new String[]{
+                    "Settler.Drill()",
+                    "Asteroid.DrilledBy()",
+                    "Uranium.Trigger()",
+                    "Asteroid.RemoveMaterial()",
+                    "Settler.Blow()"
+            };
+        } else {
+            if (nearsun == 0 && crust != 0)
+                func = new String[]{
+                        "Settler.Drill()",
+                        "Asteroid.DrilledBy()"
+                };
+            else
+                func = new String[]{
+                        "Settler.Drill()"
+                };
+        }
+        WriteTest(func);
+    }
 
 
     @Test
@@ -673,7 +743,25 @@ public class Skeleton {
     }
 
 
-    public void Robot_drills_non_trigger(){}
+    public void Robot_drills_non_trigger(){
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+        crust = input.nextInt();
+        while (crust > 10 || crust < 0) {
+            System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+            crust = input.nextInt();
+        }
+        String func[];
+        if (crust != 0)
+            func = new String[]{
+                    "Robot.Drill()",
+                    "Asteroid.DrilledBy()"
+            };
+        else
+            func = new String[]{
+                    "Robot.Drill()"
+            };
+        WriteTest(func);
+    }
 
     @Test
     public void Robot_drills_non_trigger_test(){
@@ -703,7 +791,37 @@ public class Skeleton {
         }
     }
 
-    public void Robot_drills_radioactive(){}
+    public void Robot_drills_radioactive(){
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+        crust = input.nextInt();
+        while (crust > 10 || crust < 0) {
+            System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+            crust = input.nextInt();
+        }
+        System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
+        int nearsun = input.nextInt();
+        String func[];
+        if (nearsun != 0 && crust == 0)
+            func = new String[]{
+                    "Robot.Drill()",
+                    "Asteroid.DrilledBy()",
+                    "Uranium.Trigger()",
+                    "Asteroid.Exolode()",
+                    "Robot.Blow()"
+            };
+        else {
+            if (nearsun == 0 && crust != 0)
+                func = new String[]{
+                        "Robot.Drill()",
+                        "Asteroid.DrilledBy()"
+                };
+            else
+                func = new String[]{
+                        "Robot.Drill()"
+                };
+        }
+        WriteTest(func);
+    }
 
 
     @Test
@@ -746,7 +864,37 @@ public class Skeleton {
     }
 
 
-    public void Robot_drills_ice(){}
+    public void Robot_drills_ice(){
+        System.out.println("Current crustthickness? (Write a number between 0-10)");
+        crust = input.nextInt();
+        while (crust > 10 || crust < 0) {
+            System.out.println("The number was incorrect. Please enter a number between 0-10!)");
+            crust = input.nextInt();
+        }
+        System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
+        int nearsun = input.nextInt();
+        String func[];
+        if (nearsun != 0 && crust == 0) {
+            func = new String[]{
+                    "Robot.Drill()",
+                    "Asteroid.DrilledBy()",
+                    "Uranium.Trigger()",
+                    "Asteroid.RemoveMaterial()",
+                    "Robot.Blow()"
+            };
+        } else {
+            if (crust != 0)
+                func = new String[]{
+                        "Robot.Drill()",
+                        "Asteroid.DrilledBy()"
+                };
+            else
+                func = new String[]{
+                        "Robot.Drill()"
+                };
+        }
+        WriteTest(func);
+    }
 
     @Test
     public void Robot_drills_ice_test() {
