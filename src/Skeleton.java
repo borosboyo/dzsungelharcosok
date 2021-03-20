@@ -304,7 +304,7 @@ public class Skeleton {
                 "Asteroid.SunStorm()",
                 "Settler.Die()",
                 "Asteroid.Remove(Settler)",
-                "Field.RemoveSettler"
+                "Field.RemoveSettler()"
         };
         else
             func = new String[]{
@@ -330,8 +330,46 @@ public class Skeleton {
         WriteTest(func);
     }
 
-    public void Settler_builds_robot(){}
-    public void Settler_mines(){}
+    public void Settler_builds_robot(){
+        System.out.println("Does the settler have enough materials? (0: no, else: yes");
+        int empty = input.nextInt();
+        String func[];
+        if(empty == 0)
+            func = new String[] {
+                    "Settler.BuildRobot()"
+            };
+        else
+            func = new String[]{
+                    "Settler.BuildRobot()",
+                    "Robot.Robot()",
+                    "Robot.SetAsteroid(Asteroid)",
+                    "Asteroid.Accept(Robot)"
+            };
+        WriteTest(func);
+    }
+    public void Settler_mines(){
+        System.out.println("Do the settlers collect the required materials? (0: no, else: yes");
+        int empty = input.nextInt();
+        String func[];
+        if(empty != 0)
+            func = new String[] {
+                    "Settler.Mine()",
+                    "Asteroid.MinedBy()",
+                    "Asteroid.RemoveMaterial()",
+                    "Settlers.AddInventory(Material)",
+                    "Asteroid.CheckBase()",
+                    "Game.Wingame()"
+            };
+        else
+            func = new String[]{
+                    "Settler.Mine()",
+                    "Asteroid.MinedBy()",
+                    "Asteroid.RemoveMaterial()",
+                    "Settlers.AddInventory(Material)",
+                    "Asteroid.CheckBase()"
+            };
+        WriteTest(func);
+    }
     public void Settler_drills_non_trigger(){}
     public void Settler_drills_radioactive(){}
     public void Settler_drills_ice(){}
