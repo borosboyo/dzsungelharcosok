@@ -14,7 +14,7 @@ public class Robot extends Entity implements Steppable {
     @Override
     public void Die() {
         getAsteroid().RemoveEntity(this);
-        Timer.timer.RemoveSteppable(this);
+        Timer.getInstance().RemoveSteppable(this);
     }
 
     @Override
