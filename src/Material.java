@@ -17,6 +17,11 @@ public abstract class Material {
         return asteroid;
     }
 
+    /**
+     * Sets asteroid.
+     *
+     * @param asteroid the asteroid
+     */
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
     }
