@@ -49,7 +49,7 @@ public class Settler extends Entity{
     public void BuildRobot(){
         int iron=0;
         int coal=0;
-        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
+        int uranium=0;
         for (Material m : inventory)
         {
            if(m instanceof Iron){
@@ -113,7 +113,7 @@ public class Settler extends Entity{
         if(iron>=2&&ice>=1&&uranium>=1&&teleportlist.isEmpty()){
                 for (Material m : inventory)
                 {
-                    int deleteiron=0; //kettot kell belole torolni ezert ezt igy csinalom
+                    int deleteiron=0;
                     boolean deleteice=true;
                     boolean deleteuranium=true;
 
