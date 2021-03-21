@@ -6,11 +6,17 @@ import java.util.Random;
  */
 public class Robot extends Entity implements Steppable {
 
+    /**
+     * The robot gets blown away if the asteroid it is on explodes.
+     */
     @Override
     public void Blow() {
         Move(getAsteroid().GetRandomNeighbour());
     }
 
+    /**
+     * The robot dies if it gets hit by sunstorm.
+     */
     @Override
     public void Die() {
         getAsteroid().RemoveEntity(this);
@@ -18,6 +24,9 @@ public class Robot extends Entity implements Steppable {
         Timer.getInstance().RemoveSteppable(this);
     }
 
+    /**
+     * The Step function of the robot.
+     */
     @Override
     public void Step() {
         Random rand = new Random();
