@@ -264,6 +264,8 @@ public class Skeleton {
         WriteTest(func);
     }
 
+
+    //TODO: megcsinálni
     @Test
     public void Settler_Moves_Test(){
         Assert.assertTrue(s1.getAsteroid() == a1);
@@ -660,6 +662,32 @@ public class Skeleton {
     }
 
     @Test
+    public void Settler_drills_non_trigger_test(){
+        a1.getEntities().clear();
+        a1.Accept(s1);
+        s1.setAsteroid(a1);
+        a1.setCrustThickness(crust);
+        a1.setNearSun(nearsun);
+        a1.RemoveMaterial();
+        a1.AddMaterial(coal);
+        ice.setAsteroid(a1);
+
+        Assert.assertEquals(crust, a1.getCrustThickness());
+        Assert.assertSame(coal, a1.getMaterial());
+
+        s1.Drill();
+
+        if(crust > 0){
+            Assert.assertEquals(crust, a1.getCrustThickness() + 1);
+            Assert.assertSame(a1.getMaterial(), coal);
+        }else
+        if(crust == 0) {
+            Assert.assertEquals(crust, a1.getCrustThickness());
+            Assert.assertSame(a1.getMaterial(), coal);
+        }
+    }
+
+    @Test
     public void Settler_drills_radioactive_test(){
         a1.setCrustThickness(3);
         nearsun = false;
@@ -740,9 +768,6 @@ public class Skeleton {
 
     @Test
     public void Settler_drills_ice_test(){
-       /* crust = 0;
-        nearsun = false;*/
-
         a1.getEntities().clear();
         a1.Accept(s1);
         s1.setAsteroid(a1);
@@ -781,12 +806,6 @@ public class Skeleton {
         WriteTest(func);
     }
 
-    //TODO:: valamit ki kell találni
-    @Test
-    public void All_settlers_die_test(){
-        Assert.assertTrue(true);
-    }
-
 
     public void Robot_drills_non_trigger(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
@@ -808,6 +827,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Robot drills non-trigger junit test.
+     */
     @Test
     public void Robot_drills_non_trigger_test(){
         /*crust = 1;
@@ -835,6 +857,7 @@ public class Skeleton {
                 Assert.assertSame(a1.getMaterial(), coal);
         }
     }
+
 
     public void Robot_drills_radioactive(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
@@ -868,15 +891,18 @@ public class Skeleton {
         WriteTest(func);
     }
 
-
+    /**
+     * Robot drills radioactive junit test
+     */
     @Test
     public void Robot_drills_radioactive_test(){
-        /*crust = 1;
-        nearsun = true;*/
-
-
+        crust = 1;
+        nearsun = true;
         a1.getEntities().clear();
         a1.Accept(s1);
+        a1.getNeigbours().clear();
+        a1.getNeigbours().add(a2);
+        a1.getNeigbours().add(a3);
         s1.setAsteroid(a1);
         a1.Accept(r1);
         r1.setAsteroid(a1);
@@ -888,14 +914,14 @@ public class Skeleton {
 
         Assert.assertEquals(crust, a1.getCrustThickness());
         Assert.assertSame(uran, a1.getMaterial());
+        Assert.assertTrue(a1.getNeigbours().size() == 2);
 
         r1.Drill();
 
-        //TODO:ezt át kell írni
+
+
         if(nearsun && crust == 1){
-            //Assert.assertTrue();
-           // Assert.assertTrue(a1.getEntities().size() == 0);
-           // Assert.assertNotNull(r1);
+            //
         }else
         if(crust > 0){
             Assert.assertEquals(crust, a1.getCrustThickness() + 1);
@@ -905,7 +931,6 @@ public class Skeleton {
             Assert.assertEquals(crust, a1.getCrustThickness());
             Assert.assertSame(a1.getMaterial(), uran);
         }
-
     }
 
 
@@ -941,11 +966,11 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Robot drill ice junit test
+     */
     @Test
     public void Robot_drills_ice_test() {
-        /*crust = 1;
-        nearsun = true;*/
-
         a1.getEntities().clear();
         a1.Accept(r1);
         r1.setAsteroid(a1);

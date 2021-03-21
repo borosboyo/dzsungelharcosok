@@ -136,6 +136,10 @@ public class Asteroid {
             neighbour.RemoveNeighbour(this);
         }
 
+        for (int i=0; i< neighbours.size(); i++){
+            neighbours.remove(i);
+        }
+
     }
 
     /**
