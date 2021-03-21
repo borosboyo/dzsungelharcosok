@@ -268,11 +268,7 @@ public class Skeleton {
         t1.getAsteroids().add(a1);
         t1.getAsteroids().add(a2);
     }
-
-    public int getCrust() {
-        return crust;
-    }
-
+    
     /**
      * Az konkrét tesztesetek függvényei
      */
