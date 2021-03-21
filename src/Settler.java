@@ -7,7 +7,14 @@ import java.util.ArrayList;
 public class Settler extends Entity{
 
 
+    /**
+     * Settler's inventory
+     */
     private ArrayList<Material> inventory;
+
+    /**
+     * Teleport list
+     */
     private ArrayList<Teleport> teleportlist;
 
 
@@ -19,11 +26,17 @@ public class Settler extends Entity{
         teleportlist= new ArrayList<Teleport>();
     }
 
+    /**
+     * Settler dies when it gets blown away.
+     */
     @Override
     public void Blow() {
         this.Die();
     }
 
+    /**
+     * Settler dies.
+     */
     @Override
     public void Die(){
         getAsteroid().RemoveEntity(this);
@@ -50,7 +63,6 @@ public class Settler extends Entity{
             }
         }
 
-        //Ha van elég csükkentjuk es letrehozzuk a robotot az aszteroidan
         if(iron>=1&&coal>=1&&uranium>=1){
             for (Material m : inventory)
             {
@@ -58,7 +70,6 @@ public class Settler extends Entity{
                 boolean deletecoal=true;
                 boolean deleteuranium=true;
 
-                //Toroljuk a szukseges anyagokat
                 if(m instanceof Iron && deleteiron){
                     inventory.remove(m);
                     deleteiron=false;
@@ -86,7 +97,7 @@ public class Settler extends Entity{
     public void MakeTeleport(){
         int iron=0;
         int ice=0;
-        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
+        int uranium=0;
         for (Material m : inventory)
         {
             if(m instanceof Iron){
@@ -99,7 +110,6 @@ public class Settler extends Entity{
                 uranium++;
             }
         }
-        //Ha van elég csükkentjuk es letrehozzuk a teleportot és hozzáadjuk a teleportlisthez
         if(iron>=2&&ice>=1&&uranium>=1&&teleportlist.isEmpty()){
                 for (Material m : inventory)
                 {
