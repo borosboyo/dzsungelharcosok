@@ -7,11 +7,21 @@ import org.junit.Test;
 public class Skeleton {
     private Scanner input;
     private int crust;
+    private boolean nearsun;
 
     private Settler s1;
     private Settler s2;
+    private Robot r1;
     private Asteroid a1;
     private Asteroid a2;
+    private Asteroid a3;
+    private Asteroid a4;
+    private Asteroid a5;
+    private Ice ice;
+    private Iron iron;
+    private Uranium uran;
+    private Coal coal;
+    private Teleport t1;
 
     public Skeleton(){
         input = new Scanner(System.in);
@@ -158,6 +168,7 @@ public class Skeleton {
                 break;
         }
     }
+
     public void SetCrustthicknessforTest(int crust){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
                 crust = input.nextInt();
@@ -183,25 +194,65 @@ public class Skeleton {
 
     @Before
     public void setUp(){
+        ice = new Ice();
+        coal = new Coal();
+        iron = new Iron();
+        uran = new Uranium();
         s1 = new Settler();
         s2 = new Settler();
-        a1 = new Asteroid(1,false, new Iron());
-        a2 = new Asteroid(3,true, null);
-        a2 = new Asteroid(3,true, null);
+        r1= new Robot();
+
+        a1 = new Asteroid(3,false, ice);
+        ice.setAsteroid(a1);
+        a2 = new Asteroid(3,false, coal);
+        ice.setAsteroid(a2);
+        a3 = new Asteroid(3,false, iron);
+        ice.setAsteroid(a3);
+        a4 = new Asteroid(3,false, uran);
+        ice.setAsteroid(a4);
+        a5 = new Asteroid(0,false, null);
+        ice.setAsteroid(a5);
+
+
         a1.Accept(s1);
         s1.setAsteroid(a1);
+
+        a1.Accept(r1);
+        r1.setAsteroid(a1);
+
         a2.Accept(s2);
         s2.setAsteroid(a2);
-        a1.AddNeighbour(a2);
+
+        Game.getInstance().field.AddAsteroid(a1);
+        Game.getInstance().field.AddAsteroid(a2);
+        Game.getInstance().field.AddAsteroid(a3);
+        Game.getInstance().field.AddAsteroid(a4);
+        Game.getInstance().field.AddAsteroid(a5);
+
         Game.getInstance().field.AddSettler(s1);
         Game.getInstance().field.AddSettler(s2);
+
+        a1.AddNeighbour(a2);
+        a2.AddNeighbour(a1);
+        a2.AddNeighbour(a3);
+        a3.AddNeighbour(a1);
+        a4.AddNeighbour(a5);
+        a5.AddNeighbour(a4);
+        a5.AddNeighbour(a1);
+        a1.AddNeighbour(a5);
+
+        t1 = new Teleport();
+        t1.getAsteroids().add(a1);
+        t1.getAsteroids().add(a2);
     }
 
     public int getCrust() {
         return crust;
     }
 
-
+    /**
+     * Az konkrét tesztesetek függvényei
+     */
     public void Settler_Moves(){
         String func[] = {
                 "Settler.Move(Asteroid)",
@@ -213,11 +264,10 @@ public class Skeleton {
         WriteTest(func);
     }
 
-    /**
-     * Az konkrét tesztesetek függvényei
-     */
     @Test
     public void Settler_Moves_Test(){
+        Assert.assertTrue(s1.getAsteroid() == a1);
+        Assert.assertTrue(s2.getAsteroid() == a2);
         Assert.assertTrue(a1.getEntities().get(0) == s1);
         Assert.assertTrue(a2.getEntities().get(0) == s2);
         s1.Move(a2);
@@ -225,6 +275,8 @@ public class Skeleton {
         Assert.assertTrue(a2.getEntities().size() == 2);
         Assert.assertTrue(a2.getEntities().get(0) == s2);
         Assert.assertTrue(a2.getEntities().get(1) == s1);
+        Assert.assertTrue(s1.getAsteroid() == a2);
+        Assert.assertTrue(s2.getAsteroid() == a2);
 
         System.out.println("Sikeres teszt.");
     }
@@ -243,8 +295,30 @@ public class Skeleton {
 
     @Test
     public void Settler_wins_game_with_move_test(){
-        ArrayList<Material> inv = s1.getInventory();
+        s1.getInventory().add(ice);
+        s1.getInventory().add(ice);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(coal);
+        s1.getInventory().add(coal);
+        s1.getInventory().add(uran);
+        s1.getInventory().add(uran);
 
+        s2.getInventory().add(ice);
+        s2.getInventory().add(iron);
+        s2.getInventory().add(coal);
+        s2.getInventory().add(uran);
+
+        Assert.assertEquals(8, s1.getInventory().size());
+        Assert.assertEquals(4, s2.getInventory().size());
+
+        s1.Move(a2);
+
+        Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(a2.getEntities().get(1), s1);
+
+
+        Game.getInstance().field.CheckReqMat(a2);
 
     }
 
@@ -345,6 +419,27 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+    @Test
+    public void Settler_uses_teleport_test(){
+        a1.getEntities().clear();
+        a1.getEntities().add(s1);
+        a2.getEntities().clear();
+        Assert.assertSame(a1.getEntities().get(0), s1);
+        Assert.assertEquals(1, a1.getEntities().size());
+        Assert.assertEquals(0, a2.getEntities().size());
+       // Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(s1.getAsteroid(), a1);
+      //  Assert.assertSame(s2.getAsteroid(), a2);
+
+        s1.UseTeleport(t1);
+
+     //   Assert.assertEquals(1, a2.getEntities().size());
+      //  Assert.assertEquals(0, a1.getEntities().size());
+      //  Assert.assertEquals(1, a2.getEntities().size());
+
+       Assert.assertSame(s1.getAsteroid(), a2);
+
+    }
     public void Settler_tries_to_use_unpaired_teleport(){
 
         String func[] = {
@@ -352,6 +447,22 @@ public class Skeleton {
                 "Teleport.Transfer(Settler)"
         };
         WriteTest(func);
+    }
+
+    @Test
+    public void Settler_tries_to_use_unpaired_teleport_test(){
+        Assert.assertSame(a1.getEntities().get(0), s1);
+        Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(s1.getAsteroid(), a1);
+        Assert.assertSame(s2.getAsteroid(), a2);
+        t1.getAsteroids().remove(1);
+
+        s1.UseTeleport(t1);
+
+        Assert.assertSame(a1.getEntities().get(0), s1);
+        Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(s1.getAsteroid(), a1);
+        Assert.assertSame(s2.getAsteroid(), a2);
     }
     public void Robot_uses_teleport(){
         String func[] = {
@@ -362,6 +473,29 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    @Test
+    public void Robot_uses_teleport_test(){
+        a1.getEntities().clear();
+        a1.getEntities().add(r1);
+        a2.getEntities().clear();
+        Assert.assertSame(a1.getEntities().get(0), r1);
+        Assert.assertEquals(1, a1.getEntities().size());
+        Assert.assertEquals(0, a2.getEntities().size());
+        // Assert.assertSame(a2.getEntities().get(0), s2);
+        Assert.assertSame(r1.getAsteroid(), a1);
+        //  Assert.assertSame(s2.getAsteroid(), a2);
+
+        r1.UseTeleport(t1);
+
+        //   Assert.assertEquals(1, a2.getEntities().size());
+        //  Assert.assertEquals(0, a1.getEntities().size());
+        //  Assert.assertEquals(1, a2.getEntities().size());
+
+        Assert.assertSame(r1.getAsteroid(), a2);
+        Assert.assertSame(s2.getAsteroid(), a2);
+
+    }
     public void Robot_tries_to_use_unpaired_teleport(){
         String func[] = {
                 "Robot.UseTeleport(Teleport)",
@@ -369,6 +503,23 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    @Test
+    public void Robot_tries_to_use_unpaired_teleport_test(){
+        a1.getEntities().clear();
+        a1.getEntities().add(r1);
+        a2.getEntities().clear();
+        Assert.assertSame(a1.getEntities().get(0), r1);
+        Assert.assertSame(r1.getAsteroid(), a1);
+        t1.getAsteroids().remove(1);
+
+        r1.UseTeleport(t1);
+
+        Assert.assertSame(a1.getEntities().get(0), r1);
+        Assert.assertSame(r1.getAsteroid(), a1);
+
+    }
+
 
     public void Sunstorm_on_settler(){
         System.out.println("Is the asteroid empty? (0: no, else: yes");
@@ -463,6 +614,20 @@ public class Skeleton {
             };
     }
 
+    @Test
+    public void Settler_drills_radioactive_test(){
+        a1.setCrustThickness(3);
+        nearsun = false;
+        s1.Drill();
+        Assert.assertEquals(a1.getCrustThickness(), 2);
+        a1.setCrustThickness(1);
+        a1.setMaterial(uran);
+        nearsun = true;
+        s1.Drill();
+        a1.DrilledBy();
+        Assert.assertNull(a1);
+    }
+
     public void Settler_drills_radioactive(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
         crust = input.nextInt();
@@ -492,6 +657,7 @@ public class Skeleton {
                         "Settler.Drill()"
                 };
         }
+        WriteTest(func);
     }
 
     public void Settler_drills_ice(){
@@ -527,6 +693,40 @@ public class Skeleton {
     }
 
 
+    @Test
+    public void Settler_drills_ice_test(){
+       /* crust = 0;
+        nearsun = false;*/
+
+        a1.getEntities().clear();
+        a1.Accept(s1);
+        s1.setAsteroid(a1);
+        a1.setCrustThickness(crust);
+        a1.setNearSun(nearsun);
+        a1.RemoveMaterial();
+        a1.AddMaterial(ice);
+        ice.setAsteroid(a1);
+
+        Assert.assertEquals(crust, a1.getCrustThickness());
+        Assert.assertSame(ice, a1.getMaterial());
+
+        s1.Drill();
+
+
+        if(nearsun && crust == 1){
+            Assert.assertNull(a1.getMaterial());
+            Assert.assertFalse(crust != a1.getCrustThickness() + 1);
+        }else
+            if(crust > 0){
+                Assert.assertEquals(crust, a1.getCrustThickness() + 1);
+                Assert.assertSame(a1.getMaterial(), ice);
+        }else
+            if(crust == 0){
+                Assert.assertEquals(crust, a1.getCrustThickness());
+                Assert.assertSame(a1.getMaterial(), ice);
+        }
+    }
+
 
     public void All_settlers_die(){
         String func[] = {
@@ -535,6 +735,14 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    //TODO:: valamit ki kell találni
+    @Test
+    public void All_settlers_die_test(){
+        Assert.assertTrue(true);
+    }
+
+
     public void Robot_drills_non_trigger(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
         crust = input.nextInt();
@@ -555,6 +763,33 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    @Test
+    public void Robot_drills_non_trigger_test(){
+        /*crust = 1;
+        nearsun = true;*/
+        a1.getEntities().clear();
+        a1.Accept(r1);
+        r1.setAsteroid(a1);
+        a1.setCrustThickness(crust);
+        a1.setNearSun(nearsun);
+        a1.RemoveMaterial();
+        a1.AddMaterial(coal);
+        ice.setAsteroid(a1);
+
+        Assert.assertEquals(crust, a1.getCrustThickness());
+        Assert.assertSame(coal, a1.getMaterial());
+
+        r1.Drill();
+
+        if(crust > 0){
+            Assert.assertEquals(crust, a1.getCrustThickness() + 1);
+            Assert.assertSame(a1.getMaterial(), coal);
+        }else
+            if(crust == 0) {
+                Assert.assertEquals(crust, a1.getCrustThickness());
+                Assert.assertSame(a1.getMaterial(), coal);
+        }
+    }
 
     public void Robot_drills_radioactive(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
@@ -586,6 +821,46 @@ public class Skeleton {
                 };
         }
         WriteTest(func);
+    }
+
+
+    @Test
+    public void Robot_drills_radioactive_test(){
+        /*crust = 1;
+        nearsun = true;*/
+
+
+        a1.getEntities().clear();
+        a1.Accept(s1);
+        s1.setAsteroid(a1);
+        a1.Accept(r1);
+        r1.setAsteroid(a1);
+        a1.setCrustThickness(crust);
+        a1.setNearSun(nearsun);
+        a1.RemoveMaterial();
+        a1.AddMaterial(uran);
+        uran.setAsteroid(a1);
+
+        Assert.assertEquals(crust, a1.getCrustThickness());
+        Assert.assertSame(uran, a1.getMaterial());
+
+        r1.Drill();
+
+        //TODO:ezt át kell írni
+        if(nearsun && crust == 1){
+            //Assert.assertTrue();
+           // Assert.assertTrue(a1.getEntities().size() == 0);
+           // Assert.assertNotNull(r1);
+        }else
+        if(crust > 0){
+            Assert.assertEquals(crust, a1.getCrustThickness() + 1);
+            Assert.assertSame(a1.getMaterial(), uran);
+        }else
+        if(crust == 0){
+            Assert.assertEquals(crust, a1.getCrustThickness());
+            Assert.assertSame(a1.getMaterial(), uran);
+        }
+
     }
 
 
@@ -621,5 +896,35 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    @Test
+    public void Robot_drills_ice_test() {
+        /*crust = 1;
+        nearsun = true;*/
 
+        a1.getEntities().clear();
+        a1.Accept(r1);
+        r1.setAsteroid(a1);
+        a1.setCrustThickness(crust);
+        a1.setNearSun(nearsun);
+        a1.RemoveMaterial();
+        a1.AddMaterial(ice);
+        ice.setAsteroid(a1);
+
+        Assert.assertEquals(crust, a1.getCrustThickness());
+        Assert.assertSame(ice, a1.getMaterial());
+
+        r1.Drill();
+
+
+        if (nearsun && crust == 1) {
+            Assert.assertNull(a1.getMaterial());
+            Assert.assertFalse(crust != a1.getCrustThickness() + 1);
+        } else if (crust > 0) {
+            Assert.assertEquals(crust, a1.getCrustThickness() + 1);
+            Assert.assertSame(a1.getMaterial(), ice);
+        } else if (crust == 0) {
+            Assert.assertEquals(crust, a1.getCrustThickness());
+            Assert.assertSame(a1.getMaterial(), ice);
+        }
+    }
 }
