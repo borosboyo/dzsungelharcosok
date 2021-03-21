@@ -1,4 +1,3 @@
-import javax.lang.model.type.NullType;
 import java.util.ArrayList;
 
 /**
@@ -173,5 +172,9 @@ public class Settler extends Entity{
      */
     public ArrayList<Material> getInventory() {
         return inventory;
+    }
+
+    public ArrayList<Teleport> getTeleportlist() {
+        return teleportlist;
     }
 }
