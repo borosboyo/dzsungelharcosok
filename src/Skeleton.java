@@ -102,69 +102,90 @@ public class Skeleton {
                 break;
             case 2:
                 Settler_wins_game_with_move();
+                Settler_wins_game_with_move_test();
                 break;
             case 3:
                 Settler_tries_to_move_on_not_neighbour();
+                Settler_tries_to_move_on_not_neighbour_test();
                 break;
             case 4:
                 Robot_Moves();
+                Robot_Moves_test();
                 break;
             case 5:
                 Settler_place_material();
+                Settler_place_material_test();
                 break;
             case 6:
                 Settler_tries_to_place_material_on_full_asteroid();
+                Settler_tries_to_place_material_on_full_asteroid_test();
                 break;
             case 7:
                 Settler_place_teleport();
+                Settler_place_teleport_test();
                 break;
             case 8:
                 Settler_makes_teleport();
+                Settler_makes_teleport_test();
                 break;
             case 9:
                 Settler_uses_teleport();
+                Settler_uses_teleport_test();
                 break;
             case 10:
                 Settler_tries_to_use_unpaired_teleport();
+                Settler_tries_to_use_unpaired_teleport_test();
                 break;
             case 11:
                 Robot_uses_teleport();
+                Robot_uses_teleport_test();
                 break;
             case 12:
                 Robot_tries_to_use_unpaired_teleport();
+                Robot_tries_to_use_unpaired_teleport_test();
                 break;
             case 13:
                 Sunstorm_on_settler();
+                //Sunstorm_on_settler_test();
                 break;
             case 14:
                 Sunstorm_on_robot();
+                //Sunstorm_on_robot_test();
                 break;
             case 15:
                 Settler_builds_robot();
+                //Settler_builds_robot_test();
                 break;
             case 16:
                 Settler_mines();
+                //Settler_mines_test();
                 break;
             case 17:
                 Settler_drills_non_trigger();
+                Settler_drills_non_trigger_test();
                 break;
             case 18:
                 Settler_drills_radioactive();
+                Settler_drills_radioactive_test();
                 break;
             case 19:
                 Settler_drills_ice();
+                Settler_drills_ice_test();
                 break;
             case 20:
                 All_settlers_die();
                 break;
             case 21:
                 Robot_drills_non_trigger();
+                Robot_drills_non_trigger_test();
                 break;
             case 22:
                 Robot_drills_radioactive();
+                Robot_drills_radioactive_test();
                 break;
             case 23:
                 Robot_drills_ice();
+                Robot_drills_ice_test();
                 break;
         }
     }
@@ -191,7 +212,9 @@ public class Skeleton {
         System.out.print("\n");
     }
 
-
+    /**
+     * Junit test set up.
+     */
     @Before
     public void setUp(){
         ice = new Ice();
@@ -264,10 +287,26 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settler moves junit test.
+     */
 
-    //TODO: megcsinálni
     @Test
     public void Settler_Moves_Test(){
+        a1.getEntities().clear();
+        a1.getNeigbours().clear();
+        a2.getEntities().clear();
+        a2.getNeigbours().clear();
+
+        a1.Accept(s1);
+        s1.setAsteroid(a1);
+        a2.Accept(s2);
+        s2.setAsteroid(a2);
+
+        a1.getNeigbours().add(a2);
+        a2.getNeigbours().add(a1);
+
+
         Assert.assertTrue(s1.getAsteroid() == a1);
         Assert.assertTrue(s2.getAsteroid() == a2);
         Assert.assertTrue(a1.getEntities().get(0) == s1);
@@ -279,8 +318,6 @@ public class Skeleton {
         Assert.assertTrue(a2.getEntities().get(1) == s1);
         Assert.assertTrue(s1.getAsteroid() == a2);
         Assert.assertTrue(s2.getAsteroid() == a2);
-
-        System.out.println("Sikeres teszt.");
     }
 
     public void Settler_wins_game_with_move(){
@@ -295,6 +332,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settker wins game with move junit test.
+     */
     @Test
     public void Settler_wins_game_with_move_test(){
         s1.getInventory().add(ice);
@@ -333,6 +373,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settler tries to move on not neighbour junit test.
+     */
     @Test
     public void Settler_tries_to_move_on_not_neighbour_test(){
         a1.RemoveNeighbour(a2);
@@ -357,6 +400,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Robot moves junit test.
+     */
     @Test
     public void Robot_Moves_test(){
         Asteroid ast= r1.getAsteroid();
@@ -386,6 +432,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settler place material junit test.
+     */
     @Test
     public void Settler_place_material_test(){
 
@@ -420,6 +469,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settler tries to place material on full asteroid junit test.
+     */
     @Test
     public void Settler_tries_to_place_material_on_full_asteroid_test(){
         a1.setCrustThickness(0);
@@ -441,6 +493,28 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    /**
+     * Settler place teleport junit test.
+     */
+    @Test
+    public void Settler_place_teleport_test(){
+        Teleport t2= new Teleport();
+        s1.getTeleportlist().add(t2);
+        s1.getTeleportlist().get(0).getAsteroids().add(s1.getAsteroid());
+
+        Assert.assertEquals(1, s1.getTeleportlist().size());
+
+        s1.Move(a2);
+        s1.getTeleportlist().get(0).getAsteroids().add(s1.getAsteroid());
+        s1.getTeleportlist().remove(0);
+
+        Assert.assertEquals(0, s1.getTeleportlist().size());
+
+        Assert.assertEquals(a1, t2.getAsteroids().get(0));
+        Assert.assertEquals(a2, t2.getAsteroids().get(1));
+    }
+
     public void Settler_makes_teleport(){
         System.out.println("Collect all materials? (0: no, else: yes");
         int collect = input.nextInt();
@@ -457,6 +531,30 @@ public class Skeleton {
             };
         WriteTest(func);
     }
+
+    /**
+     * Settler makes teleport junit test.
+     */
+    @Test
+    public void Settler_makes_teleport_test(){
+        Assert.assertEquals(0, s1.getInventory().size());
+
+        Iron iron2 = new Iron();
+        Iron iron3 = new Iron();
+        s1.getInventory().add(iron2);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(ice);
+        s1.getInventory().add(uran);
+        s1.getInventory().add(iron3);
+
+        Assert.assertEquals(5, s1.getInventory().size());
+
+        s1.MakeTeleport();
+
+        Assert.assertEquals(1, s1.getInventory().size());
+        Assert.assertEquals(1, s1.getTeleportlist().size());
+    }
+
     public void Settler_uses_teleport(){
         String func[] = {
                 "Settler.UseTeleport(Teleport)",
@@ -466,6 +564,10 @@ public class Skeleton {
         };
         WriteTest(func);
     }
+
+    /**
+     * Settler uses teleport junit test.
+     */
     @Test
     public void Settler_uses_teleport_test(){
         a1.getEntities().clear();
@@ -487,6 +589,7 @@ public class Skeleton {
        Assert.assertSame(s1.getAsteroid(), a2);
 
     }
+
     public void Settler_tries_to_use_unpaired_teleport(){
 
         String func[] = {
@@ -496,6 +599,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settler tries to use unpaired teleport junit test.
+     */
     @Test
     public void Settler_tries_to_use_unpaired_teleport_test(){
         Assert.assertSame(a1.getEntities().get(0), s1);
@@ -521,6 +627,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Robot uses teleport junit test.
+     */
     @Test
     public void Robot_uses_teleport_test(){
         a1.getEntities().clear();
@@ -543,6 +652,7 @@ public class Skeleton {
         Assert.assertSame(s2.getAsteroid(), a2);
 
     }
+
     public void Robot_tries_to_use_unpaired_teleport(){
         String func[] = {
                 "Robot.UseTeleport(Teleport)",
@@ -551,6 +661,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Robot tries to use unpaired teleport junit test.
+     */
     @Test
     public void Robot_tries_to_use_unpaired_teleport_test(){
         a1.getEntities().clear();
@@ -566,7 +679,6 @@ public class Skeleton {
         Assert.assertSame(r1.getAsteroid(), a1);
 
     }
-
 
     public void Sunstorm_on_settler(){
         System.out.println("Is the asteroid empty? (0: no, else: yes");
@@ -661,6 +773,9 @@ public class Skeleton {
             };
     }
 
+    /**
+     * Settler drills non trigger junit test.
+     */
     @Test
     public void Settler_drills_non_trigger_test(){
         a1.getEntities().clear();
@@ -685,20 +800,6 @@ public class Skeleton {
             Assert.assertEquals(crust, a1.getCrustThickness());
             Assert.assertSame(a1.getMaterial(), coal);
         }
-    }
-
-    @Test
-    public void Settler_drills_radioactive_test(){
-        a1.setCrustThickness(3);
-        nearsun = false;
-        s1.Drill();
-        Assert.assertEquals(a1.getCrustThickness(), 2);
-        a1.setCrustThickness(1);
-        a1.setMaterial(uran);
-        nearsun = true;
-        s1.Drill();
-        a1.DrilledBy();
-        Assert.assertNull(a1);
     }
 
     public void Settler_drills_radioactive(){
@@ -733,6 +834,23 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Settler drills radioactive junit test.
+     */
+    @Test
+    public void Settler_drills_radioactive_test(){
+        a1.setCrustThickness(3);
+        nearsun = false;
+        s1.Drill();
+        Assert.assertEquals(a1.getCrustThickness(), 2);
+        a1.setCrustThickness(1);
+        a1.setMaterial(uran);
+        nearsun = true;
+        s1.Drill();
+        a1.DrilledBy();
+        Assert.assertNull(a1);
+    }
+
     public void Settler_drills_ice(){
         System.out.println("Current crustthickness? (Write a number between 0-10)");
         crust = input.nextInt();
@@ -765,7 +883,9 @@ public class Skeleton {
         WriteTest(func);
     }
 
-
+    /**
+     * Settler drills ice junit test.
+     */
     @Test
     public void Settler_drills_ice_test(){
         a1.getEntities().clear();
@@ -832,8 +952,6 @@ public class Skeleton {
      */
     @Test
     public void Robot_drills_non_trigger_test(){
-        /*crust = 1;
-        nearsun = true;*/
         a1.getEntities().clear();
         a1.Accept(r1);
         r1.setAsteroid(a1);
@@ -892,12 +1010,10 @@ public class Skeleton {
     }
 
     /**
-     * Robot drills radioactive junit test
+     * Robot drills radioactive junit test.
      */
     @Test
     public void Robot_drills_radioactive_test(){
-        crust = 1;
-        nearsun = true;
         a1.getEntities().clear();
         a1.Accept(s1);
         a1.getNeigbours().clear();
@@ -967,7 +1083,7 @@ public class Skeleton {
     }
 
     /**
-     * Robot drill ice junit test
+     * Robot drill ice junit test.
      */
     @Test
     public void Robot_drills_ice_test() {
