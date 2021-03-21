@@ -48,12 +48,12 @@ public class Settler extends Entity{
     public void BuildRobot(){
         int iron=0;
         int coal=0;
-        int uranium=0;
+        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
         for (Material m : inventory)
         {
-           if(m instanceof Iron){
-               iron++;
-           }
+            if(m instanceof Iron){
+                iron++;
+            }
             if(m instanceof Coal){
                 coal++;
             }
@@ -62,24 +62,34 @@ public class Settler extends Entity{
             }
         }
 
+        //Ha van elég csükkentjuk es letrehozzuk a robotot az aszteroidan
         if(iron>=1&&coal>=1&&uranium>=1){
-            for (Material m : inventory)
-            {
-                boolean deleteiron=true;
-                boolean deletecoal=true;
-                boolean deleteuranium=true;
+            boolean deleteiron=true;
+            boolean deletecoal=true;
+            boolean deleteuranium=true;
 
-                if(m instanceof Iron && deleteiron){
-                    inventory.remove(m);
+            for (int k=0; k<inventory.size(); k++)
+            {
+
+                //Toroljuk a szukseges anyagokat
+                if(inventory.get(k) instanceof Iron && deleteiron){
+                    inventory.remove(k);
                     deleteiron=false;
+                    k--;
                 }
-                if(m instanceof Coal && deletecoal){
-                    inventory.remove(m);
+                else if(inventory.get(k) instanceof Coal && deletecoal){
+                    inventory.remove(k);
                     deletecoal=false;
+                    k--;
                 }
-                if(m instanceof Uranium && deleteuranium){
-                    inventory.remove(m);
+                else if(inventory.get(k)  instanceof Uranium && deleteuranium){
+                    inventory.remove(k);
                     deleteuranium=false;
+                    k--;
+                }
+
+                if (deleteiron == false&& deletecoal == false&&deleteuranium == false){
+                    break;
                 }
             }
 
@@ -96,7 +106,7 @@ public class Settler extends Entity{
     public void MakeTeleport(){
         int iron=0;
         int ice=0;
-        int uranium=0;
+        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
         for (Material m : inventory)
         {
             if(m instanceof Iron){
@@ -109,26 +119,34 @@ public class Settler extends Entity{
                 uranium++;
             }
         }
+        //Ha van elég csükkentjuk es letrehozzuk a teleportot és hozzáadjuk a teleportlisthez
         if(iron>=2&&ice>=1&&uranium>=1&&teleportlist.isEmpty()){
-                for (Material m : inventory)
-                {
-                    int deleteiron=0;
-                    boolean deleteice=true;
-                    boolean deleteuranium=true;
+            int deleteiron = 0; //kettot kell belole torolni ezert ezt igy csinalom
+            boolean deleteice = true;
+            boolean deleteuranium = true;
 
-                    if(m instanceof Iron && deleteiron<2){
-                        inventory.remove(m);
-                        deleteiron++;
-                    }
-                    if(m instanceof Coal && deleteice){
-                        inventory.remove(m);
-                        deleteice=false;
-                    }
-                    if(m instanceof Uranium && deleteuranium){
-                        inventory.remove(m);
-                        deleteuranium=false;
-                    }
+            for (int k=0; k<inventory.size(); k++) {
+
+                if (inventory.get(k) instanceof Iron && deleteiron < 2) {
+                    inventory.remove(k);
+                    deleteiron++;
+                    k--;
+
+                } else if (inventory.get(k) instanceof Ice && deleteice) {
+                    inventory.remove(k);
+                    deleteice = false;
+                    k--;
+                } else if (inventory.get(k) instanceof Uranium && deleteuranium) {
+                    inventory.remove(k);
+                    deleteuranium = false;
+                    k--;
                 }
+
+                if (deleteiron == 2&&deleteice == false&&deleteuranium == false){
+                    break;
+                }
+
+            }
             Teleport t= new Teleport();
             this.teleportlist.add(t);
         }

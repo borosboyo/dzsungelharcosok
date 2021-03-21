@@ -154,7 +154,7 @@ public class Skeleton {
                 break;
             case 15:
                 Settler_builds_robot();
-                //Settler_builds_robot_test();
+                Settler_builds_robot_test();
                 break;
             case 16:
                 Settler_mines();
@@ -732,6 +732,33 @@ public class Skeleton {
             };
         WriteTest(func);
     }
+
+    /**
+     * Settler builds robot junit test.
+     */
+    @Test
+    public void Settler_builds_robot_test(){
+        Assert.assertEquals(0, s1.getInventory().size());
+
+        int entitiesonPlanet= s1.getAsteroid().getEntities().size();
+
+        Iron iron2 = new Iron();
+        Coal coal2 = new Coal();
+        s1.getInventory().add(coal2);
+        s1.getInventory().add(iron2);
+        s1.getInventory().add(iron);
+
+        s1.getInventory().add(uran);
+
+        Assert.assertEquals(4, s1.getInventory().size());
+
+        s1.BuildRobot();
+
+        Assert.assertEquals(1, s1.getInventory().size());
+        Assert.assertEquals(entitiesonPlanet+1, s1.getAsteroid().getEntities().size());
+
+    }
+
     public void Settler_mines(){
         System.out.println("Do the settlers collect the required materials? (0: no, else: yes");
         int empty = input.nextInt();
