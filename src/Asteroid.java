@@ -26,7 +26,7 @@ public class Asteroid {
     }
 
     /**
-     * Accept.
+     * Accepts entity.
      *
      * @param e the e
      */
@@ -139,7 +139,7 @@ public class Asteroid {
     }
 
     /**
-     * Remove entity.
+     * Removes entity.
      *
      * @param e the e
      */
@@ -148,14 +148,14 @@ public class Asteroid {
     }
 
     /**
-     * Remove material.
+     * Removes material.
      */
     public void RemoveMaterial(){
         material = null;
     }
 
     /**
-     * Remove neighbour.
+     * Removes neighbour.
      *
      * @param a the a
      */
