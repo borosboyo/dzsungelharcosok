@@ -689,7 +689,7 @@ public class Skeleton {
     }
 
     public void Sunstorm_on_settler(){
-        System.out.println("Is the asteroid empty? (0: no, else: yes");
+        System.out.println("Is the asteroid empty? (0: no, else: yes)");
         int empty = input.nextInt();
         String func[];
         if(empty == 0)
@@ -711,7 +711,6 @@ public class Skeleton {
      */
     @Test
     public void Sunstorm_on_settler_test(){
-
         a1.setCrustThickness(0);
         a1.setMaterial(null);
         a1.Accept(s1);
@@ -751,7 +750,7 @@ public class Skeleton {
     }
 
     public void Settler_builds_robot(){
-        System.out.println("Does the settler have enough materials? (0: no, else: yes");
+        System.out.println("Does the settler have enough materials? (0: no, else: yes)");
         int empty = input.nextInt();
         String func[];
         if(empty == 0)
@@ -795,7 +794,7 @@ public class Skeleton {
     }
 
     public void Settler_mines(){
-        System.out.println("Do the settlers collect the required materials? (0: no, else: yes");
+        System.out.println("Do the settlers collect the required materials? (0: no, else: yes)");
         int empty = input.nextInt();
         String func[];
         if(empty != 0)
@@ -825,9 +824,21 @@ public class Skeleton {
     public void Settler_mines_test(){
         a1.setMaterial(iron);
         a1.Accept(s1);
+        a1.Accept(s2);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(iron);
+        s1.getInventory().add(uran);
+        s1.getInventory().add(uran);
+        s1.getInventory().add(uran);
+        s2.getInventory().add(ice);
+        s2.getInventory().add(ice);
+        s2.getInventory().add(ice);
+        s2.getInventory().add(coal);
+        s2.getInventory().add(coal);
         s1.Mine();
         Assert.assertNotNull(s1.getInventory());
         Assert.assertNull(a1.getMaterial());
+        Assert.assertTrue(Game.getInstance().isWin());
 
     }
 
@@ -885,9 +896,14 @@ public class Skeleton {
             crust = input.nextInt();
         }
         System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
-        int nearsun = input.nextInt();
+        int near = input.nextInt();
+        if(near == 0)
+            nearsun = false;
+        else
+             nearsun = true;
+
         String func[];
-        if (nearsun != 0 && crust == 0) {
+        if (nearsun && crust == 1) {
             func = new String[]{
                     "Settler.Drill()",
                     "Asteroid.DrilledBy()",
@@ -896,7 +912,7 @@ public class Skeleton {
                     "Settler.Blow()"
             };
         } else {
-            if (nearsun == 0 && crust != 0)
+            if (crust > 0)
                 func = new String[]{
                         "Settler.Drill()",
                         "Asteroid.DrilledBy()"
@@ -934,9 +950,13 @@ public class Skeleton {
             crust = input.nextInt();
         }
         System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
-        int nearsun = input.nextInt();
+        int near = input.nextInt();
+        if(near == 0)
+            nearsun = false;
+        else
+            nearsun = true;
         String func[];
-        if (nearsun != 0 && crust == 0) {
+        if (nearsun && crust == 1) {
             func = new String[]{
                     "Settler.Drill()",
                     "Asteroid.DrilledBy()",
@@ -945,7 +965,7 @@ public class Skeleton {
                     "Settler.Blow()"
             };
         } else {
-            if (nearsun == 0 && crust != 0)
+            if (crust > 0)
                 func = new String[]{
                         "Settler.Drill()",
                         "Asteroid.DrilledBy()"
@@ -1060,9 +1080,13 @@ public class Skeleton {
             crust = input.nextInt();
         }
         System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
-        int nearsun = input.nextInt();
+        int near = input.nextInt();
+        if(near == 0)
+            nearsun = false;
+        else
+            nearsun = true;
         String func[];
-        if (nearsun != 0 && crust == 0)
+        if (nearsun && crust == 1)
             func = new String[]{
                     "Robot.Drill()",
                     "Asteroid.DrilledBy()",
@@ -1071,7 +1095,7 @@ public class Skeleton {
                     "Robot.Blow()"
             };
         else {
-            if (nearsun == 0 && crust != 0)
+            if (crust > 0)
                 func = new String[]{
                         "Robot.Drill()",
                         "Asteroid.DrilledBy()"
@@ -1133,9 +1157,13 @@ public class Skeleton {
             crust = input.nextInt();
         }
         System.out.println("Is the asteorid nearsun? (0: no, else: yes)");
-        int nearsun = input.nextInt();
+        int near = input.nextInt();
+        if(near == 0)
+            nearsun = false;
+        else
+            nearsun = true;
         String func[];
-        if (nearsun != 0 && crust == 0) {
+        if (nearsun && crust == 1) {
             func = new String[]{
                     "Robot.Drill()",
                     "Asteroid.DrilledBy()",
