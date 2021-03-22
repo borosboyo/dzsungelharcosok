@@ -13,7 +13,7 @@ public class Teleport {
 
     /**
      * Transfer.
-     *If the teleport's pair is placed on another asteroid, then the entity is transfered to it.
+     * If the teleport's pair is placed on another asteroid, then the entity is transfered to it.
      *
      * @param e the entity using the teleport
      */
