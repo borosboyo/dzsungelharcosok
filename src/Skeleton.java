@@ -33,13 +33,14 @@ public class Skeleton {
          do {
             s.TestList();
             s.chooseTest();
-            exit = s.EndTest();
-        }while (exit != 0);
+            exit = s.EndTest(); //Az exit változót itt tuja módosítani a felhasználó
+        }while (exit != 0);  /*Ha exit == 0, akkor a program befejezi a futását,
+                                máskülönben újra a tesztek listája jelenik meg*/
 
     }
 
     /**
-     * A tesztek listája
+     * A tesztek listája, amit a konzolra kiír ez a függvény
      */
     public void TestList(){
         setUp();
@@ -72,6 +73,11 @@ public class Skeleton {
         );
     }
 
+    /**
+     * A tesztek lefutását követően hívódik meg az a függvény.
+     * Először kiírja a konzolra hogy vége a tesztnek, majd vár egy számot a felhasználótól
+     * @return egy integer, amit a felhasználó ad meg.
+     */
     public int EndTest(){
         System.out.println("**************************Test Ended**************************");
         System.out.println("Press 0 to exit, press another number to choose another test!");
@@ -92,7 +98,9 @@ public class Skeleton {
         return number;
     }
 
-
+    /**
+     * Ez a függvény a felhasználótól kér egy számot, majd ennek a függvényében meghívja az adott tesztet.
+     */
     public void chooseTest(){
         int number = inputNumber();
         switch (number){
@@ -146,11 +154,11 @@ public class Skeleton {
                 break;
             case 13:
                 Sunstorm_on_settler();
-                //Sunstorm_on_settler_test();
+                Sunstorm_on_settler_test();
                 break;
             case 14:
                 Sunstorm_on_robot();
-                //Sunstorm_on_robot_test();
+                Sunstorm_on_robot_test();
                 break;
             case 15:
                 Settler_builds_robot();
@@ -198,6 +206,7 @@ public class Skeleton {
                     crust = input.nextInt();
                 }
     }
+
     /**
      * Az esztétikus kiírást segítő függvény
      * @param functions a függvények neveit veszi át egy String[] tömbbe
@@ -270,8 +279,11 @@ public class Skeleton {
     }
     
     /**
-     * Az konkrét tesztesetek függvényei
+     * Az konkrét tesztesetek függvényei következnek.
+     * A "Use_Case()" formátumú függvények a konzolon való megjelenést biztosítják.
+     * A "Use_Case_Test()" formátumú függvények a tartalmi tesztelést hajtják végre.
      */
+
     public void Settler_Moves(){
         String func[] = {
                 "Settler.Move(Asteroid)",
@@ -286,7 +298,6 @@ public class Skeleton {
     /**
      * Settler moves junit test.
      */
-
     @Test
     public void Settler_Moves_Test(){
         a1.getEntities().clear();
@@ -613,6 +624,7 @@ public class Skeleton {
         Assert.assertSame(s1.getAsteroid(), a1);
         Assert.assertSame(s2.getAsteroid(), a2);
     }
+
     public void Robot_uses_teleport(){
         String func[] = {
                 "Robot.UseTeleport(Teleport)",
@@ -694,8 +706,22 @@ public class Skeleton {
         WriteTest(func);
     }
 
+    /**
+     * Sunstorm on settler junit test.
+     */
+    @Test
+    public void Sunstorm_on_settler_test(){
+
+        a1.setCrustThickness(0);
+        a1.setMaterial(null);
+        a1.Accept(s1);
+        a1.Sunstorm();
+        Assert.assertNotNull(s1);
+        Assert.assertEquals(s1.getAsteroid(), a1);
+    }
+
     public void Sunstorm_on_robot(){
-        System.out.println("Is the asteroid empty? (0: no, else: yes");
+        System.out.println("Is the asteroid empty? (0: no, else: yes)");
         int empty = input.nextInt();
         String func[];
         if(empty == 0)
@@ -709,6 +735,19 @@ public class Skeleton {
                     "Asteroid.SunStorm()"
             };
         WriteTest(func);
+    }
+
+    /**
+     * Sunstorm on robot junit test
+     */
+    @Test
+    public void Sunstorm_on_robot_test(){
+        a1.setCrustThickness(0);
+        a1.setMaterial(null);
+        a1.Accept(r1);
+        a1.Sunstorm();
+        Assert.assertNotNull(s1);
+        Assert.assertEquals(r1.getAsteroid(), a1);
     }
 
     public void Settler_builds_robot(){
@@ -777,6 +816,19 @@ public class Skeleton {
                     "Asteroid.CheckBase()"
             };
         WriteTest(func);
+    }
+
+    /**
+     * Settler Mines test
+     */
+    @Test
+    public void Settler_mines_test(){
+        a1.setMaterial(iron);
+        a1.Accept(s1);
+        s1.Mine();
+        Assert.assertNotNull(s1.getInventory());
+        Assert.assertNull(a1.getMaterial());
+
     }
 
 
