@@ -7,12 +7,25 @@ import java.util.Random;
  */
 public class Game {
 
+    /**
+     * Boolean that indicates that the Settlers have won the game yet.
+     */
     private boolean win = false;
 
+    /**
+     * Is win boolean.
+     *
+     * @return the boolean
+     */
     public boolean isWin() {
         return win;
     }
 
+    /**
+     * Sets win.
+     *
+     * @param win the win
+     */
     public void setWin(boolean win) {
         this.win = win;
     }
