@@ -1091,7 +1091,7 @@ public class Skeleton {
                     "Robot.Drill()",
                     "Asteroid.DrilledBy()",
                     "Uranium.Trigger()",
-                    "Asteroid.Exolode()",
+                    "Asteroid.Explode()",
                     "Robot.Blow()"
             };
         else {
