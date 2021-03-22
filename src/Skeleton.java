@@ -174,7 +174,7 @@ public class Skeleton {
                 break;
             case 18:
                 Settler_drills_radioactive();
-                Settler_drills_radioactive_test();
+                //Settler_drills_radioactive_test();
                 break;
             case 19:
                 Settler_drills_ice();
