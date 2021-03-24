@@ -2,7 +2,7 @@
  * Uranium, the radioactive type of Material.
  */
 public class Uranium extends Material{
-
+int exponation;
     /**
      * If the material is triggered the asteroid explodes,
      * that kills all settlers and blows away all robots which are on the asteroid.
@@ -10,6 +10,10 @@ public class Uranium extends Material{
      */
     @Override
     public void Trigger() {
-        asteroid.Explode();
+        exponation++;
+        if(exponation == 3){
+            asteroid.Explode();
+        }
+
     }
 }

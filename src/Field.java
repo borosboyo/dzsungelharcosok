@@ -36,7 +36,13 @@ public class Field implements Steppable {
      */
     public void SetNearSun() {
         //valami alapján átállitja az asteroidáknál a nearsunt
+
+        //TODO: ide valami filterezett asteroida listát kell majd beadni
         for (Asteroid a : asteroids) {
+            if(!a.isNearSun()){
+                a.getMaterial().Trigger();
+            }
+            a.setNearSun(true);
             a.CheckTrigger();
         }
     }
