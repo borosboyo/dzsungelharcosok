@@ -11,6 +11,10 @@ public class Teleport {
         asteroids = new ArrayList<Asteroid>();
     }
 
+    public void HitBySunstorm(){
+
+    }
+
     /**
      * Transfer.
      * If the teleport's pair is placed on another asteroid, then the entity is transfered to it.

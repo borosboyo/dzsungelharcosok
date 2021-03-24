@@ -23,7 +23,9 @@ public class Field implements Steppable {
     public void SetSunStorm() {
         //valamennyi tickenként
         for (Asteroid a : asteroids) {
-            a.Sunstorm();
+            if(a.isNearSun()) {
+                a.Sunstorm();
+            }
         }
     }
 

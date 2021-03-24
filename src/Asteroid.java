@@ -116,6 +116,10 @@ public class Asteroid {
                 entity.Die();
             }
         }
+
+        for(Teleport t: teleports){
+            t.HitBySunstorm();
+        }
     }
 
     /**
