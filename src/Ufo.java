@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.Random;
 
-public class Ufo extends Entity implements Steppable{
-      private ArrayList<Material> inventory;
+public class Ufo extends Entity implements Steppable {
+    private ArrayList<Material> inventory;
 
     @Override
     public void Step() {
@@ -9,8 +10,8 @@ public class Ufo extends Entity implements Steppable{
         long crust = getAsteroid().getCrustThickness();
         Teleport teleport = getAsteroid().GetRandomTeleport();
 
-        if ((crust == 0) && (getAsteroid().getMaterial() != null) ) {  //Ha tud mine-ol különben mozog 
-         mine();
+        if ((crust == 0) && (getAsteroid().getMaterial() != null)) {  //Ha tud mine-ol különben mozog
+            Mine();
         } else {
             if ((teleport.getAsteroids().size() == 2) && (rand.nextInt(100) < 30)) {
                 UseTeleport(teleport);
@@ -33,4 +34,12 @@ public class Ufo extends Entity implements Steppable{
         setAsteroid(null);
         Timer.getInstance().RemoveSteppable(this);
     }
+
+    public void Mine(){
+        if(getAsteroid().getCrustThickness()==0){
+            Material i=getAsteroid().MinedBy();
+            inventory.add(i);
+        }
+    }
+
 }
