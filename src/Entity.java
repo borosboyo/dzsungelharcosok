@@ -40,18 +40,18 @@ public abstract class Entity {
      *
      */
     public abstract void Die();
-
+/*
     /**
      * Drill.
      *
      * Entity drills the crust of the asteroid.
-     */
+
     public void Drill() {
         if(this.getAsteroid().getCrustThickness()>0){
             this.getAsteroid().DrilledBy();
         }
     }
-
+    */
     /**
      * Move.
      *

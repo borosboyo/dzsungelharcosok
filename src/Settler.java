@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * The type Settler.
  */
-public class Settler extends Entity{
+public class Settler extends Entity implements IDrill, IMine{
 
 
     /**
@@ -145,7 +145,6 @@ public class Settler extends Entity{
                 if (deleteiron == 2&&deleteice == false&&deleteuranium == false){
                     break;
                 }
-
             }
             Teleport t= new Teleport();
             this.teleportlist.add(t);
@@ -194,5 +193,12 @@ public class Settler extends Entity{
 
     public ArrayList<Teleport> getTeleportlist() {
         return teleportlist;
+    }
+
+    @Override
+    public void Drill() {
+        if(this.getAsteroid().getCrustThickness()>0){
+            this.getAsteroid().DrilledBy();
+        }
     }
 }

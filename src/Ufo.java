@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ufo extends Entity implements Steppable {
+public class Ufo extends Entity implements Steppable, IMine {
     private ArrayList<Material> inventory;
 
     @Override
@@ -19,8 +19,6 @@ public class Ufo extends Entity implements Steppable {
                 Move(getAsteroid().GetRandomNeighbour());
             }
         }
-
-
     }
 
     @Override

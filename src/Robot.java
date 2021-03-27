@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * The type Robot.
  */
-public class Robot extends Entity implements Steppable {
+public class Robot extends Entity implements Steppable, IDrill {
 
     /**
      * The robot gets blown away if the asteroid it is on explodes.
@@ -41,6 +41,13 @@ public class Robot extends Entity implements Steppable {
             } else {
                 Move(getAsteroid().GetRandomNeighbour());
             }
+        }
+    }
+
+    @Override
+    public void Drill() {
+        if(this.getAsteroid().getCrustThickness()>0){
+            this.getAsteroid().DrilledBy();
         }
     }
 }
