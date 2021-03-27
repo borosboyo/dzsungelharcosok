@@ -100,7 +100,7 @@ public class Asteroid {
     public Material MinedBy(){
         Material ret_material = material;
         if (ret_material != null && crustThickness == 0){
-            CheckBase();
+            CheckBase(); //TODO: ezt utána kellene csekkolnia
             RemoveMaterial();
             return ret_material;
         }
@@ -111,13 +111,16 @@ public class Asteroid {
      * Sunstorm.
      */
     public void Sunstorm(){
+        if (!nearSun){
+            return;
+        }
         if(crustThickness == 0 && material != null){
             for (Entity entity : entities) {
                 entity.Die();
             }
         }
         for(Teleport t: teleports){
-            t.HitBySunstorm();
+            t.HitBySunstorm(this);
         }
     }
 
