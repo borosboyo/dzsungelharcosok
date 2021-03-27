@@ -2,7 +2,7 @@
  * Uranium, the radioactive type of Material.
  */
 public class Uranium extends Material{
-int exponation;
+int exponation = 0;
     /**
      * If the material is triggered the asteroid explodes,
      * that kills all settlers and blows away all robots which are on the asteroid.
