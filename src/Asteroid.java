@@ -48,6 +48,7 @@ public class Asteroid {
      *
      * @param t the t
      */
+
     public void BuildTeleport(Teleport t){
         teleports.add(t);
     }
@@ -92,37 +93,6 @@ public class Asteroid {
         CheckTrigger();
     }
 
-    /**
-     * Mined by material.
-     *
-     * @return the material
-     */
-    public Material MinedBy(){
-        Material ret_material = material;
-        if (ret_material != null && crustThickness == 0){
-            CheckBase(); //TODO: ezt utána kellene csekkolnia
-            RemoveMaterial();
-            return ret_material;
-        }
-        return null;
-    }
-
-    /**
-     * Sunstorm.
-     */
-    public void Sunstorm(){
-        if (!nearSun){
-            return;
-        }
-        if(crustThickness == 0 && material != null){
-            for (Entity entity : entities) {
-                entity.Die();
-            }
-        }
-        for(Teleport t: teleports){
-            t.HitBySunstorm(this);
-        }
-    }
 
     /**
      * Explode.
@@ -146,31 +116,6 @@ public class Asteroid {
             neighbours.remove(i);
         }
 
-    }
-
-    /**
-     * Removes entity.
-     *
-     * @param e the e
-     */
-    public void RemoveEntity(Entity e){
-        entities.remove(e);
-    }
-
-    /**
-     * Removes material.
-     */
-    public void RemoveMaterial(){
-        material = null;
-    }
-
-    /**
-     * Removes neighbour.
-     *
-     * @param a the a
-     */
-    public void RemoveNeighbour(Asteroid a){
-        neighbours.remove(a);
     }
 
     /**
@@ -204,7 +149,65 @@ public class Asteroid {
         return  teleports.get(r_index);
     }
 
+    /**
+     * Mined by material.
+     *
+     * @return the material
+     */
+    public Material MinedBy(){
+        Material ret_material = material;
+        if (ret_material != null && crustThickness == 0){
+            CheckBase(); //TODO: ezt utána kellene csekkolnia miután átadta a materialt (Érdemes lehet a Settler mine metódusából meghívni.)
+            RemoveMaterial();
+            return ret_material;
+        }
+        return null;
+    }
 
+    /**
+     * Removes entity.
+     *
+     * @param e the e
+     */
+    public void RemoveEntity(Entity e){
+        entities.remove(e);
+    }
+
+    /**
+     * Removes material.
+     */
+    public void RemoveMaterial(){
+        material = null;
+    }
+
+    /**
+     * Removes neighbour.
+     *
+     * @param a the a
+     */
+    public void RemoveNeighbour(Asteroid a){
+        neighbours.remove(a);                   //TODO::hibakezelés, ha olyan aszteroidát akar törölni ami nincs a listában
+    }
+
+    /**
+     * Sunstorm.
+     */
+    public void Sunstorm(){
+        if (!nearSun){
+            return;
+        }
+        if(crustThickness != 0 && material != null){
+            for (Entity entity : entities) {
+                entity.Die();
+            }
+        }
+        for(Teleport t: teleports){
+            t.HitBySunstorm(this);
+        }
+    }
+
+
+    //ArrayList Getters Setters
     /**
      * Gets neigbours.
      *
