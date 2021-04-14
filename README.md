@@ -1,2 +1,2 @@
 # Aszteroidabányászat
-Skeleton tesztelő program
+Proto program
