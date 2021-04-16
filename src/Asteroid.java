@@ -157,7 +157,6 @@ public class Asteroid {
     public Material MinedBy(){
         Material ret_material = material;
         if (ret_material != null && crustThickness == 0){
-            CheckBase(); //TODO: ezt utána kellene csekkolnia miután átadta a materialt (Érdemes lehet a Settler mine metódusából meghívni.)
             RemoveMaterial();
             return ret_material;
         }
@@ -186,7 +185,7 @@ public class Asteroid {
      * @param a the a
      */
     public void RemoveNeighbour(Asteroid a){
-        neighbours.remove(a);                   //TODO::hibakezelés, ha olyan aszteroidát akar törölni ami nincs a listában
+        neighbours.remove(a);
     }
 
     /**
