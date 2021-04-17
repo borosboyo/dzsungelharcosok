@@ -8,6 +8,7 @@ public class Field implements Steppable {
 
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
+    private int counter=0;
 
     public Field(int settlernumber, int maxthickness){
         //alap aszteroidak
@@ -53,7 +54,7 @@ public class Field implements Steppable {
             s.setAsteroid(asteroids.get(randasteroid));
         }
 
-
+        Timer.getInstance().setSettlernumber(settlernumber);
     }
 
 

@@ -5,6 +5,13 @@ import java.util.ArrayList;
  */
 public class Timer {
     /**
+     * The ArrayList that stores all the steppable objects of the game.
+     */
+    private ArrayList<Steppable> steppables;
+    private int counter=0;
+    private int settlernumber=0;
+
+    /**
      * The constant timer.
      */
     public static Timer timer = new Timer();
@@ -14,6 +21,18 @@ public class Timer {
      */
     private Timer(){}
 
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int i){
+        counter=i;
+    }
+
+    public void setSettlernumber(int i){
+        settlernumber=i;
+    }
+
     /**
      * Get the only instance of timer.
      *
@@ -22,11 +41,6 @@ public class Timer {
     public static Timer getInstance(){
         return timer;
     }
-
-    /**
-     * The ArrayList that stores all the steppable objects of the game.
-     */
-    private ArrayList<Steppable> steppables;
 
     /**
      * Add an object to the list.
@@ -50,9 +64,12 @@ public class Timer {
      * Tick that happens every X seconds or rounds.
      */
     public void Tick(){
-        for (Steppable steppable : steppables) {
-            steppable.Step();
+        if(counter==settlernumber){
+            for (Steppable steppable : steppables) {
+                steppable.Step();
+            }
         }
+
     }
 
 }

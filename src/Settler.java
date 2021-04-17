@@ -24,7 +24,11 @@ public class Settler extends Entity implements IDrill, IMine{
         super(id);
         inventory= new ArrayList<Material>();
         teleportlist= new ArrayList<Teleport>();
+    }
 
+    public void CompleteAction(){
+        Timer.getInstance().setCounter(Timer.getInstance().getCounter()+1); //noveljuk a countert eggyel
+        Timer.getInstance().Tick();
     }
 
     /**
@@ -98,7 +102,10 @@ public class Settler extends Entity implements IDrill, IMine{
             Robot r= new Robot(1);   //TODO: retek id miatt itt átkell adni valamit, kikell talalni mi legyen
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
+
+            CompleteAction();
         }
+
 
     }
 
@@ -150,6 +157,7 @@ public class Settler extends Entity implements IDrill, IMine{
             }
             Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
             this.teleportlist.add(t);
+            CompleteAction();
         }
     }
 
@@ -161,6 +169,8 @@ public class Settler extends Entity implements IDrill, IMine{
             Material i=getAsteroid().MinedBy();
             inventory.add(i);
             getAsteroid().CheckBase();
+
+            CompleteAction();
         }
     }
 
@@ -171,6 +181,8 @@ public class Settler extends Entity implements IDrill, IMine{
         if(getAsteroid().getMaterial()==null && getAsteroid().getCrustThickness() == 0){
             getAsteroid().AddMaterial(inventory.get(inventory.size()-1));
             inventory.remove(0);
+
+            CompleteAction();
         }
     }
 
@@ -182,6 +194,7 @@ public class Settler extends Entity implements IDrill, IMine{
         if(teleportlist.get(0).getAsteroids().size()==2){
             teleportlist.remove(0);
         }
+        CompleteAction();
     }
 
 
@@ -213,6 +226,7 @@ public class Settler extends Entity implements IDrill, IMine{
         if(this.getAsteroid().getCrustThickness()>0){
             this.getAsteroid().DrilledBy();
         }
+        CompleteAction();
     }
 
     void Step(){
@@ -222,4 +236,6 @@ public class Settler extends Entity implements IDrill, IMine{
             }
        }
     }
+
+
 }
