@@ -14,16 +14,17 @@ public class Settler extends Entity implements IDrill, IMine{
      * Teleport list
      */
     private ArrayList<Teleport> teleportlist;
-    private int id;
+
 
 
     /**
      * Instantiates a new Settler.
      */
-    public Settler(int id) {
+    public Settler(int id){
+        super(id);
         inventory= new ArrayList<Material>();
         teleportlist= new ArrayList<Teleport>();
-        this.id = id;
+
     }
 
     /**
@@ -121,7 +122,7 @@ public class Settler extends Entity implements IDrill, IMine{
             }
         }
         //Ha van elég csükkentjuk es letrehozzuk a teleportot és hozzáadjuk a teleportlisthez
-        if(iron>=2&&ice>=1&&uranium>=1&&teleportlist.isEmpty()){
+        if(iron>=2&&ice>=1&&uranium>=1&&teleportlist.size()<=1){ //ha egy vagy semennyi nincs benne akkor tud craftolni
             int deleteiron = 0; //kettot kell belole torolni ezert ezt igy csinalom
             boolean deleteice = true;
             boolean deleteuranium = true;

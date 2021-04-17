@@ -6,6 +6,11 @@ import java.util.Random;
  */
 public class Robot extends Entity implements Steppable, IDrill {
 
+
+    public Robot(int id){
+        super(id);
+    }
+
     /**
      * The robot gets blown away if the asteroid it is on explodes.
      */

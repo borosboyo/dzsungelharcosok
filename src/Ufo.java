@@ -4,6 +4,10 @@ import java.util.Random;
 public class Ufo extends Entity implements Steppable, IMine {
     private ArrayList<Material> inventory;
 
+    public Ufo(int id){
+        super(id);
+    }
+
     @Override
     public void Step() {
         Random rand = new Random();

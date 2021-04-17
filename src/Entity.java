@@ -1,3 +1,6 @@
+import javax.swing.plaf.ActionMapUIResource;
+import java.util.ArrayList;
+
 /**
  * The type Entity.
  */
@@ -7,6 +10,12 @@ public abstract class Entity {
      * The asteroid that the entity is on
      */
     private Asteroid asteroid;
+    private int id;
+
+
+    public Entity(int id) {
+        this.id = id;
+    }
 
     /**
      * Returns the asteroid that the Entity stands on.
