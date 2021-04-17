@@ -3,16 +3,23 @@ import java.util.ArrayList;
 /**
  * The type Teleport.
  */
-public class Teleport {
-
+public class Teleport implements Steppable {
+    private boolean firstCrazy = false;
+    private boolean secondCrazy = false;
     private ArrayList<Asteroid> asteroids;
 
     public Teleport() {
         asteroids = new ArrayList<Asteroid>();
     }
 
-    public void HitBySunstorm(){
-
+    public void HitBySunstorm(Asteroid a){
+        if (asteroids.get(0) == a){
+            firstCrazy = true;
+        }
+        if (asteroids.get(1) == a){
+            secondCrazy = true;
+        }
+        Step();
     }
 
     /**
@@ -64,5 +71,11 @@ public class Teleport {
         this.asteroids = asteroids;
     }
 
-
+    /**
+     *
+     */
+    @Override
+    public void Step() {
+        //TODO: megcsinálni
+    }
 }
