@@ -95,7 +95,7 @@ public class Settler extends Entity implements IDrill, IMine{
                 }
             }
 
-            Robot r= new Robot();
+            Robot r= new Robot(1);   //TODO: retek id miatt itt átkell adni valamit, kikell talalni mi legyen
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
         }
@@ -144,11 +144,11 @@ public class Settler extends Entity implements IDrill, IMine{
                     k--;
                 }
 
-                if (deleteiron == 2&&deleteice == false&&deleteuranium == false){
+                if (deleteiron == 2&& !deleteice && !deleteuranium){
                     break;
                 }
             }
-            Teleport t= new Teleport();
+            Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
             this.teleportlist.add(t);
         }
     }

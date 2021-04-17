@@ -4,12 +4,14 @@ import java.util.ArrayList;
  * The type Teleport.
  */
 public class Teleport implements Steppable {
+    int id;
     private boolean firstCrazy = false;
     private boolean secondCrazy = false;
     private ArrayList<Asteroid> asteroids;
 
-    public Teleport() {
+    public Teleport(int id) {
         asteroids = new ArrayList<Asteroid>();
+        this.id = id;
     }
 
     public void HitBySunstorm(Asteroid a){

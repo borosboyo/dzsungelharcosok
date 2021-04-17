@@ -38,11 +38,11 @@ public class Skeleton {
         return words;
     }
 
-    public void fileRead() throws IOException {
-        File file=new File("Demo.txt");    //creates a new file instance
-        FileReader fr=new FileReader(file);   //reads the file
-        BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream
-        StringBuffer sb=new StringBuffer();    //constructs a string buffer with no characters
+    public void fileRead(String filename) throws IOException {
+        File file=new File(filename);
+        FileReader fr=new FileReader(file);
+        BufferedReader br=new BufferedReader(fr);
+        StringBuffer sb=new StringBuffer();
         String line;
 
         while((line=br.readLine())!=null)
@@ -61,24 +61,38 @@ public class Skeleton {
                             case "Ice":a.setMaterial(new Ice());
                             case "Uranium": a.setMaterial(new Uranium());
                         }
-
+                        a.addTeleport(new Teleport(Integer.parseInt(words[1])));
+                        //TODO: szomszedok, entitásokat az entitásnal adja hozzá
                     }
                     case "Settler":{
-                        Settler s = new Settler(Integer.parseInt(words[0]));
+                        Settler s = new Settler(Integer.parseInt(words[0]));          //id
                         Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[1]));
-                        s.setAsteroid(a);
+                        s.setAsteroid(a);                                         //asteroida
                         a.getEntities().add(s);
-
+                        //TODO: inventory, teleport
 
                     }
-                    case "Robot":
-                    case "Ufo":
+                    case "Robot":{
+                        Robot r = new Robot(Integer.parseInt(words[0]));  //id
+                        Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[1]));
+                        r.setAsteroid(a);                                         //asteroida
+                        a.getEntities().add(r);
+                        //Inventory, teleport nincs neki
+                    }
+
+                    case "Ufo":{
+                        Ufo u = new Ufo(Integer.parseInt(words[0]));              //id
+                        Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[1]));
+                        u.setAsteroid(a);                                         //asteroida
+                        a.getEntities().add(u);
+
+                    }
                 }
 
-            sb.append(line);      //appends line to string buffer
-            sb.append("\n");     //line feed
+            sb.append(line);
+            sb.append("\n");
         }
-        fr.close();    //closes the stream and release the resources
+        fr.close();
     }
 
 
@@ -288,7 +302,7 @@ public class Skeleton {
         uran = new Uranium();
         s1 = new Settler(1);
         s2 = new Settler(2);
-        r1= new Robot();
+        r1= new Robot(3);
 
         a1 = new Asteroid(1,3,false, ice);
         ice.setAsteroid(a1);
@@ -329,7 +343,7 @@ public class Skeleton {
         a5.AddNeighbour(a1);
         a1.AddNeighbour(a5);
 
-        t1 = new Teleport();
+        t1 = new Teleport(1);
         t1.getAsteroids().add(a1);
         t1.getAsteroids().add(a2);
     }
@@ -561,7 +575,7 @@ public class Skeleton {
      */
     @Test
     public void Settler_place_teleport_test(){
-        Teleport t2= new Teleport();
+        Teleport t2= new Teleport(2);
         s1.getTeleportlist().add(t2);
         s1.getTeleportlist().get(0).getAsteroids().add(s1.getAsteroid());
 

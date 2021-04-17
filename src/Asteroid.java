@@ -247,6 +247,11 @@ public class Asteroid {
         this.teleports = teleports;
     }
 
+    public void addTeleport(Teleport t){
+        this.teleports.add(t);
+    }
+
+
     /**
      * Gets entities.
      *
