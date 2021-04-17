@@ -8,6 +8,7 @@ public class Field implements Steppable {
 
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
+    private final ArrayList<Settler> ufos = new ArrayList();
     private int counter=0;
 
     public Field(int settlernumber, int maxthickness){
@@ -46,15 +47,34 @@ public class Field implements Steppable {
         }
 
         Random rand=new Random();
+        int k=0;
 
         for(int i=0; i<settlernumber; i++){
             Settler s= new Settler(i);
             int randasteroid=rand.nextInt(asteroids.size());
             asteroids.get(randasteroid).Accept(s);
             s.setAsteroid(asteroids.get(randasteroid));
+
+
+            if(i%5==0){
+                Ufo u= new Ufo(k);
+                randasteroid=rand.nextInt(asteroids.size());
+                asteroids.get(randasteroid).Accept(u);
+                u.setAsteroid(asteroids.get(randasteroid));
+
+                k++;
+            }
         }
 
         Timer.getInstance().setSettlernumber(settlernumber);
+        Timer.getInstance().AddSteppable(this);
+        for(Settler s: settlers){
+            Timer.getInstance().AddSteppable(s);
+        }
+        for(Settler u: ufos){
+            Timer.getInstance().AddSteppable(u);
+        }
+
     }
 
 

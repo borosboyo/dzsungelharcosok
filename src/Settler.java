@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * The type Settler.
  */
-public class Settler extends Entity implements IDrill, IMine{
+public class Settler extends Entity implements IDrill, IMine, Steppable{
 
 
     /**
@@ -102,7 +102,7 @@ public class Settler extends Entity implements IDrill, IMine{
             Robot r= new Robot(1);   //TODO: retek id miatt itt átkell adni valamit, kikell talalni mi legyen
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
-
+            Timer.getInstance().AddSteppable(r);
             CompleteAction();
         }
 
@@ -157,6 +157,7 @@ public class Settler extends Entity implements IDrill, IMine{
             }
             Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
             this.teleportlist.add(t);
+            Timer.getInstance().AddSteppable(t);
             CompleteAction();
         }
     }
@@ -229,7 +230,7 @@ public class Settler extends Entity implements IDrill, IMine{
         CompleteAction();
     }
 
-    void Step(){
+    public void Step(){
        for(Teleport t: teleportlist){   //megnezni hogy felrobbant e valamelyik es ha igen kitorolni
             if(t.getExploded()==true){
                 teleportlist.remove(t);
