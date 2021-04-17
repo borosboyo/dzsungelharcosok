@@ -62,7 +62,9 @@ public class Game {
     /**
      * Starts the game.
      */
-    public void StartGame(){}
+    public void StartGame(){
+
+    }
 
 
     /**

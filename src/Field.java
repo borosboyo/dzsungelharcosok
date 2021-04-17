@@ -9,6 +9,54 @@ public class Field implements Steppable {
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
 
+    public Field(int settlernumber, int maxthickness){
+        //alap aszteroidak
+        asteroids.add(new Asteroid(1 , 3, true, new Ice()));
+        asteroids.add(new Asteroid(2 , 3, true, new Coal()));
+        asteroids.add(new Asteroid(3 , 3, true, new Iron()));
+        asteroids.add(new Asteroid(4 , 3, true, new Uranium()));
+        asteroids.add(new Asteroid(5 , 3, true, null));
+
+        //random aszteroidak, telepesenkent +10db
+        for(int i=6; i<settlernumber*10+6; i++){
+            Random rand=new Random();
+            Material randmaterial;
+
+            switch(rand.nextInt(10000000)%5){
+                case 0: randmaterial=null;
+                case 1: randmaterial=new Ice();
+                case 2: randmaterial=new Coal();
+                case 3: randmaterial=new Iron();
+                case 4: randmaterial=new Uranium();
+                default: randmaterial=null;
+            }
+
+            asteroids.add(new Asteroid(i ,rand.nextInt(10000000)%maxthickness, rand.nextInt(10000000)%2==0, randmaterial));
+        }
+
+        //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
+
+        for(Asteroid a: asteroids){
+            for(int i=0; i<settlernumber*10+6; i++){
+                if((a.getid()+i)%4==0){
+                    a.getNeigbours().add(asteroids.get(i));
+                }
+            }
+        }
+
+        Random rand=new Random();
+
+        for(int i=0; i<settlernumber; i++){
+            Settler s= new Settler(i);
+            int randasteroid=rand.nextInt(asteroids.size());
+            asteroids.get(randasteroid).Accept(s);
+            s.setAsteroid(asteroids.get(randasteroid));
+        }
+
+
+    }
+
+
     @Override
     public void Step() {
         SetNearSun();

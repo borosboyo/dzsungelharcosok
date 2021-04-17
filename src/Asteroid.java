@@ -29,6 +29,10 @@ public class Asteroid {
         this.id = id;
     }
 
+    public int getid(){
+        return id;
+    }
+
     /**
      * Accepts entity.
      *
