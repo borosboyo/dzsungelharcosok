@@ -48,7 +48,7 @@ public class Game {
     /**
      * The Field that contains all the asteroids and settlers.
      */
-    Field field = new Field();
+    Field field = new Field(); //TODO: atadni hany settler es max keregvastagsag
 
 
     /**
