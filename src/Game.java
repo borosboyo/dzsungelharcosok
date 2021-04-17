@@ -1,7 +1,9 @@
-    /**
+import java.io.*;
+
+/**
     * The Game singleton class that manages ending and starting a game.
      */
-public class Game {
+public class Game implements Serializable {
 
     /**
      * Boolean that indicates that the Settlers have won the game yet.
@@ -73,6 +75,25 @@ public class Game {
     public void WinGame() {
         setWin(true);
         System.out.print("Settlers win!");
+    }
+
+    /**
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void loadGame() throws IOException, ClassNotFoundException{
+        final ObjectInputStream input = new ObjectInputStream(new FileInputStream("game_status"));
+        game = (Game)input.readObject();
+    }
+
+    /**
+     *
+     * @throws IOException
+     */
+    public void saveGame() throws IOException{
+        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("game_status"));
+        output.writeObject(game);
     }
 
 }
