@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Scanner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,9 +23,65 @@ public class Skeleton {
     private Coal coal;
     private Teleport t1;
 
+
     public Skeleton(){
         input = new Scanner(System.in);
     }
+    private static String[] splitSentenceByWords(String str){
+
+        //if string is empty or null, return empty array
+        if(str == null || str.equals(""))
+            return new String[0];
+
+        String[] words = str.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
+
+        return words;
+    }
+
+    public void fileRead() throws IOException {
+        File file=new File("Demo.txt");    //creates a new file instance
+        FileReader fr=new FileReader(file);   //reads the file
+        BufferedReader br=new BufferedReader(fr);  //creates a buffering character input stream
+        StringBuffer sb=new StringBuffer();    //constructs a string buffer with no characters
+        String line;
+
+        while((line=br.readLine())!=null)
+        {
+            String[] words = splitSentenceByWords(line);
+
+                switch (words[1]){
+                    case "Asteroid":{
+                        long crust = Long.parseLong(words[5]);
+                        boolean nearsun = Boolean.parseBoolean(words[6]);
+                       Asteroid a = new Asteroid(Integer.parseInt(words[0]), crust, nearsun, null);
+                       Game.getInstance().field.AddAsteroid(a1);
+                        switch (words[4]){
+                            case "Iron": a.setMaterial(new Iron());
+                            case "Coal": a.setMaterial(new Coal());
+                            case "Ice":a.setMaterial(new Ice());
+                            case "Uranium": a.setMaterial(new Uranium());
+                        }
+
+                    }
+                    case "Settler":{
+                        Settler s = new Settler(Integer.parseInt(words[0]));
+                        Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[1]));
+                        s.setAsteroid(a);
+                        a.getEntities().add(s);
+
+
+                    }
+                    case "Robot":
+                    case "Ufo":
+                }
+
+            sb.append(line);      //appends line to string buffer
+            sb.append("\n");     //line feed
+        }
+        fr.close();    //closes the stream and release the resources
+    }
+
+
 
     public static void main(String args[]){
         Skeleton s = new Skeleton();
@@ -229,19 +286,19 @@ public class Skeleton {
         coal = new Coal();
         iron = new Iron();
         uran = new Uranium();
-        s1 = new Settler();
-        s2 = new Settler();
+        s1 = new Settler(1);
+        s2 = new Settler(2);
         r1= new Robot();
 
-        a1 = new Asteroid(3,false, ice);
+        a1 = new Asteroid(1,3,false, ice);
         ice.setAsteroid(a1);
-        a2 = new Asteroid(3,false, coal);
+        a2 = new Asteroid(2,3,false, coal);
         ice.setAsteroid(a2);
-        a3 = new Asteroid(3,false, iron);
+        a3 = new Asteroid(3,3,false, iron);
         ice.setAsteroid(a3);
-        a4 = new Asteroid(3,false, uran);
+        a4 = new Asteroid(4,3,false, uran);
         ice.setAsteroid(a4);
-        a5 = new Asteroid(0,false, null);
+        a5 = new Asteroid(5,0,false, null);
         ice.setAsteroid(a5);
 
 
@@ -364,7 +421,6 @@ public class Skeleton {
 
         Assert.assertSame(a2.getEntities().get(0), s2);
         Assert.assertSame(a2.getEntities().get(1), s1);
-
 
         Game.getInstance().field.CheckReqMat(a2);
 

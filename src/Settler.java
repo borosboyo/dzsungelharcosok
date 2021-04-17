@@ -10,19 +10,20 @@ public class Settler extends Entity implements IDrill, IMine{
      * Settler's inventory
      */
     private ArrayList<Material> inventory;
-
     /**
      * Teleport list
      */
     private ArrayList<Teleport> teleportlist;
+    private int id;
 
 
     /**
      * Instantiates a new Settler.
      */
-    public Settler() {
+    public Settler(int id) {
         inventory= new ArrayList<Material>();
         teleportlist= new ArrayList<Teleport>();
+        this.id = id;
     }
 
     /**

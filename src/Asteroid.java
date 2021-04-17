@@ -6,6 +6,9 @@ import java.util.Random;
  */
 public class Asteroid {
     private long crustThickness;
+
+
+    private int id;
     private  boolean nearSun;
     private  Material material;
     private ArrayList<Asteroid> neighbours = new ArrayList();
@@ -19,10 +22,11 @@ public class Asteroid {
      * @param nearSun        the near sun
      * @param material       the material
      */
-    public Asteroid(long crustThickness, boolean nearSun, Material material) {
+    public Asteroid(int id, long crustThickness, boolean nearSun, Material material) {
         this.crustThickness = crustThickness;
         this.nearSun = nearSun;
         this.material = material;
+        this.id = id;
     }
 
     /**
@@ -318,4 +322,13 @@ public class Asteroid {
     public void AddNeighbour(Asteroid a) {
         neighbours.add(a);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

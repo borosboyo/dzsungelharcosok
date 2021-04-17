@@ -1,10 +1,6 @@
-import org.junit.Assert;
-
-import java.util.Random;
-
-/**
- * The Game singleton class that manages ending and starting a game.
- */
+    /**
+    * The Game singleton class that manages ending and starting a game.
+     */
 public class Game {
 
     /**

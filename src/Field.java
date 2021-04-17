@@ -5,15 +5,15 @@ import java.util.Random;
  * The type Field.
  */
 public class Field implements Steppable {
-    private ArrayList<Asteroid> asteroids = new ArrayList();
-    private ArrayList<Settler> settlers = new ArrayList();
+
+    private final ArrayList<Asteroid> asteroids = new ArrayList();
+    private final ArrayList<Settler> settlers = new ArrayList();
 
     @Override
     public void Step() {
         SetNearSun();
         SetSunStorm();
     }
-
 
     /**
      * Set sun storm.
@@ -94,11 +94,7 @@ public class Field implements Steppable {
             }
         }
 
-        if(coal == 0 && iron == 0 && uran == 0 && ice ==0){
-            return true;
-        }
-
-        return false;
+        return coal == 0 && iron == 0 && uran == 0 && ice == 0;
     }
 
     /**
@@ -122,6 +118,16 @@ public class Field implements Steppable {
 
         return mat;
     }
+
+
+    public ArrayList<Asteroid> getAsteroids() {
+        return asteroids;
+    }
+
+    public ArrayList<Settler> getSettlers() {
+        return settlers;
+    }
+
 
     /**
      * Add settler.

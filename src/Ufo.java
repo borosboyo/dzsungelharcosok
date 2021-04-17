@@ -33,9 +33,9 @@ public class Ufo extends Entity implements Steppable, IMine {
         Timer.getInstance().RemoveSteppable(this);
     }
 
-    public void Mine(){
-        if(getAsteroid().getCrustThickness()==0){
-            Material i=getAsteroid().MinedBy();
+    public void Mine() {
+        if (getAsteroid().getCrustThickness() == 0) {
+            Material i = getAsteroid().MinedBy();
             inventory.add(i);
         }
     }
