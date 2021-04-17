@@ -122,7 +122,7 @@ public class Settler extends Entity implements IDrill, IMine{
             }
         }
         //Ha van elég csükkentjuk es letrehozzuk a teleportot és hozzáadjuk a teleportlisthez
-        if(iron>=2&&ice>=1&&uranium>=1&&teleportlist.size()<=1){ //ha egy vagy semennyi nincs benne akkor tud craftolni
+        if(iron>=2&&ice>=1&&uranium>=1&&EnoughTeleportSpace()==true){ //ha egy vagy semennyi nincs benne akkor tud craftolni
             int deleteiron = 0; //kettot kell belole torolni ezert ezt igy csinalom
             boolean deleteice = true;
             boolean deleteuranium = true;
@@ -182,6 +182,17 @@ public class Settler extends Entity implements IDrill, IMine{
         if(teleportlist.get(0).getAsteroids().size()==2){
             teleportlist.remove(0);
         }
+    }
+
+
+    public boolean EnoughTeleportSpace(){
+        if(teleportlist.isEmpty()){
+            return true;
+        }
+        if(teleportlist.get(0).getAsteroids().size()==1){
+            return true;
+        }
+        return false;
     }
 
     /**
