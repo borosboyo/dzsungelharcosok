@@ -7,6 +7,7 @@ public class Teleport implements Steppable {
     int id;
     private boolean firstCrazy = false;
     private boolean secondCrazy = false;
+    private boolean exploded=false;
     private ArrayList<Asteroid> asteroids;
 
     public Teleport(int id) {
@@ -14,6 +15,9 @@ public class Teleport implements Steppable {
         this.id = id;
     }
 
+    public boolean getExploded(){
+        return exploded;
+    }
     public void HitBySunstorm(Asteroid a){
         if (asteroids.get(0) == a){
             firstCrazy = true;
@@ -52,7 +56,13 @@ public class Teleport implements Steppable {
      * @param a the asteroid to remove
      */
     public void RemoveAsteroid(Asteroid a){
-        asteroids.remove(a);
+
+        asteroids.remove(a);    //ez kell ha csak ez egyiknek kell megsemmisulnie
+        exploded=true;          // a settler tudja hogy ki kell torolni a tarolojabol
+        if(asteroids.get(0)!=null){     //ha van párja letéve (=marad egy masik asteroid is benne) kitorli rola magat
+            asteroids.get(0).getTeleports().remove(this);
+        }
+        asteroids.clear();          // torli az osszes asteroidat hogy biztos ne maradjon semmi benne
     }
 
     /**

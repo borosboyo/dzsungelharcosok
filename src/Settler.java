@@ -214,4 +214,12 @@ public class Settler extends Entity implements IDrill, IMine{
             this.getAsteroid().DrilledBy();
         }
     }
+
+    void Step(){
+       for(Teleport t: teleportlist){   //megnezni hogy felrobbant e valamelyik es ha igen kitorolni
+            if(t.getExploded()==true){
+                teleportlist.remove(t);
+            }
+       }
+    }
 }

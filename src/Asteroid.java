@@ -106,6 +106,7 @@ public class Asteroid {
 
         for (Teleport teleport : teleports) {
             teleport.RemoveAsteroid(this);
+            teleports.remove(teleport);
         }
 
         for (Entity entity : entities) {
