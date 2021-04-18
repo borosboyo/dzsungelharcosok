@@ -31,6 +31,16 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
         Timer.getInstance().Tick();
     }
 
+    public void Move(Asteroid a) {
+        if(this.getAsteroid().CheckNeighbour(a)){
+            this.getAsteroid().RemoveEntity(this);
+            a.Accept(this);
+            this.setAsteroid(a);
+            a.CheckBase();
+            CompleteAction();
+        }
+    }
+
     /**
      * Settler dies when it gets blown away.
      */
