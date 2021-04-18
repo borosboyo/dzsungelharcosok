@@ -29,6 +29,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
     public void CompleteAction(){
         Timer.getInstance().setCounter(Timer.getInstance().getCounter()+1); //noveljuk a countert eggyel
         Timer.getInstance().Tick();
+
     }
 
     public void Move(Asteroid a) {
