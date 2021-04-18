@@ -9,7 +9,7 @@ public class Field implements Steppable {
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
     private final ArrayList<Settler> ufos = new ArrayList();
-    private int counter=0;
+    private int sunstormcounter=0;
 
     public Field(int settlernumber, int maxthickness){
         //alap aszteroidak
@@ -22,18 +22,7 @@ public class Field implements Steppable {
         //random aszteroidak, telepesenkent +10db
         for(int i=6; i<settlernumber*10+6; i++){
             Random rand=new Random();
-            Material randmaterial;
-
-            switch(rand.nextInt(10000000)%5){
-                case 0: randmaterial=null;
-                case 1: randmaterial=new Ice();
-                case 2: randmaterial=new Coal();
-                case 3: randmaterial=new Iron();
-                case 4: randmaterial=new Uranium();
-                default: randmaterial=null;
-            }
-
-            asteroids.add(new Asteroid(i ,rand.nextInt(10000000)%maxthickness, rand.nextInt(10000000)%2==0, randmaterial));
+            asteroids.add(new Asteroid(i ,rand.nextInt(10000000)%maxthickness, rand.nextInt(10000000)%2==0, RandomMaterial()));
         }
 
         //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
@@ -79,7 +68,11 @@ public class Field implements Steppable {
     @Override
     public void Step() {
         SetNearSun();
-        SetSunStorm();
+        sunstormcounter++;
+        if(sunstormcounter==10){
+            SetSunStorm();
+            sunstormcounter=0;
+        }
     }
 
     /**
@@ -88,7 +81,6 @@ public class Field implements Steppable {
      * Set sunstorm for all asteroids
      */
     public void SetSunStorm() {
-        //valamennyi tickenként
         for (Asteroid a : asteroids) {
             if(a.isNearSun()) {
                 a.Sunstorm();
@@ -102,11 +94,14 @@ public class Field implements Steppable {
      * Set NearSun for specified asteroids and check if any asteroid is triggered
      */
     public void SetNearSun() {
-
-        //TODO: valami alapján truera vagy falsera állítani
+        Random rnd= new Random();
         for (Asteroid a : asteroids) {
-            a.setNearSun(true);
-            a.CheckTrigger();
+            if(a.getid()%rnd.nextInt(asteroids.size())==0) {
+                a.setNearSun(true);
+                a.CheckTrigger();
+            }else{
+                a.setNearSun(false);
+            }
         }
     }
 
