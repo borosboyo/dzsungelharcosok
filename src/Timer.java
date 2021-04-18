@@ -68,6 +68,7 @@ public class Timer {
             for (Steppable steppable : steppables) {
                 steppable.Step();
             }
+            counter=0;
         }
 
     }

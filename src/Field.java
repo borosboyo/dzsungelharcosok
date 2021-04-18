@@ -61,6 +61,7 @@ public class Field implements Steppable {
                 randasteroid=rand.nextInt(asteroids.size());
                 asteroids.get(randasteroid).Accept(u);
                 u.setAsteroid(asteroids.get(randasteroid));
+                Timer.getInstance().AddSteppable(u);
 
                 k++;
             }
@@ -70,9 +71,6 @@ public class Field implements Steppable {
         Timer.getInstance().AddSteppable(this);
         for(Settler s: settlers){
             Timer.getInstance().AddSteppable(s);
-        }
-        for(Settler u: ufos){
-            Timer.getInstance().AddSteppable(u);
         }
 
     }
