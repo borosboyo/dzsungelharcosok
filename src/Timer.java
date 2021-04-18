@@ -19,7 +19,7 @@ public class Timer {
     /**
      * Private constructor so the Timer stays singleton.
      */
-    private Timer(){}
+    private Timer(){ steppables = new ArrayList();}
 
     public int getCounter() {
         return counter;
