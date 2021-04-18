@@ -82,6 +82,7 @@ public class Game implements Serializable {
                 counter=0;
             }
 
+
             //TODO::consolra ki kell írni a játék állapotát
         }
     }

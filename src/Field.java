@@ -27,9 +27,9 @@ public class Field implements Steppable {
         //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
 
         for(Asteroid a: asteroids){
-            for(int i=0; i<settlernumber*10+6; i++){
+            for(int i=6; i<settlernumber*10+6; i++){
                 if((a.getid()+i)%4==0){
-                    a.getNeigbours().add(asteroids.get(i));
+                    a.getNeigbours().add(asteroids.get(i-1));
                 }
             }
         }
