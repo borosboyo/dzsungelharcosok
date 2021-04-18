@@ -5,27 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class Skeleton {
-    private Scanner input;
-    private int crust;
-    private boolean nearsun;
-
-    private Settler s1;
-    private Settler s2;
-    private Robot r1;
-    private Asteroid a1;
-    private Asteroid a2;
-    private Asteroid a3;
-    private Asteroid a4;
-    private Asteroid a5;
-    private Ice ice;
-    private Iron iron;
-    private Uranium uran;
-    private Coal coal;
-    private Teleport t1;
-
 
     public Skeleton(){
-        input = new Scanner(System.in);
+
     }
     private static String[] splitSentenceByWords(String str){
 
@@ -54,7 +36,7 @@ public class Skeleton {
                         long crust = Long.parseLong(words[5]);
                         boolean nearsun = Boolean.parseBoolean(words[6]);
                        Asteroid a = new Asteroid(Integer.parseInt(words[0]), crust, nearsun, null);
-                       Game.getInstance().field.AddAsteroid(a1);
+                       Game.getInstance().field.AddAsteroid(a);
                         switch (words[4]){
                             case "Iron": a.setMaterial(new Iron());
                             case "Coal": a.setMaterial(new Coal());
@@ -95,19 +77,38 @@ public class Skeleton {
         fr.close();
     }
 
+    // A következő függvény a játék aktuális állapotás írja ki
     public void writeout(Game g){
         for(int i = 0; i < g.field.getSettlers().size(); i++) {
             Settler s = g.field.getSettlers().get(i);
-            System.out.print("Settler {" + i + "," + s.getAsteroid() + "," + getNyersanyagok(s) + "," + getTelepotok(s));
+            System.out.println("Settler {" + i + "," + s.getAsteroid() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+        }
+        for(int i = 0; i < g.field.getRobots().size(); i++){
+            Robot r = g.field.getRobots().get(i);
+            System.out.println("Robot {" + i+g.field.getSettlers().size() + "," + r.getAsteroid() + "}");
+        }
+        for(int i = 0; i < g.field.getUfos().size(); i++){
+            Ufo u = g.field.getUfos().get(i);
+            System.out.println("Ufo {" + i+g.field.getSettlers().size()+g.field.getRobots().size() + "," + u.getAsteroid() + "}");
+        }
+
+        for(int i = 0; i < g.field.getAsteroids().size(); i++){
+            Asteroid a = g.field.getAsteroids().get(i);
+            System.out.println("Asteroid {" + i + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+                    Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
         }
     }
 
+    /**
+     * A következő 7 függvény  a játék állípotának a kiiratását segíti
+     */
     String getNyersanyagok(Settler s){
         String materials = new String();
         if(s.getInventory() == null)
             return "null";
         for(int i = 0; i < s.getInventory().size(); i++){
             materials += (s.getInventory().get(i).toString());
+            materials += ",";
         }
         return materials;
     }
@@ -118,73 +119,53 @@ public class Skeleton {
         String t = new String();
         for(int i = 0; i < s.getTeleportlist().size(); i++){
             t += s.getTeleportlist().get(i).toString();
+            t += ",";
         }
         return t;
-
     }
 
-
-/*
-    public static void main(String args[]){
-        Skeleton s = new Skeleton();
-        Game g = new Game();
-        int exit = 1;
-         do {
-            g.readCommands();
-            exit = s.EndTest(); //Az exit változót itt tuja módosítani a felhasználó
-        }while (exit != 0);  /*Ha exit == 0, akkor a program befejezi a futását,
-             *                  máskülönben újra a tesztek listája jelenik meg
-
-    } */
-
-
-
-    /**
-     * A tesztek lefutását követően hívódik meg az a függvény.
-     * Először kiírja a konzolra hogy vége a tesztnek, majd vár egy számot a felhasználótól
-     * @return egy integer, amit a felhasználó ad meg.
-     */
-    public int EndTest(){
-        System.out.println("**************************Test Ended**************************");
-        System.out.println("Press 0 to exit, press another number to choose another test!");
-        int exit = input.nextInt();
-        return exit;
-    }
-
-    /**
-     * A felhasználótól beolvas egy számot
-     * @return a felhasználó által megadott szám
-     */
-    public int  inputNumber(){
-        int number = input.nextInt();
-        while(number > 23 || number < 1){
-            System.out.println("The number was incorrect. Please enter a number between 1-23!");
-            number = input.nextInt();
+    String getTelepotokA(Asteroid a){
+        if(a.getTeleports() == null)
+            return "null";
+        String t = new String();
+        for(int i = 0; i < a.getTeleports().size(); i++){
+            t += a.getTeleports().get(i).toString();
+            t += ",";
         }
-        return number;
+        return t;
     }
 
-    public void SetCrustthicknessforTest(int crust){
-        System.out.println("Current crustthickness? (Write a number between 0-10)");
-                crust = input.nextInt();
-                while (crust > 10 || crust < 0) {
-                    System.out.println("The number was incorrect. Please enter a number between 0-10!)");
-                    crust = input.nextInt();
-                }
+    String getNyersanyagA(Asteroid a){
+        if(a.getMaterial() == null)
+            return "null";
+        return a.getMaterial().toString();
     }
 
-    /**
-     * Az esztétikus kiírást segítő függvény
-     * @param functions a függvények neveit veszi át egy String[] tömbbe
-     */
-    public void WriteTest(String[] functions){
-        System.out.print("\n");
-        for(int i = 0; i < functions.length; i++){
-            for(int j = 0; j < i; j++)
-                System.out.print("|\t");
-            System.out.print(functions[i]+ "\n");
+    String Nearsun(Asteroid a){
+        return a.isNearSun() ? "true" : "false";
+    }
+
+    String Szomszedok(Asteroid a){
+       String sz = new String();
+       if(a.getNeigbours() == null)
+           return "null";
+        for(int i = 0; i > a.getNeigbours().size(); i++) {
+            sz += a.getNeigbours().get(i).toString();
+            sz += ",";
         }
-        System.out.print("\n");
+        return sz;
+    }
+
+    String Entitasok(Asteroid a){
+        if(a.getEntities() == null)
+            return "null";
+        String e = new String();
+        for(int i = 0; i < a.getEntities().size(); i++){
+            e+= a.getEntities().get(i).toString();
+            e+= ",";
+        }
+
+        return e;
     }
 
 }

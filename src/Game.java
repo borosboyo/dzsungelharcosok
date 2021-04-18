@@ -70,13 +70,14 @@ public class Game implements Serializable {
         //TODO::game-ben példányosítani a menüt, ami állapotok változtat és az alapján fur tovább a main
 
         game.StartGame(true);
-
+        Skeleton s = new Skeleton();
+        s.writeout(game);
         int counter = 0;
 
         while(!game.EndGame()){
             game.readCommands();
             counter++;
-
+            s.writeout(game);
             if(counter == game.field.getSettlers().size()){
                 Timer.getInstance().Tick();
                 counter=0;

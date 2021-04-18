@@ -8,6 +8,9 @@ public class Field implements Steppable {
 
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
+    private final ArrayList<Robot> robots = new ArrayList();
+    private final ArrayList<Ufo> ufos = new ArrayList();
+
     private int sunstormcounter=0;
 
     public Field(int settlernumber, int maxthickness){
@@ -187,6 +190,13 @@ public class Field implements Steppable {
         return settlers;
     }
 
+    public ArrayList<Robot> getRobots() {
+        return robots;
+    }
+
+    public ArrayList<Ufo> getUfos() {
+        return ufos;
+    }
 
     /**
      * Add settler.
