@@ -164,7 +164,7 @@ public class Field implements Steppable {
      *
      * @return the random material
      */
-//TODO: az aszteroida paraméterében kell majd átadni
+
     Material RandomMaterial(){
         Random rand = new Random();
         Material mat = null;

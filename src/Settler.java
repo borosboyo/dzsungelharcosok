@@ -26,11 +26,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
         teleportlist= new ArrayList<Teleport>();
     }
 
-    public void CompleteAction(){
-        Timer.getInstance().setCounter(Timer.getInstance().getCounter()+1); //noveljuk a countert eggyel
-        Timer.getInstance().Tick();
 
-    }
 
     public void Move(Asteroid a) {
         if(this.getAsteroid().CheckNeighbour(a)){
@@ -38,7 +34,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
             a.Accept(this);
             this.setAsteroid(a);
             a.CheckBase();
-            CompleteAction();
+
         }
     }
 
@@ -114,7 +110,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
             Timer.getInstance().AddSteppable(r);
-            CompleteAction();
+
         }
 
 
@@ -169,7 +165,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
             Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
             this.teleportlist.add(t);
             Timer.getInstance().AddSteppable(t);
-            CompleteAction();
+
         }
     }
 
@@ -182,7 +178,6 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
             inventory.add(i);
             getAsteroid().CheckBase();
 
-            CompleteAction();
         }
     }
 
@@ -194,7 +189,6 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
             getAsteroid().AddMaterial(inventory.get(inventory.size()-1));
             inventory.remove(0);
 
-            CompleteAction();
         }
     }
 
@@ -206,7 +200,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
         if(teleportlist.get(0).getAsteroids().size()==2){
             teleportlist.remove(0);
         }
-        CompleteAction();
+
     }
 
 
@@ -238,7 +232,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
         if(this.getAsteroid().getCrustThickness()>0){
             this.getAsteroid().DrilledBy();
         }
-        CompleteAction();
+
     }
 
     public void Step(){

@@ -64,6 +64,9 @@ public class Timer {
      * Tick that happens every X seconds or rounds.
      */
     public void Tick(){
+
+        Game.getInstance().readCommands();
+        counter++;
         if(counter==settlernumber){
             for (Steppable steppable : steppables) {
                 steppable.Step();

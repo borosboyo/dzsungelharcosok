@@ -51,7 +51,7 @@ public class Game implements Serializable {
     /**
      * The Field that contains all the asteroids and settlers.
      */
-    Field field = new Field(5,3); //TODO: atadni hany settler es max keregvastagsag
+    Field field; //TODO: atadni hany settler es max keregvastagsag
 
 
     /**
@@ -84,8 +84,8 @@ public class Game implements Serializable {
      * @throws ClassNotFoundException
      */
     public void loadGame() throws IOException, ClassNotFoundException{
-        final ObjectInputStream input = new ObjectInputStream(new FileInputStream("game_status"));
-        game = (Game)input.readObject();
+        final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
+        field = (Field)input.readObject();
     }
 
     /**
@@ -93,8 +93,8 @@ public class Game implements Serializable {
      * @throws IOException
      */
     public void saveGame() throws IOException{
-        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("game_status"));
-        output.writeObject(game);
+        ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("field_status"));
+        output.writeObject(field);
     }
 
     //TODO::ezt nem tudom, hogy hova akarjuk majd írni és honna akarjuk meghívni (akkor kell meghívni amikor a játékos lépni akar)
