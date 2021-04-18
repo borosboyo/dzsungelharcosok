@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * The type Entity.
  */
-public abstract class Entity {
+public abstract class Entity implements Steppable{
 
     /**
      * The asteroid that the entity is on
@@ -83,6 +83,5 @@ public abstract class Entity {
     public void UseTeleport(Teleport t) {
         t.Transfer(this);
     }
-
 
 }

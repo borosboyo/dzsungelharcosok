@@ -88,6 +88,6 @@ public class Teleport implements Steppable {
      */
     @Override
     public void Step() {
-        //TODO: megcsinálni
+        //TODO: megkergülés esetén lépkednek ezt is meg kell írni még!!!!!!!!!
     }
 }

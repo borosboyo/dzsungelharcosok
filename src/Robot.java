@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * The type Robot.
  */
-public class Robot extends Entity implements Steppable, IDrill {
+public class Robot extends Entity implements IDrill {
 
 
     public Robot(int id){

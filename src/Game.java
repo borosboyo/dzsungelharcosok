@@ -57,16 +57,49 @@ public class Game implements Serializable {
     /**
      * Ends the game if the Settlers lose.
      */
-    public void EndGame(){
-        System.out.print("Settlers lose!");
+    public boolean EndGame(){
+        if(field.getSettlers().size() < 1){
+            System.out.print("Settlers lose!");
+            return true;
+        }
+        return false;
     }
 
+    public static void main(String []args){
+        //TODO:menubol változokat átadni ide, pls Dani
+        //TODO::game-ben példányosítani a menüt, ami állapotok változtat és az alapján fur tovább a main
+
+        game.StartGame(true);
+
+        int counter = 0;
+
+        while(!game.EndGame()){
+            game.readCommands();
+            counter++;
+
+            if(counter == game.field.getSettlers().size()){
+                Timer.getInstance().Tick();
+                counter=0;
+            }
+
+            //TODO::consolra ki kell írni a játék állapotát
+        }
+    }
 
     /**
      * Starts the game.
      */
-    public void StartGame(){
-
+    public void StartGame(boolean isNew){
+        if(isNew){
+            field = new Field(5,3);
+        }
+        else{
+            try {
+                loadGame();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -112,6 +145,7 @@ public class Game implements Serializable {
         while(!correct){
             in = console_read.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
+            se =  field.getSettlers().get(Integer.parseInt(commands[1]));
 
             switch (commands[0]){
                  case "move":{
@@ -120,7 +154,6 @@ public class Game implements Serializable {
                          correct = false;
                          break;
                      }
-                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                      se.Move(field.getAsteroids().get(Integer.parseInt(commands[2])));
                      correct = true;
                 }
@@ -130,7 +163,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Drill();
                     correct = true;
                 }
@@ -140,7 +172,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Mine();
                     correct = true;
                 }
@@ -150,7 +181,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.UseTeleport(se.getAsteroid().getTeleports().get(Integer.parseInt(commands[2])));
                     correct = true;
                 }
@@ -160,7 +190,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceTeleport();
                     correct = true;
                 }
@@ -170,7 +199,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceMaterial();
                     correct = true;
                 }
@@ -180,7 +208,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.MakeTeleport();
                     correct = true;
                 }
@@ -190,7 +217,6 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.BuildRobot();
                     correct = true;
                 }

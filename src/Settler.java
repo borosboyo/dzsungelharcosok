@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * The type Settler.
  */
-public class Settler extends Entity implements IDrill, IMine, Steppable{
+public class Settler extends Entity implements IDrill, IMine{
 
 
     /**
@@ -235,6 +235,7 @@ public class Settler extends Entity implements IDrill, IMine, Steppable{
 
     }
 
+    @Override
     public void Step(){
        for(Teleport t: teleportlist){   //megnezni hogy felrobbant e valamelyik es ha igen kitorolni
             if(t.getExploded()==true){

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ufo extends Entity implements Steppable, IMine {
+public class Ufo extends Entity implements IMine {
     private ArrayList<Material> inventory;
 
     public Ufo(int id){

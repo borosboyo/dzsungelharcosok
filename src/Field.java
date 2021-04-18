@@ -8,7 +8,6 @@ public class Field implements Steppable {
 
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
-    private final ArrayList<Settler> ufos = new ArrayList();
     private int sunstormcounter=0;
 
     public Field(int settlernumber, int maxthickness){
@@ -44,7 +43,6 @@ public class Field implements Steppable {
             asteroids.get(randasteroid).Accept(s);
             s.setAsteroid(asteroids.get(randasteroid));
 
-
             if(i%5==0){
                 Ufo u= new Ufo(k);
                 randasteroid=rand.nextInt(asteroids.size());
@@ -63,7 +61,6 @@ public class Field implements Steppable {
         }
 
     }
-
 
     @Override
     public void Step() {
