@@ -28,7 +28,7 @@ public class Skeleton implements Serializable{
         Game.getInstance().field = new Field();
         ArrayList<String> szomszedok = new ArrayList();
 
-        if(filename.equals("special.txt")){
+        if(filename.equals("Special.txt")){
             Uranium u = new Uranium();
             u.setExponation(2);
             Asteroid a = new Asteroid(1, 0, false, u);

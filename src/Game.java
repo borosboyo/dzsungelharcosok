@@ -128,11 +128,10 @@ public class Game implements Serializable {
                 }
                 case 3:{
                     //TODO::Biros tesztek futtatása itt
-                   // test = true;
-                  //  break;
-                    Skeleton s = new Skeleton();
-                    s.fileRead("test.txt");
-                    s.writeout(Game.getInstance());
+                    test = true;
+                    Game.getInstance().test_menu();
+                    break;
+
                 }
                 case 4:{
                     return;
