@@ -1,3 +1,4 @@
+sunstorm 2
 Asteroid{1,null,Iron,3,true,(2;5;6;12),null}
 Asteroid{2,null,null,4,true,(1;4;9),(1;2)}
 Asteroid{3,null,Ice,5,false,(10;11),null}

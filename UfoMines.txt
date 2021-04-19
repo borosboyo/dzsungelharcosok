@@ -1,3 +1,4 @@
+mine 5
 Asteroid{1,null,Iron,3,true,(2;5;6;12),null}
 Asteroid{2,null,Coal,0,true,(1;4;9),(1;2;3;4;5)}
 Asteroid{3,null,Ice,5,false,(10;11),null}
