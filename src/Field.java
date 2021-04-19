@@ -6,19 +6,17 @@ import java.util.Random;
  * The type Field.
  */
 public class Field implements Steppable, Serializable {
-
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
     private final ArrayList<Robot> robots = new ArrayList();
     private final ArrayList<Ufo> ufos = new ArrayList();
-
     private int sunstormcounter=0;
 
-    public Field(){
-
-
-    }
-
+    /**
+     * Field initialization (Add Asteroids, Settlers and Ufos)
+     * @param settlernumber number of the settlers in the game
+     * @param maxthickness max crust thickness
+     */
     public void newField(int settlernumber, int maxthickness){
         //alap aszteroidak
         asteroids.add(new Asteroid(0 , 3, true, new Ice()));
@@ -71,6 +69,9 @@ public class Field implements Steppable, Serializable {
         }
     }
 
+    /**
+     * Game state stepping
+     */
     @Override
     public void Step() {
         SetNearSun();
@@ -187,19 +188,34 @@ public class Field implements Steppable, Serializable {
         return mat;
     }
 
-
+    /**
+     * Asteroid arraylist getter
+     * @return with the asteroids list
+     */
     public ArrayList<Asteroid> getAsteroids() {
         return asteroids;
     }
 
+    /**
+     * Settler arraylist getter
+     * @return with the settlers list
+     */
     public ArrayList<Settler> getSettlers() {
         return settlers;
     }
 
+    /**
+     * Robot arraylist getter.
+     * @return with the robots list
+     */
     public ArrayList<Robot> getRobots() {
         return robots;
     }
 
+    /**
+     * Ufo arraylist getter
+     * @return with the ufos list
+     */
     public ArrayList<Ufo> getUfos() {
         return ufos;
     }

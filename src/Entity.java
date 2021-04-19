@@ -26,6 +26,11 @@ public abstract class Entity implements Steppable, Serializable {
     public Asteroid getAsteroid() {
         return asteroid;
     }
+
+    /**
+     * Id Getter
+     * @return with the material Id
+     */
     public int getId(){
         return id;
     }
@@ -52,18 +57,7 @@ public abstract class Entity implements Steppable, Serializable {
      *
      */
     public abstract void Die();
-/*
-    /**
-     * Drill.
-     *
-     * Entity drills the crust of the asteroid.
 
-    public void Drill() {
-        if(this.getAsteroid().getCrustThickness()>0){
-            this.getAsteroid().DrilledBy();
-        }
-    }
-    */
     /**
      * Move.
      *

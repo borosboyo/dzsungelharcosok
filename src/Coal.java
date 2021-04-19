@@ -12,7 +12,7 @@ public class Coal extends Material{
     }
     /**
      * Returns name of the material
-    */ 
+    */
     @Override
     public String getName(){
         return "Coal";
