@@ -141,8 +141,8 @@ public class Game implements Serializable {
                 case 3:{
                     //TODO::Biros tesztek futtatása itt
                     test = true;
-                    Skeleton s = new Skeleton();
-                    s.writeout(Game.getInstance());
+                 //   Skeleton s = new Skeleton();
+                   // s.writeout(Game.getInstance());
                     Game.getInstance().test_menu();
                     break;
 
