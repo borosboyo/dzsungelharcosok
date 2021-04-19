@@ -89,7 +89,6 @@ public class Teleport implements Steppable, Serializable {
      */
     @Override
     public void Step() {
-        //TODO: megkergülés esetén lépkednek ezt is meg kell írni még!!!!!!!!!
 
         if(firstCrazy==true){
             asteroids.set(0, asteroids.get(0).GetRandomNeighbour());
