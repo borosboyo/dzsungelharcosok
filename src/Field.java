@@ -44,6 +44,7 @@ public class Field implements Steppable {
             Settler s= new Settler(i);
             int randasteroid=rand.nextInt(asteroids.size());
             asteroids.get(randasteroid).Accept(s);
+            settlers.add(s);
             s.setAsteroid(asteroids.get(randasteroid));
 
             if(i%5==0){
@@ -52,7 +53,7 @@ public class Field implements Steppable {
                 asteroids.get(randasteroid).Accept(u);
                 u.setAsteroid(asteroids.get(randasteroid));
                 Timer.getInstance().AddSteppable(u);
-
+                ufos.add(u);
                 k++;
             }
         }

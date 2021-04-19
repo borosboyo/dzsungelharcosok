@@ -99,12 +99,14 @@ public class Skeleton {
         }
     }
 
+
+
     /**
      * A következő 7 függvény  a játék állípotának a kiiratását segíti
      */
     String getNyersanyagok(Settler s){
         String materials = new String();
-        if(s.getInventory() == null)
+        if(s.getInventory().size() == 0)
             return "null";
         for(int i = 0; i < s.getInventory().size(); i++){
             materials += (s.getInventory().get(i).toString());
@@ -114,7 +116,7 @@ public class Skeleton {
     }
 
     String getTelepotok(Settler s){
-        if(s.getTeleportlist() == null)
+        if(s.getTeleportlist().size() == 0)
             return "null";
         String t = new String();
         for(int i = 0; i < s.getTeleportlist().size(); i++){
