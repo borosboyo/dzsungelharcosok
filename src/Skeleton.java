@@ -149,12 +149,16 @@ public class Skeleton implements Serializable{
     public void writeout(Game g){
         for(int i = 0; i < g.field.getSettlers().size(); i++) {
             Settler s = g.field.getSettlers().get(i);
-            System.out.println("Settler {" + i + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+            if(s.getAsteroid() != null){
+                System.out.println("Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+            }
         }
         for(int i = 0; i < g.field.getRobots().size(); i++){
             Robot r = g.field.getRobots().get(i);
             int id = i +g.field.getSettlers().size();
-            System.out.println("Robot {" + id + "," + r.getAsteroid() + "}");
+            if(r.getAsteroid() != null) {
+                System.out.println("Robot {" + id + "," + r.getAsteroid() + "}");
+            }
         }
         for(int i = 0; i < g.field.getUfos().size(); i++){
             Ufo u = g.field.getUfos().get(i);

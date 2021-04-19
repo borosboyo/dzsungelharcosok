@@ -112,17 +112,17 @@ public class Asteroid implements Serializable {
     public void Explode(){
         Game.getInstance().field.RemoveAsteroid(this);
 
-        for (Teleport teleport : teleports) {
-            teleport.RemoveAsteroid(this);
-            teleports.remove(teleport);
+        for (int i = 0; i< teleports.size(); i++){
+            teleports.get(i).RemoveAsteroid(this);
+            teleports.remove(teleports.get(i));
         }
 
-        for (Entity entity : entities) {
-            entity.Blow();
+        for (int i = 0; i < entities.size(); i++){
+            entities.get(i).Blow();
         }
 
-        for (Asteroid neighbour : neighbours) {
-            neighbour.RemoveNeighbour(this);
+        for(int i = 0; i < neighbours.size(); i++){
+            neighbours.get(i).RemoveNeighbour(this);
         }
 
         for (int i=0; i< neighbours.size(); i++){
@@ -209,12 +209,12 @@ public class Asteroid implements Serializable {
             return;
         }
         if(crustThickness != 0 && material != null){
-            for (Entity entity : entities) {
-                entity.Die();
+            for(int i = 0; i < entities.size(); i++){
+                entities.get(i).Die();
             }
         }
-        for(Teleport t: teleports){
-            t.HitBySunstorm(this);
+        for (int i = 0; i < teleports.size(); i++){
+            teleports.get(i).HitBySunstorm(this);
         }
     }
 

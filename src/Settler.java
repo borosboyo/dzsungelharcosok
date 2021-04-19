@@ -52,6 +52,7 @@ public class Settler extends Entity implements IDrill, IMine{
     @Override
     public void Die(){
         getAsteroid().RemoveEntity(this);
+        Game.getInstance().field.getSettlers().remove(this);
         setAsteroid(null);
     }
 
