@@ -11,6 +11,7 @@ public class Game implements Serializable {
      */
     private boolean win = false;
 
+    private Scanner console_read = new Scanner(System.in);
 
     /**
      * Is win boolean.
@@ -54,10 +55,6 @@ public class Game implements Serializable {
      */
     Field field;
 
-    /**
-     * Scanner for the menu console reading.
-     */
-    private Scanner console_read = new Scanner(System.in);
 
     /**
      * Ends the game if the Settlers lose.
@@ -70,10 +67,6 @@ public class Game implements Serializable {
         return false;
     }
 
-    /**
-     * Start menu
-     * @return
-     */
     public int menu(){
         boolean isCorrect = false;
         int re_num = 0;
@@ -116,11 +109,7 @@ public class Game implements Serializable {
         return re_num;
     }
 
-    /**
-     * Main methods. This is where the program runs.
-     * @param args
-     * @throws IOException
-     */
+
     public static void main(String []args) throws IOException {
         boolean new_game = true;
         boolean test = false;
@@ -138,10 +127,12 @@ public class Game implements Serializable {
                     break;
                 }
                 case 3:{
+                    //TODO::Biros tesztek futtatása itt
+                   // test = true;
+                  //  break;
                     Skeleton s = new Skeleton();
                     s.fileRead("test.txt");
                     s.writeout(Game.getInstance());
-                    break;
                 }
                 case 4:{
                     return;
@@ -162,6 +153,7 @@ public class Game implements Serializable {
             }
 
             Skeleton s = new Skeleton();
+            //s.writeout(game);
             int counter = 0;
             boolean menu = false;
 
@@ -176,6 +168,67 @@ public class Game implements Serializable {
             }
         }
 
+    }
+
+    public void test_menu() throws IOException {
+        System.out.println("Melyik teszt esetet szeretnéd futtatni?");
+        System.out.println("Entity moves - press 1");
+        System.out.println("Entity tries to move on not neighbour - press 2");
+        System.out.println("Entity tries to use unpaired teleport - press 3");
+        System.out.println("Entity uses teleport - press 4");
+        System.out.println("Robot drills ice - press 5");
+        System.out.println("Robot drills non-trigger - press 6");
+        System.out.println("Robot drills radioactice - press 7");
+        System.out.println("Settler builds robot - press 8");
+        System.out.println("Settler drills ice - press 9");
+        System.out.println("Settler drills non-trigger - press 10");
+        System.out.println("Settler drills radioactive - press 11");
+        System.out.println("Settler makes teleport - press 12");
+        System.out.println("Settler mines - press 13");
+        System.out.println("Settler place material - press 14");
+        System.out.println("Settler place teleport - press 15");
+        System.out.println("Settler tries to build robot without materials - press 16");
+        System.out.println("Settler tries to make teleport with full inventory - press 17");
+        System.out.println("Settler tries to make teleport with no materials - press 18");
+        System.out.println("Settler tries to mine on invalid asteroid - press 19");
+        System.out.println("Settler tries to place material on invalid asteroid - press 20");
+        System.out.println("Settler tries to mine with full inventory - press 21");
+        System.out.println("Settler wins game with move - press 22");
+        System.out.println("Special - press 23");
+        System.out.println("Sunstorm on asteroid - press 24");
+        System.out.println("Ufo mines - press 25");
+        System.out.println("Ufo tries to mine on invalid asteroid - press 26");
+        System.out.println("All settlers die - press 28");
+        Skeleton s = new Skeleton();
+        int numb = console_read.nextInt();
+        switch (numb){
+            case 1:  s.fileRead("EntityMoves.txt");
+            case 2:  s.fileRead("EntityTriesToMoveOnNotNeighbour.txt");
+            case 3:  s.fileRead("EntityTriesToUseUnpairedTeleport.txt");
+            case 5:  s.fileRead("EntityUsesTeleport.txt");
+            case 6:  s.fileRead("RobotDrillsIce.txt");
+            case 7:  s.fileRead("RobotDrillsNon-trigger.txt");
+            case 8:  s.fileRead("RobotDrillsRadioactive.txt");
+            case 9:  s.fileRead("SettlerBuildsRobot.txt");
+            case 10:  s.fileRead("SettlerDrillsIce.txt");
+            case 11:  s.fileRead("SettlerDrillsNon-trigger.txt");
+            case 12: s.fileRead("SettlerDrillsRadioactive.txt");
+            case 13: s.fileRead("SettlerMakesTeleport.txt");
+            case 14: s.fileRead("SettlerMines.txt");
+            case 15: s.fileRead("SettlerPlaceMaterial.txt");
+            case 16: s.fileRead("SettlerPlaceTeleport.txt");
+            case 17: s.fileRead("SettlerTriesToBuildRobotWithoutMaterials.txt");
+            case 18: s.fileRead("SettlerTriesToMakeTeleportWithFullInventory.txt");
+            case 19: s.fileRead("SettlerTriesToMakeTeleportWithNoMaterials.txt");
+            case 20: s.fileRead("SettlerTriesToMineOnInvalidAsteroid.txt");
+            case 21: s.fileRead("SettlerTriesToMineWithFullyInventory.txt");
+            case 22: s.fileRead("SettlerTriesToPlaceMaterialOnInvalidAsteroid.txt");
+            case 23: s.fileRead("SettlerWinsGameWithMove.txt");
+            case 24: s.fileRead("Special.txt");
+            case 25: s.fileRead("SunstormOnAsteroid.txt");
+            case 26: s.fileRead("UfoMines.txt");
+            case 27: s.fileRead("AllSettlersDie.txt");
+        }
     }
 
     /**
@@ -210,18 +263,18 @@ public class Game implements Serializable {
     }
 
     /**
-     *Load the saved game (if exists)
+     *
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void loadGame() throws IOException, ClassNotFoundException{
+    public void loadGame() throws IOException, ClassNotFoundException{ //TODO::ha nincs fájl, akkor térjen vissza a menübe
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
         System.out.println(input);
         field = (Field)input.readObject();
     }
 
     /**
-     *Save (Serialization) the game.
+     *
      * @throws IOException
      */
     public void saveGame() throws IOException{
@@ -230,14 +283,11 @@ public class Game implements Serializable {
     }
 
     /**
-     * Scanner for the commands console reading.
+     * Parancsok olvasása a játékhoz
      */
+
     private Scanner console_read2 = new Scanner(System.in);
 
-    /**
-     * One possible player step in the game
-     * @return true if the game step back to the menu
-     */
     public boolean step_gamer(){
         String in;
         String[] commands;
@@ -278,11 +328,6 @@ public class Game implements Serializable {
         return false;
     }
 
-    /**
-     * Execute instructions received in an array
-     * @param commands String block for the commands
-     * @return
-     */
     public boolean read_command(String[] commands){
         boolean correct = false;
         Settler se = null;
