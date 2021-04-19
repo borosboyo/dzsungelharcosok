@@ -74,7 +74,6 @@ public class Skeleton implements Serializable{
                                 a.addTeleport(new Teleport(Integer.parseInt(words[2])));
                             }
                             szomszedok.add(words[6]);
-                            //TODO: szomszedok
                         }
                         case "Settler" -> {
                             Settler s = new Settler(Integer.parseInt(words[1]));          //id
