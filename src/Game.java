@@ -213,7 +213,7 @@ public class Game implements Serializable {
 
             switch (commands[0]){
                  case "move":{
-                     if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getAsteroids().size()){
+                     if(commands.length != 3 || /* Integer.parseInt(commands[1]) >= field.getSettlers().size() ||*/ Integer.parseInt(commands[2]) >= field.getAsteroids().size()){
                          System.out.println("Helytelen parancs!");
                          correct = false;
                          break;

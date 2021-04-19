@@ -151,11 +151,11 @@ public class Skeleton implements Serializable{
 
     String Szomszedok(Asteroid a){
        String sz = new String();
-       if(a.getNeigbours() == null)
+       if(a.getNeigbours().size() == 0)
            return "null";
-        for(int i = 0; i > a.getNeigbours().size(); i++) {
+        for(int i = 0; i < a.getNeigbours().size(); i++) {
             sz += a.getNeigbours().get(i).getid();
-            if(a.getNeigbours().size() -  1< i)
+            if(a.getNeigbours().size() -  1 > i)
                 sz += ",";
         }
         return sz;
@@ -167,7 +167,7 @@ public class Skeleton implements Serializable{
         String e = new String();
         for(int i = 0; i < a.getEntities().size(); i++){
             e+= a.getEntities().get(i).getId();
-            if(a.getEntities().size() - 1 < i)
+            if(a.getEntities().size() - 1 > i)
                 e+= ",";
         }
 
