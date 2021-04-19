@@ -110,7 +110,7 @@ public class Skeleton implements Serializable{
         if(s.getInventory().size() == 0)
             return "null";
         for(int i = 0; i < s.getInventory().size(); i++){
-            materials += (s.getInventory().get(i).toString());
+            materials += (s.getInventory().get(i).getName());
             materials += ",";
         }
         return materials;
@@ -142,7 +142,7 @@ public class Skeleton implements Serializable{
     String getNyersanyagA(Asteroid a){
         if(a.getMaterial() == null)
             return "null";
-        return a.getMaterial().toString();
+        return a.getMaterial().getName();
     }
 
     String Nearsun(Asteroid a){
@@ -151,7 +151,7 @@ public class Skeleton implements Serializable{
 
     String Szomszedok(Asteroid a){
        String sz = new String();
-       if(a.getNeigbours() == null)
+       if(a.getNeigbours().size() == 0)
            return "null";
         for(int i = 0; i < a.getNeigbours().size(); i++) {
             sz += a.getNeigbours().get(i).getid();
@@ -167,7 +167,7 @@ public class Skeleton implements Serializable{
         String e = new String();
         for(int i = 0; i < a.getEntities().size(); i++){
             e+= a.getEntities().get(i).getId();
-            if(a.getEntities().size() - 1 < i)
+            if(a.getEntities().size() - 1 > i)
                 e+= ",";
         }
 
