@@ -199,6 +199,7 @@ public class Game implements Serializable {
         System.out.println("Ufo mines - press 25");
         System.out.println("Ufo tries to mine on invalid asteroid - press 26");
         System.out.println("All settlers die - press 28");
+        System.out.println("All test - press 29");
         Skeleton s = new Skeleton();
         int numb = console_read.nextInt();
         switch (numb){
@@ -227,7 +228,9 @@ public class Game implements Serializable {
             case 24: s.fileRead("Special.txt");
             case 25: s.fileRead("SunstormOnAsteroid.txt");
             case 26: s.fileRead("UfoMines.txt");
-            case 27: s.fileRead("AllSettlersDie.txt");
+            case 27: s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
+            case 28: s.fileRead("AllSettlersDie.txt");
+            case 29: //TODO: minden tesztet futtatni
         }
     }
 
