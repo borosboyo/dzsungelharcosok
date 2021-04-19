@@ -27,6 +27,9 @@ public class Asteroid implements Serializable {
         this.crustThickness = crustThickness;
         this.nearSun = nearSun;
         this.material = material;
+        if(material != null){
+            material.setAsteroid(this);
+        }
         this.id = id;
     }
 
@@ -75,7 +78,7 @@ public class Asteroid implements Serializable {
      * Check trigger.
      */
     public void CheckTrigger(){
-        if(this.nearSun && this.crustThickness == 0 && material != null){
+        if(this.nearSun && this.crustThickness == 0 && this.material != null){
             material.Trigger();
         }
     }
