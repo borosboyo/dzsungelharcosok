@@ -75,7 +75,7 @@ public class Asteroid implements Serializable {
      * Check trigger.
      */
     public void CheckTrigger(){
-        if(this.nearSun && this.crustThickness == 0){
+        if(this.nearSun && this.crustThickness == 0 && material != null){
             material.Trigger();
         }
     }

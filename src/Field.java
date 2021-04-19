@@ -102,7 +102,7 @@ public class Field implements Steppable, Serializable {
     public void SetNearSun() {
         Random rnd= new Random();
         for (Asteroid a : asteroids) {
-            if(a.getid()%rnd.nextInt(asteroids.size())==0) {
+            if((a.getid() % rnd.nextInt(asteroids.size())) == 0) {
                 a.setNearSun(true);
                 a.CheckTrigger();
             }else{

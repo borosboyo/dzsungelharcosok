@@ -19,7 +19,7 @@ public class Uranium extends Material{
     @Override
     public void Trigger() {
         exponation++;
-        if(exponation == 3){
+        if(exponation == 3 && asteroid != null){
             asteroid.Explode();
         }
 

@@ -9,7 +9,9 @@ public class Ice extends Material{
      */
     @Override
     public void Trigger() {
-        asteroid.RemoveMaterial();
+        if(asteroid != null){
+            asteroid.RemoveMaterial();
+        }
     }
 
     @Override

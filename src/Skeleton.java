@@ -176,8 +176,10 @@ public class Skeleton implements Serializable{
         if(s.getInventory().size() == 0)
             return "null";
         for(int i = 0; i < s.getInventory().size(); i++){
-            materials += (s.getInventory().get(i).getName());
-            materials += ",";
+            if (s.getInventory().get(i) != null){
+                materials += (s.getInventory().get(i).getName());
+                materials += ",";
+            }
         }
         return materials;
     }

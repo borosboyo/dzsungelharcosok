@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Ufo extends Entity implements IMine {
-    private ArrayList<Material> inventory;
+    private ArrayList<Material> inventory = new ArrayList();
 
     public Ufo(int id){
         super(id);
@@ -17,7 +17,7 @@ public class Ufo extends Entity implements IMine {
         if ((crust == 0) && (getAsteroid().getMaterial() != null)) {  //Ha tud mine-ol különben mozog
             Mine();
         } else {
-            if ((teleport.getAsteroids().size() == 2) && (rand.nextInt(100) < 30)) {
+            if ((teleport != null && teleport.getAsteroids().size() == 2) && (rand.nextInt(100) < 30)) {
                 UseTeleport(teleport);
             } else {
                 Move(getAsteroid().GetRandomNeighbour());
