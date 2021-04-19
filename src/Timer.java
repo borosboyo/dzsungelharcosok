@@ -29,6 +29,10 @@ public class Timer {
         counter=i;
     }
 
+    /**
+     * Settler number setter
+     * @param i
+     */
     public void setSettlernumber(int i){
         settlernumber=i;
     }

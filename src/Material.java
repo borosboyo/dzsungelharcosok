@@ -15,8 +15,16 @@ public abstract class Material implements Serializable {
      */
     public abstract void Trigger();
 
+    /**
+     * Name getter
+     * @return with the Material name
+     */
     public abstract String getName();
 
+    /**
+     * Aszteroid getter
+     * @return with the Asteroid
+     */
     public Asteroid getAsteroid() {
         return asteroid;
     }

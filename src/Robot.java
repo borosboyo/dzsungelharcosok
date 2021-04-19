@@ -6,7 +6,10 @@ import java.util.Random;
  */
 public class Robot extends Entity implements IDrill {
 
-
+    /**
+     * Contructor of the Robot class
+     * @param id Robot Id
+     */
     public Robot(int id){
         super(id);
     }
@@ -49,6 +52,9 @@ public class Robot extends Entity implements IDrill {
         }
     }
 
+    /**
+     * Drilling
+     */
     @Override
     public void Drill() {
         if(this.getAsteroid().getCrustThickness()>0){

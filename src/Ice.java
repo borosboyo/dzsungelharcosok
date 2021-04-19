@@ -14,6 +14,10 @@ public class Ice extends Material{
         }
     }
 
+    /**
+     * Name getter
+     * @return with the material name
+     */
     @Override
     public String getName(){
         return "Ice";

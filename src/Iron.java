@@ -11,6 +11,10 @@ public class Iron  extends Material{
 
     }
 
+    /**
+     * Name getter
+     * @return with the Material name
+     */
     @Override
     public String getName(){
         return "Iron";

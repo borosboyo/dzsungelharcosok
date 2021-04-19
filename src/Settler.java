@@ -27,7 +27,10 @@ public class Settler extends Entity implements IDrill, IMine{
     }
 
 
-
+    /**
+     *
+     * @param a the asteroid that the entity will move onto
+     */
     public void Move(Asteroid a) {
         if(this.getAsteroid().CheckNeighbour(a)){
             this.getAsteroid().RemoveEntity(this);
@@ -204,7 +207,10 @@ public class Settler extends Entity implements IDrill, IMine{
 
     }
 
-
+    /**
+     * Check the leleport list size
+     * @return true if there is still room in it
+     */
     public boolean EnoughTeleportSpace(){
         if(teleportlist.isEmpty()){
             return true;
@@ -224,10 +230,17 @@ public class Settler extends Entity implements IDrill, IMine{
         return inventory;
     }
 
+    /**
+     * Teleport arraylist getter
+     * @return with teleport list
+     */
     public ArrayList<Teleport> getTeleportlist() {
         return teleportlist;
     }
 
+    /**
+     * Drilling
+     */
     @Override
     public void Drill() {
         if(this.getAsteroid().getCrustThickness()>0){
@@ -236,11 +249,14 @@ public class Settler extends Entity implements IDrill, IMine{
 
     }
 
+    /**
+     * The Step function of the Settler.
+     */
     @Override
     public void Step(){
-       for(Teleport t: teleportlist){   //megnezni hogy felrobbant e valamelyik es ha igen kitorolni
-            if(t.getExploded()==true){
-                teleportlist.remove(t);
+       for (int i = 0; i < teleportlist.size(); i++){
+            if(teleportlist.get(i).getExploded()==true){
+                teleportlist.remove(teleportlist.get(i));
             }
        }
     }
