@@ -177,7 +177,7 @@ public class Skeleton implements Serializable{
         if(s.getInventory().size() == 0)
             return "null";
         for(int i = 0; i < s.getInventory().size(); i++){
-            materials += (s.getInventory().get(i).toString());
+            materials += (s.getInventory().get(i).getName());
             materials += ",";
         }
         return materials;
@@ -189,7 +189,8 @@ public class Skeleton implements Serializable{
         String t = new String();
         for(int i = 0; i < s.getTeleportlist().size(); i++){
             t += s.getTeleportlist().get(i).toString();
-            t += ",";
+            if(s.getTeleportlist().size() - 1 > i)
+                 t += ",";
         }
         return t;
     }
@@ -208,7 +209,7 @@ public class Skeleton implements Serializable{
     String getNyersanyagA(Asteroid a){
         if(a.getMaterial() == null)
             return "null";
-        return a.getMaterial().toString();
+        return a.getMaterial().getName();
     }
 
     String Nearsun(Asteroid a){
@@ -217,11 +218,12 @@ public class Skeleton implements Serializable{
 
     String Szomszedok(Asteroid a){
        String sz = new String();
-       if(a.getNeigbours() == null)
+       if(a.getNeigbours().size() == 0)
            return "null";
-        for(int i = 0; i > a.getNeigbours().size(); i++) {
-            sz += a.getNeigbours().get(i).toString();
-            sz += ",";
+        for(int i = 0; i < a.getNeigbours().size(); i++) {
+            sz += a.getNeigbours().get(i).getid();
+            if(a.getNeigbours().size() -  1 > i)
+                sz += ",";
         }
         return sz;
     }
@@ -231,8 +233,9 @@ public class Skeleton implements Serializable{
             return "null";
         String e = new String();
         for(int i = 0; i < a.getEntities().size(); i++){
-            e+= a.getEntities().get(i).toString();
-            e+= ",";
+            e+= a.getEntities().get(i).getId();
+            if(a.getEntities().size() - 1 > i)
+                e+= ",";
         }
 
         return e;

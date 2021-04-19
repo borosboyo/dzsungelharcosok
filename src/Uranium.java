@@ -24,4 +24,9 @@ public class Uranium extends Material{
         }
 
     }
+
+    @Override
+    public String getName(){
+        return "Uranium[" + exponation + "]";
+    }
 }

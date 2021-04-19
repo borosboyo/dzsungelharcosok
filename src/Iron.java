@@ -10,4 +10,9 @@ public class Iron  extends Material{
     public void Trigger() {
 
     }
+
+    @Override
+    public String getName(){
+        return "Iron";
+    }
 }

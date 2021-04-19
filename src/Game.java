@@ -11,7 +11,7 @@ public class Game implements Serializable {
      */
     private boolean win = false;
 
-
+    private Scanner console_read = new Scanner(System.in);
 
     /**
      * Is win boolean.
@@ -53,7 +53,7 @@ public class Game implements Serializable {
     /**
      * The Field that contains all the asteroids and settlers.
      */
-    Field field; //TODO: atadni hany settler es max keregvastagsag
+    Field field;
 
 
     /**
@@ -70,10 +70,11 @@ public class Game implements Serializable {
     public int menu(){
         boolean isCorrect = false;
         int re_num = 0;
-        System.out.println("Menu");
+        System.out.println("Asteroid game");
         System.out.println("New Game - Press 1");
         System.out.println("Load Game - Press 2");
         System.out.println("Tests - Press 3");
+        System.out.println("Exit - Press 4");
 
         while(!isCorrect){
             int numb = console_read.nextInt();
@@ -93,6 +94,11 @@ public class Game implements Serializable {
                     isCorrect = true;
                     break;
                 }
+                case 4:{
+                    re_num = 4;
+                    isCorrect = true;
+                    break;
+                }
                 default: {
                     System.out.println("Hibás paraméter!");
                     isCorrect = false;
@@ -104,70 +110,84 @@ public class Game implements Serializable {
     }
 
 
-    public static void main(String []args) throws IOException {
-        //TODO:menubol változokat átadni ide, pls Dani
+    public static void main(String []args){
         boolean new_game = true;
         boolean test = false;
+        int state = 1;
 
-        switch (game.menu()){
-            case 1: {
-                new_game = true;
-                break;
+        while(state < 5){
+            state = game.menu();
+            switch (state){
+                case 1: {
+                    new_game = true;
+                    break;
+                }
+                case 2:{
+                    new_game = false;
+                    break;
+                }
+                case 3:{
+                    //TODO::Biros tesztek futtatása itt
+                    test = true;
+                    break;
+                }
+                case 4:{
+                    return;
+                }
+                default:{
+                    System.out.println("Hibás paraméter!");
+                    break;
+                }
             }
-            case 2:{
-                Skeleton s = new Skeleton();
-                s.fileRead("test.txt");
-                s.writeout(Game.getInstance());
-             //   new_game = false;
-               // break;
+
+            if(test){
+                continue;
             }
-            case 3:{
-                //Tesztek futtatása
-                test = true;
+
+            if(!game.StartGame(new_game)){
+                System.out.println("Nincs mentett jatek!");
+                continue;
             }
-            default:{
-                return;
+
+            Skeleton s = new Skeleton();
+            //s.writeout(game);
+            int counter = 0;
+            boolean menu = false;
+
+            while(!game.EndGame() && !menu){
+                s.writeout(game);
+                menu = game.readCommands();
+                counter++;
+                if(counter == game.field.getSettlers().size()){
+                    Timer.getInstance().Tick();
+                    counter=0;
+                }
             }
         }
 
-        if(test){
-            return;
-        }
-
-        game.StartGame(new_game);
-        Skeleton s = new Skeleton();
-        s.writeout(game);
-        int counter = 0;
-
-        while(!game.EndGame()){
-            game.readCommands();
-            counter++;
-        //    s.writeout(game);
-            if(counter == game.field.getSettlers().size()){
-                Timer.getInstance().Tick();
-                counter=0;
-            }
-
-
-            //TODO::consolra ki kell írni a játék állapotát
-        }
     }
 
     /**
      * Starts the game.
      */
-    public void StartGame(boolean isNew){
+    public boolean StartGame(boolean isNew){
         if(isNew){
             field = new Field();
             field.newField(5, 3);
+            return true;
         }
         else{
             try {
                 loadGame();
+
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
+            if(game.field == null){
+                return false;
+            }
         }
+        return true;
     }
 
     /**
@@ -183,8 +203,9 @@ public class Game implements Serializable {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void loadGame() throws IOException, ClassNotFoundException{
+    public void loadGame() throws IOException, ClassNotFoundException{ //TODO::ha nincs fájl, akkor térjen vissza a menübe
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
+        System.out.println(input);
         field = (Field)input.readObject();
     }
 
@@ -197,73 +218,126 @@ public class Game implements Serializable {
         output.writeObject(field);
     }
 
-    //TODO::ezt nem tudom, hogy hova akarjuk majd írni és honna akarjuk meghívni (akkor kell meghívni amikor a játékos lépni akar)
-    //TODO::kellene egy játék kiíró de az sztem ugyanaz lenne mint a file-os
     /**
      * Parancsok olvasása a játékhoz
      */
-    private Scanner console_read = new Scanner(System.in);
-    public void readCommands(){
+
+    private Scanner console_read2 = new Scanner(System.in);
+
+    public boolean readCommands(){
         boolean correct = false;
+        boolean end = false;
         String in;
         String[] commands;
-        Settler se;
+        Settler se = null;
 
-        in = console_read.nextLine();
         while(!correct){
-            in = console_read.nextLine();
+            in = console_read2.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
+
+            if(commands.length < 2 && !commands[0].equals("savegame")){
+                System.out.println("Helytelen bemenet!");
+                correct = false;
+                continue;
+            }else if(commands.length > 1){
+                for (int i = 0; i  < field.getSettlers().size(); i++){
+                    if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
+                        se = field.getSettlers().get(i);
+                        correct = true;
+                        break;
+                    }
+                    else{
+                        correct = false;
+                    }
+                }
+            }
+            else if(commands[0].equals("savegame")){
+                correct = true;
+            }
+
+            if(!correct){
+                System.out.println("Helytelen bemenet!");
+                continue;
+            }
 
             switch (commands[0]){
                  case "move":{
-                     if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getAsteroids().size()){
+                     if(commands.length != 3){
                          System.out.println("Helytelen parancs!");
                          correct = false;
                          break;
                      }
-                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
-                     se.Move(field.getAsteroids().get(Integer.parseInt(commands[2])));
-                     correct = true;
+                     for(int i=0; i<field.getAsteroids().size(); i++){
+                         if(Integer.parseInt(commands[2]) == field.getAsteroids().get(i).getId()){
+                             System.out.println(se.getId());
+                             System.out.println(se.getAsteroid().getid());
+                             System.out.println(se.getAsteroid());
+                             se.Move(field.getAsteroids().get(i));
+                              correct = true;
+                              System.out.println(se.getId());
+                             System.out.println(se.getAsteroid().getid());
+                             System.out.println(se.getAsteroid());
+                              break;
+                         }
+                         else{
+                             correct = false;
+                         }
+                     }
+                     if(!correct){
+                         System.out.println("Helytelen parancs!");
+                     }
+                     break;
                 }
                 case "drill":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Drill();
                     correct = true;
+                    break;
                 }
                 case "mine":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Mine();
                     correct = true;
+                    break;
                 }
                 case "useteleport":{
-                    if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getSettlers().get(Integer.parseInt(commands[1])).getAsteroid().getTeleports().size()){
+                    if(commands.length != 3){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
-                    se.UseTeleport(se.getAsteroid().getTeleports().get(Integer.parseInt(commands[2])));
-                    correct = true;
+                    for(int i=0; i<se.getAsteroid().getTeleports().size(); i++){
+                        if(Integer.parseInt(commands[2]) == se.getAsteroid().getTeleports().get(i).getId()){
+                            se.UseTeleport(se.getAsteroid().getTeleports().get(i));
+                            correct = true;
+                            break;
+                        }
+                        else{
+                            correct = false;
+                        }
+                    }
+                    if(!correct){
+                        System.out.println("Helytelen parancs!");
+                    }
+                    break;
                 }
                 case "placeteleport":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceTeleport();
                     correct = true;
+                    break;
                 }
                 case "placematerial":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -274,28 +348,29 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceMaterial();
                     correct = true;
+                    break;
                 }
                 case "maketeleport":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.MakeTeleport();
                     correct = true;
+                    break;
                 }
                 case "buildrobot":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.BuildRobot();
                     correct = true;
+                    break;
                 }
-                case "savegame":{  //TODO::menuben lehet majd beolvasni (loadgame-et ott kell meghívni)
+                case "savegame":{
                     if(commands.length != 1){
                         System.out.println("Helytelen parancs!");
                         correct = false;
@@ -307,15 +382,19 @@ public class Game implements Serializable {
                         e.printStackTrace();
                     }
                     correct = true;
+                    end = true;
                     break;
                 }
                 default:{
-                    System.out.println("Helytelen parancs!");
-                    System.out.println("szar!");
                     correct = false;
+                    System.out.println("Helytelen parancs!");
                     break;
                 }
             }
         }
+        if(end){
+            return true;
+        }
+        return false;
     }
 }

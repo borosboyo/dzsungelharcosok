@@ -26,7 +26,9 @@ public abstract class Entity implements Steppable, Serializable {
     public Asteroid getAsteroid() {
         return asteroid;
     }
-
+    public int getId(){
+        return id;
+    }
     /**
      * Sets asteroid.
      *

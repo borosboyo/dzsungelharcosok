@@ -16,6 +16,10 @@ public class Teleport implements Steppable, Serializable {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public boolean getExploded(){
         return exploded;
     }
