@@ -142,10 +142,14 @@ public class Game implements Serializable {
             }
 
             if(test){
-                return;
+                continue;
             }
 
-            game.StartGame(new_game);
+            if(!game.StartGame(new_game)){
+                System.out.println("Nincs mentett jatek!");
+                continue;
+            }
+
             Skeleton s = new Skeleton();
             //s.writeout(game);
             int counter = 0;
@@ -167,10 +171,11 @@ public class Game implements Serializable {
     /**
      * Starts the game.
      */
-    public void StartGame(boolean isNew){
+    public boolean StartGame(boolean isNew){
         if(isNew){
             field = new Field();
             field.newField(5, 3);
+            return true;
         }
         else{
             try {
@@ -180,9 +185,10 @@ public class Game implements Serializable {
                 e.printStackTrace();
             }
             if(game.field == null){
-
+                return false;
             }
         }
+        return true;
     }
 
     /**
@@ -226,69 +232,104 @@ public class Game implements Serializable {
         boolean end = false;
         String in;
         String[] commands;
-        Settler se;
+        Settler se = null;
 
         while(!correct){
             in = console_read2.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
 
+            if(commands.length < 2){
+                System.out.println("Helytelen parancs!");
+                correct = false;
+                continue;
+            }else{
+                for (int i = 0; i  < field.getSettlers().size(); i++){
+                    if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
+                        se = field.getSettlers().get(i);
+                        correct = true;
+                        break;
+                    }
+                    else{
+                        System.out.println("Helytelen azonosito!");
+                        correct = false;
+                    }
+                }
+
+            }
+
+            if(!correct){
+                continue;
+            }
+
             switch (commands[0]){
                  case "move":{
-                     if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getAsteroids().size()){
+                     if(commands.length != 3){
                          System.out.println("Helytelen parancs!");
-                         System.out.println(commands.length);
-                         System.out.println(Integer.parseInt(commands[1]));
-                         System.out.println(field.getSettlers().size());
-                         System.out.println(Integer.parseInt(commands[2]));
-                         System.out.println(field.getAsteroids().size());
                          correct = false;
                          break;
                      }
-                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
-                     se.Move(field.getAsteroids().get(Integer.parseInt(commands[2])));
-                     correct = true;
+                     for(int i=0; i<field.getAsteroids().size(); i++){
+                         if(Integer.parseInt(commands[2]) == field.getAsteroids().get(i).getId()){
+                             se.Move(field.getAsteroids().get(i));
+                              correct = true;
+                              break;
+                         }
+                         else{
+                             correct = false;
+                         }
+                     }
+                     if(!correct){
+                         System.out.println("Helytelen parancs!");
+                     }
                      break;
                 }
                 case "drill":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Drill();
                     correct = true;
                     break;
                 }
                 case "mine":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Mine();
                     correct = true;
                     break;
                 }
                 case "useteleport":{
-                    if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getSettlers().get(Integer.parseInt(commands[1])).getAsteroid().getTeleports().size()){
+                    if(commands.length != 3){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
-                    se.UseTeleport(se.getAsteroid().getTeleports().get(Integer.parseInt(commands[2])));
-                    correct = true;
+                    for(int i=0; i<se.getAsteroid().getTeleports().size(); i++){
+                        if(Integer.parseInt(commands[2]) == se.getAsteroid().getTeleports().get(i).getId()){
+                            se.UseTeleport(se.getAsteroid().getTeleports().get(i));
+                            correct = true;
+                            break;
+                        }
+                        else{
+                            correct = false;
+                        }
+                    }
+                    if(!correct){
+                        System.out.println("Helytelen parancs!");
+                    }
                     break;
                 }
                 case "placeteleport":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceTeleport();
                     correct = true;
                     break;
@@ -305,28 +346,26 @@ public class Game implements Serializable {
                     break;
                 }
                 case "maketeleport":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.MakeTeleport();
                     correct = true;
                     break;
                 }
                 case "buildrobot":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    if(commands.length != 2){
                         System.out.println("Helytelen parancs!");
                         correct = false;
                         break;
                     }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.BuildRobot();
                     correct = true;
                     break;
                 }
-                case "savegame":{  //TODO::menuben lehet majd beolvasni (loadgame-et ott kell meghívni)
+                case "savegame":{
                     if(commands.length != 1){
                         System.out.println("Helytelen parancs!");
                         correct = false;
