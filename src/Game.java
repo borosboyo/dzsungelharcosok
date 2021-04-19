@@ -111,7 +111,6 @@ public class Game implements Serializable {
 
 
     public static void main(String []args){
-        //TODO:menubol változokat átadni ide, pls Dani
         boolean new_game = true;
         boolean test = false;
         int state = 1;
@@ -238,11 +237,11 @@ public class Game implements Serializable {
             in = console_read2.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
 
-            if(commands.length < 2){
-                System.out.println("Helytelen parancs!");
+            if(commands.length < 2 && !commands[0].equals("savegame")){
+                System.out.println("Helytelen bemenet!");
                 correct = false;
                 continue;
-            }else{
+            }else if(commands.length > 1){
                 for (int i = 0; i  < field.getSettlers().size(); i++){
                     if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
                         se = field.getSettlers().get(i);
@@ -250,14 +249,16 @@ public class Game implements Serializable {
                         break;
                     }
                     else{
-                        System.out.println("Helytelen azonosito!");
                         correct = false;
                     }
                 }
-
+            }
+            else if(commands[0].equals("savegame")){
+                correct = true;
             }
 
             if(!correct){
+                System.out.println("Helytelen bemenet!");
                 continue;
             }
 
@@ -270,8 +271,14 @@ public class Game implements Serializable {
                      }
                      for(int i=0; i<field.getAsteroids().size(); i++){
                          if(Integer.parseInt(commands[2]) == field.getAsteroids().get(i).getId()){
+                             System.out.println(se.getId());
+                             System.out.println(se.getAsteroid().getid());
+                             System.out.println(se.getAsteroid());
                              se.Move(field.getAsteroids().get(i));
                               correct = true;
+                              System.out.println(se.getId());
+                             System.out.println(se.getAsteroid().getid());
+                             System.out.println(se.getAsteroid());
                               break;
                          }
                          else{

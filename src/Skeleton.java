@@ -153,9 +153,9 @@ public class Skeleton implements Serializable{
        String sz = new String();
        if(a.getNeigbours() == null)
            return "null";
-        for(int i = 0; i > a.getNeigbours().size(); i++) {
+        for(int i = 0; i < a.getNeigbours().size(); i++) {
             sz += a.getNeigbours().get(i).getid();
-            if(a.getNeigbours().size() -  1< i)
+            if(a.getNeigbours().size() -  1 > i)
                 sz += ",";
         }
         return sz;
