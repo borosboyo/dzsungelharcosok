@@ -11,7 +11,7 @@ public class Game implements Serializable {
      */
     private boolean win = false;
 
-
+    private Scanner console_read = new Scanner(System.in);
 
     /**
      * Is win boolean.
@@ -74,6 +74,7 @@ public class Game implements Serializable {
         System.out.println("New Game - Press 1");
         System.out.println("Load Game - Press 2");
         System.out.println("Tests - Press 3");
+        System.out.println("Exit - Press 4");
 
         while(!isCorrect){
             int numb = console_read.nextInt();
@@ -93,6 +94,11 @@ public class Game implements Serializable {
                     isCorrect = true;
                     break;
                 }
+                case 4:{
+                    re_num = 4;
+                    isCorrect = true;
+                    break;
+                }
                 default: {
                     System.out.println("Hibás paraméter!");
                     isCorrect = false;
@@ -108,46 +114,54 @@ public class Game implements Serializable {
         //TODO:menubol változokat átadni ide, pls Dani
         boolean new_game = true;
         boolean test = false;
+        int state = 1;
 
-        switch (game.menu()){
-            case 1: {
-                new_game = true;
-                break;
+        while(state < 5){
+            state = game.menu();
+            switch (state){
+                case 1: {
+                    new_game = true;
+                    break;
+                }
+                case 2:{
+                    new_game = false;
+                    break;
+                }
+                case 3:{
+                    //TODO::Biros tesztek futtatása itt
+                    test = true;
+                    break;
+                }
+                case 4:{
+                    return;
+                }
+                default:{
+                    System.out.println("Hibás paraméter!");
+                    break;
+                }
             }
-            case 2:{
-                new_game = false;
-                break;
-            }
-            case 3:{
-                //Tesztek futtatása
-                test = true;
-            }
-            default:{
+
+            if(test){
                 return;
             }
-        }
 
-        if(test){
-            return;
-        }
+            game.StartGame(new_game);
+            Skeleton s = new Skeleton();
+            //s.writeout(game);
+            int counter = 0;
+            boolean menu = false;
 
-        game.StartGame(new_game);
-        Skeleton s = new Skeleton();
-        s.writeout(game);
-        int counter = 0;
-
-        while(!game.EndGame()){
-            game.readCommands();
-            counter++;
-        //    s.writeout(game);
-            if(counter == game.field.getSettlers().size()){
-                Timer.getInstance().Tick();
-                counter=0;
+            while(!game.EndGame() && !menu){
+                s.writeout(game);
+                menu = game.readCommands();
+                counter++;
+                if(counter == game.field.getSettlers().size()){
+                    Timer.getInstance().Tick();
+                    counter=0;
+                }
             }
-
-
-            //TODO::consolra ki kell írni a játék állapotát
         }
+
     }
 
     /**
@@ -199,28 +213,36 @@ public class Game implements Serializable {
     /**
      * Parancsok olvasása a játékhoz
      */
-    private Scanner console_read = new Scanner(System.in);
-    public void readCommands(){
+
+    private Scanner console_read2 = new Scanner(System.in);
+
+    public boolean readCommands(){
         boolean correct = false;
+        boolean end = false;
         String in;
         String[] commands;
         Settler se;
 
-        in = console_read.nextLine();
         while(!correct){
-            in = console_read.nextLine();
+            in = console_read2.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
 
             switch (commands[0]){
                  case "move":{
                      if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getAsteroids().size()){
                          System.out.println("Helytelen parancs!");
+                         System.out.println(commands.length);
+                         System.out.println(Integer.parseInt(commands[1]));
+                         System.out.println(field.getSettlers().size());
+                         System.out.println(Integer.parseInt(commands[2]));
+                         System.out.println(field.getAsteroids().size());
                          correct = false;
                          break;
                      }
                      se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                      se.Move(field.getAsteroids().get(Integer.parseInt(commands[2])));
                      correct = true;
+                     break;
                 }
                 case "drill":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -231,6 +253,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Drill();
                     correct = true;
+                    break;
                 }
                 case "mine":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -241,6 +264,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Mine();
                     correct = true;
+                    break;
                 }
                 case "useteleport":{
                     if(commands.length != 3 || Integer.parseInt(commands[1]) >= field.getSettlers().size() || Integer.parseInt(commands[2]) >= field.getSettlers().get(Integer.parseInt(commands[1])).getAsteroid().getTeleports().size()){
@@ -251,6 +275,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.UseTeleport(se.getAsteroid().getTeleports().get(Integer.parseInt(commands[2])));
                     correct = true;
+                    break;
                 }
                 case "placeteleport":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -261,6 +286,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceTeleport();
                     correct = true;
+                    break;
                 }
                 case "placematerial":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -271,6 +297,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceMaterial();
                     correct = true;
+                    break;
                 }
                 case "maketeleport":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -281,6 +308,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.MakeTeleport();
                     correct = true;
+                    break;
                 }
                 case "buildrobot":{
                     if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
@@ -291,6 +319,7 @@ public class Game implements Serializable {
                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.BuildRobot();
                     correct = true;
+                    break;
                 }
                 case "savegame":{  //TODO::menuben lehet majd beolvasni (loadgame-et ott kell meghívni)
                     if(commands.length != 1){
@@ -304,15 +333,19 @@ public class Game implements Serializable {
                         e.printStackTrace();
                     }
                     correct = true;
+                    end = true;
                     break;
                 }
                 default:{
-                    System.out.println("Helytelen parancs!");
-                    System.out.println("szar!");
                     correct = false;
+                    System.out.println("Helytelen parancs!");
                     break;
                 }
             }
         }
+        if(end){
+            return true;
+        }
+        return false;
     }
 }
