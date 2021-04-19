@@ -144,7 +144,7 @@ public class Game implements Serializable {
             }
 
             if(test){
-                continue;
+                continue; //TODO::Ez így nem jó
             }
 
             if(!game.StartGame(new_game)){
@@ -159,7 +159,7 @@ public class Game implements Serializable {
 
             while(!game.EndGame() && !menu){
                 s.writeout(game);
-                menu = game.readCommands();
+                menu = game.step_gamer();
                 counter++;
                 if(counter == game.field.getSettlers().size()){
                     Timer.getInstance().Tick();
@@ -227,156 +227,20 @@ public class Game implements Serializable {
 
     private Scanner console_read2 = new Scanner(System.in);
 
-    public boolean readCommands(){
-        boolean correct = false;
-        boolean end = false;
+    public boolean step_gamer(){
         String in;
         String[] commands;
-        Settler se = null;
+        boolean end = false;
+        boolean cor = false;
 
-        while(!correct){
+        while(!cor) {
             in = console_read2.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
 
-            if(commands.length < 2 && !commands[0].equals("savegame")){
-                System.out.println("Helytelen bemenet!");
-                correct = false;
-                continue;
-            }else if(commands.length > 1){
-                for (int i = 0; i  < field.getSettlers().size(); i++){
-                    if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
-                        se = field.getSettlers().get(i);
-                        correct = true;
-                        break;
-                    }
-                    else{
-                        correct = false;
-                    }
-                }
-            }
-            else if(commands[0].equals("savegame")){
-                correct = true;
-            }
-
-            if(!correct){
-                System.out.println("Helytelen bemenet!");
-                continue;
-            }
-
             switch (commands[0]){
-                 case "move":{
-                     if(commands.length != 3){
-                         System.out.println("Helytelen parancs!");
-                         correct = false;
-                         break;
-                     }
-                     for(int i=0; i<field.getAsteroids().size(); i++){
-                         if(Integer.parseInt(commands[2]) == field.getAsteroids().get(i).getId()){
-                             System.out.println(se.getId());
-                             System.out.println(se.getAsteroid().getid());
-                             System.out.println(se.getAsteroid());
-                             se.Move(field.getAsteroids().get(i));
-                              correct = true;
-                              System.out.println(se.getId());
-                             System.out.println(se.getAsteroid().getid());
-                             System.out.println(se.getAsteroid());
-                              break;
-                         }
-                         else{
-                             correct = false;
-                         }
-                     }
-                     if(!correct){
-                         System.out.println("Helytelen parancs!");
-                     }
-                     break;
-                }
-                case "drill":{
-                    if(commands.length != 2){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    se.Drill();
-                    correct = true;
-                    break;
-                }
-                case "mine":{
-                    if(commands.length != 2){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    se.Mine();
-                    correct = true;
-                    break;
-                }
-                case "useteleport":{
-                    if(commands.length != 3){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    for(int i=0; i<se.getAsteroid().getTeleports().size(); i++){
-                        if(Integer.parseInt(commands[2]) == se.getAsteroid().getTeleports().get(i).getId()){
-                            se.UseTeleport(se.getAsteroid().getTeleports().get(i));
-                            correct = true;
-                            break;
-                        }
-                        else{
-                            correct = false;
-                        }
-                    }
-                    if(!correct){
-                        System.out.println("Helytelen parancs!");
-                    }
-                    break;
-                }
-                case "placeteleport":{
-                    if(commands.length != 2){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    se.PlaceTeleport();
-                    correct = true;
-                    break;
-                }
-                case "placematerial":{
-                    if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
-                    se.PlaceMaterial();
-                    correct = true;
-                    break;
-                }
-                case "maketeleport":{
-                    if(commands.length != 2){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    se.MakeTeleport();
-                    correct = true;
-                    break;
-                }
-                case "buildrobot":{
-                    if(commands.length != 2){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
-                        break;
-                    }
-                    se.BuildRobot();
-                    correct = true;
-                    break;
-                }
-                case "savegame":{
-                    if(commands.length != 1){
-                        System.out.println("Helytelen parancs!");
-                        correct = false;
+                case "savegame": {
+                    if (commands.length != 1) {
+                        cor = false;
                         break;
                     }
                     try {
@@ -384,20 +248,152 @@ public class Game implements Serializable {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    correct = true;
-                    end = true;
-                    break;
+                    return true;
+                }
+                case "exit" : {
+                    if (commands.length != 1) {
+                        cor = false;
+                        break;
+                    }
+                    return true;
                 }
                 default:{
-                    correct = false;
-                    System.out.println("Helytelen parancs!");
+                    cor = read_command(commands);
                     break;
                 }
             }
         }
-        if(end){
-            return true;
-        }
+
         return false;
+    }
+
+    public boolean read_command(String[] commands){
+        boolean correct = false;
+        Settler se = null;
+
+
+        if(commands.length < 2){
+            System.out.println("Helytelen bemenet!");
+            return false;
+
+        }else{
+            for (int i = 0; i  < field.getSettlers().size(); i++){
+                if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
+                    se = field.getSettlers().get(i);
+                    correct = true;
+                    break;
+                }
+                else{
+                    correct = false;
+                }
+            }
+        }
+
+        if(!correct){
+            System.out.println("Helytelen bemenet!");
+            return false;
+        }
+
+        switch (commands[0]){
+            case "move":{
+                if(commands.length != 3){
+                    correct = false;
+                    break;
+                }
+                for(int i=0; i<field.getAsteroids().size(); i++){
+                    if(Integer.parseInt(commands[2]) == field.getAsteroids().get(i).getId()){
+                        se.Move(field.getAsteroids().get(i));
+                        correct = true;
+                        break;
+                    }
+                    else{
+                        correct = false;
+                    }
+                }
+                break;
+            }
+            case "drill":{
+                if(commands.length != 2){
+                    correct = false;
+                    break;
+                }
+                se.Drill();
+                correct = true;
+                break;
+            }
+            case "mine":{
+                if(commands.length != 2){
+                    correct = false;
+                    break;
+                }
+                se.Mine();
+                correct = true;
+                break;
+            }
+            case "useteleport":{
+                if(commands.length != 3){
+                    correct = false;
+                    break;
+                }
+                for(int i=0; i<se.getAsteroid().getTeleports().size(); i++){
+                    if(Integer.parseInt(commands[2]) == se.getAsteroid().getTeleports().get(i).getId()){
+                        se.UseTeleport(se.getAsteroid().getTeleports().get(i));
+                        correct = true;
+                        break;
+                    }
+                    else{
+                        correct = false;
+                    }
+                }
+                break;
+            }
+            case "placeteleport":{
+                if(commands.length != 2){
+                    correct = false;
+                    break;
+                }
+                se.PlaceTeleport();
+                correct = true;
+                break;
+            }
+            case "placematerial":{
+                if(commands.length != 2 || Integer.parseInt(commands[1]) > field.getSettlers().size()){
+                    correct = false;
+                    break;
+                }
+                se =  field.getSettlers().get(Integer.parseInt(commands[1]));
+                se.PlaceMaterial();
+                correct = true;
+                break;
+            }
+            case "maketeleport":{
+                if(commands.length != 2){
+                    correct = false;
+                    break;
+                }
+                se.MakeTeleport();
+                correct = true;
+                break;
+            }
+            case "buildrobot":{
+                if(commands.length != 2){
+                    correct = false;
+                    break;
+                }
+                se.BuildRobot();
+                correct = true;
+                break;
+            }
+            default:{
+                correct = false;
+                break;
+            }
+        }
+
+        if(!correct){
+            System.out.println("Helytelen bemenet!");
+            return false;
+        }
+        return true;
     }
 }
