@@ -34,8 +34,8 @@ public class Skeleton implements Serializable{
         {
 
             String[] words = splitSentenceByWords(line);
-            for (int i = 0; i < words.length; i++)
-                System.out.println(words[i] + "..." +  i);
+          //  for (int i = 0; i < words.length; i++)
+        //        System.out.println(words[i] + "..." +  i);
 
                 if(words[3].equals("Uranium") && words[0].equals("Asteroid")){
                     long crust = Long.parseLong(words[5]);
@@ -119,26 +119,28 @@ public class Skeleton implements Serializable{
                         }
                     }
                 }
-                int cnt = 0;
-                for(Asteroid a: Game.getInstance().field.getAsteroids()){
-                    cnt++;
-                    if(a.getId() == cnt){
-                        String[] szomsz_str = szomszedok.get(cnt).split("[;()]+");
-                        for(int ii = 0; ii < szomsz_str.length;ii++){
-                            for(Asteroid a2: Game.getInstance().field.getAsteroids()){
-                                if(a2.getId()  ==Integer.parseInt(szomsz_str[ii])){
-                                    a.AddNeighbour(a2);
-                                }
-                            }
-                        }
 
-                    } else System.out.println("nem jo a sorrend");
-
-
-                }
 
             sb.append(line);
             sb.append("\n");
+        }
+        int cnt = 0;
+       // System.out.println(szomszedok.size());
+        for(Asteroid a: Game.getInstance().field.getAsteroids()){
+            cnt++;
+            if(a.getId() == cnt){
+                String[] szomsz_str = szomszedok.get(cnt-1).split("[;()]+");
+                for(int i = 0; i < szomsz_str.length; i++){
+                    System.out.println(szomsz_str[i] + "..." + i);
+                }
+                for(int ii = 1; ii < szomsz_str.length;ii++){
+                    for(Asteroid a2: Game.getInstance().field.getAsteroids()){
+                        if(a2.getId()  == Integer.parseInt(szomsz_str[ii])){
+                            a.AddNeighbour(a2);
+                        }
+                    }
+                }
+            } else System.out.println("nem jo a sorrend");
         }
         fr.close();
     }
