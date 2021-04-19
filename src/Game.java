@@ -11,7 +11,6 @@ public class Game implements Serializable {
      */
     private boolean win = false;
 
-    private Scanner console_read = new Scanner(System.in);
 
     /**
      * Is win boolean.
@@ -55,6 +54,10 @@ public class Game implements Serializable {
      */
     Field field;
 
+    /**
+     * Scanner for the menu console reading.
+     */
+    private Scanner console_read = new Scanner(System.in);
 
     /**
      * Ends the game if the Settlers lose.
@@ -67,6 +70,10 @@ public class Game implements Serializable {
         return false;
     }
 
+    /**
+     * Start menu
+     * @return
+     */
     public int menu(){
         boolean isCorrect = false;
         int re_num = 0;
@@ -109,7 +116,11 @@ public class Game implements Serializable {
         return re_num;
     }
 
-
+    /**
+     * Main methods. This is where the program runs.
+     * @param args
+     * @throws IOException
+     */
     public static void main(String []args) throws IOException {
         boolean new_game = true;
         boolean test = false;
@@ -127,12 +138,10 @@ public class Game implements Serializable {
                     break;
                 }
                 case 3:{
-                    //TODO::Biros tesztek futtatása itt
-                   // test = true;
-                  //  break;
                     Skeleton s = new Skeleton();
                     s.fileRead("test.txt");
                     s.writeout(Game.getInstance());
+                    break;
                 }
                 case 4:{
                     return;
@@ -153,7 +162,6 @@ public class Game implements Serializable {
             }
 
             Skeleton s = new Skeleton();
-            //s.writeout(game);
             int counter = 0;
             boolean menu = false;
 
@@ -202,18 +210,18 @@ public class Game implements Serializable {
     }
 
     /**
-     *
+     *Load the saved game (if exists)
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void loadGame() throws IOException, ClassNotFoundException{ //TODO::ha nincs fájl, akkor térjen vissza a menübe
+    public void loadGame() throws IOException, ClassNotFoundException{
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
         System.out.println(input);
         field = (Field)input.readObject();
     }
 
     /**
-     *
+     *Save (Serialization) the game.
      * @throws IOException
      */
     public void saveGame() throws IOException{
@@ -222,11 +230,14 @@ public class Game implements Serializable {
     }
 
     /**
-     * Parancsok olvasása a játékhoz
+     * Scanner for the commands console reading.
      */
-
     private Scanner console_read2 = new Scanner(System.in);
 
+    /**
+     * One possible player step in the game
+     * @return true if the game step back to the menu
+     */
     public boolean step_gamer(){
         String in;
         String[] commands;
@@ -267,6 +278,11 @@ public class Game implements Serializable {
         return false;
     }
 
+    /**
+     * Execute instructions received in an array
+     * @param commands String block for the commands
+     * @return
+     */
     public boolean read_command(String[] commands){
         boolean correct = false;
         Settler se = null;
