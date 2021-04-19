@@ -104,7 +104,7 @@ public class Game implements Serializable {
     }
 
 
-    public static void main(String []args){
+    public static void main(String []args) throws IOException {
         //TODO:menubol változokat átadni ide, pls Dani
         boolean new_game = true;
         boolean test = false;
@@ -115,8 +115,11 @@ public class Game implements Serializable {
                 break;
             }
             case 2:{
-                new_game = false;
-                break;
+                Skeleton s = new Skeleton();
+                s.fileRead("test.txt");
+                s.writeout(Game.getInstance());
+             //   new_game = false;
+               // break;
             }
             case 3:{
                 //Tesztek futtatása
