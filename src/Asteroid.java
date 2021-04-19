@@ -33,10 +33,6 @@ public class Asteroid implements Serializable {
         this.id = id;
     }
 
-    public int getid(){
-        return id;
-    }
-
     /**
      * Accepts entity.
      *
@@ -342,10 +338,18 @@ public class Asteroid implements Serializable {
         neighbours.add(a);
     }
 
+    /**
+     * Getter ID
+     * @return with Asteroid id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Setter Id
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }

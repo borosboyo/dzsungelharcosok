@@ -217,7 +217,7 @@ public class Skeleton implements Serializable{
          */
         for(int i = 0; i < g.field.getAsteroids().size(); i++){
             Asteroid a = g.field.getAsteroids().get(i);
-            System.out.println("Asteroid {" + a.getid() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+            System.out.println("Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
                     Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
         }
     }
@@ -312,7 +312,7 @@ public class Skeleton implements Serializable{
            return "null";
        String sz = new String();
        for(int i = 0; i < a.getNeigbours().size(); i++) {
-           sz += a.getNeigbours().get(i).getid();
+           sz += a.getNeigbours().get(i).getId();
            if(a.getNeigbours().size() -  1 > i)
                sz += ",";
        }
