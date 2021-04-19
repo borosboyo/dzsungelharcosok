@@ -1,10 +1,11 @@
 import javax.swing.plaf.ActionMapUIResource;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The type Entity.
  */
-public abstract class Entity implements Steppable{
+public abstract class Entity implements Steppable, Serializable {
 
     /**
      * The asteroid that the entity is on

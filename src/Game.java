@@ -11,6 +11,8 @@ public class Game implements Serializable {
      */
     private boolean win = false;
 
+
+
     /**
      * Is win boolean.
      *
@@ -65,11 +67,71 @@ public class Game implements Serializable {
         return false;
     }
 
+    public int menu(){
+        boolean isCorrect = false;
+        int re_num = 0;
+        System.out.println("Menu");
+        System.out.println("New Game - Press 1");
+        System.out.println("Load Game - Press 2");
+        System.out.println("Tests - Press 3");
+
+        while(!isCorrect){
+            int numb = console_read.nextInt();
+            switch (numb){
+                case 1:{
+                    re_num = 1;
+                    isCorrect = true;
+                    break;
+                }
+                case 2:{
+                    re_num = 2;
+                    isCorrect = true;
+                    break;
+                }
+                case 3:{
+                    re_num = 3;
+                    isCorrect = true;
+                    break;
+                }
+                default: {
+                    System.out.println("Hibás paraméter!");
+                    isCorrect = false;
+                    break;
+                }
+            }
+        }
+        return re_num;
+    }
+
+
     public static void main(String []args){
         //TODO:menubol változokat átadni ide, pls Dani
-        //TODO::game-ben példányosítani a menüt, ami állapotok változtat és az alapján fur tovább a main
+        boolean new_game = true;
+        boolean test = false;
 
-        game.StartGame(true);
+        switch (game.menu()){
+            case 1: {
+                new_game = true;
+                break;
+            }
+            case 2:{
+                new_game = false;
+                break;
+            }
+            case 3:{
+                //Tesztek futtatása
+                test = true;
+            }
+            default:{
+                return;
+            }
+        }
+
+        if(test){
+            return;
+        }
+
+        game.StartGame(new_game);
         Skeleton s = new Skeleton();
         s.writeout(game);
         int counter = 0;
@@ -77,7 +139,7 @@ public class Game implements Serializable {
         while(!game.EndGame()){
             game.readCommands();
             counter++;
-            s.writeout(game);
+        //    s.writeout(game);
             if(counter == game.field.getSettlers().size()){
                 Timer.getInstance().Tick();
                 counter=0;
@@ -144,10 +206,10 @@ public class Game implements Serializable {
         String[] commands;
         Settler se;
 
+        in = console_read.nextLine();
         while(!correct){
             in = console_read.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
-            se =  field.getSettlers().get(Integer.parseInt(commands[1]));
 
             switch (commands[0]){
                  case "move":{
@@ -156,6 +218,7 @@ public class Game implements Serializable {
                          correct = false;
                          break;
                      }
+                     se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                      se.Move(field.getAsteroids().get(Integer.parseInt(commands[2])));
                      correct = true;
                 }
@@ -165,6 +228,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Drill();
                     correct = true;
                 }
@@ -174,6 +238,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.Mine();
                     correct = true;
                 }
@@ -183,6 +248,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.UseTeleport(se.getAsteroid().getTeleports().get(Integer.parseInt(commands[2])));
                     correct = true;
                 }
@@ -192,6 +258,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceTeleport();
                     correct = true;
                 }
@@ -201,6 +268,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.PlaceMaterial();
                     correct = true;
                 }
@@ -210,6 +278,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.MakeTeleport();
                     correct = true;
                 }
@@ -219,6 +288,7 @@ public class Game implements Serializable {
                         correct = false;
                         break;
                     }
+                    se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                     se.BuildRobot();
                     correct = true;
                 }
@@ -234,9 +304,11 @@ public class Game implements Serializable {
                         e.printStackTrace();
                     }
                     correct = true;
+                    break;
                 }
                 default:{
                     System.out.println("Helytelen parancs!");
+                    System.out.println("szar!");
                     correct = false;
                     break;
                 }

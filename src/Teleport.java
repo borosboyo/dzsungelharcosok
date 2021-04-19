@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * The type Teleport.
  */
-public class Teleport implements Steppable {
+public class Teleport implements Steppable, Serializable {
     int id;
     private boolean firstCrazy = false;
     private boolean secondCrazy = false;

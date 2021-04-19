@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Abstract class Material.
  */
-public abstract class Material {
+public abstract class Material implements Serializable {
 
     /**
      * The Asteroid that contains the material inside it.

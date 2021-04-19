@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * The type Asteroid.
  */
-public class Asteroid {
+public class Asteroid implements Serializable {
     private long crustThickness;
 
 

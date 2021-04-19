@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * The type Field.
  */
-public class Field implements Steppable {
+public class Field implements Steppable, Serializable {
 
     private final ArrayList<Asteroid> asteroids = new ArrayList();
     private final ArrayList<Settler> settlers = new ArrayList();
