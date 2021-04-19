@@ -73,8 +73,8 @@ public class Skeleton implements Serializable{
                 if (lines == 1) {
                     parancs = words;
                 } else {
-                    if(!words[0].equals("GameStep"))
-                    if (words[3].equals("Uranium") && words[0].equals("Asteroid")) {
+                    if(words[0].equals("Asteroid"))
+                    if (words[3].equals("Uranium")) {
                         long crust = Long.parseLong(words[5]);
                         boolean nearsun = Boolean.parseBoolean(words[6]);
                         Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
