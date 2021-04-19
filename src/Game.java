@@ -53,7 +53,7 @@ public class Game implements Serializable {
     /**
      * The Field that contains all the asteroids and settlers.
      */
-    Field field; //TODO: atadni hany settler es max keregvastagsag
+    Field field;
 
 
     /**
@@ -70,7 +70,7 @@ public class Game implements Serializable {
     public int menu(){
         boolean isCorrect = false;
         int re_num = 0;
-        System.out.println("Menu");
+        System.out.println("Asteroid game");
         System.out.println("New Game - Press 1");
         System.out.println("Load Game - Press 2");
         System.out.println("Tests - Press 3");
