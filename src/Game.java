@@ -213,33 +213,124 @@ public class Game implements Serializable {
         Skeleton s = new Skeleton();
         int numb = console_read.nextInt();
         switch (numb){
-            case 1:  s.fileRead("EntityMoves.txt");
-            case 2:  s.fileRead("EntityTriesToMoveOnNotNeighbour.txt");
-            case 3:  s.fileRead("EntityTriesToUseUnpairedTeleport.txt");
-            case 5:  s.fileRead("EntityUsesTeleport.txt");
-            case 6:  s.fileRead("RobotDrillsIce.txt");
-            case 7:  s.fileRead("RobotDrillsNon-trigger.txt");
-            case 8:  s.fileRead("RobotDrillsRadioactive.txt");
-            case 9:  s.fileRead("SettlerBuildsRobot.txt");
-            case 10:  s.fileRead("SettlerDrillsIce.txt");
-            case 11:  s.fileRead("SettlerDrillsNon-trigger.txt");
-            case 12: s.fileRead("SettlerDrillsRadioactive.txt");
-            case 13: s.fileRead("SettlerMakesTeleport.txt");
-            case 14: s.fileRead("SettlerMines.txt");
-            case 15: s.fileRead("SettlerPlaceMaterial.txt");
-            case 16: s.fileRead("SettlerPlaceTeleport.txt");
-            case 17: s.fileRead("SettlerTriesToBuildRobotWithoutMaterials.txt");
-            case 18: s.fileRead("SettlerTriesToMakeTeleportWithFullInventory.txt");
-            case 19: s.fileRead("SettlerTriesToMakeTeleportWithNoMaterials.txt");
-            case 20: s.fileRead("SettlerTriesToMineOnInvalidAsteroid.txt");
-            case 21: s.fileRead("SettlerTriesToMineWithFullyInventory.txt");
-            case 22: s.fileRead("SettlerTriesToPlaceMaterialOnInvalidAsteroid.txt");
-            case 23: s.fileRead("SettlerWinsGameWithMove.txt");
-            case 24: s.fileRead("Special.txt");
-            case 25: s.fileRead("SunstormOnAsteroid.txt");
-            case 26: s.fileRead("UfoMines.txt");
-            case 27: s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
-            case 28: s.fileRead("AllSettlersDie.txt");
+            case 1:  {
+                s.fileRead("EntityMoves.txt");
+                s.writeToFile("EntityMoves");
+            }
+            case 2: {
+                s.fileRead("EntityTriesToMoveOnNotNeighbour.txt");
+                s.writeToFile("EntityTriesToMoveOnNotNeighbour");
+            }
+            case 3:  {
+                s.fileRead("EntityTriesToUseUnpairedTeleport.txt");
+                s.writeToFile("EntityTriesToUseUnpairedTeleport");
+            }
+            case 5: {
+                s.fileRead("EntityUsesTeleport.txt");
+                s.writeToFile("EntityUsesTeleport");
+            }
+
+            case 6: {
+                s.fileRead("RobotDrillsIce.txt");
+                s.writeToFile("RobotDrillsIce");
+            }
+
+            case 7: {
+                s.fileRead("RobotDrillsNon-trigger.txt");
+                s.writeToFile("RobotDrillsNon-trigger");
+            }
+
+            case 8: {
+                s.fileRead("RobotDrillsRadioactive.txt");
+                s.writeToFile("RobotDrillsRadioactive");
+            }
+
+            case 9: {
+                s.fileRead("SettlerBuildsRobot.txt");
+                s.writeToFile("SettlerBuildsRobot");
+            }
+
+            case 10:  {
+                s.fileRead("SettlerDrillsIce.txt");
+                s.writeToFile("SettlerDrillsIce");
+            }
+
+            case 11:{
+                s.fileRead("SettlerDrillsNon-trigger.txt");
+                s.writeToFile("SettlerDrillsNon-trigger");
+            }
+
+            case 12:{
+                s.fileRead("SettlerDrillsRadioactive.txt");
+                s.writeToFile("SettlerDrillsRadioactive");
+            }
+
+            case 13:{
+                s.fileRead("SettlerMakesTeleport.txt");
+                s.writeToFile("SettlerMakesTeleport");
+            }
+
+            case 14:{
+                s.fileRead("SettlerMines.txt");
+                s.writeToFile("SettlerMines");
+            }
+
+            case 15:{
+                s.fileRead("SettlerPlaceMaterial.txt");
+                s.writeToFile("SettlerPlaceMaterial");
+            }
+            case 16:{
+                s.fileRead("SettlerPlaceTeleport.txt");
+                s.writeToFile("SettlerPlaceTeleport");
+            }
+            case 17: {
+                s.fileRead("SettlerTriesToBuildRobotWithoutMaterials.txt");
+                s.writeToFile("SettlerTriesToBuildRobotWithoutMaterials");
+            }
+            case 18:{
+                s.fileRead("SettlerTriesToMakeTeleportWithFullInventory.txt");
+                s.writeToFile("SettlerTriesToMakeTeleportWithFullInventory");
+            }
+            case 19:{
+                s.fileRead("SettlerTriesToMakeTeleportWithNoMaterials.txt");
+                s.writeToFile("SettlerTriesToMakeTeleportWithNoMaterials");
+            }
+            case 20:{
+                s.fileRead("SettlerTriesToMineOnInvalidAsteroid.txt");
+                s.writeToFile("SettlerTriesToMineOnInvalidAsteroid");
+            }
+            case 21:{
+                s.fileRead("SettlerTriesToMineWithFullyInventory.txt");
+                s.writeToFile("SettlerTriesToMineWithFullyInventory");
+            }
+            case 22:{
+                s.fileRead("SettlerTriesToPlaceMaterialOnInvalidAsteroid.txt");
+                s.writeToFile("SettlerTriesToPlaceMaterialOnInvalidAsteroid");
+            }
+            case 23: {
+                s.fileRead("SettlerWinsGameWithMove.txt");
+                s.writeToFile("SettlerWinsGameWithMove");
+            }
+            case 24:{
+                s.fileRead("Special.txt");
+                s.writeToFile("Special");
+            }
+            case 25:{
+                s.fileRead("SunstormOnAsteroid.txt");
+                s.writeToFile("SunstormOnAsteroid");
+            }
+            case 26: {
+                s.fileRead("UfoMines.txt");
+                s.writeToFile("UfoMines");
+            }
+            case 27: {
+                s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
+                s.writeToFile("UfoTriesToMineOnInvalidAsteroid");
+            }
+            case 28:{
+                s.fileRead("AllSettlersDie.txt");
+                s.writeToFile("AllSettlersDie");
+            }
             case 29: //TODO: minden tesztet futtatni
         }
     }

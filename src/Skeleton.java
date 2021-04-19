@@ -180,6 +180,37 @@ public class Skeleton implements Serializable{
         fr.close();
     }
 
+    public void writeToFile(String filename) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter(filename +"_out.txt", "UTF-8");
+        Game g = Game.getInstance();
+        for(int i = 0; i < g.field.getSettlers().size(); i++) {
+            Settler s = g.field.getSettlers().get(i);
+            if(s.getAsteroid() != null){
+                writer.println("Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+            }
+        }
+        for(int i = 0; i < g.field.getRobots().size(); i++){
+            Robot r = g.field.getRobots().get(i);
+            int id = i +g.field.getSettlers().size();
+            if(r.getAsteroid() != null) {
+                writer.println("Robot {" + id + "," + r.getAsteroid() + "}");
+            }
+        }
+
+        for(int i = 0; i < g.field.getUfos().size(); i++){
+            Ufo u = g.field.getUfos().get(i);
+            int id = i+g.field.getSettlers().size() + g.field.getRobots().size() + i;
+            writer.println("Ufo {" + id + "," + u.getAsteroid().getId() + "}");
+        }
+
+        for(int i = 0; i < g.field.getAsteroids().size(); i++){
+            Asteroid a = g.field.getAsteroids().get(i);
+            writer.println("Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+                    Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
+        }
+        writer.close();
+    }
+
     // A következő függvény a játék aktuális állapotás írja ki
     public void writeout(Game g){
         /**
