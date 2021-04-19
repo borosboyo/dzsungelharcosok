@@ -182,12 +182,19 @@ public class Skeleton implements Serializable{
 
     // A következő függvény a játék aktuális állapotás írja ki
     public void writeout(Game g){
+        /**
+         * Settler tulajdonságainak a kiírása a konzolra, a dokumentációban részletesen le van írva
+         */
         for(int i = 0; i < g.field.getSettlers().size(); i++) {
             Settler s = g.field.getSettlers().get(i);
             if(s.getAsteroid() != null){
                 System.out.println("Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
             }
         }
+
+        /**
+         * Robot tulajdonságainak kiírása a konzolra
+         */
         for(int i = 0; i < g.field.getRobots().size(); i++){
             Robot r = g.field.getRobots().get(i);
             int id = i +g.field.getSettlers().size();
@@ -195,12 +202,19 @@ public class Skeleton implements Serializable{
                 System.out.println("Robot {" + id + "," + r.getAsteroid() + "}");
             }
         }
+
+        /**
+         *Ufo állapotának kiírása a konzolra
+         */
         for(int i = 0; i < g.field.getUfos().size(); i++){
             Ufo u = g.field.getUfos().get(i);
-            int id = i+g.field.getSettlers().size() + g.field.getRobots().size();
-            System.out.println("Ufo {" + id +g.field.getRobots().size() + "," + u.getAsteroid().getId() + "}");
+            int id = i+g.field.getSettlers().size() + g.field.getRobots().size() + i;
+            System.out.println("Ufo {" + id + "," + u.getAsteroid().getId() + "}");
         }
 
+        /**
+         * Aszteroida állapotának a kiírása
+         */
         for(int i = 0; i < g.field.getAsteroids().size(); i++){
             Asteroid a = g.field.getAsteroids().get(i);
             System.out.println("Asteroid {" + a.getid() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
@@ -212,31 +226,50 @@ public class Skeleton implements Serializable{
     /**
      * A következő 7 függvény  a játék állípotának a kiiratását segíti
      */
+    /**
+     *
+     * @param s A settrel, melynek a nyersanyagjai érdekelnek
+     * @return s-nél lévő nyersanyagok egy Stringbe, vesszővel elválasztva. A nyersanyagok zárójelbe vannak.
+     */
     String getNyersanyagok(Settler s){
-        String materials = new String();
+
         if(s.getInventory().size() == 0)
             return "null";
+        String materials = new String("(");
         for(int i = 0; i < s.getInventory().size(); i++){
             if (s.getInventory().get(i) != null){
                 materials += (s.getInventory().get(i).getName());
-                materials += ",";
+                if(i < s.getInventory().size() - 1)
+                    materials += ",";
             }
         }
+        materials += ")";
         return materials;
     }
 
+    /**
+     *
+     * @param s Settler, aminek a telepeseit szeretnénk lekérdezni
+     * @return egy String mely kiírja a settler inventoryjába lévő teleportokat veszzővel elválasztva. Zárójelben van az egész String
+     */
     String getTelepotok(Settler s){
         if(s.getTeleportlist().size() == 0)
             return "null";
-        String t = new String();
+        String t = new String("(");
         for(int i = 0; i < s.getTeleportlist().size(); i++){
             t += s.getTeleportlist().get(i).toString();
             if(s.getTeleportlist().size() - 1 > i)
                  t += ",";
         }
+        t+=")";
         return t;
     }
 
+    /**
+     * Az a aszterodán lévő teleportokat teszi egy Stringbe
+     * @param a
+     * @return A teleportok listája egy Stringbe. Az elemek vesszővel vannak elválasztva.
+     */
     String getTelepotokA(Asteroid a){
         if(a.getTeleports() == null)
             return "null";
@@ -248,28 +281,50 @@ public class Skeleton implements Serializable{
         return t;
     }
 
+    /**
+     * Az a aszteroidán lévő nyersanyagot adja vissza egy Stringként
+     * @param a
+     * @return
+     */
     String getNyersanyagA(Asteroid a){
         if(a.getMaterial() == null)
             return "null";
         return a.getMaterial().getName();
     }
 
+    /**
+     * Egy Stringet ad vissza, ami az a aszteroida napközeli állapotpot jellemzi
+     * @param a
+     * @return "true" - amennyiben az aszteroida napközelben van
+     *         "false" - amennyiben az aszteroida naptávolban helyezkedik el
+     */
     String Nearsun(Asteroid a){
         return a.isNearSun() ? "true" : "false";
     }
 
+    /**
+     *
+     * @param a Aszteroida, melynek a szomszédaira vagyunk kíváncsiak
+     * @return Az a aszteroida szomszédjait adja vissza egy Stringként. Egyes elemek vesszővel vannak elválasztva.
+     */
     String Szomszedok(Asteroid a){
-       String sz = new String();
        if(a.getNeigbours().size() == 0)
            return "null";
-        for(int i = 0; i < a.getNeigbours().size(); i++) {
-            sz += a.getNeigbours().get(i).getid();
-            if(a.getNeigbours().size() -  1 > i)
-                sz += ",";
-        }
-        return sz;
+       String sz = new String();
+       for(int i = 0; i < a.getNeigbours().size(); i++) {
+           sz += a.getNeigbours().get(i).getid();
+           if(a.getNeigbours().size() -  1 > i)
+               sz += ",";
+       }
+       return sz;
     }
 
+
+    /**
+     *
+     * @param a
+     * @return Egy String, ami az aszteroidán lévő entitások azonosítóit tartalmazza, vesszővel elválasztva
+     */
     String Entitasok(Asteroid a){
         if(a.getEntities() == null)
             return "null";
