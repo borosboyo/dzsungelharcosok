@@ -271,11 +271,9 @@ public class Game implements Serializable {
         boolean correct = false;
         Settler se = null;
 
-
         if(commands.length < 2){
             System.out.println("Helytelen bemenet!");
             return false;
-
         }else{
             for (int i = 0; i  < field.getSettlers().size(); i++){
                 if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
