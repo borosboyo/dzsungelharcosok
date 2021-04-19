@@ -174,8 +174,12 @@ public class Game implements Serializable {
         else{
             try {
                 loadGame();
+
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+            }
+            if(game.field == null){
+
             }
         }
     }
@@ -194,8 +198,9 @@ public class Game implements Serializable {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void loadGame() throws IOException, ClassNotFoundException{
+    public void loadGame() throws IOException, ClassNotFoundException{ //TODO::ha nincs fájl, akkor térjen vissza a menübe
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
+        System.out.println(input);
         field = (Field)input.readObject();
     }
 
