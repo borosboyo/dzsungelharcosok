@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class Skeleton implements Serializable{
 
@@ -30,10 +28,12 @@ public class Skeleton implements Serializable{
         Game.getInstance().field = new Field();
         ArrayList<String> szomszedok = new ArrayList();
 
+        if(filename.equals("special.txt")){
+
+        }
+
         while((line=br.readLine())!=null) {
             lines++;
-
-
             String[] words = splitSentenceByWords(line);
             //  for (int i = 0; i < words.length; i++)
             //        System.out.println(words[i] + "..." +  i);
@@ -48,6 +48,7 @@ public class Skeleton implements Serializable{
                 Uranium u = new Uranium();
                 u.setExponation(Integer.parseInt(words[4]));
                 a.setMaterial(u);
+                u.setAsteroid(a);
                 if (words[2].equals("null")) {
                     a.addTeleport(null);
                 } else {
@@ -68,6 +69,7 @@ public class Skeleton implements Serializable{
                             case "Ice" -> a.setMaterial(new Ice());
                             //case "Uranium": a.setMaterial(new Uranium());
                         }
+                        a.getMaterial().setAsteroid(a);
                         if (words[2].equals("null")) {
                             a.addTeleport(null);
                         } else {
@@ -97,6 +99,7 @@ public class Skeleton implements Serializable{
                         for (int ii = 1; ii < tel_str.length; ii++) {                     //teleports
                             s.getTeleportlist().add(new Teleport(Integer.parseInt(tel_str[ii])));
                         }
+                        Game.getInstance().field.AddSettler(s);
                     }
                     case "Robot" -> {
                         Robot r = new Robot(Integer.parseInt(words[1]));  //id
@@ -137,9 +140,6 @@ public class Skeleton implements Serializable{
                     }
                 }
             } else System.out.println("nem jo a sorrend");
-        }
-        for(int i = 0; i < parancs.length; i++){
-            System.out.println(parancs[i]);
         }
         Game.getInstance().read_command(parancs);
         fr.close();
