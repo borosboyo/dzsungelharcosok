@@ -218,8 +218,6 @@ public class Game implements Serializable {
         output.writeObject(field);
     }
 
-    //TODO::ezt nem tudom, hogy hova akarjuk majd írni és honna akarjuk meghívni (akkor kell meghívni amikor a játékos lépni akar)
-    //TODO::kellene egy játék kiíró de az sztem ugyanaz lenne mint a file-os
     /**
      * Parancsok olvasása a játékhoz
      */
