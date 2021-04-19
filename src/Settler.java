@@ -187,7 +187,7 @@ public class Settler extends Entity implements IDrill, IMine{
     public void PlaceMaterial(){
         if(getAsteroid().getMaterial()==null && getAsteroid().getCrustThickness() == 0){
             getAsteroid().AddMaterial(inventory.get(inventory.size()-1));
-            inventory.remove(0);
+            inventory.remove(inventory.get(inventory.size()-1));
 
         }
     }
