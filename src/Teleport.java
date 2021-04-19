@@ -11,11 +11,19 @@ public class Teleport implements Steppable, Serializable {
     private boolean exploded=false;
     private ArrayList<Asteroid> asteroids;
 
+    /**
+     * Constructor of the Teleport
+     * @param id Teleport Id
+     */
     public Teleport(int id) {
         asteroids = new ArrayList<Asteroid>();
         this.id = id;
     }
 
+    /**
+     * Id getter
+     * @return with the teleport Id
+     */
     public int getId() {
         return id;
     }
@@ -23,6 +31,7 @@ public class Teleport implements Steppable, Serializable {
     public boolean getExploded(){
         return exploded;
     }
+
     public void HitBySunstorm(Asteroid a){
         if (asteroids.get(0) == a){
             firstCrazy = true;
@@ -89,7 +98,7 @@ public class Teleport implements Steppable, Serializable {
     }
 
     /**
-     *
+     *The Step function of the teleport.
      */
     @Override
     public void Step() {
