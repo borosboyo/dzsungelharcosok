@@ -11,6 +11,10 @@ public class Coal extends Material{
 
     }
 
+    /**
+     * Getter Name
+     * @return with the material name
+     */
     @Override
     public String getName(){
         return "Coal";
