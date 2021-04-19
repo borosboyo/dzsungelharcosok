@@ -54,7 +54,7 @@ public class Skeleton implements Serializable{
                     //TODO: szomszedok, entitásokat az entitásnal adja hozzá
                 }else {
                     switch (words[0]) {
-                        case "Asteroid": {
+                        case "Asteroid" -> {
                             long crust = Long.parseLong(words[4]);
                             boolean nearsun = Boolean.parseBoolean(words[5]);
                             Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
@@ -66,7 +66,7 @@ public class Skeleton implements Serializable{
                                     a.setMaterial(new Coal());
                                 case "Ice":
                                     a.setMaterial(new Ice());
-                                    //   case "Uranium": a.setMaterial(new Uranium());
+                                    //case "Uranium": a.setMaterial(new Uranium());
                             }
                             if(words[2].equals("null")){
                                 a.addTeleport(null);
@@ -74,11 +74,10 @@ public class Skeleton implements Serializable{
                                 a.addTeleport(new Teleport(Integer.parseInt(words[2])));
                             }
                             szomszedok.add(words[6]);
-                            //TODO: szomszedok
                         }
-                        case "Settler": {
+                        case "Settler" -> {
                             Settler s = new Settler(Integer.parseInt(words[1]));          //id
-                            System.out.println( words[0]+ ", "+ words[1] + ", "+words[2]+", " + words[3]);
+                            //System.out.println( words[0]+ ", "+ words[1] + ", "+words[2]+", " + words[3]);
                             Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
                             s.setAsteroid(a);                                         //asteroida
                             a.getEntities().add(s);
@@ -104,7 +103,7 @@ public class Skeleton implements Serializable{
                                 s.getTeleportlist().add(new Teleport(Integer.parseInt(tel_str[ii])));
                             }
                         }
-                        case "Robot": {
+                        case "Robot" -> {
                             Robot r = new Robot(Integer.parseInt(words[1]));  //id
                             Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
                             r.setAsteroid(a);                                         //asteroida
@@ -112,7 +111,7 @@ public class Skeleton implements Serializable{
                             //Inventory, teleport nincs neki
                         }
 
-                        case "Ufo": {
+                        case "Ufo"-> {
                             Ufo u = new Ufo(Integer.parseInt(words[1]));              //id
                             Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
                             u.setAsteroid(a);                                         //asteroida
