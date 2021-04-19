@@ -122,7 +122,8 @@ public class Skeleton implements Serializable{
         String t = new String();
         for(int i = 0; i < s.getTeleportlist().size(); i++){
             t += s.getTeleportlist().get(i).toString();
-            t += ",";
+            if(s.getTeleportlist().size() - 1 > i)
+                 t += ",";
         }
         return t;
     }
@@ -154,7 +155,8 @@ public class Skeleton implements Serializable{
            return "null";
         for(int i = 0; i > a.getNeigbours().size(); i++) {
             sz += a.getNeigbours().get(i).getid();
-            sz += ",";
+            if(a.getNeigbours().size() -  1< i)
+                sz += ",";
         }
         return sz;
     }
@@ -165,7 +167,8 @@ public class Skeleton implements Serializable{
         String e = new String();
         for(int i = 0; i < a.getEntities().size(); i++){
             e+= a.getEntities().get(i).getId();
-            e+= ",";
+            if(a.getEntities().size() - 1 < i)
+                e+= ",";
         }
 
         return e;
