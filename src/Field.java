@@ -14,16 +14,21 @@ public class Field implements Steppable, Serializable {
 
     private int sunstormcounter=0;
 
-    public Field(int settlernumber, int maxthickness){
+    public Field(){
+
+
+    }
+
+    public void newField(int settlernumber, int maxthickness){
         //alap aszteroidak
-        asteroids.add(new Asteroid(1 , 3, true, new Ice()));
-        asteroids.add(new Asteroid(2 , 3, true, new Coal()));
-        asteroids.add(new Asteroid(3 , 3, true, new Iron()));
-        asteroids.add(new Asteroid(4 , 3, true, new Uranium()));
-        asteroids.add(new Asteroid(5 , 3, true, null));
+        asteroids.add(new Asteroid(0 , 3, true, new Ice()));
+        asteroids.add(new Asteroid(1 , 3, true, new Coal()));
+        asteroids.add(new Asteroid(2 , 3, true, new Iron()));
+        asteroids.add(new Asteroid(3 , 3, true, new Uranium()));
+        asteroids.add(new Asteroid(4 , 3, true, null));
 
         //random aszteroidak, telepesenkent +10db
-        for(int i=6; i<settlernumber*10+6; i++){
+        for(int i=5; i<settlernumber*10+5; i++){
             Random rand=new Random();
             asteroids.add(new Asteroid(i ,rand.nextInt(10000000)%maxthickness, rand.nextInt(10000000)%2==0, RandomMaterial()));
         }
@@ -31,9 +36,9 @@ public class Field implements Steppable, Serializable {
         //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
 
         for(Asteroid a: asteroids){
-            for(int i=1; i<settlernumber*10+6; i++){
+            for(int i=0; i<settlernumber*10+5; i++){
                 if((a.getid()+i)%4==0){
-                    a.getNeigbours().add(asteroids.get(i-1));
+                    a.getNeigbours().add(asteroids.get(i));
                 }
             }
         }
@@ -64,7 +69,6 @@ public class Field implements Steppable, Serializable {
         for(Settler s: settlers){
             Timer.getInstance().AddSteppable(s);
         }
-
     }
 
     @Override
