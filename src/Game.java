@@ -155,7 +155,8 @@ public class Game implements Serializable {
      */
     public void StartGame(boolean isNew){
         if(isNew){
-            field = new Field(5,3);
+            field = new Field();
+            field.newField(5, 3);
         }
         else{
             try {
@@ -165,7 +166,6 @@ public class Game implements Serializable {
             }
         }
     }
-
 
     /**
      * Ends the game if the Settlers collected the required materials and won the game.

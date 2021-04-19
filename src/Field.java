@@ -14,7 +14,12 @@ public class Field implements Steppable, Serializable {
 
     private int sunstormcounter=0;
 
-    public Field(int settlernumber, int maxthickness){
+    public Field(){
+
+
+    }
+
+    public void newField(int settlernumber, int maxthickness){
         //alap aszteroidak
         asteroids.add(new Asteroid(1 , 3, true, new Ice()));
         asteroids.add(new Asteroid(2 , 3, true, new Coal()));
@@ -64,7 +69,6 @@ public class Field implements Steppable, Serializable {
         for(Settler s: settlers){
             Timer.getInstance().AddSteppable(s);
         }
-
     }
 
     @Override
