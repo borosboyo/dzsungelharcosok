@@ -11,7 +11,7 @@ Asteroid{9,null,Ice,5,false,(2;5;11;10),null}
 Asteroid{10,null,Uranium[0],2,true,(3;9),null}
 Asteroid{11,null,Ice,1,false,(3;4;9),null}
 Asteroid{12,null,null,6,false,(1;4;6;9;11),null}
-Settler{1,2,(Iron,Iron,Ice,Uranium),null}
+Settler{1,2,(Iron;Iron;Ice;Uranium),null}
 Settler{2,2,null,null}
 Settler{3,2,null,null}
 Settler{4,2,null,null}

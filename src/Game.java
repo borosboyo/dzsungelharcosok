@@ -141,6 +141,8 @@ public class Game implements Serializable {
                 case 3:{
                     //TODO::Biros tesztek futtatása itt
                     test = true;
+                    Skeleton s = new Skeleton();
+                    s.writeout(Game.getInstance());
                     Game.getInstance().test_menu();
                     break;
 
@@ -225,77 +227,67 @@ public class Game implements Serializable {
                 s.fileRead("EntityTriesToUseUnpairedTeleport.txt");
                 s.writeToFile("EntityTriesToUseUnpairedTeleport");
             }
-            case 5: {
+            case 4: {
                 s.fileRead("EntityUsesTeleport.txt");
                 s.writeToFile("EntityUsesTeleport");
             }
-
-            case 6: {
+            case 5: {
                 s.fileRead("RobotDrillsIce.txt");
                 s.writeToFile("RobotDrillsIce");
             }
-
-            case 7: {
+            case 6: {
                 s.fileRead("RobotDrillsNon-trigger.txt");
                 s.writeToFile("RobotDrillsNon-trigger");
             }
-
-            case 8: {
+            case 7: {
                 s.fileRead("RobotDrillsRadioactive.txt");
                 s.writeToFile("RobotDrillsRadioactive");
             }
-
-            case 9: {
+            case 8: {
                 s.fileRead("SettlerBuildsRobot.txt");
                 s.writeToFile("SettlerBuildsRobot");
             }
-
-            case 10:  {
+            case 9:  {
                 s.fileRead("SettlerDrillsIce.txt");
                 s.writeToFile("SettlerDrillsIce");
             }
-
-            case 11:{
+            case 10:{
                 s.fileRead("SettlerDrillsNon-trigger.txt");
                 s.writeToFile("SettlerDrillsNon-trigger");
             }
-
-            case 12:{
+            case 11:{
                 s.fileRead("SettlerDrillsRadioactive.txt");
                 s.writeToFile("SettlerDrillsRadioactive");
             }
-
-            case 13:{
+            case 12:{
                 s.fileRead("SettlerMakesTeleport.txt");
                 s.writeToFile("SettlerMakesTeleport");
             }
-
-            case 14:{
+            case 13:{
                 s.fileRead("SettlerMines.txt");
                 s.writeToFile("SettlerMines");
             }
-
-            case 15:{
+            case 14:{
                 s.fileRead("SettlerPlaceMaterial.txt");
                 s.writeToFile("SettlerPlaceMaterial");
             }
-            case 16:{
+            case 15:{
                 s.fileRead("SettlerPlaceTeleport.txt");
                 s.writeToFile("SettlerPlaceTeleport");
             }
-            case 17: {
+            case 16: {
                 s.fileRead("SettlerTriesToBuildRobotWithoutMaterials.txt");
                 s.writeToFile("SettlerTriesToBuildRobotWithoutMaterials");
             }
-            case 18:{
+            case 17:{
                 s.fileRead("SettlerTriesToMakeTeleportWithFullInventory.txt");
                 s.writeToFile("SettlerTriesToMakeTeleportWithFullInventory");
             }
-            case 19:{
+            case 18:{
                 s.fileRead("SettlerTriesToMakeTeleportWithNoMaterials.txt");
                 s.writeToFile("SettlerTriesToMakeTeleportWithNoMaterials");
             }
-            case 20:{
+            case 19:{
                 s.fileRead("SettlerTriesToMineOnInvalidAsteroid.txt");
                 s.writeToFile("SettlerTriesToMineOnInvalidAsteroid");
             }
@@ -303,27 +295,27 @@ public class Game implements Serializable {
                 s.fileRead("SettlerTriesToMineWithFullyInventory.txt");
                 s.writeToFile("SettlerTriesToMineWithFullyInventory");
             }
-            case 22:{
+            case 20:{
                 s.fileRead("SettlerTriesToPlaceMaterialOnInvalidAsteroid.txt");
                 s.writeToFile("SettlerTriesToPlaceMaterialOnInvalidAsteroid");
             }
-            case 23: {
+            case 22: {
                 s.fileRead("SettlerWinsGameWithMove.txt");
                 s.writeToFile("SettlerWinsGameWithMove");
             }
-            case 24:{
+            case 23:{
                 s.fileRead("Special.txt");
                 s.writeToFile("Special");
             }
-            case 25:{
+            case 24:{
                 s.fileRead("SunstormOnAsteroid.txt");
                 s.writeToFile("SunstormOnAsteroid");
             }
-            case 26: {
+            case 25: {
                 s.fileRead("UfoMines.txt");
                 s.writeToFile("UfoMines");
             }
-            case 27: {
+            case 26: {
                 s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
                 s.writeToFile("UfoTriesToMineOnInvalidAsteroid");
             }

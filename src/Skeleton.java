@@ -73,6 +73,7 @@ public class Skeleton implements Serializable{
                 if (lines == 1) {
                     parancs = words;
                 } else {
+                    if(!words[0].equals("GameStep"))
                     if (words[3].equals("Uranium") && words[0].equals("Asteroid")) {
                         long crust = Long.parseLong(words[5]);
                         boolean nearsun = Boolean.parseBoolean(words[6]);
@@ -98,12 +99,13 @@ public class Skeleton implements Serializable{
                                 Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
                                 Game.getInstance().field.AddAsteroid(a);
                                 switch (words[3]) {
-                                    case "Iron" -> a.setMaterial(new Iron());
-                                    case "Coal" -> a.setMaterial(new Coal());
-                                    case "Ice" -> a.setMaterial(new Ice());
+                                    case "Iron" -> a.AddMaterial(new Iron());//Material(new Iron());
+                                    case "Coal" -> a.AddMaterial(new Coal());
+                                    case "Ice" -> a.AddMaterial(new Ice());
                                     //case "Uranium": a.setMaterial(new Uranium());
                                 }
-                                a.getMaterial().setAsteroid(a);
+                                if(a.getMaterial() != null)
+                                    a.getMaterial().setAsteroid(a);
                                 if (words[2].equals("null")) {
                                     a.addTeleport(null);
                                 } else {
@@ -115,7 +117,7 @@ public class Skeleton implements Serializable{
                             }
                             case "Settler" -> {
                                 Settler s = new Settler(Integer.parseInt(words[1]));          //id
-                                //System.out.println( words[0]+ ", "+ words[1] + ", "+words[2]+", " + words[3]);
+                                System.out.println( words[0]+ ", "+ words[1] + ", "+words[2]+", " + words[3]);
                                 Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
                                 s.setAsteroid(a);                                         //asteroida
                                 a.getEntities().add(s);
@@ -306,8 +308,11 @@ public class Skeleton implements Serializable{
             return "null";
         String t = new String();
         for(int i = 0; i < a.getTeleports().size(); i++){
-            t += a.getTeleports().get(i).toString();
-            t += ",";
+            if(a.getTeleports().get(i) != null){
+                t += a.getTeleports().get(i).toString();
+                t += ",";
+            }
+
         }
         return t;
     }
