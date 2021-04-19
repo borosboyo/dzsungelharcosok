@@ -11,4 +11,10 @@ public class Ice extends Material{
     public void Trigger() {
         asteroid.RemoveMaterial();
     }
+
+    @Override
+    public String getName(){
+        return "Ice";
+    }
+
 }

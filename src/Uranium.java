@@ -16,4 +16,9 @@ int exponation = 0;
         }
 
     }
+
+    @Override
+    public String getName(){
+        return "Uranium[" + exponation + "]";
+    }
 }

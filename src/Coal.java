@@ -10,4 +10,9 @@ public class Coal extends Material{
     public void Trigger() {
 
     }
+
+    @Override
+    public String getName(){
+        return "Coal";
+    }
 }
