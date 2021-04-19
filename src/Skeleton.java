@@ -81,24 +81,25 @@ public class Skeleton {
     public void writeout(Game g){
         for(int i = 0; i < g.field.getSettlers().size(); i++) {
             Settler s = g.field.getSettlers().get(i);
-            System.out.println("Settler {" + i + "," + s.getAsteroid() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+            System.out.println("Settler {" + i + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
         }
         for(int i = 0; i < g.field.getRobots().size(); i++){
             Robot r = g.field.getRobots().get(i);
-            System.out.println("Robot {" + i+g.field.getSettlers().size() + "," + r.getAsteroid() + "}");
+            int id = i +g.field.getSettlers().size();
+            System.out.println("Robot {" + id + "," + r.getAsteroid() + "}");
         }
         for(int i = 0; i < g.field.getUfos().size(); i++){
             Ufo u = g.field.getUfos().get(i);
-            System.out.println("Ufo {" + i+g.field.getSettlers().size()+g.field.getRobots().size() + "," + u.getAsteroid() + "}");
+            int id = i+g.field.getSettlers().size() + g.field.getRobots().size();
+            System.out.println("Ufo {" + id +g.field.getRobots().size() + "," + u.getAsteroid().getId() + "}");
         }
 
         for(int i = 0; i < g.field.getAsteroids().size(); i++){
             Asteroid a = g.field.getAsteroids().get(i);
-            System.out.println("Asteroid {" + i + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+            System.out.println("Asteroid {" + a.getid() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
                     Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
         }
     }
-
 
 
     /**
