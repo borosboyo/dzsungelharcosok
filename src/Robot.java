@@ -30,6 +30,7 @@ public class Robot extends Entity implements IDrill {
         getAsteroid().RemoveEntity(this);
         setAsteroid(null);
         Timer.getInstance().RemoveSteppable(this);
+        Game.getInstance().field.getRobots().remove(this);
     }
 
     /**

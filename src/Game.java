@@ -234,17 +234,20 @@ public class Game implements Serializable {
             case 5: {
                 s.fileRead("RobotDrillsIce.txt");
                 s.writeToFile("RobotDrillsIce");
+                s.writeout(game);
                 break;
 
             }
             case 6: {
                 s.fileRead("RobotDrillsNon-trigger.txt");
                 s.writeToFile("RobotDrillsNon-trigger");
+                s.writeout(game);
                 break;
             }
             case 7: {
                 s.fileRead("RobotDrillsRadioactive.txt");
                 s.writeToFile("RobotDrillsRadioactive");
+                s.writeout(game);
                 break;
             }
             case 8: {
@@ -260,6 +263,7 @@ public class Game implements Serializable {
             case 10:{
                 s.fileRead("SettlerDrillsNon-trigger.txt");
                 s.writeToFile("SettlerDrillsNon-trigger");
+                s.writeout(game);
                 break;
             }
             case 11:{
@@ -527,7 +531,6 @@ public class Game implements Serializable {
                 }
             }
         }
-
         return false;
     }
 
