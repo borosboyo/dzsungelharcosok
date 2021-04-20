@@ -139,13 +139,9 @@ public class Game implements Serializable {
                     break;
                 }
                 case 3:{
-                    //TODO::Biros tesztek futtatása itt
                     test = true;
-                 //   Skeleton s = new Skeleton();
-                   // s.writeout(Game.getInstance());
-                    Game.getInstance().test_menu();
+                    game.test_menu();
                     break;
-
                 }
                 case 4:{
                     return;
@@ -351,10 +347,94 @@ public class Game implements Serializable {
                 s.writeToFile("AllSettlersDie");
                 break;
             }
-            case 29: //TODO: minden tesztet futtatni
+            case 29: {
+                run_all(s);
+            }
         }
     }
 
+    public void run_all(Skeleton s) throws IOException {
+        s.fileRead("EntityMoves.txt");
+        s.writeToFile("EntityMoves");
+        game = new Game();
+        s.fileRead("EntityTriesToMoveOnNotNeighbour.txt");
+        s.writeToFile("EntityTriesToMoveOnNotNeighbour");
+        game = new Game();
+        s.fileRead("EntityTriesToUseUnpairedTeleport.txt");
+        s.writeToFile("EntityTriesToUseUnpairedTeleport");
+        game = new Game();
+        s.fileRead("EntityUsesTeleport.txt");
+        s.writeToFile("EntityUsesTeleport");
+        game = new Game();
+        s.fileRead("RobotDrillsIce.txt");
+        s.writeToFile("RobotDrillsIce");
+        game = new Game();
+        s.fileRead("RobotDrillsNon-trigger.txt");
+        s.writeToFile("RobotDrillsNon-trigger");
+        game = new Game();
+        s.fileRead("RobotDrillsRadioactive.txt");
+        s.writeToFile("RobotDrillsRadioactive");
+        game = new Game();
+        s.fileRead("SettlerBuildsRobot.txt");
+        s.writeToFile("SettlerBuildsRobot");
+        game = new Game();
+        s.fileRead("SettlerDrillsIce.txt");
+        s.writeToFile("SettlerDrillsIce");
+        game = new Game();
+        s.fileRead("SettlerDrillsNon-trigger.txt");
+        s.writeToFile("SettlerDrillsNon-trigger");
+        game = new Game();
+        s.fileRead("SettlerDrillsRadioactive.txt");
+        s.writeToFile("SettlerDrillsRadioactive");
+        game = new Game();
+        s.fileRead("SettlerMakesTeleport.txt");
+        s.writeToFile("SettlerMakesTeleport");
+        game = new Game();
+        s.fileRead("SettlerMines.txt");
+        s.writeToFile("SettlerMines");
+        game = new Game();
+        s.fileRead("SettlerPlaceMaterial.txt");
+        s.writeToFile("SettlerPlaceMaterial");
+        game = new Game();
+        s.fileRead("SettlerPlaceTeleport.txt");
+        s.writeToFile("SettlerPlaceTeleport");
+        game = new Game();
+        s.fileRead("SettlerTriesToBuildRobotWithoutMaterials.txt");
+        s.writeToFile("SettlerTriesToBuildRobotWithoutMaterials");
+        game = new Game();
+        s.fileRead("SettlerTriesToMakeTeleportWithFullInventory.txt");
+        s.writeToFile("SettlerTriesToMakeTeleportWithFullInventory");
+        game = new Game();
+        s.fileRead("SettlerTriesToMakeTeleportWithNoMaterials.txt");
+        s.writeToFile("SettlerTriesToMakeTeleportWithNoMaterials");
+        game = new Game();
+        s.fileRead("SettlerTriesToMineOnInvalidAsteroid.txt");
+        s.writeToFile("SettlerTriesToMineOnInvalidAsteroid");
+        game = new Game();
+        s.fileRead("SettlerTriesToMineWithFullyInventory.txt");
+        s.writeToFile("SettlerTriesToMineWithFullyInventory");
+        game = new Game();
+        s.fileRead("SettlerTriesToPlaceMaterialOnInvalidAsteroid.txt");
+        s.writeToFile("SettlerTriesToPlaceMaterialOnInvalidAsteroid");
+        game = new Game();
+        s.fileRead("SettlerWinsGameWithMove.txt");
+        s.writeToFile("SettlerWinsGameWithMove");
+        game = new Game();
+        s.fileRead("Special.txt");
+        s.writeToFile("Special");
+        game = new Game();
+        s.fileRead("SunstormOnAsteroid.txt");
+        s.writeToFile("SunstormOnAsteroid");
+        game = new Game();
+        s.fileRead("UfoMines.txt");
+        s.writeToFile("UfoMines");
+        game = new Game();
+        s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
+        s.writeToFile("UfoTriesToMineOnInvalidAsteroid");
+        game = new Game();
+        s.fileRead("AllSettlersDie.txt");
+        s.writeToFile("AllSettlersDie");
+    }
     /**
      * Starts the game.
      */

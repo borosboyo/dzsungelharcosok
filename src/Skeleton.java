@@ -18,6 +18,7 @@ public class Skeleton implements Serializable{
     }
 
     public void fileRead(String filename) throws IOException {
+        System.out.println("Testing: " + filename);
         File file=new File(filename);
         FileReader fr=new FileReader(file);
         BufferedReader br=new BufferedReader(fr);
@@ -25,6 +26,7 @@ public class Skeleton implements Serializable{
         String line;
         int lines =0;
         String[] parancs = new String[5];
+        String entity = null;
         Game.getInstance().field = new Field();
         ArrayList<String> szomszedok = new ArrayList();
 
@@ -64,7 +66,6 @@ public class Skeleton implements Serializable{
            }
 
         } else {
-
             while ((line = br.readLine()) != null) {
                 lines++;
                 String[] words = splitSentenceByWords(line);
@@ -179,6 +180,8 @@ public class Skeleton implements Serializable{
         }
         Game.getInstance().read_command(parancs);
         fr.close();
+        System.out.println("Test done.");
+        System.out.println("----------------------------------");
     }
 
     public void writeToFile(String filename) throws FileNotFoundException, UnsupportedEncodingException {

@@ -1,5 +1,9 @@
+Settler {1,2,(Coal,Coal,Uranium[0],Coal,Coal,Iron,Coal,Coal,Iron,Ice,Coal),null}
+Settler {2,2,null,null}
+Settler {3,2,null,null}
+Settler {4,2,null,null}
 Asteroid {1,(),Iron,3,true,(2,5,6,12),()}
-Asteroid {2,(),Coal,0,true,(1,4,9),()}
+Asteroid {2,(),null,0,true,(1,4,9),(1,2,3,4)}
 Asteroid {3,(),Ice,5,false,(10,11),()}
 Asteroid {4,(),Uranium[0],2,true,(2,6,7,11,12),()}
 Asteroid {5,(),Ice,1,false,(1,7,8,9),()}
