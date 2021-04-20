@@ -59,6 +59,7 @@ public class Field implements Steppable, Serializable {
                 Timer.getInstance().AddSteppable(u);
                 ufos.add(u);
                 k++;
+                System.out.println(ufos.get(0).getId());
             }
         }
 
