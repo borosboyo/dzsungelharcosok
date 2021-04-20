@@ -2,7 +2,7 @@ Settler {1,2,null,null}
 Settler {2,2,null,null}
 Settler {3,2,null,null}
 Settler {4,2,null,null}
-Robot {0,Asteroid@6433a2}
+Robot {0,2}
 Asteroid {1,(),Iron,3,true,(2,5,6,12),()}
 Asteroid {2,(),Coal,4,true,(1,4,9),(1,2,3,4,0)}
 Asteroid {3,(),Ice,5,false,(10,11),()}

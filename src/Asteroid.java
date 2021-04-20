@@ -209,8 +209,11 @@ public class Asteroid implements Serializable {
                 entities.get(i).Die();
             }
         }
-        for (int i = 0; i < teleports.size(); i++){
-            teleports.get(i).HitBySunstorm(this);
+
+        for (int i = 0; i < teleports.size(); i++) {
+            if(teleports.get(i) != null){
+                teleports.get(i).HitBySunstorm(this);
+            }
         }
     }
 

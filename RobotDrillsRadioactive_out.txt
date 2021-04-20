@@ -2,11 +2,12 @@ Settler {1,2,null,null}
 Settler {2,2,null,null}
 Settler {3,2,null,null}
 Settler {4,2,null,null}
+Robot {5,4}
 Asteroid {1,(),Iron,3,true,(2,5,6,12),()}
 Asteroid {2,(),Coal,4,true,(1,4,9),(1,2,3,4)}
 Asteroid {3,(),Ice,5,false,(10,11),()}
-Asteroid {4,(),Uranium[0],1,true,(2,6,7,11,12),()}
-Asteroid {5,(),Ice,1,false,(1,7,8,9),(5)}
+Asteroid {4,(),Uranium[1],0,true,(2,6,7,11,12),(5)}
+Asteroid {5,(),Ice,1,false,(1,7,8,9),()}
 Asteroid {6,(),null,6,false,(1,4,12),()}
 Asteroid {7,(),Iron,3,true,(4,5),()}
 Asteroid {8,(),Coal,4,true,(5),()}

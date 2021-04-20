@@ -437,9 +437,9 @@ public class Game implements Serializable {
         game = new Game();
         s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
         s.writeToFile("UfoTriesToMineOnInvalidAsteroid");
-        game = new Game();
+        /*game = new Game();
         s.fileRead("AllSettlersDie.txt");
-        s.writeToFile("AllSettlersDie");
+        s.writeToFile("AllSettlersDie");*/
     }
     /**
      * Starts the game.
@@ -547,6 +547,10 @@ public class Game implements Serializable {
         Settler se = null;
         Ufo uf = null;
         Robot ro = null;
+
+        if(commands[0] == null){
+            return false;
+        }
 
         if(commands.length < 2){
             System.out.println("Helytelen bemenet!....1");
@@ -672,7 +676,6 @@ public class Game implements Serializable {
                     correct = false;
                     break;
                 }
-                se =  field.getSettlers().get(Integer.parseInt(commands[1]));
                 se.PlaceMaterial();
                 correct = true;
                 break;
@@ -692,6 +695,15 @@ public class Game implements Serializable {
                     break;
                 }
                 se.BuildRobot();
+                correct = true;
+                break;
+            }
+            case "sunstorm":{
+                if(commands.length != 2){
+                    correct = false;
+                    break;
+                }
+                getInstance().field.SetSunStorm();
                 correct = true;
                 break;
             }

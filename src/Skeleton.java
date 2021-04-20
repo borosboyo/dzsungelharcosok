@@ -43,8 +43,10 @@ public class Skeleton implements Serializable{
             Game.getInstance().field.AddAsteroid(a3);
             a.addTeleport(new Teleport(1));
             Settler s = new Settler(1);
+            Game.getInstance().field.getSettlers().add(s);
             s.setAsteroid(a);
             Robot r = new Robot(2);
+            Game.getInstance().field.getRobots().add(r);
             r.setAsteroid(a3);
             Teleport t2 = new Teleport(2);
             t2.getAsteroids().add(a2);
@@ -136,7 +138,7 @@ public class Skeleton implements Serializable{
                             }
                             case "Robot" -> {
                                 Robot r = new Robot(Integer.parseInt(words[1]));  //id
-                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
+                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2])-1);
                                 r.setAsteroid(a);                                         //asteroida
                                 a.getEntities().add(r);
                                 Game.getInstance().field.getRobots().add(r);
@@ -172,7 +174,9 @@ public class Skeleton implements Serializable{
             }
         }
 
-        Game.getInstance().read_command(parancs);
+        if(!filename.equals("Special.txt")){
+            Game.getInstance().read_command(parancs);
+        }
         fr.close();
         System.out.println("Test done.");
         System.out.println("----------------------------------");
