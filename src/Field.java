@@ -45,12 +45,12 @@ public class Field implements Steppable, Serializable {
         int k=0;
 
         for(int i=0; i<settlernumber; i++){
-            Settler s= new Settler(i);
+            Settler s= new Settler(k);
             int randasteroid=rand.nextInt(asteroids.size());
             asteroids.get(randasteroid).Accept(s);
             settlers.add(s);
             s.setAsteroid(asteroids.get(randasteroid));
-
+            k++;
             if(i%5==0){
                 Ufo u= new Ufo(k);
                 randasteroid=rand.nextInt(asteroids.size());
