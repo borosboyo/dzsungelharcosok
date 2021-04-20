@@ -191,7 +191,7 @@ public class Skeleton implements Serializable{
         for (int i = 0; i < g.field.getRobots().size(); i++) {
             Robot r = g.field.getRobots().get(i);
             if(r.getAsteroid() != null) {
-                writer.println("Robot {" + r.getId() + "," + r.getAsteroid() + "}");
+                writer.println("Robot {" + r.getId() + "," + r.getAsteroid().getId() + "}");
             }
         }
 
@@ -226,7 +226,7 @@ public class Skeleton implements Serializable{
         for (int i = 0; i < g.field.getRobots().size(); i++) {
             Robot r = g.field.getRobots().get(i);
             if(r.getAsteroid() != null) {
-                System.out.println("Robot {" + r.getId() + "," + r.getAsteroid() + "}");
+                System.out.println("Robot {" + r.getId() + "," + r.getAsteroid().getId() + "}");
             }
         }
 

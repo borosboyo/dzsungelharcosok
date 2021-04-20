@@ -110,11 +110,42 @@ public class Settler extends Entity implements IDrill, IMine{
                 }
             }
 
-            Robot r= new Robot(1);   //TODO: retek id miatt itt átkell adni valamit, kikell talalni mi legyen
+            boolean correct_id = false;
+            int id = -1;
+
+            while(!correct_id){
+                id++;
+                for (int i = 0; i  < Game.getInstance().field.getSettlers().size(); i++){
+                    if (id != Game.getInstance().field.getSettlers().get(i).getId()){
+                        correct_id = true;
+                        break;
+                    }
+                }
+                if(!correct_id){
+                    for (int i = 0; i  < Game.getInstance().field.getRobots().size(); i++){
+                        if (id != Game.getInstance().field.getRobots().get(i).getId()){
+                            correct_id = true;
+                            break;
+                        }
+                    }
+                }
+                if(!correct_id) {
+                    for (int i = 0; i  < Game.getInstance().field.getUfos().size(); i++){
+                        if (id != Game.getInstance().field.getUfos().get(i).getId()){
+                            correct_id = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            Robot r= new Robot(id);
+
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
             Timer.getInstance().AddSteppable(r);
             Game.getInstance().field.getRobots().add(r);
+            System.out.println(id + " " + r + " "+ r.getAsteroid());
         }
 
 
