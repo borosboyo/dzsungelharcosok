@@ -140,7 +140,7 @@ public class Game implements Serializable {
                 }
                 case 3:{
                     test = true;
-                    game.test_menu();
+
                     break;
                 }
                 case 4:{
@@ -153,7 +153,9 @@ public class Game implements Serializable {
             }
 
             if(test){
-                continue; //TODO::Ez így nem jó
+                game.test_menu();
+                test = false;
+                continue;
             }
 
             if(!game.StartGame(new_game)){
