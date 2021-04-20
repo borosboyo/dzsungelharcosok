@@ -195,16 +195,14 @@ public class Skeleton implements Serializable{
         }
         for(int i = 0; i < g.field.getRobots().size(); i++){
             Robot r = g.field.getRobots().get(i);
-            int id = i +g.field.getSettlers().size();
             if(r.getAsteroid() != null) {
-                writer.println("Robot {" + id + "," + r.getAsteroid() + "}");
+                writer.println("Robot {" + r.getId() + "," + r.getAsteroid() + "}");
             }
         }
 
         for(int i = 0; i < g.field.getUfos().size(); i++){
             Ufo u = g.field.getUfos().get(i);
-            int id = i+g.field.getSettlers().size() + g.field.getRobots().size() + i;
-            writer.println("Ufo {" + id + "," + u.getAsteroid().getId() + "}");
+            writer.println("Ufo {" + u.getId() + "," + u.getAsteroid().getId() + "}");
         }
 
         for(int i = 0; i < g.field.getAsteroids().size(); i++){
