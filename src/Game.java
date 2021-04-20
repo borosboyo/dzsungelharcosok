@@ -542,27 +542,34 @@ public class Game implements Serializable {
         Settler se = null;
         Ufo uf = null;
         Robot ro = null;
-        Entity ent = null;
 
         if(commands.length < 2){
             System.out.println("Helytelen bemenet!....1");
             return false;
-        }
-        else{
-            for (int i = 0; i  < field.getAsteroids().size(); i++){
-                for (int j = 0; j < field.getSettlers().size(); j++){
-                    if(Integer.parseInt(commands[1]) == field.getAsteroids().get(i).getEntities().get(j).getId()) {
-                        ent = field.getAsteroids().get(i).getEntities().get(j);
-                        if(ent instanceof Ufo){
-                           uf = (Ufo)ent;
-                           enti = 2;
-                        }if(ent instanceof Robot){
-                            ro = (Robot)ent;
-                            enti = 1;
-                        }if(ent instanceof  Settler){
-                            se = (Settler)ent;
-                            enti = 0;
-                        }
+        }else{
+            for (int i = 0; i  < field.getSettlers().size(); i++){
+                if(Integer.parseInt(commands[1]) == field.getSettlers().get(i).getId()){
+                    se = field.getSettlers().get(i);
+                    enti = 0;
+                    correct = true;
+                    break;
+                }
+            }
+            if(!correct){
+                for (int i = 0; i  < field.getRobots().size(); i++){
+                    if(Integer.parseInt(commands[1]) == field.getRobots().get(i).getId()){
+                        ro = field.getRobots().get(i);
+                        enti = 1;
+                        correct = true;
+                        break;
+                    }
+                }
+            }
+            if(!correct) {
+                for (int i = 0; i < field.getUfos().size(); i++) {
+                    if (Integer.parseInt(commands[1]) == field.getUfos().get(i).getId()) {
+                        uf = field.getUfos().get(i);
+                        enti = 2;
                         correct = true;
                         break;
                     }
@@ -583,7 +590,15 @@ public class Game implements Serializable {
                 }
                 for(int i=0; i<field.getAsteroids().size(); i++){
                     if(Integer.parseInt(commands[2]) == field.getAsteroids().get(i).getId()){
-                        ent.Move(field.getAsteroids().get(i));
+                        if(enti == 0){
+                            se.Move(field.getAsteroids().get(i));
+                        }
+                        if(enti == 1){
+                            ro.Move(field.getAsteroids().get(i));
+                        }
+                        if(enti == 2){
+                            uf.Move(field.getAsteroids().get(i));
+                        }
                         correct = true;
                         break;
                     }
