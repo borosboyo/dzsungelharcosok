@@ -73,88 +73,87 @@ public class Skeleton implements Serializable{
                 if (lines == 1) {
                     parancs = words;
                 } else {
-                    if(words[0].equals("Asteroid"))
-                    if (words[3].equals("Uranium")) {
-                        long crust = Long.parseLong(words[5]);
-                        boolean nearsun = Boolean.parseBoolean(words[6]);
-                        Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
-                        Game.getInstance().field.AddAsteroid(a);
-                        Uranium u = new Uranium();
-                        u.setExponation(Integer.parseInt(words[4]));
-                        a.setMaterial(u);
-                        u.setAsteroid(a);
-                        if (words[2].equals("null")) {
-                            a.addTeleport(null);
+                    if (words[0].equals("Asteroid")) {
+                        if (words[3].equals("Uranium")) {
+                            long crust = Long.parseLong(words[5]);
+                            boolean nearsun = Boolean.parseBoolean(words[6]);
+                            Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
+                            Game.getInstance().field.AddAsteroid(a);
+                            Uranium u = new Uranium();
+                            u.setExponation(Integer.parseInt(words[4]));
+                            a.setMaterial(u);
+                            u.setAsteroid(a);
+                            if (words[2].equals("null")) {
+                                a.addTeleport(null);
+                            } else {
+                                Teleport t = new Teleport(Integer.parseInt(words[2]));
+                                a.addTeleport(t);
+                                t.getAsteroids().add(a);
+                            }
+                            szomszedok.add(words[7]);
                         } else {
-                            Teleport t = new Teleport(Integer.parseInt(words[2]));
-                            a.addTeleport(t);
-                            t.getAsteroids().add(a);
+                            long crust = Long.parseLong(words[4]);
+                            boolean nearsun = Boolean.parseBoolean(words[5]);
+                            Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
+                            Game.getInstance().field.AddAsteroid(a);
+                            switch (words[3]) {
+                                case "Iron" -> a.AddMaterial(new Iron());//Material(new Iron());
+                                case "Coal" -> a.AddMaterial(new Coal());
+                                case "Ice" -> a.AddMaterial(new Ice());
+                                //case "Uranium": a.setMaterial(new Uranium());
+                            }
+                            if (a.getMaterial() != null)
+                                a.getMaterial().setAsteroid(a);
+                            if (words[2].equals("null")) {
+                                a.addTeleport(null);
+                            } else {
+                                Teleport t = new Teleport(Integer.parseInt(words[2]));
+                                a.addTeleport(t);
+                                t.getAsteroids().add(a);
+                            }
+                            szomszedok.add(words[6]);
                         }
-                        szomszedok.add(words[7]);
                     } else {
-                        switch (words[0]) {
-                            case "Asteroid" -> {
-                                long crust = Long.parseLong(words[4]);
-                                boolean nearsun = Boolean.parseBoolean(words[5]);
-                                Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
-                                Game.getInstance().field.AddAsteroid(a);
-                                switch (words[3]) {
-                                    case "Iron" -> a.AddMaterial(new Iron());//Material(new Iron());
-                                    case "Coal" -> a.AddMaterial(new Coal());
-                                    case "Ice" -> a.AddMaterial(new Ice());
-                                    //case "Uranium": a.setMaterial(new Uranium());
-                                }
-                                if(a.getMaterial() != null)
-                                    a.getMaterial().setAsteroid(a);
-                                if (words[2].equals("null")) {
-                                    a.addTeleport(null);
-                                } else {
-                                    Teleport t = new Teleport(Integer.parseInt(words[2]));
-                                    a.addTeleport(t);
-                                    t.getAsteroids().add(a);
-                                }
-                                szomszedok.add(words[6]);
-                            }
-                            case "Settler" -> {
-                                Settler s = new Settler(Integer.parseInt(words[1]));          //id
-                                System.out.println( words[0]+ ", "+ words[1] + ", "+words[2]+", " + words[3]);
-                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
-                                s.setAsteroid(a);                                         //asteroida
-                                a.getEntities().add(s);
-                                String[] inv_str = words[3].split("[;()]+");
-                                String[] tel_str = words[4].split("[;()]+");
+                            switch (words[0]) {
+                                case "Settler" -> {
+                                    Settler s = new Settler(Integer.parseInt(words[1]));          //id
+                                    Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2])-1);
+                                    s.setAsteroid(a);                                         //asteroida
+                                    a.getEntities().add(s);
+                                    String[] inv_str = words[3].split("[;()]+");
+                                    String[] tel_str = words[4].split("[;()]+");
 
-                                for (int ii = 1; ii < inv_str.length; ii++) {       //inventory
-                                    switch (inv_str[ii]) {
-                                        case "Iron" -> s.getInventory().add(new Iron());
-                                        case "Ice" -> s.getInventory().add(new Ice());
-                                        case "Uranium" -> s.getInventory().add(new Uranium());
-                                        case "Coal" -> s.getInventory().add(new Coal());
-                                        case "null" -> s.getInventory().add(null);
+                                    for (int ii = 1; ii < inv_str.length; ii++) {       //inventory
+                                        switch (inv_str[ii]) {
+                                            case "Iron" -> s.getInventory().add(new Iron());
+                                            case "Ice" -> s.getInventory().add(new Ice());
+                                            case "Uranium" -> s.getInventory().add(new Uranium());
+                                            case "Coal" -> s.getInventory().add(new Coal());
+                                            case "null" -> s.getInventory().add(null);
+                                        }
                                     }
+
+                                    for (int ii = 1; ii < tel_str.length; ii++) {                     //teleports
+                                        s.getTeleportlist().add(new Teleport(Integer.parseInt(tel_str[ii])));
+                                    }
+                                    Game.getInstance().field.AddSettler(s);
+                                }
+                                case "Robot" -> {
+                                    Robot r = new Robot(Integer.parseInt(words[1]));  //id
+                                    Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
+                                    r.setAsteroid(a);                                         //asteroida
+                                    a.getEntities().add(r);
+                                    //Inventory, teleport nincs neki
                                 }
 
-                                for (int ii = 1; ii < tel_str.length; ii++) {                     //teleports
-                                    s.getTeleportlist().add(new Teleport(Integer.parseInt(tel_str[ii])));
+                                case "Ufo" -> {
+                                    Ufo u = new Ufo(Integer.parseInt(words[1]));              //id
+                                    Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
+                                    u.setAsteroid(a);                                         //asteroida
+                                    a.getEntities().add(u);
                                 }
-                                Game.getInstance().field.AddSettler(s);
-                            }
-                            case "Robot" -> {
-                                Robot r = new Robot(Integer.parseInt(words[1]));  //id
-                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
-                                r.setAsteroid(a);                                         //asteroida
-                                a.getEntities().add(r);
-                                //Inventory, teleport nincs neki
-                            }
-
-                            case "Ufo" -> {
-                                Ufo u = new Ufo(Integer.parseInt(words[1]));              //id
-                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
-                                u.setAsteroid(a);                                         //asteroida
-                                a.getEntities().add(u);
                             }
                         }
-                    }
                     sb.append(line);
                     sb.append("\n");
                 }
@@ -177,8 +176,8 @@ public class Skeleton implements Serializable{
                     }
                 } else System.out.println("nem jo a sorrend");
             }
-            Game.getInstance().read_command(parancs);
         }
+        Game.getInstance().read_command(parancs);
         fr.close();
     }
 
