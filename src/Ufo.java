@@ -51,6 +51,7 @@ public class Ufo extends Entity implements IMine {
         getAsteroid().RemoveEntity(this);
         setAsteroid(null);
         Timer.getInstance().RemoveSteppable(this);
+        Game.getInstance().field.getUfos().remove(this);
     }
 
     /**

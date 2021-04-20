@@ -114,7 +114,7 @@ public class Settler extends Entity implements IDrill, IMine{
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
             Timer.getInstance().AddSteppable(r);
-
+            Game.getInstance().field.getRobots().add(r);
         }
 
 
