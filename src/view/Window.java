@@ -9,18 +9,17 @@ import java.util.Objects;
 
 public class Window extends JFrame {
     private MenuPanel menuPanel;
-    private GamePanel game;
+    private GamePanel gamePanel;
 
     public Window(){
         setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 200);
         setResizable(false);
-        menuPanel = new MenuPanel();
-        game = new GamePanel(10);
+        menuPanel = new MenuPanel(this);
+        gamePanel = new GamePanel(10);
         add(menuPanel);
         setVisible(true);
-
     }
 
     public static void main(String []args) throws IOException {
@@ -48,7 +47,10 @@ public class Window extends JFrame {
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
-    public void choosePanel(boolean b) {
-        removeAll();
+    public void switchToGame(){
+        remove(menuPanel);
+        setSize(800,600);
+        add(gamePanel);
+        repaint();
     }
 }

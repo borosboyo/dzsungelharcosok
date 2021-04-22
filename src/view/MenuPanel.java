@@ -4,14 +4,18 @@ import javax.imageio.ImageIO;
 import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MenuPanel extends JPanel {
+
+    Window window;
+
     private JPanel formPanel = new JPanel();
     private JPanel buttonsPanel = new JPanel();
 
-    private JLabel imageLabel;
     private Image bg;
 
     private JButton startButton = new JButton();
@@ -24,7 +28,8 @@ public class MenuPanel extends JPanel {
 
     private ArrayList<ImageIcon> imageContainer = new ArrayList<ImageIcon>();
 
-    public MenuPanel(){
+    public MenuPanel(Window _window){
+        window = _window;
         setLayout(new GridLayout(2,1,0,10));
         setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
 
@@ -67,7 +72,8 @@ public class MenuPanel extends JPanel {
         button.setMargin(new Insets(0,0,0,0));
         button.setOpaque(false);
         button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
+        //button.setContentAreaFilled(false);
+        button.addActionListener(new ClickListener());
     }
 
     public void initSettlerSpinnner(){
@@ -86,6 +92,15 @@ public class MenuPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(bg,0,0,null);
+    }
+
+    class ClickListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e){
+            if(e.getSource() == startButton){
+                window.switchToGame();
+            }
+        }
     }
 
 }
