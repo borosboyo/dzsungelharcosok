@@ -5,14 +5,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuPanel extends JPanel {
-    private JPanel formPanel;
-    private JPanel buttonsPanel;
+    private JPanel formPanel = new JPanel();
+    private JPanel buttonsPanel = new JPanel();
 
     private JLabel imageLabel;
+    private Image bg;
 
-    private JButton startButton;
-    private JButton loadButton;
-    private JButton exitButton;
+    private JButton startButton = new JButton();
+    private JButton loadButton = new JButton();
+    private JButton exitButton = new JButton();
 
     private JSpinner settlerSpinner;
 
@@ -21,23 +22,37 @@ public class MenuPanel extends JPanel {
     public MenuPanel(){
         setLayout(new GridLayout(2,1,0,10));
         setBorder(BorderFactory.createEmptyBorder(50,75,0,75));
-        setBackground(Color.GRAY);
-
+        initBackGround();
         initPanels();
+        initButtons();
         add(formPanel);
         add(buttonsPanel);
-
     }
 
+    public void initBackGround(){
+        bg = new ImageIcon("images/menu.png").getImage();
+    }
+
+
     public void initPanels(){
-        formPanel = new JPanel();
-        buttonsPanel = new JPanel();
+        formPanel.setOpaque(false);
+        buttonsPanel.setOpaque(false);
+    }
+
+    public void initButtons(){
+        buttonsPanel.add(startButton);
+        buttonsPanel.add(loadButton);
+        buttonsPanel.add(exitButton);
     }
 
     public void initSettlerSpinnner(){
 
     }
 
-    public void initBackGround(){
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(bg,0,0,null);
     }
+
 }
