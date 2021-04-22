@@ -98,12 +98,11 @@ public class MenuPanel extends JPanel {
             if(e.getSource() == startButton){
                 Game.getInstance().setNew_game(true);
                 Game.getInstance().setMenu(false);
-                window.switchToGame(false);
+                window.switchToGame(0,false);
             }
             if(e.getSource() == loadButton){
                 Game.getInstance().setNew_game(false);
                 Game.getInstance().setMenu(false);
-                window.switchToGame(false);
                 window.switchToGame((Integer) settlerSpinner.getValue(),true);
             }
             if(e.getSource() == exitButton){
