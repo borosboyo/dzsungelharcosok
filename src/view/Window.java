@@ -12,7 +12,7 @@ public class Window extends JFrame {
     public Window(){
         setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 200);
+        setSize(600, 200);
         setResizable(false);
         menuPanel = new MenuPanel();
         add(menuPanel);
