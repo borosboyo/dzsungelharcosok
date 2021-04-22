@@ -58,7 +58,7 @@ public class Game implements Serializable {
     /**
      * The model.Field that contains all the asteroids and settlers.
      */
-    Field field;
+    public Field field;
 
 
     /**
