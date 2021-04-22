@@ -1,7 +1,7 @@
 package view;
 
-import model.Asteroid;
-import model.Material;
+import model.*;
+import model.Robot;
 
 import java.awt.*;
 
@@ -16,6 +16,25 @@ public class MaterialView implements Drawable {
 
     @Override
     public void draw(Graphics g) {
+
+        Toolkit t=Toolkit.getDefaultToolkit();
+        Image i;
+        if(material instanceof Ice)
+            i = t.getImage("images/ice.jpg");
+
+        if(material instanceof Iron)
+            i = t.getImage("images/iron.jpg");
+
+        if(material instanceof Uranium)
+            i = t.getImage("images/uranium.jpg");
+
+        if(material instanceof Coal)
+            i = t.getImage("images/coal.jpg");
+
+
+
+        g.drawImage(i, x, y, size, size, null);
+
 
     }
 }
