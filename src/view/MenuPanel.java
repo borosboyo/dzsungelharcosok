@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MenuPanel extends JPanel {
     private JPanel formPanel = new JPanel();
@@ -14,48 +16,69 @@ public class MenuPanel extends JPanel {
 
     private JButton startButton = new JButton();
     private JButton loadButton = new JButton();
-    private JButton quitButton = new JButton();
+    private JButton exitButton = new JButton();
 
     private JSpinner settlerSpinner;
 
     private JLabel settlerLabel;
 
+    private ArrayList<ImageIcon> imageContainer = new ArrayList<ImageIcon>();
+
     public MenuPanel(){
         setLayout(new GridLayout(2,1,0,10));
         setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
+
+        initImages();
         initBackGround();
         initPanels();
-        initButtons();
+        initAllButtons();
 
         add(formPanel);
-        add(buttonsPanel, BorderLayout.CENTER);
+        add(buttonsPanel);
     }
 
     public void initBackGround(){
-        bg = new ImageIcon("images/menu.png").getImage();
+        bg = imageContainer.get(0).getImage();
     }
 
 
     public void initPanels(){
-        //formPanel.setOpaque(false);
-        //buttonsPanel.setOpaque(false);
+        formPanel.setOpaque(false);
+        buttonsPanel.setOpaque(false);
     }
 
-    public void initButtons(){
+    public void initAllButtons(){
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,100,0,100));
 
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        initButton(startButton,2);
+        initButton(loadButton,3);
+        initButton(exitButton,4);
 
         buttonsPanel.add(startButton);
         buttonsPanel.add(loadButton);
-        buttonsPanel.add(quitButton);
+        buttonsPanel.add(exitButton);
+    }
+
+    public void initButton(JButton button, int imageIndex){
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setIcon(imageContainer.get(imageIndex));
+        button.setBorder(BorderFactory.createEmptyBorder());
+        button.setMargin(new Insets(0,0,0,0));
+        button.setOpaque(false);
+        button.setBorderPainted(false);
     }
 
     public void initSettlerSpinnner(){
 
+    }
+
+    public void initImages() {
+        imageContainer.add(new ImageIcon("images/menu.png"));
+        imageContainer.add(new ImageIcon("images/menusettler.png"));
+        imageContainer.add(new ImageIcon("images/menustartgame.png"));
+        imageContainer.add(new ImageIcon("images/menuloadgame.png"));
+        imageContainer.add(new ImageIcon("images/menuexit.png"));
     }
 
     @Override

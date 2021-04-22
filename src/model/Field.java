@@ -36,9 +36,24 @@ public class Field implements Steppable, Serializable {
         //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
 
         for(Asteroid a: asteroids){
+            a.setX(0);
+            a.setY(0);
             for(int i=0; i<settlernumber*10+5; i++){
                 if((a.getId()+i)%4==0){
                     a.getNeigbours().add(asteroids.get(i));
+                }
+            }
+        }
+        int x = 0;
+        for (Asteroid a : asteroids) {
+            x++;
+            int y = 0;
+            for (Asteroid a2 : asteroids) {
+                y++;
+                if (a.getNeigbours().contains(a2)) {
+
+
+
                 }
             }
         }
