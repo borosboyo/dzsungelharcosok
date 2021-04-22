@@ -41,7 +41,7 @@ public class Window extends JFrame {
         clip.open(input);
         clip.start();
         clip.loop(99);
-        float volume = 0.1f;
+        float volume = 0.00f;
         setVolume(clip,volume);
     }
 
