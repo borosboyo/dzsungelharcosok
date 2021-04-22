@@ -47,7 +47,7 @@ public class GamePanel extends JPanel {
         g.drawString("Settler turn:",2,20);
         for(int i = 0; i < fi.getSettlers().size(); i++){
             if(!fi.getSettlers().get(i).isFinishedTurn()){
-                g.drawString(String.valueOf(fi.getSettlers().get(i).getId()),0,25 + (i*20));
+                g.drawString(String.valueOf(fi.getSettlers().get(i).getId()),0,40+ (i*20));
             }
         }
     }
