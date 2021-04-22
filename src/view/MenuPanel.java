@@ -54,7 +54,6 @@ public class MenuPanel extends JPanel {
 
     public void initAllButtons(){
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,100,0,100));
 
         initButton(startButton,2);
         initButton(loadButton,3);
@@ -72,7 +71,7 @@ public class MenuPanel extends JPanel {
         button.setMargin(new Insets(0,0,0,0));
         button.setOpaque(false);
         button.setBorderPainted(false);
-        //button.setContentAreaFilled(false);
+        button.setContentAreaFilled(false);
         button.addActionListener(new ClickListener());
     }
 
@@ -101,7 +100,7 @@ public class MenuPanel extends JPanel {
                 window.switchToGame(false);
             }
             if(e.getSource() == loadButton){
-                window.switchToGame(false);
+                window.switchToGame(true);
             }
             if(e.getSource() == exitButton){
 
