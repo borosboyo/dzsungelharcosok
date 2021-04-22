@@ -98,8 +98,15 @@ public class MenuPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e){
             if(e.getSource() == startButton){
-                window.switchToGame();
+                window.switchToGame(false);
             }
+            if(e.getSource() == loadButton){
+                window.switchToGame(false);
+            }
+            if(e.getSource() == exitButton){
+
+            }
+
         }
     }
 
