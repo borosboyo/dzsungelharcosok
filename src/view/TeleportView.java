@@ -15,15 +15,14 @@ public class TeleportView implements Drawable {
 
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g, int unit) {
 
         Toolkit t=Toolkit.getDefaultToolkit();
         Image i;
 
-        i = t.getImage("images/teleport.jpg");
+        i = t.getImage("images/teleport.png");
 
-
-        g.drawImage(i, x, y, size, size, null);
+        g.drawImage(i, 10, 10, 5, 5, null);
 
 
     }
