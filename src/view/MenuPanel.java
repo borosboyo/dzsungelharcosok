@@ -1,5 +1,6 @@
 package view;
 
+import javax.imageio.ImageIO;
 import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class MenuPanel extends JPanel {
 
     private JButton startButton = new JButton();
     private JButton loadButton = new JButton();
-    private JButton exitButton = new JButton();
+    private JButton quitButton = new JButton();
 
     private JSpinner settlerSpinner;
 
@@ -21,12 +22,13 @@ public class MenuPanel extends JPanel {
 
     public MenuPanel(){
         setLayout(new GridLayout(2,1,0,10));
-        setBorder(BorderFactory.createEmptyBorder(50,75,0,75));
+        setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
         initBackGround();
         initPanels();
         initButtons();
+
         add(formPanel);
-        add(buttonsPanel);
+        add(buttonsPanel, BorderLayout.CENTER);
     }
 
     public void initBackGround(){
@@ -35,14 +37,21 @@ public class MenuPanel extends JPanel {
 
 
     public void initPanels(){
-        formPanel.setOpaque(false);
-        buttonsPanel.setOpaque(false);
+        //formPanel.setOpaque(false);
+        //buttonsPanel.setOpaque(false);
     }
 
     public void initButtons(){
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
+        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         buttonsPanel.add(startButton);
         buttonsPanel.add(loadButton);
-        buttonsPanel.add(exitButton);
+        buttonsPanel.add(quitButton);
     }
 
     public void initSettlerSpinnner(){
