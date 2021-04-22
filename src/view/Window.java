@@ -9,7 +9,7 @@ public class Window extends JFrame {
     private Game game;
 
     public Window(){
-        setTitle("Minesweeper");
+        setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 800);
         setResizable(false);
