@@ -17,6 +17,7 @@ public class Window extends JFrame {
         setSize(600, 200);
         setResizable(false);
         menuPanel = new MenuPanel();
+        game = new GamePanel(10);
         add(menuPanel);
         setVisible(true);
 
@@ -25,23 +26,18 @@ public class Window extends JFrame {
     public static void main(String []args) throws IOException {
        Window window =  new Window();
        window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
-        try {
-            playSound("sound/sound.wav");
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
     }
 
-    public static void playSound(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    private static Clip clip;
+
+    public static void playSound(String filename, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        clip = AudioSystem.getClip();
+        clip.stop();
         File file = new File(filename);
         AudioInputStream input = AudioSystem.getAudioInputStream(file);
-        Clip clip = AudioSystem.getClip();
         clip.open(input);
         clip.start();
         clip.loop(99);
-        float volume = 0.1f;
         setVolume(clip,volume);
     }
 
@@ -50,5 +46,9 @@ public class Window extends JFrame {
             throw new IllegalArgumentException("Volume not valid: " + volume);
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(20f * (float) Math.log10(volume));
+    }
+
+    public void choosePanel(boolean b) {
+        removeAll();
     }
 }

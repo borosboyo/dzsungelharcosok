@@ -1,5 +1,9 @@
 package model;
 
+import view.Window;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.util.Scanner;
 
@@ -125,12 +129,22 @@ public class Game implements Serializable {
      * @throws IOException
      */
     public static void main(String []args) throws IOException {
+        Window window = new Window();
         boolean new_game = true;
         boolean test = false;
         int state = 1;
 
+        try {
+            window.playSound("sound/menu.wav", 1f);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+
         while(state < 5){
             state = game.menu();
+            window.choosePanel(true);
             switch (state){
                 case 1: {
                     new_game = true;
@@ -170,6 +184,15 @@ public class Game implements Serializable {
             boolean menu = false;
 
             while(!game.EndGame() && !menu){
+                window.choosePanel(false);
+                try {
+                   window.playSound("sound/sound.wav", 0.1f);
+                } catch (UnsupportedAudioFileException e) {
+                    e.printStackTrace();
+                } catch (LineUnavailableException e) {
+                    e.printStackTrace();
+                }
+
                 s.writeout(game);
                 menu = game.step_gamer();
                 counter++;
