@@ -23,24 +23,22 @@ public class MenuPanel extends JPanel {
     private JButton startButton = new JButton();
     private JButton loadButton = new JButton();
     private JButton exitButton = new JButton();
+    private JButton confirmButton = new JButton();
 
     private JSpinner settlerSpinner;
-
     private JLabel settlerLabel;
 
     private ArrayList<ImageIcon> imageContainer = new ArrayList<ImageIcon>();
 
     public MenuPanel(Window _window){
         window = _window;
-        setLayout(new GridLayout(2,1,0,10));
-        setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
+        setBorder(BorderFactory.createEmptyBorder(60,0,0,0));
 
         initImages();
         initBackGround();
         initPanels();
         initAllButtons();
 
-        add(formPanel);
         add(buttonsPanel);
     }
 
@@ -50,13 +48,11 @@ public class MenuPanel extends JPanel {
 
 
     public void initPanels(){
-        formPanel.setOpaque(false);
         buttonsPanel.setOpaque(false);
     }
 
     public void initAllButtons(){
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
-        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,100,0,100));
 
         initButton(startButton,2);
         initButton(loadButton,3);
@@ -74,7 +70,7 @@ public class MenuPanel extends JPanel {
         button.setMargin(new Insets(0,0,0,0));
         button.setOpaque(false);
         button.setBorderPainted(false);
-        //button.setContentAreaFilled(false);
+        button.setContentAreaFilled(false);
         button.addActionListener(new ClickListener());
     }
 
@@ -108,9 +104,10 @@ public class MenuPanel extends JPanel {
                 Game.getInstance().setNew_game(false);
                 Game.getInstance().setMenu(false);
                 window.switchToGame(false);
+                window.switchToGame((Integer) settlerSpinner.getValue(),true);
             }
             if(e.getSource() == exitButton){
-
+                System.exit(0);
             }
 
         }
