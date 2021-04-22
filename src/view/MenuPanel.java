@@ -1,5 +1,7 @@
 package view;
 
+import model.Game;
+
 import javax.imageio.ImageIO;
 import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
@@ -98,9 +100,13 @@ public class MenuPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e){
             if(e.getSource() == startButton){
+                Game.getInstance().setNew_game(true);
+                Game.getInstance().setMenu(false);
                 window.switchToGame(false);
             }
             if(e.getSource() == loadButton){
+                Game.getInstance().setNew_game(false);
+                Game.getInstance().setMenu(false);
                 window.switchToGame(false);
             }
             if(e.getSource() == exitButton){

@@ -65,6 +65,7 @@ public class Game implements Serializable {
     public Field field;
 
 
+
     /**
      * Ends the game if the Settlers lose.
      */
@@ -122,18 +123,36 @@ public class Game implements Serializable {
         return re_num;
     }
 
+    private static boolean menu = false;
+
+    public boolean isMenu() {
+        return menu;
+    }
+
+    public void setMenu(boolean menu) {
+        this.menu = menu;
+    }
+
+    public boolean isNew_game() {
+        return new_game;
+    }
+
+    public void setNew_game(boolean new_game) {
+        this.new_game = new_game;
+    }
 
     /**
      * Main methods. This is where the program runs.
      * @param args
      * @throws IOException
      */
+
+    static boolean new_game = true;
+
     public static void main(String []args) throws IOException {
         Window window = new Window();
-        boolean new_game = true;
         boolean test = false;
         int state = 1;
-
         try {
             window.playSound("sound/menu.wav", 1f);
         } catch (UnsupportedAudioFileException e) {
@@ -143,8 +162,8 @@ public class Game implements Serializable {
         }
 
         while(state < 5){
-            state = game.menu();
-            window.choosePanel(true);
+
+            /*state = game.menu();
             switch (state){
                 case 1: {
                     new_game = true;
@@ -172,6 +191,10 @@ public class Game implements Serializable {
                 game.test_menu();
                 test = false;
                 continue;
+            }*/
+
+            if(menu){
+                continue;
             }
 
             if(!game.StartGame(new_game)){
@@ -181,18 +204,16 @@ public class Game implements Serializable {
 
             Skeleton s = new Skeleton();
             int counter = 0;
-            boolean menu = false;
+
+            try {
+                window.playSound("sound/sound.wav", 0.1f);
+            } catch (UnsupportedAudioFileException e) {
+                e.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            }
 
             while(!game.EndGame() && !menu){
-                window.choosePanel(false);
-                try {
-                   window.playSound("sound/sound.wav", 0.1f);
-                } catch (UnsupportedAudioFileException e) {
-                    e.printStackTrace();
-                } catch (LineUnavailableException e) {
-                    e.printStackTrace();
-                }
-
                 s.writeout(game);
                 menu = game.step_gamer();
                 counter++;
