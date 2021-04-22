@@ -5,6 +5,7 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Window extends JFrame {
     private MenuPanel menuPanel;
@@ -40,6 +41,14 @@ public class Window extends JFrame {
         clip.open(input);
         clip.start();
         clip.loop(99);
+        float volume = 0.1f;
+        setVolume(clip,volume);
     }
 
+    public static void setVolume(Clip clip, float volume) {
+        if (volume < 0f || volume > 1f)
+            throw new IllegalArgumentException("Volume not valid: " + volume);
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(20f * (float) Math.log10(volume));
+    }
 }
