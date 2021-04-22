@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MenuPanel extends JPanel {
     private JPanel formPanel = new JPanel();
@@ -20,9 +22,12 @@ public class MenuPanel extends JPanel {
 
     private JLabel settlerLabel;
 
+    private ArrayList<ImageIcon> imageContainer = new ArrayList<ImageIcon>();
+
     public MenuPanel(){
         setLayout(new GridLayout(2,1,0,10));
         setBorder(BorderFactory.createEmptyBorder(50,0,0,0));
+        initImages();
         initBackGround();
         initPanels();
         initButtons();
@@ -32,7 +37,9 @@ public class MenuPanel extends JPanel {
     }
 
     public void initBackGround(){
-        bg = new ImageIcon("images/menu.png").getImage();
+
+        //bg = new ImageIcon("images/menu.png").getImage();
+        bg = imageContainer.get(0).getImage();
     }
 
 
@@ -45,17 +52,25 @@ public class MenuPanel extends JPanel {
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
         buttonsPanel.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
 
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        startButton.setIcon(imageContainer.get(2));
+        startButton.setBorder(BorderFactory.createEmptyBorder());
+        startButton.setContentAreaFilled(true);
+        startButton.setMargin(new Insets(0,0,0,0));
         buttonsPanel.add(startButton);
-        buttonsPanel.add(loadButton);
-        buttonsPanel.add(quitButton);
     }
 
     public void initSettlerSpinnner(){
 
+    }
+
+    public void initImages() {
+        imageContainer.add(new ImageIcon("images/menu.png"));
+        imageContainer.add(new ImageIcon("images/menusettler.png"));
+        imageContainer.add(new ImageIcon("images/menustartgame.png"));
+        imageContainer.add(new ImageIcon("images/menuloadgame.png"));
+        imageContainer.add(new ImageIcon("images/menuexit.png"));
     }
 
     @Override
