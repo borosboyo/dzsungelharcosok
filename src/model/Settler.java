@@ -17,7 +17,7 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     private ArrayList<Teleport> teleportlist;
 
-
+    private boolean finishedTurn = false;
 
     /**
      * Instantiates a new model.Settler.
@@ -269,6 +269,15 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     public ArrayList<Teleport> getTeleportlist() {
         return teleportlist;
+    }
+
+
+    public boolean isFinishedTurn() {
+        return finishedTurn;
+    }
+
+    public void setFinishedTurn(boolean finishedTurn) {
+        this.finishedTurn = finishedTurn;
     }
 
     /**
