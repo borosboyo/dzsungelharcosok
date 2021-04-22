@@ -8,6 +8,8 @@ public class MenuPanel extends JPanel {
     private JPanel formPanel;
     private JPanel buttonsPanel;
 
+    private JLabel imageLabel;
+
     private JButton startButton;
     private JButton loadButton;
     private JButton exitButton;
@@ -19,6 +21,7 @@ public class MenuPanel extends JPanel {
     public MenuPanel(){
         setLayout(new GridLayout(2,1,0,10));
         setBorder(BorderFactory.createEmptyBorder(50,75,0,75));
+        setBackground(Color.GRAY);
 
         initPanels();
         add(formPanel);
@@ -33,5 +36,8 @@ public class MenuPanel extends JPanel {
 
     public void initSettlerSpinnner(){
 
+    }
+
+    public void initBackGround(){
     }
 }
