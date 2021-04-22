@@ -1,4 +1,10 @@
 package view;
 
-public class EntityView extends Drawable{
+import java.awt.*;
+
+public class EntityView implements Drawable {
+    @Override
+    public void draw(Graphics g) {
+
+    }
 }

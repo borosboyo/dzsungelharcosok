@@ -1,4 +1,10 @@
 package view;
 
-public class TeleportView extends Drawable{
+import java.awt.*;
+
+public class TeleportView implements Drawable {
+    @Override
+    public void draw(Graphics g) {
+
+    }
 }
