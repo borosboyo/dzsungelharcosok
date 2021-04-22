@@ -27,15 +27,15 @@ public class GamePanel extends JPanel {
         /**
          * Asteroids draw
          */
-        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(window_frame));
+        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid, unit)).forEach(asteroidView -> asteroidView.draw(window_frame));
 
         /**
          *  Teleport, Entity, Material draw
          */
         for (int i = 0; i < fi.getAsteroids().size(); i++){
-            fi.getAsteroids().get(i).getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(window_frame));
-            fi.getAsteroids().get(i).getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(window_frame));
-            mat = new MaterialView(fi.getAsteroids().get(i).getMaterial());
+            fi.getAsteroids().get(i).getEntities().stream().map(entity -> new EntityView(entity, unit)).forEach(entityView -> entityView.draw(window_frame));
+            fi.getAsteroids().get(i).getTeleports().stream().map(teleport -> new TeleportView(teleport, unit)).forEach(teleportView -> teleportView.draw(window_frame));
+            mat = new MaterialView(fi.getAsteroids().get(i).getMaterial(), unit);
             mat.draw(window_frame);
         }
 
