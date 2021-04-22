@@ -2,6 +2,7 @@ package view;
 
 import model.Field;
 import model.Game;
+import model.Material;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,15 +21,17 @@ public class GamePanel extends JPanel {
         Graphics2D window_frame = (Graphics2D) g;
 
         Field fi = Game.getInstance().field;
+        MaterialView mat = null;
 
-        fi.getSettlers().stream().map(settler -> new EntityView(settler)).forEach(settlerView -> settlerView.draw(window_frame));
-        fi.getUfos().stream().map(settler -> new EntityView(settler)).forEach(settlerView -> settlerView.draw(window_frame));
-        fi.getRobots().stream().map(settler -> new EntityView(settler)).forEach(settlerView -> settlerView.draw(window_frame));
-
-        fi.getAsteroids().stream().map(settler -> new EntityView(settler)).forEach(settlerView -> settlerView.draw(window_frame));
+        //Asteroids draw
+        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(window_frame));
 
         for (int i = 0; i < fi.getAsteroids().size(); i++){
-            fi.getAsteroids().get(i).getMaterial().stream().map(settler -> new EntityView(settler)).forEach(settlerView -> settlerView.draw(window_frame));
+            fi.getAsteroids().get(i).getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(window_frame));
+            fi.getAsteroids().get(i).getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(window_frame));
+            mat = new MaterialView(fi.getAsteroids().get(i).getMaterial());
+            mat.draw(window_frame);
         }
+
     }
 }
