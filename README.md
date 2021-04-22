@@ -1,2 +1,2 @@
 # Aszteroidabányászat
-Proto program
+Grafikus program
