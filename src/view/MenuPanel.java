@@ -2,5 +2,5 @@ package view;
 
 import javax.swing.*;
 
-public class Menu extends JPanel {
+public class MenuPanel extends JPanel {
 }
