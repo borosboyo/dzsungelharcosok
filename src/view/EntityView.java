@@ -1,11 +1,10 @@
 package view;
 
-import model.Entity;
+import java.awt.*;
 
-public class EntityView extends Drawable{
-    private Entity entity;
+public class EntityView implements Drawable {
+    @Override
+    public void draw(Graphics g) {
 
-    public EntityView(Entity entity) {
-        this.entity = entity;
     }
 }

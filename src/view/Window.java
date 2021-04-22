@@ -1,26 +1,27 @@
 package view;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class Window extends JFrame {
-    private MenuPanel menuPanel = new MenuPanel();
+    private MenuPanel menuPanel;
     private GamePanel game;
 
     public Window(){
         setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(300, 400);
+        setSize(800, 200);
         setResizable(false);
-        menuPanel.setLayout(new GridLayout(2,2,20,20));
-        menuPanel.setBorder(BorderFactory.createEmptyBorder(50,75,50,75));
-        menuPanel.setBackground(Color.lightGray);
+        menuPanel = new MenuPanel();
         add(menuPanel);
         setVisible(true);
+
     }
 
     public static void main(String []args) throws IOException {
-        new Window();
+       Window window =  new Window();
+       window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
     }
 }

@@ -1,4 +1,7 @@
 package view;
 
-public class Drawable {
+import java.awt.*;
+
+public interface Drawable {
+    void draw(Graphics g);
 }
