@@ -2,7 +2,6 @@ package view;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,9 +17,11 @@ public class Window extends JFrame {
         menuPanel = new MenuPanel();
         add(menuPanel);
         setVisible(true);
+
     }
 
     public static void main(String []args) throws IOException {
-        new Window();
+       Window window =  new Window();
+       window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
     }
 }
