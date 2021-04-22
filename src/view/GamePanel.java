@@ -2,5 +2,5 @@ package view;
 
 import javax.swing.*;
 
-public class Game extends JPanel {
+public class GamePanel extends JPanel {
 }

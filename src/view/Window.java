@@ -5,18 +5,18 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Window extends JFrame {
-    private Menu menu = new Menu();
-    private Game game;
+    private MenuPanel menuPanel = new MenuPanel();
+    private GamePanel game;
 
     public Window(){
         setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 800);
+        setSize(300, 400);
         setResizable(false);
-        menu.setLayout(new GridLayout(2,2,20,20));
-        menu.setBorder(BorderFactory.createEmptyBorder(50,75,50,75));
-        menu.setBackground(Color.lightGray);
-        add(menu);
+        menuPanel.setLayout(new GridLayout(2,2,20,20));
+        menuPanel.setBorder(BorderFactory.createEmptyBorder(50,75,50,75));
+        menuPanel.setBackground(Color.lightGray);
+        add(menuPanel);
         setVisible(true);
     }
 
