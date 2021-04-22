@@ -1,0 +1,18 @@
+placematerial 1
+model.Asteroid{1,null,model.Iron,3,true,(2;5;6;12),null}
+model.Asteroid{2,null,model.Coal,4,true,(1;4;9),(1;2;3;4)}
+model.Asteroid{3,null,model.Ice,5,false,(10;11),null}
+model.Asteroid{4,null,model.Uranium[0],2,true,(2;6;7;11;12),null}
+model.Asteroid{5,null,model.Ice,1,false,(1;7;8;9),null}
+model.Asteroid{6,null,null,6,false,(1;4;12),null}
+model.Asteroid{7,null,model.Iron,3,true,(4;5),null}
+model.Asteroid{8,null,model.Coal,4,true,(5),null}
+model.Asteroid{9,null,model.Ice,5,false,(2;5;11;10),null}
+model.Asteroid{10,null,model.Uranium[0],2,true,(3;9),null}
+model.Asteroid{11,null,model.Ice,1,false,(3;4;9),null}
+model.Asteroid{12,null,null,6,false,(1;4;6;9;11),null}
+model.Settler{1,2,model.Iron,null}
+model.Settler{2,2,null,null}
+model.Settler{3,2,null,null}
+model.Settler{4,2,null,null}
+GameStep{true}

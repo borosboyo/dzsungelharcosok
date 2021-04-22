@@ -1,0 +1,15 @@
+model.Settler {1,5,null,null}
+model.Settler {2,5,null,null}
+model.Settler {3,5,null,null}
+model.Settler {4,5,null,null}
+model.Asteroid {2,(),model.Coal,4,true,(null),()}
+model.Asteroid {3,(),model.Ice,5,false,(null),()}
+model.Asteroid {4,(),model.Uranium[2],0,true,(null),()}
+model.Asteroid {5,(),model.Ice,1,false,(null),(1,2,3,4)}
+model.Asteroid {6,(),null,6,false,(null),()}
+model.Asteroid {7,(),model.Iron,3,true,(null),()}
+model.Asteroid {8,(),model.Coal,4,true,(null),()}
+model.Asteroid {9,(),model.Ice,5,false,(null),()}
+model.Asteroid {10,(),model.Uranium[0],2,true,(null),()}
+model.Asteroid {11,(),model.Ice,1,false,(null),()}
+model.Asteroid {12,(),null,6,false,(null),()}

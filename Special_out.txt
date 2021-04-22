@@ -1,5 +1,0 @@
-Settler {1,1,null,(Teleport@2d8e6db6)}
-Robot {2,3}
-Asteroid {1,(Teleport@23ab930d,Teleport@4534b60d,Teleport@3fa77460,),Uranium[2],0,false,(2),()}
-Asteroid {2,(),null,4,false,(1,3),()}
-Asteroid {3,(),null,0,false,(2),()}
