@@ -12,6 +12,7 @@ public class Asteroid implements Serializable {
 
 
     private int id;
+    private int x, y;
     private  boolean nearSun;
     private  Material material;
     private ArrayList<Asteroid> neighbours = new ArrayList();
@@ -29,6 +30,7 @@ public class Asteroid implements Serializable {
         this.crustThickness = crustThickness;
         this.nearSun = nearSun;
         this.material = material;
+
         if(material != null){
             material.setAsteroid(this);
         }
