@@ -8,9 +8,8 @@ import java.awt.*;
 public class MaterialView implements Drawable {
     private Material material;
 
-    public MaterialView useMaterial(Material material) {
+    public MaterialView(Material material) {
         this.material = material;
-        return this;
     }
 
 

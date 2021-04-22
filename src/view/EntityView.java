@@ -8,9 +8,8 @@ import java.awt.*;
 public class EntityView implements Drawable {
     private Entity entity;
 
-    public EntityView useEntity(Entity entity) {
+    public EntityView(Entity entity) {
         this.entity = entity;
-        return this;
     }
 
 

@@ -7,9 +7,8 @@ import java.awt.*;
 public class AsteroidView implements Drawable {
     private Asteroid asteroid;
 
-    public AsteroidView useAsteroid(Asteroid asteroid) {
+    public AsteroidView(Asteroid asteroid) {
         this.asteroid = asteroid;
-        return this;
     }
 
 

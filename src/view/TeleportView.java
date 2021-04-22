@@ -8,9 +8,8 @@ import java.awt.*;
 public class TeleportView implements Drawable {
     private Teleport teleport;
 
-    public TeleportView useTeleport(Teleport teleport) {
+    public TeleportView(Teleport teleport) {
         this.teleport = teleport;
-        return this;
     }
 
 
