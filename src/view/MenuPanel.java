@@ -67,6 +67,7 @@ public class MenuPanel extends JPanel {
         button.setMargin(new Insets(0,0,0,0));
         button.setOpaque(false);
         button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
     }
 
     public void initSettlerSpinnner(){
