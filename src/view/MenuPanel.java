@@ -132,9 +132,8 @@ public class MenuPanel extends JPanel {
                 window.switchToGame((Integer) settlerSpinner.getValue(),false);
             }
             if(e.getSource() == cancelButton){
-
+                System.exit(0);
             }
-
         }
     }
 

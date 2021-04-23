@@ -7,38 +7,32 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main {
-    /*private static Window window = Game.getInstance().window;
-
     public static void main(String[] args) throws IOException {
+        Window window = new Window();
         window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
         try {
-            Game.getInstance().window.playSound("sound/menu.wav", 1f);
+            window.playSound("sound/menu.wav", 1f);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
+
+
+        java.util.Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run(){
+                if(Game.game.getGameState() == GameState.GAME){
+                    Game.game.step();
+                }
+                window.repaint();
+            }
+        }, 5000, 1000/120);
     }
 
-    public static void menu_step() throws IOException {
-        GameState state = Game.getInstance().getGameState();
-        switch (state){
-            case MENU : {
-
-                break;
-            }
-            case GAME:{
-                Game.getInstance().RunGame(true);
-                break;
-            }
-            case TEST:{
-                System.out.println("Test");
-                break;
-            }
-        }
-    }
-
-     */
 }
