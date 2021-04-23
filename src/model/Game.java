@@ -154,6 +154,7 @@ public class Game implements Serializable {
         Window window = new Window();
         window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
         boolean test = false;
+        menu = false;  //TODO::ezt át kell majd írni úgy hogy ne static legyen, hanem lehessen változtatni
         int state = 1;
         try {
             window.playSound("sound/menu.wav", 1f);
@@ -205,6 +206,7 @@ public class Game implements Serializable {
             Skeleton s = new Skeleton();
             int counter = 0;
 
+            /*
             try {
                 window.playSound("sound/sound.wav", 0.1f);
             } catch (UnsupportedAudioFileException e) {
@@ -212,6 +214,8 @@ public class Game implements Serializable {
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
+
+             */
 
             while(!game.EndGame() && !menu){
                 s.writeout(game);
