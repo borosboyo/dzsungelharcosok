@@ -12,8 +12,6 @@ public class TeleportView implements Drawable {
         this.teleport = teleport;
     }
 
-
-
     @Override
     public void draw(Graphics g, int unit, int x, int y) {
 
@@ -23,7 +21,5 @@ public class TeleportView implements Drawable {
         i = t.getImage("images/teleport.png");
 
         g.drawImage(i, x+50, y+15, 20, 20, null);
-
-
     }
 }

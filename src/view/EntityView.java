@@ -16,24 +16,23 @@ public class EntityView implements Drawable {
     }
 
 
-
     @Override
     public void draw(Graphics g, int unit, int x, int y) {
 
-        Toolkit t=Toolkit.getDefaultToolkit();
+        Toolkit t = Toolkit.getDefaultToolkit();
         Image i = null;
 
-        if(entity instanceof Settler)
+        if (entity instanceof Settler)
             i = t.getImage("images/settler.png");
 
-        if(entity instanceof Ufo)
+        if (entity instanceof Ufo)
             i = t.getImage("images/ufo.png");
 
-        if(entity instanceof Robot)
+        if (entity instanceof Robot)
             i = t.getImage("images/robot.png");
 
 
-        g.drawImage(i, x-5, y-35, 40, 40, null);
+        g.drawImage(i, x - 5, y - 35, 40, 40, null);
 
     }
 }
