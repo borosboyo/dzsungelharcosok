@@ -14,11 +14,14 @@ public class AsteroidView implements Drawable {
 
 
     @Override
-    public void draw(Graphics g, int unit, int x, int y) {
+    public void draw(Graphics g, int unit, int _x, int _y) {
         Toolkit t=Toolkit.getDefaultToolkit();
         Image i;
 
         i = t.getImage("images/asteroid.png");
+
+        int x = asteroid.getX();
+        int y = asteroid.getY();
 
         g.drawImage(i,x ,y,50, 50, null);
 

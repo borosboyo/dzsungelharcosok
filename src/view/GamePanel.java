@@ -22,24 +22,13 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Field fi = Game.getInstance().field;
-        AsteroidView asteroidView;
 
         this.setBackground(Color.DARK_GRAY);
 
         /**
          * Asteroids draw
          */
-        Random rnd = new Random();
-        int x;
-        int y;
-        for (int i= 0; i<fi.getAsteroids().size(); i++){
-            x = rnd.nextInt(1024-150) +50;
-            y = rnd.nextInt(576-150) +50;
-            asteroidView = new AsteroidView(fi.getAsteroids().get(i));
-            asteroidView.draw(g, unit, x, y);
-        }
-
-      //  fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(g, unit, x, y));
+       fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
 
         //TODO::itt lehetne fontot is allitani es a szovegek helyet is megkene , mas szovegeket is leheten itt megadni, ha kell
         Font font = new Font(Font.SERIF, Font.PLAIN, (int) (20));
