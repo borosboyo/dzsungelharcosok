@@ -26,6 +26,4 @@ public class TeleportView implements Drawable {
         g.drawString(String.valueOf(teleport.getId()), x + 50, y + 50);
 
     }
-
-
 }
