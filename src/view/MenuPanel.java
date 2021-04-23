@@ -69,10 +69,7 @@ public class MenuPanel extends JPanel {
 
         SpinnerNumberModel sModel = new SpinnerNumberModel(10, 5, 20, 1);
         settlerSpinner.setModel(sModel);
-        settlerSpinner.setOpaque(false);
-        settlerSpinner.setSize(40, 40);
 
-        //Itt masik kep kell
         initButton(confirmButton, 5);
         initButton(cancelButton, 6);
 
@@ -100,7 +97,7 @@ public class MenuPanel extends JPanel {
         imageContainer.add(new ImageIcon("images/menuloadgame.png"));
         imageContainer.add(new ImageIcon("images/menuexit.png"));
         imageContainer.add(new ImageIcon("images/menuconfirm.png"));
-        imageContainer.add(new ImageIcon("images/menuecancel.png"));
+        imageContainer.add(new ImageIcon("images/menucancel.png"));
     }
 
     @Override
