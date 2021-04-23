@@ -1,12 +1,5 @@
 package model;
-
-import view.Window;
-
-import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
-import java.util.Random;
 import java.util.Scanner;
 
 /**

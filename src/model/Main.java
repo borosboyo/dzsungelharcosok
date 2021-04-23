@@ -11,11 +11,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, LineUnavailableException, UnsupportedAudioFileException {
         Window window = new Window();
         window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
         try {
-            window.playSound("sound/menu.wav", 1f);
+            window.playSound(0, 1f);
         } catch (UnsupportedAudioFileException e) {
             e.printStackTrace();
         } catch (LineUnavailableException e) {

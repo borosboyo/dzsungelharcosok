@@ -1,17 +1,21 @@
 package view;
 
+import model.Ufo;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Window extends JFrame {
     private MenuPanel menuPanel;
     private GamePanel gamePanel;
+    private  ArrayList<Clip> clips = new ArrayList();
 
-    public Window(){
+    public Window() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(600, 200);
@@ -20,25 +24,35 @@ public class Window extends JFrame {
         gamePanel = new GamePanel(10);
         add(menuPanel);
         setVisible(true);
+
+        loadSounds("sound/menu.wav");
+        loadSounds("sound/game_sound.wav");
     }
 
-    private static Clip clip;
 
-    public  void playSound(String filename, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        clip = AudioSystem.getClip();
-        clip.stop();
+
+    private void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        Clip clip = AudioSystem.getClip();
         File file = new File(filename);
         AudioInputStream input = AudioSystem.getAudioInputStream(file);
         clip.open(input);
-        clip.start();
-        clip.loop(99);
-        setVolume(clip,volume);
+        clips.add(clip);
     }
 
-    public void setVolume(Clip clip, float volume) {
+    public  void playSound(int i, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        clips.get(i).start();
+        clips.get(i).loop(99);
+        setVolume(i,volume);
+    }
+
+    public void stopSound(int i){
+        clips.get(i).stop();
+    }
+
+    public void setVolume(int i, float volume) {
         if (volume < 0f || volume > 1f)
             throw new IllegalArgumentException("Volume not valid: " + volume);
-        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        FloatControl gainControl = (FloatControl) clips.get(i).getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
@@ -46,6 +60,16 @@ public class Window extends JFrame {
         remove(menuPanel);
         setSize(800,600);
         add(gamePanel);
+        try {
+            stopSound(0);
+            playSound(1,0.08f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
         repaint();
     }
 }
