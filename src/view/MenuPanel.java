@@ -122,7 +122,7 @@ public class MenuPanel extends JPanel {
             if(e.getSource() == loadButton){
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
                 Game.getInstance().getMenu().menu_step(0);
-                window.switchToGame(0,true);
+                window.switchToGame();
             }
             if(e.getSource() == exitButton){
                 System.exit(0);
@@ -130,7 +130,7 @@ public class MenuPanel extends JPanel {
             if(e.getSource() == confirmButton){
                 Game.getInstance().getMenu().setMenuState(MenuState.NEWGAME);
                 Game.getInstance().getMenu().menu_step((Integer) settlerSpinner.getValue());
-                window.switchToGame((Integer) settlerSpinner.getValue(),false);
+                window.switchToGame();
             }
             if(e.getSource() == cancelButton){
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
