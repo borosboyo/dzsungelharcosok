@@ -66,7 +66,7 @@ public class Field implements Steppable, Serializable {
 */
         double sqrt = Math.sqrt((settlernumber * 10 + 5));
         int side = (int) Math.ceil(sqrt);
-        int xunit = 800 / 8;
+        int xunit = 800 / 5;
         int yunit = 600 / 8;
         for (int i = 0; i < side; i++) {
             for (int j = 0; j < side; j++) {
