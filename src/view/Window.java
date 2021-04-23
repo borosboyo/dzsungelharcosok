@@ -24,7 +24,7 @@ public class Window extends JFrame {
 
     private static Clip clip;
 
-    public static void playSound(String filename, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public  void playSound(String filename, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         clip = AudioSystem.getClip();
         clip.stop();
         File file = new File(filename);
@@ -35,7 +35,7 @@ public class Window extends JFrame {
         setVolume(clip,volume);
     }
 
-    public static void setVolume(Clip clip, float volume) {
+    public void setVolume(Clip clip, float volume) {
         if (volume < 0f || volume > 1f)
             throw new IllegalArgumentException("Volume not valid: " + volume);
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
