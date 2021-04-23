@@ -7,6 +7,10 @@ import model.Settler;
 import model.Ufo;
 
 import java.awt.*;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageFilter;
+import java.awt.image.ImageProducer;
+import java.awt.image.RGBImageFilter;
 
 public class EntityView implements Drawable {
     private Entity entity;
@@ -24,10 +28,26 @@ public class EntityView implements Drawable {
         int xMove = 0;
         int yMove = 0;
 
+        ImageFilter filter = new RGBImageFilter() {
+            int transparentColor = Color.gray.getRGB();
+
+            public final int filterRGB(int x, int y, int rgb) {
+                return rgb;
+            }
+        };
+
+
         if (entity instanceof Settler) {
             i = t.getImage("images/settler.png");
             xMove = -5;
             yMove = -35;
+
+            ImageProducer filteredImgProd = new FilteredImageSource(i.getSource(), filter);
+            Image transparentImg = Toolkit.getDefaultToolkit().createImage(filteredImgProd);
+
+            if (((Settler) entity).isFinishedTurn())
+                i = transparentImg;
+
         }
 
 
@@ -46,6 +66,9 @@ public class EntityView implements Drawable {
 
 
         g.drawImage(i, x + xMove, y + yMove, 40, 40, null);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial Black", Font.BOLD, 15));
+        g.drawString(String.valueOf(entity.getId()), x + 50, y + 50);
 
     }
 }
