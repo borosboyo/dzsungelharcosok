@@ -33,11 +33,13 @@ public class MenuPanel extends JPanel {
 
         initImages();
         initBackGround();
-
         initButtonsPanel();
         initFormPanel();
 
         add(buttonsPanel);
+        add(formPanel);
+        buttonsPanel.setVisible(true);
+        formPanel.setVisible(false);
     }
 
     public void initBackGround(){
@@ -58,10 +60,10 @@ public class MenuPanel extends JPanel {
     }
 
     public void initFormPanel(){
-
-        settlerSpinner.setValue(0);
-        initButton(confirmButton,2);
-
+        //buttonsPanel.setLayout(new BoxLayout(formPanel, BoxLayout.PAGE_AXIS));
+        formPanel.setOpaque(false);
+        initButton(confirmButton,1);
+        formPanel.add(confirmButton);
     }
 
     public void initButton(JButton button, int imageIndex){
@@ -84,8 +86,8 @@ public class MenuPanel extends JPanel {
     }
 
     public void askSettlers(){
-        remove(buttonsPanel);
-        add(formPanel);
+        formPanel.setVisible(true);
+        buttonsPanel.setVisible(false);
         window.repaint();
     }
 
@@ -107,7 +109,7 @@ public class MenuPanel extends JPanel {
                 window.switchToGame((Integer) settlerSpinner.getValue(),true);
             }
             if(e.getSource() == exitButton){
-                System.exit(0);
+               System.exit(0);
             }
             if(e.getSource() == confirmButton){
                 Game.getInstance().setNew_game(true);
