@@ -21,7 +21,7 @@ public class Window extends JFrame {
         setSize(600, 200);
         setResizable(false);
         menuPanel = new MenuPanel(this);
-        gamePanel = new GamePanel(10);
+        gamePanel = new GamePanel(this, 10);
         add(menuPanel);
         setVisible(true);
 
@@ -58,7 +58,7 @@ public class Window extends JFrame {
 
     public void switchToGame(int numberOfSettlers, boolean loaded){
         remove(menuPanel);
-        setSize(800,600);
+        setSize(1024,576);
         add(gamePanel);
         try {
             stopSound(0);

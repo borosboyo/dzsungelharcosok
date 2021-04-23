@@ -18,7 +18,7 @@ public class EntityView implements Drawable {
 
 
     @Override
-    public void draw(Graphics g, int unit) {
+    public void draw(Graphics g, int unit, int x, int y) {
 
         Toolkit t=Toolkit.getDefaultToolkit();
         Image i = null;
@@ -33,7 +33,7 @@ public class EntityView implements Drawable {
             i = t.getImage("images/robot.png");
 
 
-        g.drawImage(i, 10, 10, 5, 5, null);
+        g.drawImage(i, x-5, y-40, 40, 40, null);
 
     }
 }

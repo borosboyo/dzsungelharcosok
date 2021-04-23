@@ -3,24 +3,31 @@ package view;
 import model.Asteroid;
 
 import java.awt.*;
+import java.util.Random;
 
 public class AsteroidView implements Drawable {
     private Asteroid asteroid;
-
+    private  MaterialView matView;
     public AsteroidView(Asteroid asteroid) {
         this.asteroid = asteroid;
     }
 
 
     @Override
-    public void draw(Graphics g, int unit) {
+    public void draw(Graphics g, int unit, int x, int y) {
         Toolkit t=Toolkit.getDefaultToolkit();
         Image i;
 
         i = t.getImage("images/asteroid.png");
 
+        g.drawImage(i,x ,y,50, 50, null);
 
-        g.drawImage(i, 10,10,5, 5, null);
-
+        /**
+         *  Teleport, Entity, Material draw
+         */
+        asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y));
+        asteroid.getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(g, unit, x, y));
+        matView = new MaterialView(asteroid.getMaterial());
+        matView.draw(g, unit, x, y);
     }
 }
