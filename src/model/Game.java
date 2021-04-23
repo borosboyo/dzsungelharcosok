@@ -3,23 +3,20 @@ package model;
 import view.Window;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
 import java.util.Scanner;
 
 /**
-    * The model.Game singleton class that manages ending and starting a game.
-     */
+ * The model.Game singleton class that manages ending and starting a game.
+ */
 public class Game implements Serializable {
 
     /**
      * Boolean that indicates that the Settlers have won the game yet.
      */
     private boolean win = false;
-
-    static Window window = new Window();
 
     /**
      * Scanner for the menu console reading.
@@ -127,7 +124,7 @@ public class Game implements Serializable {
         return re_num;
     }
 
-    private static boolean menu;
+    private static boolean menu = false;
 
     public boolean isMenu() {
         return menu;
@@ -151,12 +148,11 @@ public class Game implements Serializable {
      * @throws IOException
      */
 
-    static boolean new_game;
+    static boolean new_game = true;
 
     public static void main(String []args) throws IOException {
+        Window window = new Window();
         window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
-        menu = true;
-        new_game = true;
         boolean test = false;
         int state = 1;
         try {
@@ -181,7 +177,6 @@ public class Game implements Serializable {
                 }
                 case 3:{
                     test = true;
-
                     break;
                 }
                 case 4:{
@@ -192,21 +187,15 @@ public class Game implements Serializable {
                     break;
                 }
             }
-
             if(test){
                 game.test_menu();
                 test = false;
                 continue;
             }*/
 
-            System.out.println("elől");
-
             if(menu){
-                System.out.println("inthe");
                 continue;
             }
-
-            window.repaint();
 
             if(!game.StartGame(new_game)){
                 System.out.println("Nincs mentett jatek!");
@@ -511,6 +500,7 @@ public class Game implements Serializable {
         else{
             try {
                 loadGame();
+
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
