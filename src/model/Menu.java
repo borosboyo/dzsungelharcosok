@@ -9,7 +9,7 @@ public class Menu {
         return new_game;
     }
 
-    public void setState_menu(boolean new_game) {
+    public void setNew_game(boolean new_game) {
         this.new_game = new_game;
     }
 
@@ -17,7 +17,7 @@ public class Menu {
         if(new_game){
             Game.getInstance().resetGame();
             Game.getInstance().setGameState(GameState.GAME);
-            Game.getInstance().getMenu().setState_menu(true);
+            Game.getInstance().getMenu().setNew_game(true);
         }
         else{
             try {
@@ -28,7 +28,7 @@ public class Menu {
                 e.printStackTrace();
             }
             Game.getInstance().setGameState(GameState.GAME);
-            Game.getInstance().getMenu().setState_menu(true);
+            Game.getInstance().getMenu().setNew_game(true);
         }
     }
 }

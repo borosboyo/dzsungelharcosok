@@ -119,7 +119,7 @@ public class MenuPanel extends JPanel {
                 askSettlers();
             }
             if(e.getSource() == loadButton){
-                Game.getInstance().getMenu().setState_menu(false);
+                Game.getInstance().getMenu().setNew_game(false);
                 Game.getInstance().getMenu().menu_step();
                 window.switchToGame(0,true);
             }
@@ -127,7 +127,7 @@ public class MenuPanel extends JPanel {
                 System.exit(0);
             }
             if(e.getSource() == confirmButton){
-                Game.getInstance().getMenu().setState_menu(true);
+                Game.getInstance().getMenu().setNew_game(true);
                 Game.getInstance().getMenu().menu_step();
                 window.switchToGame((Integer) settlerSpinner.getValue(),false);
             }

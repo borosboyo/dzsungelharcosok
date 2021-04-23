@@ -85,8 +85,12 @@ public class Game implements Serializable {
         }
 
        s.writeout(game);
-       game.step_gamer();
-        counter++;
+
+       if(game.step_gamer()){
+           //Ha hamis akkor menube vissza
+       }
+
+       System.out.println(counter);
         if(counter == game.field.getSettlers().size()){
             Timer.getInstance().Tick();
             counter=0;
@@ -174,6 +178,7 @@ public class Game implements Serializable {
                 }
             }
         }
+        counter++;
         return false;
     }
 
