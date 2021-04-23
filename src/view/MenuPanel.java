@@ -25,8 +25,8 @@ public class MenuPanel extends JPanel {
     private JButton exitButton = new JButton();
     private JButton confirmButton = new JButton();
 
-    private JSpinner settlerSpinner;
-    private JLabel settlerLabel;
+    private JSpinner settlerSpinner = new JSpinner();
+    private JLabel settlerLabel = new JLabel();
 
     private ArrayList<ImageIcon> imageContainer = new ArrayList<ImageIcon>();
 
@@ -75,7 +75,7 @@ public class MenuPanel extends JPanel {
     }
 
     public void initSettlerSpinnner(){
-
+        settlerSpinner.setValue(0);
     }
 
     public void initImages() {
@@ -96,9 +96,7 @@ public class MenuPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e){
             if(e.getSource() == startButton){
-                Game.getInstance().setNew_game(true);
-                Game.getInstance().setMenu(false);
-                window.switchToGame(0,false);
+
             }
             if(e.getSource() == loadButton){
                 Game.getInstance().setNew_game(false);
@@ -107,6 +105,11 @@ public class MenuPanel extends JPanel {
             }
             if(e.getSource() == exitButton){
                 System.exit(0);
+            }
+            if(e.getSource() == confirmButton){
+                Game.getInstance().setNew_game(true);
+                Game.getInstance().setMenu(false);
+                window.switchToGame(0,false);
             }
 
         }

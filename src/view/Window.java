@@ -22,11 +22,6 @@ public class Window extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String []args) throws IOException {
-       Window window =  new Window();
-       window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
-    }
-
     private static Clip clip;
 
     public static void playSound(String filename, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
