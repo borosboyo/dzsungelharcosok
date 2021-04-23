@@ -20,6 +20,9 @@ public class TeleportView implements Drawable {
 
         i = t.getImage("images/teleport.png");
 
-        g.drawImage(i, x+50, y+15, 20, 20, null);
+        g.drawImage(i, x + 50, y + 15, 20, 20, null);
+        g.drawString(String.valueOf(teleport.getId()), x + 50, y + 15 + 10);
     }
+
+
 }

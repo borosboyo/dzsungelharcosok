@@ -89,6 +89,7 @@ public class Field implements Steppable, Serializable {
 
         //csak tesztelés miatt
         asteroids.get(5).addTeleport(new Teleport(2));
+        asteroids.get(12).addTeleport(new Teleport(4));
         asteroids.get(5).getEntities().add(new Robot(5));
         asteroids.get(5).getEntities().add(new Ufo(5));
 
