@@ -54,7 +54,7 @@ public class Window extends JFrame {
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
-    public void switchToGame(int numberOfSettlers, boolean loaded){
+    public void switchToGame(){
         remove(menuPanel);
         setSize(1024,576);
         add(gamePanel);

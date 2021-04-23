@@ -21,7 +21,6 @@ public class GamePanel extends JPanel {
     public GamePanel(Window _window, int unit) {
         this.window = _window;
         this.unit = unit;
-
         //TODO::ez így nem működik
         addKeyListener(new KeyListener() {
             @Override
