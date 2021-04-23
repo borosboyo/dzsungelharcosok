@@ -28,9 +28,9 @@ public class AsteroidView implements Drawable {
         /**
          *  Teleport, Entity, Material draw
          */
-        asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y));
+        asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y)); //TODO::lehetne azt, hogy amelyik teleps nem lépett az halványan látszódik, de akár fordítva is, ezt is a transparentel lehetne állítani
         asteroid.getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(g, unit, x, y));
         matView = new MaterialView(asteroid.getMaterial());
-        matView.draw(g, unit, x, y);
+        matView.draw(g, unit, x, y); //TODO::lehetne azt, hogy csak akkor látszódik, ha már teljesen ki van fúrva (transparent használatával nem kell a rajzolás sorrendes változtatni
     }
 }
