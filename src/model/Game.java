@@ -2,6 +2,8 @@ package model;
 
 import view.Window;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.*;
@@ -152,6 +154,7 @@ public class Game implements Serializable {
     static boolean new_game;
 
     public static void main(String []args) throws IOException {
+        window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
         menu = true;
         new_game = true;
         boolean test = false;
@@ -499,7 +502,6 @@ public class Game implements Serializable {
         if(isNew){
             field = new Field();
             field.newField(5, 3);
-            window.switchToGame(0,false);
             return true;
         }
         else{
@@ -512,7 +514,6 @@ public class Game implements Serializable {
                 return false;
             }
         }
-        window.switchToGame(0,false);
         return true;
     }
 
