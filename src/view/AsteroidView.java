@@ -3,6 +3,7 @@ package view;
 import model.Asteroid;
 
 import java.awt.*;
+import java.util.SortedMap;
 
 public class AsteroidView implements Drawable {
     private Asteroid asteroid;

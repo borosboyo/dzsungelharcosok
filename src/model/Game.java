@@ -81,7 +81,8 @@ public class Game implements Serializable {
        s.writeout(game);
 
        if(game.step_gamer()){
-           //Ha hamis akkor menube vissza
+           game.setGameState(GameState.MENU);
+           game.menu.setMenuState(MenuState.LOADMENU);
        }
 
        System.out.println(counter);

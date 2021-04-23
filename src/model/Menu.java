@@ -22,6 +22,7 @@ public class Menu {
                 break;
             }
             case LOADGAME:{
+                Game.getInstance().field = null;
                 try {
                     Game.getInstance().loadGame();
                 } catch (IOException e) {

@@ -21,7 +21,6 @@ public class Window extends JFrame {
         setSize(600, 200);
         setResizable(false);
         menuPanel = new MenuPanel(this);
-        gamePanel = new GamePanel(this, 10);
         add(menuPanel);
         setVisible(true);
 
@@ -59,11 +58,12 @@ public class Window extends JFrame {
 
     public void switchToGame(){
         remove(menuPanel);
-        setSize(1024,576);
+        setSize(1024, 576);
+        gamePanel = new GamePanel(this, 10);
         add(gamePanel);
         try {
             stopSound(0);
-            playSound(1,1.0f);
+            playSound(1, 1.0f);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {
@@ -71,7 +71,22 @@ public class Window extends JFrame {
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         }
-        repaint();
+    }
+
+    public void switchToMenu() {
+        remove(gamePanel);
+        setSize(1024, 576);
+        add(menuPanel);
+        try {
+            stopSound(0);
+            playSound(1, 1.0f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
     }
 
 }
