@@ -1,5 +1,6 @@
 package view;
 
+import model.Asteroid;
 import model.Field;
 import model.Game;
 import model.MenuState;
@@ -34,6 +35,31 @@ public class GamePanel extends JPanel {
                     //TODO::Boros swith to MenuPanel
                     System.exit(0); //Ezt utána ki lehet szedni
                 }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN){
+                    for(Asteroid a : Game.getInstance().field.getAsteroids()){
+                        int newY = a.getY() -10;
+                        a.setY(newY);
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_UP){
+                    for(Asteroid a : Game.getInstance().field.getAsteroids()){
+                        int newY = a.getY() + 10;
+                        a.setY(newY);
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    for(Asteroid a : Game.getInstance().field.getAsteroids()){
+                        int newX = a.getX() +10;
+                        a.setX(newX);
+                    }
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT){
+                    for(Asteroid a : Game.getInstance().field.getAsteroids()){
+                        int newX = a.getX() -10;
+                        a.setX(newX);
+                    }
+                }
+
             }
 
             @Override

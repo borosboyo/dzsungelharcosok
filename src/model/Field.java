@@ -70,12 +70,9 @@ public class Field implements Steppable, Serializable {
         int yunit = 600 / 8;
         for (int i = 0; i < side; i++) {
             for (int j = 0; j < side; j++) {
-                    System.out.println(i*(side-1) + j + "asteroid id");
-                    System.out.println(i+yunit +"y");
-                    System.out.println(i+xunit +"x");
                 if (asteroids.size() > (i * (side-1)) + j) {
-                    asteroids.get(i*(side-1) + j).setY(i*yunit);
-                    asteroids.get(i*(side-1) + j).setX(j*xunit);
+                    asteroids.get(i*(side-1) + j).setY(i*yunit +20);
+                    asteroids.get(i*(side-1) + j).setX(j*xunit+20);
                 }
             }
         }
@@ -89,8 +86,6 @@ public class Field implements Steppable, Serializable {
                     a.getNeigbours().add(a2);
             }
         }
-
-
 
         Random rand = new Random();
         int k = 0;
