@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class GamePanel extends JPanel {
     Window window;
-    int unit;
+    int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
 
     public GamePanel(Window _window, int unit) {
         this.window = _window;

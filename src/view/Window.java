@@ -62,7 +62,7 @@ public class Window extends JFrame {
         add(gamePanel);
         try {
             stopSound(0);
-            playSound(1,0.08f);
+            playSound(1,1.0f);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {
