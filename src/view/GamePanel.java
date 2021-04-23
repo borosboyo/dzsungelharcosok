@@ -27,11 +27,6 @@ public class GamePanel extends JPanel {
     }
 
     @Override
-    public boolean isFocusTraversable() {
-        return true;
-    }
-
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Field fi = Game.getInstance().field;
