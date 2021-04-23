@@ -29,8 +29,6 @@ public class Window extends JFrame {
         loadSounds("sound/game_sound.wav");
     }
 
-
-
     private void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Clip clip = AudioSystem.getClip();
         File file = new File(filename);
@@ -72,4 +70,5 @@ public class Window extends JFrame {
         }
         repaint();
     }
+
 }

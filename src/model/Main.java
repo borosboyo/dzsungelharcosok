@@ -28,11 +28,10 @@ public class Main {
             @Override
             public void run(){
                 if(Game.game.getGameState() == GameState.GAME){
-                    Game.game.step();
                     window.repaint();
+                    Game.game.step();
                 }
             }
         }, 1000, 1000/120); //TODO:ezeket az értékeket lehet átkell majd állítani
     }
-
 }
