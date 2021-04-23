@@ -199,12 +199,14 @@ public class Game implements Serializable {
                 continue;
             }*/
 
+            System.out.println("elől");
+
             if(menu){
-                System.out.println("");
+                System.out.println("inthe");
                 continue;
             }
 
-            window.switchToGame(0,false);
+            window.repaint();
 
             if(!game.StartGame(new_game)){
                 System.out.println("Nincs mentett jatek!");
@@ -223,7 +225,6 @@ public class Game implements Serializable {
             }
 
             while(!game.EndGame() && !menu){
-                window.repaint();
                 s.writeout(game);
                 menu = game.step_gamer();
                 counter++;
@@ -231,6 +232,7 @@ public class Game implements Serializable {
                     Timer.getInstance().Tick();
                     counter=0;
                 }
+                window.repaint();
             }
         }
 

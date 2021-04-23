@@ -43,9 +43,9 @@ public class Window extends JFrame {
     }
 
     public void switchToGame(int numberOfSettlers, boolean loaded){
-        remove(menuPanel);
+        gamePanel.setVisible(true);
+        menuPanel.setVisible(false);
         setSize(800,600);
-        add(gamePanel);
         repaint();
     }
 }

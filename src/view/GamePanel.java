@@ -27,6 +27,9 @@ public class GamePanel extends JPanel {
         /**
          * Asteroids draw
          */
+        if(Game.getInstance().field == null)
+            return;;
+
         fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(window_frame, unit));
 
         /**
