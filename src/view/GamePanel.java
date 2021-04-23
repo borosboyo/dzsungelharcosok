@@ -2,7 +2,11 @@ package view;
 
 import model.Field;
 import model.Game;
-import model.Entity;
+import model.MenuState;
+
+import java.awt.event.*;
+
+import java.awt.event.KeyEvent;
 import java.io.*;
 
 import javax.swing.*;
@@ -16,6 +20,26 @@ public class GamePanel extends JPanel {
     public GamePanel(Window _window, int unit) {
         this.window = _window;
         this.unit = unit;
+
+        //TODO::ez így nem működik
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_3) {
+                    //Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
+                    //Game.getInstance().getMenu().menu_step(0);
+                    //TODO::Boros swith to MenuPanel
+                    System.exit(0); //Ezt utána ki lehet szedni
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+        });
     }
 
     @Override
@@ -41,4 +65,5 @@ public class GamePanel extends JPanel {
             }
         }
     }
+
 }

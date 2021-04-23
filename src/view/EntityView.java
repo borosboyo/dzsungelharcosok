@@ -33,7 +33,7 @@ public class EntityView implements Drawable {
             i = t.getImage("images/robot.png");
 
 
-        g.drawImage(i, x-5, y-40, 40, 40, null);
+        g.drawImage(i, x-5, y-35, 40, 40, null);
 
     }
 }

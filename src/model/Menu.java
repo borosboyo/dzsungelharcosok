@@ -3,32 +3,41 @@ package model;
 import java.io.IOException;
 
 public class Menu {
-    private boolean new_game = true;
+    private MenuState menuState = MenuState.LOADMENU;
 
-    public boolean isState_menu() {
-        return new_game;
+    public MenuState getMenuState() {
+        return menuState;
     }
 
-    public void setNew_game(boolean new_game) {
-        this.new_game = new_game;
+    public void setMenuState(MenuState menuState) {
+        this.menuState = menuState;
     }
 
-    public void menu_step(){
-        if(new_game){
-            Game.getInstance().resetGame();
-            Game.getInstance().setGameState(GameState.GAME);
-            Game.getInstance().getMenu().setNew_game(true);
-        }
-        else{
-            try {
-                Game.getInstance().loadGame();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+    public void menu_step(int settler_numb){
+        switch (menuState){
+            case NEWGAME:{
+                Game.getInstance().resetGame(settler_numb);
+                Game.getInstance().setGameState(GameState.GAME);
+                Game.getInstance().getMenu().setMenuState(MenuState.NEWGAME);
+                break;
             }
-            Game.getInstance().setGameState(GameState.GAME);
-            Game.getInstance().getMenu().setNew_game(true);
+            case LOADGAME:{
+                try {
+                    Game.getInstance().loadGame();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Game.getInstance().setGameState(GameState.GAME);
+                Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
+                break;
+            }
+            case LOADMENU:{
+                Game.getInstance().setGameState(GameState.MENU);
+                Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
+                break;
+            }
         }
     }
 }

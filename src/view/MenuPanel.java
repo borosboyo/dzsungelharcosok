@@ -1,6 +1,7 @@
 package view;
 
 import model.Game;
+import model.MenuState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -119,20 +120,22 @@ public class MenuPanel extends JPanel {
                 askSettlers();
             }
             if(e.getSource() == loadButton){
-                Game.getInstance().getMenu().setNew_game(false);
-                Game.getInstance().getMenu().menu_step();
+                Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
+                Game.getInstance().getMenu().menu_step(0);
                 window.switchToGame(0,true);
             }
             if(e.getSource() == exitButton){
                 System.exit(0);
             }
             if(e.getSource() == confirmButton){
-                Game.getInstance().getMenu().setNew_game(true);
-                Game.getInstance().getMenu().menu_step();
+                Game.getInstance().getMenu().setMenuState(MenuState.NEWGAME);
+                Game.getInstance().getMenu().menu_step((Integer) settlerSpinner.getValue());
                 window.switchToGame((Integer) settlerSpinner.getValue(),false);
             }
             if(e.getSource() == cancelButton){
-                System.exit(0);
+                Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
+                Game.getInstance().getMenu().menu_step(0);
+                //TODO::Borosnak itt kell visszahoznia a sima menü panelt
             }
         }
     }

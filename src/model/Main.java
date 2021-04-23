@@ -32,7 +32,7 @@ public class Main {
                 }
                 window.repaint();
             }
-        }, 5000, 1000/120);
+        }, 1000, 1000/120); //TODO:ezeket az értékeket lehet átkell majd állítani
     }
 
 }

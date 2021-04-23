@@ -42,7 +42,6 @@ public class Field implements Steppable, Serializable {
         for(Asteroid a: asteroids){
             x = rnd.nextInt(1024-150) +50;
             y = rnd.nextInt(576-150) +50;
-            System.out.println(x);
             a.setX(x);
             a.setY(y);
             for(int i=0; i<settlernumber*10+5; i++){

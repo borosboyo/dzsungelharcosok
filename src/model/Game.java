@@ -175,10 +175,10 @@ public class Game implements Serializable {
         return false;
     }
 
-    public void resetGame(){ //TODO::elég ennyi?
+    public void resetGame(int settler_numb){ //TODO::elég ennyi?
         field = null;
         field = new Field();
-        field.newField(5, 3);
+        field.newField(settler_numb, 3);
     }
 
     public void setNew_game(boolean new_game) {
@@ -244,8 +244,7 @@ public class Game implements Serializable {
                 for(int i=0; i<Game.getInstance().field.getAsteroids().size(); i++){
                     if(Integer.parseInt(commands[2]) == Game.getInstance().field.getAsteroids().get(i).getId()){
                         if(enti == 0){
-                            se.Move(Game.getInstance().field.getAsteroids().get(i));
-                            se.setFinishedTurn(true);
+                            se.Move(Game.getInstance().field.getAsteroids().get(i)); //TODO::ez nem lesz jó, ha kikürül a settlerből. isFinished akkor máshol kell átállítani
                         }
                         if(enti == 1){
                             ro.Move(Game.getInstance().field.getAsteroids().get(i));
@@ -269,7 +268,6 @@ public class Game implements Serializable {
                 }
                 if(enti == 0){
                     se.Drill();
-                    se.setFinishedTurn(true);
                 }
                 if(enti == 1){
                     ro.Drill();
@@ -284,7 +282,6 @@ public class Game implements Serializable {
                 }
                 if (enti ==0){
                     se.Mine();
-                    se.setFinishedTurn(true);
                 }
                 if(enti == 1){
                     uf.Mine();
@@ -300,7 +297,7 @@ public class Game implements Serializable {
                 for(int i=0; i<se.getAsteroid().getTeleports().size(); i++){
                     if(Integer.parseInt(commands[2]) == se.getAsteroid().getTeleports().get(i).getId()){
                         se.UseTeleport(se.getAsteroid().getTeleports().get(i));
-                        se.setFinishedTurn(true);
+                        se.setFinishedTurn(true); //TODO::Useteleportba kéne de az entity
                         correct = true;
                         break;
                     }
@@ -316,7 +313,6 @@ public class Game implements Serializable {
                     break;
                 }
                 se.PlaceTeleport();
-                se.setFinishedTurn(true);
                 correct = true;
                 break;
             }
@@ -326,7 +322,6 @@ public class Game implements Serializable {
                     break;
                 }
                 se.PlaceMaterial();
-                se.setFinishedTurn(true);
                 correct = true;
                 break;
             }
@@ -336,7 +331,6 @@ public class Game implements Serializable {
                     break;
                 }
                 se.MakeTeleport();
-                se.setFinishedTurn(true);
                 correct = true;
                 break;
             }
@@ -346,7 +340,6 @@ public class Game implements Serializable {
                     break;
                 }
                 se.BuildRobot();
-                se.setFinishedTurn(true);
                 correct = true;
                 break;
             }

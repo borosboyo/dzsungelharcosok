@@ -33,15 +33,16 @@ public class Settler extends Entity implements IDrill, IMine{
      *
      * @param a the asteroid that the entity will move onto
      */
-    public void Move(Asteroid a) {
+    public void Move(Asteroid a) {      //TODO::entityben is van move
         if(this.getAsteroid().CheckNeighbour(a)){
             this.getAsteroid().RemoveEntity(this);
             a.Accept(this);
             this.setAsteroid(a);
+            setFinishedTurn(true);
             a.CheckBase();
-
         }
     }
+
 
     /**
      * model.Settler dies when it gets blown away.
@@ -147,6 +148,7 @@ public class Settler extends Entity implements IDrill, IMine{
             this.getAsteroid().Accept(r);
             Timer.getInstance().AddSteppable(r);
             Game.getInstance().field.getRobots().add(r);
+            setFinishedTurn(true);
             System.out.println(id + " " + r + " "+ r.getAsteroid());
         }
 
@@ -202,7 +204,7 @@ public class Settler extends Entity implements IDrill, IMine{
             Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
             this.teleportlist.add(t);
             Timer.getInstance().AddSteppable(t);
-
+            setFinishedTurn(true);
         }
     }
 
@@ -213,8 +215,8 @@ public class Settler extends Entity implements IDrill, IMine{
         if(getAsteroid().getCrustThickness()==0 && inventory.size()<=10){
             Material i=getAsteroid().MinedBy();
             inventory.add(i);
+            setFinishedTurn(true);
             getAsteroid().CheckBase();
-
         }
     }
 
@@ -225,7 +227,7 @@ public class Settler extends Entity implements IDrill, IMine{
         if(getAsteroid().getMaterial()==null && getAsteroid().getCrustThickness() == 0){
             getAsteroid().AddMaterial(inventory.get(inventory.size()-1));
             inventory.remove(inventory.get(inventory.size()-1));
-
+            setFinishedTurn(true);
         }
     }
 
@@ -236,6 +238,7 @@ public class Settler extends Entity implements IDrill, IMine{
         getAsteroid().BuildTeleport(teleportlist.get(0));
         if(teleportlist.get(0).getAsteroids().size()==2){
             teleportlist.remove(0);
+            setFinishedTurn(true);
         }
 
     }
@@ -287,6 +290,7 @@ public class Settler extends Entity implements IDrill, IMine{
     public void Drill() {
         if(this.getAsteroid().getCrustThickness()>0){
             this.getAsteroid().DrilledBy();
+            setFinishedTurn(true);
         }
 
     }
