@@ -44,6 +44,8 @@ public class Field implements Steppable, Serializable {
                 }
             }
         }
+
+
         int x = 0;
         for (Asteroid a : asteroids) {
             x++;

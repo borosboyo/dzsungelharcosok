@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main {
-    /*private static Window window = Game.getInstance().window;
+    private static Window window = Game.getInstance().window;
 
     public static void main(String[] args) throws IOException {
         window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
@@ -40,5 +40,5 @@ public class Main {
         }
     }
 
-     */
+
 }
