@@ -17,6 +17,8 @@ public class Game implements Serializable {
      */
     private boolean win = false;
 
+    static Window window = new Window();
+
     /**
      * Scanner for the menu console reading.
      */
@@ -123,7 +125,7 @@ public class Game implements Serializable {
         return re_num;
     }
 
-    private static boolean menu = false;
+    private static boolean menu = true;
 
     public boolean isMenu() {
         return menu;
@@ -147,10 +149,11 @@ public class Game implements Serializable {
      * @throws IOException
      */
 
-    static boolean new_game = true;
+    static boolean new_game;
 
     public static void main(String []args) throws IOException {
-        Window window = new Window();
+        menu = true;
+        new_game = true;
         boolean test = false;
         int state = 1;
         try {
@@ -196,6 +199,8 @@ public class Game implements Serializable {
             if(menu){
                 continue;
             }
+
+            System.out.println("Menu");
 
             if(!game.StartGame(new_game)){
                 System.out.println("Nincs mentett jatek!");
@@ -494,12 +499,12 @@ public class Game implements Serializable {
         if(isNew){
             field = new Field();
             field.newField(5, 3);
+            window.switchToGame(0,false);
             return true;
         }
         else{
             try {
                 loadGame();
-
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -507,6 +512,7 @@ public class Game implements Serializable {
                 return false;
             }
         }
+        window.switchToGame(0,false);
         return true;
     }
 
