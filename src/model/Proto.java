@@ -18,16 +18,16 @@ public class Proto {
     public int menu(){
         boolean isCorrect = false;
         int re_num = 0;
-        System.out.println("model.Asteroid game");
-        System.out.println("New model.Game - Press 1");
-        System.out.println("Load model.Game - Press 2");
+        System.out.println("Asteroid game");
+        System.out.println("New Game - Press 1");
+        System.out.println("Load Game - Press 2");
         System.out.println("Tests - Press 3");
         System.out.println("Exit - Press 4");
 
-        while(!isCorrect){
+        while (!isCorrect) {
             int numb = console_read.nextInt();
-            switch (numb){
-                case 1:{
+            switch (numb) {
+                case 1: {
                     re_num = 1;
                     isCorrect = true;
                     break;
@@ -61,38 +61,38 @@ public class Proto {
     public void test_menu() throws IOException {
         Game game = Game.game;
         System.out.println("Melyik teszt esetet szeretnéd futtatni?");
-        System.out.println("model.Entity moves - press 1");
-        System.out.println("model.Entity tries to move on not neighbour - press 2");
-        System.out.println("model.Entity tries to use unpaired teleport - press 3");
-        System.out.println("model.Entity uses teleport - press 4");
-        System.out.println("model.Robot drills ice - press 5");
-        System.out.println("model.Robot drills non-trigger - press 6");
-        System.out.println("model.Robot drills radioactice - press 7");
-        System.out.println("model.Settler builds robot - press 8");
-        System.out.println("model.Settler drills ice - press 9");
-        System.out.println("model.Settler drills non-trigger - press 10");
-        System.out.println("model.Settler drills radioactive - press 11");
-        System.out.println("model.Settler makes teleport - press 12");
-        System.out.println("model.Settler mines - press 13");
-        System.out.println("model.Settler place material - press 14");
-        System.out.println("model.Settler place teleport - press 15");
-        System.out.println("model.Settler tries to build robot without materials - press 16");
-        System.out.println("model.Settler tries to make teleport with full inventory - press 17");
-        System.out.println("model.Settler tries to make teleport with no materials - press 18");
-        System.out.println("model.Settler tries to mine on invalid asteroid - press 19");
-        System.out.println("model.Settler tries to place material on invalid asteroid - press 20");
-        System.out.println("model.Settler tries to mine with full inventory - press 21");
-        System.out.println("model.Settler wins game with move - press 22");
+        System.out.println("Entity moves - press 1");
+        System.out.println("Entity tries to move on not neighbour - press 2");
+        System.out.println("Entity tries to use unpaired teleport - press 3");
+        System.out.println("Entity uses teleport - press 4");
+        System.out.println("Robot drills ice - press 5");
+        System.out.println("Robot drills non-trigger - press 6");
+        System.out.println("Robot drills radioactice - press 7");
+        System.out.println("Settler builds robot - press 8");
+        System.out.println("Settler drills ice - press 9");
+        System.out.println("Settler drills non-trigger - press 10");
+        System.out.println("Settler drills radioactive - press 11");
+        System.out.println("Settler makes teleport - press 12");
+        System.out.println("Settler mines - press 13");
+        System.out.println("Settler place material - press 14");
+        System.out.println("Settler place teleport - press 15");
+        System.out.println("Settler tries to build robot without materials - press 16");
+        System.out.println("Settler tries to make teleport with full inventory - press 17");
+        System.out.println("Settler tries to make teleport with no materials - press 18");
+        System.out.println("Settler tries to mine on invalid asteroid - press 19");
+        System.out.println("Settler tries to place material on invalid asteroid - press 20");
+        System.out.println("Settler tries to mine with full inventory - press 21");
+        System.out.println("Settler wins game with move - press 22");
         System.out.println("Special - press 23");
         System.out.println("Sunstorm on asteroid - press 24");
-        System.out.println("model.Ufo mines - press 25");
-        System.out.println("model.Ufo tries to mine on invalid asteroid - press 26");
+        System.out.println("Ufo mines - press 25");
+        System.out.println("Ufo tries to mine on invalid asteroid - press 26");
         System.out.println("All settlers die - press 28");
         System.out.println("All test - press 29");
         Skeleton s = new Skeleton();
         int numb = console_read.nextInt();
-        switch (numb){
-            case 1:  {
+        switch (numb) {
+            case 1: {
                 s.fileRead("EntityMoves.txt");
                 s.writeToFile("EntityMoves");
                 break;
@@ -316,7 +316,7 @@ public class Proto {
       //  game = new Game();
         s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
         s.writeToFile("UfoTriesToMineOnInvalidAsteroid");
-        /*game = new model.Game();
+        /*game = new Game();
         s.fileRead("AllSettlersDie.txt");
         s.writeToFile("AllSettlersDie");*/
     }

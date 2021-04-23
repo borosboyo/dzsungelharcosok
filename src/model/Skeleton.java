@@ -75,8 +75,8 @@ public class Skeleton implements Serializable{
                 if (lines == 1) {
                     parancs = words;
                 } else {
-                    if (words[0].equals("model.Asteroid")) {
-                        if (words[3].equals("model.Uranium")) {
+                    if (words[0].equals("Asteroid")) {
+                        if (words[3].equals("Uranium")) {
                             long crust = Long.parseLong(words[5]);
                             boolean nearsun = Boolean.parseBoolean(words[6]);
                             Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
@@ -99,9 +99,9 @@ public class Skeleton implements Serializable{
                             Asteroid a = new Asteroid(Integer.parseInt(words[1]), crust, nearsun, null);
                             Game.getInstance().field.AddAsteroid(a);
                             switch (words[3]) {
-                                case "model.Iron" -> a.AddMaterial(new Iron());
-                                case "model.Coal" -> a.AddMaterial(new Coal());
-                                case "model.Ice" -> a.AddMaterial(new Ice());
+                                case "Iron" -> a.AddMaterial(new Iron());
+                                case "Coal" -> a.AddMaterial(new Coal());
+                                case "Ice" -> a.AddMaterial(new Ice());
                             }
                             if (a.getMaterial() != null)
                                 a.getMaterial().setAsteroid(a);
@@ -116,7 +116,7 @@ public class Skeleton implements Serializable{
                         }
                     } else {
                         switch (words[0]) {
-                            case "model.Settler" -> {
+                            case "Settler" -> {
                                 Settler s = new Settler(Integer.parseInt(words[1]));          //id
                                 Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]) - 1);
                                 s.setAsteroid(a);                                         //asteroida
@@ -126,10 +126,10 @@ public class Skeleton implements Serializable{
 
                                 for (int ii = 1; ii < inv_str.length; ii++) {       //inventory
                                     switch (inv_str[ii]) {
-                                        case "model.Iron" -> s.getInventory().add(new Iron());
-                                        case "model.Ice" -> s.getInventory().add(new Ice());
-                                        case "model.Uranium" -> s.getInventory().add(new Uranium());
-                                        case "model.Coal" -> s.getInventory().add(new Coal());
+                                        case "Iron" -> s.getInventory().add(new Iron());
+                                        case "Ice" -> s.getInventory().add(new Ice());
+                                        case "Uranium" -> s.getInventory().add(new Uranium());
+                                        case "Coal" -> s.getInventory().add(new Coal());
                                         case "null" -> s.getInventory().add(null);
                                     }
                                 }
@@ -139,16 +139,16 @@ public class Skeleton implements Serializable{
                                 }
                                 Game.getInstance().field.AddSettler(s);
                             }
-                            case "model.Robot" -> {
+                            case "Robot" -> {
                                 Robot r = new Robot(Integer.parseInt(words[1]));  //id
-                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2])-1);
+                                Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]) - 1);
                                 r.setAsteroid(a);                                         //asteroida
                                 a.getEntities().add(r);
                                 Game.getInstance().field.getRobots().add(r);
                                 //Inventory, teleport nincs neki
                             }
 
-                            case "model.Ufo" -> {
+                            case "Ufo" -> {
                                 Ufo u = new Ufo(Integer.parseInt(words[1]));              //id
                                 Asteroid a = Game.getInstance().field.getAsteroids().get(Integer.parseInt(words[2]));
                                 u.setAsteroid(a);                                         //asteroida
@@ -191,25 +191,25 @@ public class Skeleton implements Serializable{
         for (int i = 0; i < g.field.getSettlers().size(); i++) {
             Settler s = g.field.getSettlers().get(i);
             if (s.getAsteroid() != null) {
-                writer.println("model.Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+                writer.println("Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
             }
         }
 
         for (int i = 0; i < g.field.getRobots().size(); i++) {
             Robot r = g.field.getRobots().get(i);
             if(r.getAsteroid() != null) {
-                writer.println("model.Robot {" + r.getId() + "," + r.getAsteroid().getId() + "}");
+                writer.println("Robot {" + r.getId() + "," + r.getAsteroid().getId() + "}");
             }
         }
 
         for (int i = 0; i < g.field.getUfos().size(); i++) {
             Ufo u = g.field.getUfos().get(i);
-            writer.println("model.Ufo {" + u.getId() + "," + u.getAsteroid().getId() + "}");
+            writer.println("Ufo {" + u.getId() + "," + u.getAsteroid().getId() + "}");
         }
 
         for (int i = 0; i < g.field.getAsteroids().size(); i++) {
             Asteroid a = g.field.getAsteroids().get(i);
-            writer.println("model.Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+            writer.println("Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
                     Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
         }
         writer.close();
@@ -218,32 +218,32 @@ public class Skeleton implements Serializable{
     // A következő függvény a játék aktuális állapotás írja ki
     public void writeout(Game g) {
         /**
-         * model.Settler tulajdonságainak a kiírása a konzolra, a dokumentációban részletesen le van írva
+         * Settler tulajdonságainak a kiírása a konzolra, a dokumentációban részletesen le van írva
          */
         for (int i = 0; i < g.field.getSettlers().size(); i++) {
             Settler s = g.field.getSettlers().get(i);
             if (s.getAsteroid() != null) {
-                System.out.println("model.Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
+                System.out.println("Settler {" + s.getId() + "," + s.getAsteroid().getId() + "," + getNyersanyagok(s) + "," + getTelepotok(s) + "}");
             }
         }
 
         /**
-         * model.Robot tulajdonságainak kiírása a konzolra
+         * Robot tulajdonságainak kiírása a konzolra
          */
         for (int i = 0; i < g.field.getRobots().size(); i++) {
             Robot r = g.field.getRobots().get(i);
             if(r.getAsteroid() != null) {
-                System.out.println("model.Robot {" + r.getId() + "," + r.getAsteroid().getId() + "}");
+                System.out.println("Robot {" + r.getId() + "," + r.getAsteroid().getId() + "}");
             }
         }
 
         /**
-         *model.Ufo állapotának kiírása a konzolra
+         *Ufo állapotának kiírása a konzolra
          */
         for (int i = 0; i < g.field.getUfos().size(); i++) {
             Ufo u = g.field.getUfos().get(i);
             if(u.getAsteroid() != null){
-                System.out.println("model.Ufo {" + u.getId() + "," + u.getAsteroid().getId() + "}");
+                System.out.println("Ufo {" + u.getId() + "," + u.getAsteroid().getId() + "}");
             }
         }
 
@@ -252,7 +252,7 @@ public class Skeleton implements Serializable{
          */
         for (int i = 0; i < g.field.getAsteroids().size(); i++) {
             Asteroid a = g.field.getAsteroids().get(i);
-            System.out.println("model.Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+            System.out.println("Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
                     Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
         }
     }
@@ -282,7 +282,7 @@ public class Skeleton implements Serializable{
     }
 
     /**
-     * @param s model.Settler, aminek a telepeseit szeretnénk lekérdezni
+     * @param s Settler, aminek a telepeseit szeretnénk lekérdezni
      * @return egy String mely kiírja a settler inventoryjába lévő teleportokat veszzővel elválasztva. Zárójelben van az egész String
      */
     String getTelepotok(Settler s) {

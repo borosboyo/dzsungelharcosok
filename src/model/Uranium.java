@@ -1,7 +1,7 @@
 package model;
 
 /**
- * model.Uranium, the radioactive type of model.Material.
+ * Uranium, the radioactive type of Material.
  */
 public class Uranium extends Material{
     public int getExponation() {
@@ -32,6 +32,6 @@ public class Uranium extends Material{
      */
     @Override
     public String getName(){
-        return "model.Uranium[" + exponation + "]";
+        return "Uranium[" + exponation + "]";
     }
 }

@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.Scanner;
 
 /**
- * The model.Game singleton class that manages ending and starting a game.
+ * The Game singleton class that manages ending and starting a game.
  */
 public class Game implements Serializable {
     private Menu menu = new Menu();
@@ -57,8 +57,9 @@ public class Game implements Serializable {
     public static Game getInstance(){
         return game;
     }
+
     /**
-     * The model.Field that contains all the asteroids and settlers.
+     * The Field that contains all the asteroids and settlers.
      */
     public Field field;
 

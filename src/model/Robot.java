@@ -3,13 +3,14 @@ package model;
 import java.util.Random;
 
 /**
- * The type model.Robot.
+ * The type Robot.
  */
 public class Robot extends Entity implements IDrill {
 
     /**
-     * Contructor of the model.Robot class
-     * @param id model.Robot Id
+     * Contructor of the Robot class
+     *
+     * @param id Robot Id
      */
     public Robot(int id){
         super(id);

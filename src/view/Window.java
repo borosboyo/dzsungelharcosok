@@ -27,6 +27,9 @@ public class Window extends JFrame {
 
         loadSounds("sound/menu.wav");
         loadSounds("sound/game_sound.wav");
+        loadSounds("sound/drill.wav");
+        loadSounds("sound/mine.wav");
+        loadSounds("sound/teleport.wav");
     }
 
     private void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {

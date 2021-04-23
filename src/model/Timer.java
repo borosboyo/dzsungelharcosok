@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 /**
- * model.Timer singleton class that determines when the model.Field and model.Robot steps.
+ * Timer singleton class that determines when the Field and Robot steps.
  */
 public class Timer {
     /**
@@ -19,7 +19,7 @@ public class Timer {
     public static Timer timer = new Timer();
 
     /**
-     * Private constructor so the model.Timer stays singleton.
+     * Private constructor so the Timer stays singleton.
      */
     private Timer(){ steppables = new ArrayList();}
 
@@ -32,7 +32,8 @@ public class Timer {
     }
 
     /**
-     * model.Settler number setter
+     * Settler number setter
+     *
      * @param i
      */
     public void setSettlernumber(int i){
@@ -51,7 +52,7 @@ public class Timer {
     /**
      * Add an object to the list.
      *
-     * @param s the object that implements the model.Steppable interface.
+     * @param s the object that implements the Steppable interface.
      */
     public void AddSteppable(Steppable s){
         steppables.add(s);
@@ -60,7 +61,7 @@ public class Timer {
     /**
      * Remove an object from the list.
      *
-     * @param s the object that implements the model.Steppable interface.
+     * @param s the object that implements the Steppable interface.
      */
     public void RemoveSteppable(Steppable s){
         steppables.remove(s);

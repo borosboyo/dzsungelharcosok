@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 
 /**
- * The type model.Entity.
+ * The type Entity.
  */
 public abstract class Entity implements Steppable, Serializable {
 
@@ -19,7 +19,7 @@ public abstract class Entity implements Steppable, Serializable {
     }
 
     /**
-     * Returns the asteroid that the model.Entity stands on.
+     * Returns the asteroid that the Entity stands on.
      *
      * @return the asteroid
      */
@@ -52,9 +52,8 @@ public abstract class Entity implements Steppable, Serializable {
 
     /**
      * Die.
-     *
-     * The model.Entity dies.
-     *
+     * <p>
+     * The Entity dies.
      */
     public abstract void Die();
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * The type model.Teleport.
+ * The type Teleport.
  */
 public class Teleport implements Steppable, Serializable {
     int id;
@@ -14,8 +14,9 @@ public class Teleport implements Steppable, Serializable {
     private ArrayList<Asteroid> asteroids;
 
     /**
-     * Constructor of the model.Teleport
-     * @param id model.Teleport Id
+     * Constructor of the Teleport
+     *
+     * @param id Teleport Id
      */
     public Teleport(int id) {
         asteroids = new ArrayList<Asteroid>();

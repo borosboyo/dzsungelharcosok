@@ -1,12 +1,12 @@
 package model;
 
 /**
- * model.Iron type of material.
+ * Iron type of material.
  */
 public class Iron  extends Material{
 
     /**
-     * model.Iron does not have a trigger event.
+     * Iron does not have a trigger event.
      */
     @Override
     public void Trigger() {
@@ -15,10 +15,11 @@ public class Iron  extends Material{
 
     /**
      * Name getter
-     * @return with the model.Material name
+     *
+     * @return with the Material name
      */
     @Override
     public String getName(){
-        return "model.Iron";
+        return "Iron";
     }
 }

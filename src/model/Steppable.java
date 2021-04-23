@@ -1,14 +1,14 @@
 package model;
 
 /**
- * model.Steppable interface that the classes model.Robot and model.Field implements.
+ * Steppable interface that the classes Robot and Field implements.
  */
 public interface Steppable {
 
     int counter=0;
 
     /**
-     * The Step function that determines what action should a model.Robot or the model.Field do in a step.
+     * The Step function that determines what action should a Robot or the Field do in a step.
      */
     public void Step();
 

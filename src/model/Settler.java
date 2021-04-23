@@ -3,24 +3,24 @@ package model;
 import java.util.ArrayList;
 
 /**
- * The type model.Settler.
+ * The type Settler.
  */
 public class Settler extends Entity implements IDrill, IMine{
 
 
     /**
-     * model.Settler's inventory
+     * Settler's inventory
      */
     private ArrayList<Material> inventory;
     /**
-     * model.Teleport list
+     * Teleport list
      */
     private ArrayList<Teleport> teleportlist;
 
     private boolean finishedTurn = false;
 
     /**
-     * Instantiates a new model.Settler.
+     * Instantiates a new Settler.
      */
     public Settler(int id){
         super(id);
@@ -45,7 +45,7 @@ public class Settler extends Entity implements IDrill, IMine{
 
 
     /**
-     * model.Settler dies when it gets blown away.
+     * Settler dies when it gets blown away.
      */
     @Override
     public void Blow() {
@@ -53,7 +53,7 @@ public class Settler extends Entity implements IDrill, IMine{
     }
 
     /**
-     * model.Settler dies.
+     * Settler dies.
      */
     @Override
     public void Die(){
@@ -267,7 +267,8 @@ public class Settler extends Entity implements IDrill, IMine{
     }
 
     /**
-     * model.Teleport arraylist getter
+     * Teleport arraylist getter
+     *
      * @return with teleport list
      */
     public ArrayList<Teleport> getTeleportlist() {
@@ -296,7 +297,7 @@ public class Settler extends Entity implements IDrill, IMine{
     }
 
     /**
-     * The Step function of the model.Settler.
+     * The Step function of the Settler.
      */
     @Override
     public void Step(){

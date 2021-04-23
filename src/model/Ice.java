@@ -1,7 +1,7 @@
 package model;
 
 /**
- * model.Ice type of model.Material.
+ * Ice type of Material.
  */
 public class Ice extends Material{
 
@@ -22,7 +22,7 @@ public class Ice extends Material{
      */
     @Override
     public String getName(){
-        return "model.Ice";
+        return "Ice";
     }
 
 }

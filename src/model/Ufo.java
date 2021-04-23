@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * The type model.Ufo.
+ * The type Ufo.
  */
 public class Ufo extends Entity implements IMine {
     private ArrayList<Material> inventory = new ArrayList();
 
     /**
-     * Constructor of the model.Ufo
+     * Constructor of the Ufo
+     *
      * @param id the Ifo Id
      */
     public Ufo(int id){
@@ -57,7 +58,7 @@ public class Ufo extends Entity implements IMine {
     }
 
     /**
-     * model.Material mining.
+     * Material mining.
      */
     public void Mine() {
         if (getAsteroid().getCrustThickness() == 0) {

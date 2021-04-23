@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * The type model.Asteroid.
+ * The type Asteroid.
  */
 public class Asteroid implements Serializable {
     private long crustThickness;
@@ -21,7 +21,7 @@ public class Asteroid implements Serializable {
     private ArrayList<Entity> entities = new ArrayList();
 
     /**
-     * Initializes a new model.Asteroid.
+     * Initializes a new Asteroid.
      *
      * @param crustThickness the crust thickness
      * @param nearSun        the near sun
@@ -348,7 +348,8 @@ public class Asteroid implements Serializable {
 
     /**
      * Getter ID
-     * @return with model.Asteroid id
+     *
+     * @return with Asteroid id
      */
     public int getId() {
         return id;

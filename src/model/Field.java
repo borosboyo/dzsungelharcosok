@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * The type model.Field.
+ * The type Field.
  */
 public class Field implements Steppable, Serializable {
     private final ArrayList<Asteroid> asteroids = new ArrayList();
@@ -15,7 +15,7 @@ public class Field implements Steppable, Serializable {
     private int sunstormcounter = 0;
 
     /**
-     * model.Field initialization (Add Asteroids, Settlers and Ufos)
+     * Field initialization (Add Asteroids, Settlers and Ufos)
      *
      * @param settlernumber number of the settlers in the game
      * @param maxthickness  max crust thickness
@@ -123,7 +123,7 @@ public class Field implements Steppable, Serializable {
 
 
     /**
-     * model.Game state stepping
+     * Game state stepping
      */
     @Override
     public void Step() {
@@ -242,7 +242,7 @@ public class Field implements Steppable, Serializable {
     }
 
     /**
-     * model.Asteroid arraylist getter
+     * Asteroid arraylist getter
      *
      * @return with the asteroids list
      */
@@ -251,7 +251,7 @@ public class Field implements Steppable, Serializable {
     }
 
     /**
-     * model.Settler arraylist getter
+     * Settler arraylist getter
      *
      * @return with the settlers list
      */
@@ -260,7 +260,7 @@ public class Field implements Steppable, Serializable {
     }
 
     /**
-     * model.Robot arraylist getter.
+     * Robot arraylist getter.
      *
      * @return with the robots list
      */
@@ -269,7 +269,7 @@ public class Field implements Steppable, Serializable {
     }
 
     /**
-     * model.Ufo arraylist getter
+     * Ufo arraylist getter
      *
      * @return with the ufos list
      */
