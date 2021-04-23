@@ -21,6 +21,7 @@ public class MenuPanel extends JPanel {
     private JButton loadButton = new JButton();
     private JButton exitButton = new JButton();
     private JButton confirmButton = new JButton();
+    private JButton cancelButton = new JButton();
 
     private JSpinner settlerSpinner = new JSpinner();
     private JLabel settlerLabel = new JLabel();
@@ -60,10 +61,24 @@ public class MenuPanel extends JPanel {
     }
 
     public void initFormPanel(){
-        //buttonsPanel.setLayout(new BoxLayout(formPanel, BoxLayout.PAGE_AXIS));
+        formPanel.setLayout(new GridLayout(3,2,0,10));
         formPanel.setOpaque(false);
-        initButton(confirmButton,1);
+
+        settlerLabel.setIcon(imageContainer.get(1));
+
+        SpinnerNumberModel sModel = new SpinnerNumberModel(10,5,20,1);
+        settlerSpinner.setModel(sModel);
+        settlerSpinner.setOpaque(false);
+        settlerSpinner.setSize(40,40);
+
+        //Itt masik kep kell
+        initButton(confirmButton, 2);
+        initButton(cancelButton,4);
+
+        formPanel.add(settlerLabel);
+        formPanel.add(settlerSpinner);
         formPanel.add(confirmButton);
+        formPanel.add(cancelButton);
     }
 
     public void initButton(JButton button, int imageIndex){
@@ -106,15 +121,18 @@ public class MenuPanel extends JPanel {
             if(e.getSource() == loadButton){
                 Game.getInstance().setNew_game(false);
                 Game.getInstance().setMenu(false);
-                window.switchToGame((Integer) settlerSpinner.getValue(),true);
+                window.switchToGame(0,true);
             }
             if(e.getSource() == exitButton){
-               System.exit(0);
+                System.exit(0);
             }
             if(e.getSource() == confirmButton){
                 Game.getInstance().setNew_game(true);
                 Game.getInstance().setMenu(false);
-                window.switchToGame(0,false);
+                window.switchToGame((Integer) settlerSpinner.getValue(),false);
+            }
+            if(e.getSource() == cancelButton){
+
             }
 
         }
