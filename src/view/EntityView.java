@@ -21,18 +21,31 @@ public class EntityView implements Drawable {
 
         Toolkit t = Toolkit.getDefaultToolkit();
         Image i = null;
+        int xMove = 0;
+        int yMove = 0;
 
-        if (entity instanceof Settler)
+        if (entity instanceof Settler) {
             i = t.getImage("images/settler.png");
+            xMove = -5;
+            yMove = -35;
+        }
 
-        if (entity instanceof Ufo)
+
+        if (entity instanceof Ufo) {
             i = t.getImage("images/ufo.png");
+            xMove = -5;
+            yMove = 35;
 
-        if (entity instanceof Robot)
+        }
+
+        if (entity instanceof Robot) {
             i = t.getImage("images/robot.png");
+            xMove = -35;
+            yMove = 0;
+        }
 
 
-        g.drawImage(i, x - 5, y - 35, 40, 40, null);
+        g.drawImage(i, x + xMove, y + yMove, 40, 40, null);
 
     }
 }

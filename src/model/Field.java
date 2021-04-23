@@ -77,15 +77,20 @@ public class Field implements Steppable, Serializable {
             }
         }
 
-        for (Asteroid a : asteroids){
-            for (Asteroid a2: asteroids){
-                int diffX = Math.abs(a.getX()- a2.getX());
-                int diffY = Math.abs(a.getY()- a2.getY());
+        for (Asteroid a : asteroids) {
+            for (Asteroid a2 : asteroids) {
+                int diffX = Math.abs(a.getX() - a2.getX());
+                int diffY = Math.abs(a.getY() - a2.getY());
 
-                if(diffX <= xunit  && diffY <= yunit)
+                if (diffX <= xunit && diffY <= yunit)
                     a.getNeigbours().add(a2);
             }
         }
+
+        //csak tesztelés miatt
+        asteroids.get(5).addTeleport(new Teleport(2));
+        asteroids.get(5).getEntities().add(new Robot(5));
+        asteroids.get(5).getEntities().add(new Ufo(5));
 
         Random rand = new Random();
         int k = 0;
