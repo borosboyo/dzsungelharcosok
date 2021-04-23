@@ -29,15 +29,15 @@ public class GamePanel extends JPanel {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_3) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                     //Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
                     //Game.getInstance().getMenu().menu_step(0);
                     //TODO::Boros swith to MenuPanel
                     System.exit(0); //Ezt utána ki lehet szedni
                 }
-                if (e.getKeyCode() == KeyEvent.VK_DOWN){
-                    for(Asteroid a : Game.getInstance().field.getAsteroids()){
-                        int newY = a.getY() -10;
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                        int newY = a.getY() - 10;
                         a.setY(newY);
                     }
                 }
