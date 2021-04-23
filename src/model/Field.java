@@ -12,45 +12,44 @@ public class Field implements Steppable, Serializable {
     private final ArrayList<Settler> settlers = new ArrayList();
     private final ArrayList<Robot> robots = new ArrayList();
     private final ArrayList<Ufo> ufos = new ArrayList();
-    private int sunstormcounter=0;
+    private int sunstormcounter = 0;
 
     /**
      * model.Field initialization (Add Asteroids, Settlers and Ufos)
+     *
      * @param settlernumber number of the settlers in the game
-     * @param maxthickness max crust thickness
+     * @param maxthickness  max crust thickness
      */
-    public void newField(int settlernumber, int maxthickness){
+    public void newField(int settlernumber, int maxthickness) {
         //alap aszteroidak
-        asteroids.add(new Asteroid(0 , 3, true, new Ice()));
-        asteroids.add(new Asteroid(1 , 3, true, new Coal()));
-        asteroids.add(new Asteroid(2 , 3, true, new Iron()));
-        asteroids.add(new Asteroid(3 , 3, true, new Uranium()));
-        asteroids.add(new Asteroid(4 , 3, true, null));
+        asteroids.add(new Asteroid(0, 3, true, new Ice()));
+        asteroids.add(new Asteroid(1, 3, true, new Coal()));
+        asteroids.add(new Asteroid(2, 3, true, new Iron()));
+        asteroids.add(new Asteroid(3, 3, true, new Uranium()));
+        asteroids.add(new Asteroid(4, 3, true, null));
 
         //random aszteroidak, telepesenkent +10db
-        for(int i=5; i<settlernumber*10+5; i++){
-            Random rand=new Random();
-            asteroids.add(new Asteroid(i ,rand.nextInt(10000000)%maxthickness, rand.nextInt(10000000)%2==0, RandomMaterial()));
+        for (int i = 5; i < settlernumber * 10 + 5; i++) {
+            Random rand = new Random();
+            asteroids.add(new Asteroid(i, rand.nextInt(10000000) % maxthickness, rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
         }
-
+/*
         //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
-
         Random rnd = new Random();
         int x = 0;
         int y = 0;
 
-        for(Asteroid a: asteroids){
-            x = rnd.nextInt(1024-150) +50;
-            y = rnd.nextInt(576-150) +50;
+        for (Asteroid a : asteroids) {
+            x = rnd.nextInt(1024 - 150) + 50;
+            y = rnd.nextInt(576 - 150) + 50;
             a.setX(x);
             a.setY(y);
-            for(int i=0; i<settlernumber*10+5; i++){
-                if((a.getId()+i)%4==0){
+            for (int i = 0; i < settlernumber * 10 + 5; i++) {
+                if ((a.getId() + i) % 4 == 0) {
                     a.getNeigbours().add(asteroids.get(i));
                 }
             }
         }
-
 
         x = 0;
         for (Asteroid a : asteroids) {
@@ -61,25 +60,52 @@ public class Field implements Steppable, Serializable {
                 if (a.getNeigbours().contains(a2)) {
 
 
-
+                }
+            }
+        }
+*/
+        double sqrt = Math.sqrt((settlernumber * 10 + 5));
+        int side = (int) Math.ceil(sqrt);
+        int xunit = 800 / 8;
+        int yunit = 600 / 8;
+        for (int i = 0; i < side; i++) {
+            for (int j = 0; j < side; j++) {
+                    System.out.println(i*(side-1) + j + "asteroid id");
+                    System.out.println(i+yunit +"y");
+                    System.out.println(i+xunit +"x");
+                if (asteroids.size() > (i * (side-1)) + j) {
+                    asteroids.get(i*(side-1) + j).setY(i*yunit);
+                    asteroids.get(i*(side-1) + j).setX(j*xunit);
                 }
             }
         }
 
-        Random rand=new Random();
-        int k=0;
+        for (Asteroid a : asteroids){
+            for (Asteroid a2: asteroids){
+                int diffX = Math.abs(a.getX()- a2.getX());
+                int diffY = Math.abs(a.getY()- a2.getY());
 
-        for(int i=0; i<settlernumber; i++){
-            Settler s= new Settler(k);
-            int randasteroid=rand.nextInt(asteroids.size());
+                if(diffX <= xunit  && diffY <= yunit)
+                    a.getNeigbours().add(a2);
+            }
+        }
+
+
+
+        Random rand = new Random();
+        int k = 0;
+
+        for (int i = 0; i < settlernumber; i++) {
+            Settler s = new Settler(k);
+            int randasteroid = rand.nextInt(asteroids.size());
             asteroids.get(randasteroid).Accept(s);
             settlers.add(s);
             s.setAsteroid(asteroids.get(randasteroid));
             k++;
 
-            if(i%5==0){
-                Ufo u= new Ufo(k);
-                randasteroid=rand.nextInt(asteroids.size());
+            if (i % 5 == 0) {
+                Ufo u = new Ufo(k);
+                randasteroid = rand.nextInt(asteroids.size());
                 asteroids.get(randasteroid).Accept(u);
                 u.setAsteroid(asteroids.get(randasteroid));
                 Timer.getInstance().AddSteppable(u);
@@ -90,10 +116,11 @@ public class Field implements Steppable, Serializable {
 
         Timer.getInstance().setSettlernumber(settlernumber);
         Timer.getInstance().AddSteppable(this);
-        for(Settler s: settlers){
+        for (Settler s : settlers) {
             Timer.getInstance().AddSteppable(s);
         }
     }
+
 
     /**
      * model.Game state stepping
@@ -102,9 +129,9 @@ public class Field implements Steppable, Serializable {
     public void Step() {
         SetNearSun();
         sunstormcounter++;
-        if(sunstormcounter==10){
+        if (sunstormcounter == 10) {
             SetSunStorm();
-            sunstormcounter=0;
+            sunstormcounter = 0;
         }
     }
 
@@ -115,7 +142,7 @@ public class Field implements Steppable, Serializable {
      */
     public void SetSunStorm() {
         for (Asteroid a : asteroids) {
-            if(a.isNearSun()) {
+            if (a.isNearSun()) {
                 a.Sunstorm();
             }
         }
@@ -127,12 +154,12 @@ public class Field implements Steppable, Serializable {
      * Set NearSun for specified asteroids and check if any asteroid is triggered
      */
     public void SetNearSun() {
-        Random rnd= new Random();
+        Random rnd = new Random();
         for (Asteroid a : asteroids) {
-            if(a.getId()%(rnd.nextInt(asteroids.size()-1)+1)==0) {
+            if (a.getId() % (rnd.nextInt(asteroids.size() - 1) + 1) == 0) {
                 a.setNearSun(true);
                 a.CheckTrigger();
-            }else{
+            } else {
                 a.setNearSun(false);
             }
         }
@@ -163,7 +190,7 @@ public class Field implements Steppable, Serializable {
      * @param a the asteroid on we check if the required materials are on.
      * @return the boolean
      */
-    boolean CheckReqMat(Asteroid a){
+    boolean CheckReqMat(Asteroid a) {
         int coal = 3;
         int ice = 3;
         int iron = 3;
@@ -198,12 +225,12 @@ public class Field implements Steppable, Serializable {
      * @return the random material
      */
 
-    Material RandomMaterial(){
+    Material RandomMaterial() {
         Random rand = new Random();
         Material mat = null;
 
         int r_num = rand.nextInt(5);
-        switch (r_num){
+        switch (r_num) {
             case 0 -> mat = new Uranium();
             case 1 -> mat = new Ice();
             case 2 -> mat = new Coal();
@@ -216,6 +243,7 @@ public class Field implements Steppable, Serializable {
 
     /**
      * model.Asteroid arraylist getter
+     *
      * @return with the asteroids list
      */
     public ArrayList<Asteroid> getAsteroids() {
@@ -224,6 +252,7 @@ public class Field implements Steppable, Serializable {
 
     /**
      * model.Settler arraylist getter
+     *
      * @return with the settlers list
      */
     public ArrayList<Settler> getSettlers() {
@@ -232,6 +261,7 @@ public class Field implements Steppable, Serializable {
 
     /**
      * model.Robot arraylist getter.
+     *
      * @return with the robots list
      */
     public ArrayList<Robot> getRobots() {
@@ -240,6 +270,7 @@ public class Field implements Steppable, Serializable {
 
     /**
      * model.Ufo arraylist getter
+     *
      * @return with the ufos list
      */
     public ArrayList<Ufo> getUfos() {
@@ -260,5 +291,7 @@ public class Field implements Steppable, Serializable {
      *
      * @param a the asteroid to add.
      */
-    public void AddAsteroid(Asteroid a) {asteroids.add(a);}
+    public void AddAsteroid(Asteroid a) {
+        asteroids.add(a);
+    }
 }

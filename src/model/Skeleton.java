@@ -63,7 +63,8 @@ public class Skeleton implements Serializable{
             for (int i = 0; i < 3; i++) {
                 line = br.readLine();
                 String[] words = splitSentenceByWords(line);
-                Game.getInstance().read_command(words);
+
+               Game.getInstance().read_command(words);
                 sb.append(line);
                 sb.append("\n");
             }
@@ -177,7 +178,7 @@ public class Skeleton implements Serializable{
         }
 
         if(!filename.equals("Special.txt")){
-            Game.getInstance().read_command(parancs);
+          //  Game.getInstance().read_command(parancs);
         }
         fr.close();
         System.out.println("Test done.");
