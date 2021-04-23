@@ -127,7 +127,7 @@ public class Game implements Serializable {
         return re_num;
     }
 
-    private static boolean menu = true;
+    private static boolean menu;
 
     public boolean isMenu() {
         return menu;
@@ -200,10 +200,11 @@ public class Game implements Serializable {
             }*/
 
             if(menu){
+                System.out.println("");
                 continue;
             }
 
-            System.out.println("Menu");
+            window.switchToGame(0,false);
 
             if(!game.StartGame(new_game)){
                 System.out.println("Nincs mentett jatek!");
@@ -222,6 +223,7 @@ public class Game implements Serializable {
             }
 
             while(!game.EndGame() && !menu){
+                window.repaint();
                 s.writeout(game);
                 menu = game.step_gamer();
                 counter++;
