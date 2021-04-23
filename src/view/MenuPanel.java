@@ -101,12 +101,6 @@ public class MenuPanel extends JPanel {
         imageContainer.add(new ImageIcon("images/menuexit.png"));
     }
 
-    public void askSettlers(){
-        formPanel.setVisible(true);
-        buttonsPanel.setVisible(false);
-        window.repaint();
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -117,7 +111,8 @@ public class MenuPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e){
             if(e.getSource() == startButton){
-                askSettlers();
+                formPanel.setVisible(true);
+                buttonsPanel.setVisible(false);
             }
             if(e.getSource() == loadButton){
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
@@ -132,9 +127,11 @@ public class MenuPanel extends JPanel {
                 Game.getInstance().getMenu().menu_step((Integer) settlerSpinner.getValue());
                 window.switchToGame();
             }
-            if(e.getSource() == cancelButton){
+            if(e.getSource() == cancelButton) {
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
                 Game.getInstance().getMenu().menu_step(0);
+                buttonsPanel.setVisible(true);
+                formPanel.setVisible(false);
                 //TODO::Borosnak itt kell visszahoznia a sima menü panelt
             }
         }
