@@ -2,13 +2,10 @@ package view;
 
 import model.Game;
 
-import javax.imageio.ImageIO;
-import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class MenuPanel extends JPanel {
@@ -36,8 +33,9 @@ public class MenuPanel extends JPanel {
 
         initImages();
         initBackGround();
-        initPanels();
-        initAllButtons();
+
+        initButtonsPanel();
+        initFormPanel();
 
         add(buttonsPanel);
     }
@@ -46,13 +44,9 @@ public class MenuPanel extends JPanel {
         bg = imageContainer.get(0).getImage();
     }
 
-
-    public void initPanels(){
-        buttonsPanel.setOpaque(false);
-    }
-
-    public void initAllButtons(){
+    public void initButtonsPanel(){
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
+        buttonsPanel.setOpaque(false);
 
         initButton(startButton,2);
         initButton(loadButton,3);
@@ -61,6 +55,13 @@ public class MenuPanel extends JPanel {
         buttonsPanel.add(startButton);
         buttonsPanel.add(loadButton);
         buttonsPanel.add(exitButton);
+    }
+
+    public void initFormPanel(){
+
+        settlerSpinner.setValue(0);
+        initButton(confirmButton,2);
+
     }
 
     public void initButton(JButton button, int imageIndex){
@@ -74,16 +75,18 @@ public class MenuPanel extends JPanel {
         button.addActionListener(new ClickListener());
     }
 
-    public void initSettlerSpinnner(){
-        settlerSpinner.setValue(0);
-    }
-
     public void initImages() {
         imageContainer.add(new ImageIcon("images/menu.png"));
         imageContainer.add(new ImageIcon("images/menusettler.png"));
         imageContainer.add(new ImageIcon("images/menustartgame.png"));
         imageContainer.add(new ImageIcon("images/menuloadgame.png"));
         imageContainer.add(new ImageIcon("images/menuexit.png"));
+    }
+
+    public void askSettlers(){
+        remove(buttonsPanel);
+        add(formPanel);
+        window.repaint();
     }
 
     @Override
@@ -96,7 +99,7 @@ public class MenuPanel extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e){
             if(e.getSource() == startButton){
-
+                askSettlers();
             }
             if(e.getSource() == loadButton){
                 Game.getInstance().setNew_game(false);
