@@ -125,13 +125,14 @@ public class MenuPanel extends JPanel {
                 Game.getInstance().getMenu().setMenuState(MenuState.NEWGAME);
                 Game.getInstance().getMenu().menu_step((Integer) settlerSpinner.getValue());
                 window.switchToGame();
+                formPanel.setVisible(false);
+                buttonsPanel.setVisible(true);
             }
             if(e.getSource() == cancelButton) {
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
                 Game.getInstance().getMenu().menu_step(0);
                 buttonsPanel.setVisible(true);
                 formPanel.setVisible(false);
-                //TODO::Borosnak itt kell visszahoznia a sima menü panelt
             }
         }
     }

@@ -26,9 +26,9 @@ public class Window extends JFrame {
 
         loadSounds("sound/menu.wav");
         loadSounds("sound/game_sound.wav");
-//        loadSounds("sound/drill.wav");
-//        loadSounds("sound/mine.wav");
-//        loadSounds("sound/teleport.wav");
+        loadSounds("sound/drill.wav");
+        loadSounds("sound/mine.wav");
+        loadSounds("sound/teleport.wav");
     }
 
     private void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
@@ -39,13 +39,14 @@ public class Window extends JFrame {
         clips.add(clip);
     }
 
-    public  void playSound(int i, float volume) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void playSound(int i, float volume, int loop) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+        clips.get(i).setFramePosition(0);
         clips.get(i).start();
-        clips.get(i).loop(99);
-        setVolume(i,volume);
+        clips.get(i).loop(loop);
+        setVolume(i, volume);
     }
 
-    public void stopSound(int i){
+    public void stopSound(int i) {
         clips.get(i).stop();
     }
 
@@ -56,35 +57,31 @@ public class Window extends JFrame {
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
-    public void switchToGame(){
+    public void switchToGame() {
         remove(menuPanel);
         setSize(1024, 576);
         gamePanel = new GamePanel(this, 10);
         add(gamePanel);
+        gamePanel.setFocusable(true);
+        gamePanel.requestFocusInWindow();
         try {
             stopSound(0);
-            playSound(1, 1.0f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
+            playSound(1, 1.0f, 99);
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
     }
 
     public void switchToMenu() {
         remove(gamePanel);
-        setSize(1024, 576);
+        setSize(600, 200);
         add(menuPanel);
+
+        menuPanel.setFocusable(true);
         try {
-            stopSound(0);
-            playSound(1, 1.0f);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
+            stopSound(1);
+            playSound(0, 1.0f, 99);
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }

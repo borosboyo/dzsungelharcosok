@@ -6,13 +6,13 @@ import model.Game;
 import model.MenuState;
 
 import java.awt.event.*;
-
 import java.awt.event.KeyEvent;
-import java.io.*;
-
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
+import java.io.IOException;
+
 
 public class GamePanel extends JPanel {
     Window window;
@@ -22,7 +22,6 @@ public class GamePanel extends JPanel {
         this.window = _window;
         this.unit = unit;
         //TODO::ez így nem működik
-        setFocusable(true);
         addKeyListener(new KeyListenerClass());
     }
 
@@ -60,36 +59,57 @@ public class GamePanel extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                //Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
-                //Game.getInstance().getMenu().menu_step(0);
-                //TODO::Boros swith to MenuPanel
-                System.exit(0); //Ezt utána ki lehet szedni
+                Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
+                Game.getInstance().getMenu().menu_step(0);
+                window.switchToMenu();
+                try {
+                    window.playSound(4, 1.0f, 0); //TODO:ez nem itt lesz, hanem majd a useteleportnál
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                    ioException.printStackTrace();
+                }
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newY = a.getY() - 10;
                     a.setY(newY);
                 }
+                window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_UP) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newY = a.getY() + 10;
                     a.setY(newY);
                 }
+                window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newX = a.getX() + 10;
-                    a.setX(newX);
-                }
-            }
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newX = a.getX() - 10;
                     a.setX(newX);
                 }
+                window.repaint();
             }
-
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                    int newX = a.getX() + 10;
+                    a.setX(newX);
+                }
+                window.repaint();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                try {
+                    window.playSound(2, 1.0f, 0);
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_M) {
+                try {
+                    window.playSound(3, 1.0f, 0);
+                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
         }
 
         @Override

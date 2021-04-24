@@ -15,10 +15,8 @@ public class Main {
         Window window = new Window();
         window.setIconImage(ImageIO.read(new File("images/asteroid-icon.png")));
         try {
-            window.playSound(0, 1f);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
+            window.playSound(0, 1f, 99);
+        } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
 
