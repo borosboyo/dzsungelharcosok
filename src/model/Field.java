@@ -82,7 +82,7 @@ public class Field implements Steppable, Serializable {
                 int diffX = Math.abs(a.getX() - a2.getX());
                 int diffY = Math.abs(a.getY() - a2.getY());
 
-                if (diffX <= xunit && diffY <= yunit)
+                if (diffX <= xunit && diffY <= yunit && a != a2)
                     a.getNeigbours().add(a2);
             }
         }

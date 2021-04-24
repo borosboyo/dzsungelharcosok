@@ -6,11 +6,13 @@ import model.Robot;
 import model.Settler;
 import model.Ufo;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageFilter;
 import java.awt.image.ImageProducer;
 import java.awt.image.RGBImageFilter;
+import java.util.logging.Filter;
 
 public class EntityView implements Drawable {
     private Entity entity;
@@ -45,8 +47,9 @@ public class EntityView implements Drawable {
             ImageProducer filteredImgProd = new FilteredImageSource(i.getSource(), filter);
             Image transparentImg = Toolkit.getDefaultToolkit().createImage(filteredImgProd);
 
-            if (((Settler) entity).isFinishedTurn())
-                i = transparentImg;
+            if (((Settler) entity).isFinishedTurn()) {
+                i = GrayFilter.createDisabledImage(i);
+            }
 
         }
 
