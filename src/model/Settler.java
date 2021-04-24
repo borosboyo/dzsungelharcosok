@@ -34,7 +34,7 @@ public class Settler extends Entity implements IDrill, IMine{
      * @param a the asteroid that the entity will move onto
      */
     public void Move(Asteroid a) {      //TODO::entityben is van move
-        if(this.getAsteroid().CheckNeighbour(a)){
+        if (this.getAsteroid().CheckNeighbour(a) && finishedTurn == false) {
             this.getAsteroid().RemoveEntity(this);
             a.Accept(this);
             this.setAsteroid(a);
@@ -74,35 +74,32 @@ public class Settler extends Entity implements IDrill, IMine{
             if(m instanceof Iron){
                 iron++;
             }
-            if(m instanceof Coal){
+            if (m instanceof Coal) {
                 coal++;
             }
-            if(m instanceof Uranium){
+            if (m instanceof Uranium) {
                 uranium++;
             }
         }
 
         //Ha van elég csükkentjuk es letrehozzuk a robotot az aszteroidan
-        if(iron>=1&&coal>=1&&uranium>=1){
-            boolean deleteiron=true;
-            boolean deletecoal=true;
-            boolean deleteuranium=true;
+        if (iron >= 1 && coal >= 1 && uranium >= 1 && finishedTurn == false) {
+            boolean deleteiron = true;
+            boolean deletecoal = true;
+            boolean deleteuranium = true;
 
-            for (int k=0; k<inventory.size(); k++)
-            {
+            for (int k = 0; k < inventory.size(); k++) {
 
                 //Toroljuk a szukseges anyagokat
-                if(inventory.get(k) instanceof Iron && deleteiron){
+                if (inventory.get(k) instanceof Iron && deleteiron) {
                     inventory.remove(k);
-                    deleteiron=false;
+                    deleteiron = false;
                     k--;
-                }
-                else if(inventory.get(k) instanceof Coal && deletecoal){
+                } else if (inventory.get(k) instanceof Coal && deletecoal) {
                     inventory.remove(k);
-                    deletecoal=false;
+                    deletecoal = false;
                     k--;
-                }
-                else if(inventory.get(k)  instanceof Uranium && deleteuranium){
+                } else if (inventory.get(k) instanceof Uranium && deleteuranium) {
                     inventory.remove(k);
                     deleteuranium=false;
                     k--;
@@ -175,12 +172,12 @@ public class Settler extends Entity implements IDrill, IMine{
             }
         }
         //Ha van elég csükkentjuk es letrehozzuk a teleportot és hozzáadjuk a teleportlisthez
-        if(iron>=2&&ice>=1&&uranium>=1&&EnoughTeleportSpace()==true){ //ha egy vagy semennyi nincs benne akkor tud craftolni
+        if (iron >= 2 && ice >= 1 && uranium >= 1 && EnoughTeleportSpace() == true && finishedTurn == false) { //ha egy vagy semennyi nincs benne akkor tud craftolni
             int deleteiron = 0; //kettot kell belole torolni ezert ezt igy csinalom
             boolean deleteice = true;
             boolean deleteuranium = true;
 
-            for (int k=0; k<inventory.size(); k++) {
+            for (int k = 0; k < inventory.size(); k++) {
 
                 if (inventory.get(k) instanceof Iron && deleteiron < 2) {
                     inventory.remove(k);
@@ -211,9 +208,9 @@ public class Settler extends Entity implements IDrill, IMine{
     /**
      * Mine.
      */
-    public void Mine(){
-        if(getAsteroid().getCrustThickness()==0 && inventory.size()<=10){
-            Material i=getAsteroid().MinedBy();
+    public void Mine() {
+        if (getAsteroid().getCrustThickness() == 0 && inventory.size() <= 10 && finishedTurn == false) {
+            Material i = getAsteroid().MinedBy();
             inventory.add(i);
             setFinishedTurn(true);
             getAsteroid().CheckBase();
@@ -223,10 +220,10 @@ public class Settler extends Entity implements IDrill, IMine{
     /**
      * Place material.
      */
-    public void PlaceMaterial(){
-        if(getAsteroid().getMaterial()==null && getAsteroid().getCrustThickness() == 0){
-            getAsteroid().AddMaterial(inventory.get(inventory.size()-1));
-            inventory.remove(inventory.get(inventory.size()-1));
+    public void PlaceMaterial() {
+        if (getAsteroid().getMaterial() == null && getAsteroid().getCrustThickness() == 0 && finishedTurn == false) {
+            getAsteroid().AddMaterial(inventory.get(inventory.size() - 1));
+            inventory.remove(inventory.get(inventory.size() - 1));
             setFinishedTurn(true);
         }
     }
@@ -236,7 +233,7 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     public void PlaceTeleport(){
         getAsteroid().BuildTeleport(teleportlist.get(0));
-        if(teleportlist.get(0).getAsteroids().size()==2){
+        if (teleportlist.get(0).getAsteroids().size() == 2 && finishedTurn == false) {
             teleportlist.remove(0);
             setFinishedTurn(true);
         }
@@ -290,7 +287,7 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     @Override
     public void Drill() {
-        if(this.getAsteroid().getCrustThickness()>0){
+        if (this.getAsteroid().getCrustThickness() > 0 && finishedTurn == false) {
             this.getAsteroid().DrilledBy();
             setFinishedTurn(true);
         }

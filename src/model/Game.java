@@ -85,21 +85,20 @@ public class Game implements Serializable {
             game.gameState = GameState.MENU;
             return;
         }
-
+        
         s.writeout(game);
 
         if (game.step_gamer()) {
            game.setGameState(GameState.MENU);
            game.menu.setMenuState(MenuState.LOADMENU);
-       }
+        }
 
-       System.out.println(counter);
         if(counter == game.field.getSettlers().size()){
             Timer.getInstance().Tick();
-            counter=0;
             for(int i = 0; i<game.field.getSettlers().size(); i++){
                 game.field.getSettlers().get(i).setFinishedTurn(false);
             }
+            counter = 0;
         }
     }
 
