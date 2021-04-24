@@ -21,6 +21,12 @@ public class EntityView implements Drawable {
         this.entity = entity;
     }
 
+    public AlphaComposite setTransparenty(int i) {
+
+        float alpha = i * 0.1f;
+        return AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+    }
+
 
     @Override
     public void draw(Graphics g, int unit, int x, int y) {
@@ -30,25 +36,13 @@ public class EntityView implements Drawable {
         int xMove = 0;
         int yMove = 0;
 
-        ImageFilter filter = new RGBImageFilter() {
-            int transparentColor = Color.gray.getRGB();
-
-            public final int filterRGB(int x, int y, int rgb) {
-                return rgb;
-            }
-        };
-
-
         if (entity instanceof Settler) {
             i = t.getImage("images/settler.png");
             xMove = -5;
             yMove = -35;
 
-            ImageProducer filteredImgProd = new FilteredImageSource(i.getSource(), filter);
-            Image transparentImg = Toolkit.getDefaultToolkit().createImage(filteredImgProd);
-
             if (((Settler) entity).isFinishedTurn()) {
-                i = GrayFilter.createDisabledImage(i);
+                ((Graphics2D) g).setComposite(setTransparenty(3));
             }
 
         }
@@ -69,9 +63,9 @@ public class EntityView implements Drawable {
 
 
         g.drawImage(i, x + xMove, y + yMove, 40, 40, null);
+        ((Graphics2D) g).setComposite(setTransparenty(10));
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial Black", Font.BOLD, 15));
         g.drawString(String.valueOf(entity.getId()), x + 50, y + 50);
-
     }
 }
