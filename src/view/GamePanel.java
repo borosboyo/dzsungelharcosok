@@ -59,7 +59,7 @@ public class GamePanel extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
+                Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU); //TODO::itt beállíthatjuk azt, hogyha a menübe visszalépünk esc-el, akkor mentse a játékot
                 Game.getInstance().getMenu().menu_step(0);
                 window.switchToMenu();
                 try {
