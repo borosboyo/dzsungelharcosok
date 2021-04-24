@@ -17,7 +17,7 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     private ArrayList<Teleport> teleportlist;
 
-    private boolean finishedTurn = false;
+    private boolean finishedTurn = false; //TODO:a lépésenél bele lehetne tenni azt, hogy csak akkor lpéhet ha ez hamis (így egy körben egy settler biztos csak egyszer léphet)
 
     /**
      * Instantiates a new Settler.
@@ -282,6 +282,7 @@ public class Settler extends Entity implements IDrill, IMine{
 
     public void setFinishedTurn(boolean finishedTurn) {
         this.finishedTurn = finishedTurn;
+        Game.getInstance().setCounter(Game.getInstance().getCounter() + 1);
     }
 
     /**

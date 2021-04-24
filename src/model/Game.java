@@ -66,21 +66,29 @@ public class Game implements Serializable {
     public boolean isNew_game() {
         return new_game;
     }
+
     static boolean new_game = true;
 
     Skeleton s = new Skeleton();
-    int counter = 0;
+    private int counter = 0;
 
+    public int getCounter() {
+        return counter;
+    }
 
-    public void step(){
-        if(game.EndGame()){
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    public void step() {
+        if (game.EndGame()) {
             game.gameState = GameState.MENU;
             return;
         }
 
-       s.writeout(game);
+        s.writeout(game);
 
-       if(game.step_gamer()){
+        if (game.step_gamer()) {
            game.setGameState(GameState.MENU);
            game.menu.setMenuState(MenuState.LOADMENU);
        }
@@ -89,7 +97,6 @@ public class Game implements Serializable {
         if(counter == game.field.getSettlers().size()){
             Timer.getInstance().Tick();
             counter=0;
-
             for(int i = 0; i<game.field.getSettlers().size(); i++){
                 game.field.getSettlers().get(i).setFinishedTurn(false);
             }
@@ -173,11 +180,10 @@ public class Game implements Serializable {
                 }
             }
         }
-        counter++;
         return false;
     }
 
-    public void resetGame(int settler_numb){ //TODO::elég ennyi?
+    public void resetGame(int settler_numb) {
         field = null;
         field = new Field();
         field.newField(settler_numb, 3);
