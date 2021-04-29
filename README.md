@@ -26,6 +26,8 @@
 
 13. Complete program and Summary: 
 
+Project assignment:
+
 Humanity has decided to exploit the resources contained in asteroids. In order to do this, the settlers have to build a space station in the asteroid belt. The resources to build a space station would be too expensive to transport there, so the settlers have to mine them from the asteroids.
 
 Players of the game control the settlers. Settlers wander in the asteroid belt with single person spaceships looking for resources.
