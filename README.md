@@ -4,7 +4,7 @@
 
 1. Forming teams
 
-2. Requirements, project, functionality: **7/10 **points
+2. Requirements, project, functionality: **7/10** points
 
 3. Analysis Model - first version: **15/20** points
 
@@ -14,7 +14,7 @@
 
 6. Skeleton program: **19/20** points
 
-7. Concept of Prototype: **20/20 **points
+7. Concept of Prototype: **20/20** points
 
 9. Detailed plans: **39/45** points
 
