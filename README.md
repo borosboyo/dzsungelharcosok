@@ -20,4 +20,16 @@ Using up two units of iron, a single unit of water ice and a single unit of uran
 The game can end in two ways. If all the settlers die, the players lose. If, however, they can mine at least three unit of each resource and they collect those materials on a single asteroid, they can build the space station and the players win the game.
 
 **Team: dzsungelharcosok**
+2. Követelmény, projekt, funkcionalitás: 7/10 pont
+3. Analízis modell kidolgozása 1: 15/20 pont
+4. Analízis modell kidolgozása 2: 27/30 pont
+5. Szkeleton tervezése: 19/20 pont
+6. Szkeleton - beadás és a forráskód: 19/20 pont
+7. Prototípus koncepciója: 20/20 pont
+9. Részletes tervek: 39/45 pont
+10. Prototípus - beadás és a forráskód: 25/35 pont (összecsapott, késve leadva xd)
+11. Grafikus felület specifikációja:
+12. Grafikus változat készítése: -
+13. Grafikus változat és Összefoglalás:
+
 ![](https://github.com/borosboyo/dzsungelharcosok/blob/final/dzsungelharcosok.png)
