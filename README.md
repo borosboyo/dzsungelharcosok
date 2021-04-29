@@ -20,4 +20,4 @@ Using up two units of iron, a single unit of water ice and a single unit of uran
 The game can end in two ways. If all the settlers die, the players lose. If, however, they can mine at least three unit of each resource and they collect those materials on a single asteroid, they can build the space station and the players win the game.
 
 **Team: dzsungelharcosok**
-![](https://github.com/borosboyo/dzsungelharcosok/blob/final/dzsungelharcosok.jpg)
+![](https://github.com/borosboyo/dzsungelharcosok/blob/final/dzsungelharcosok.png)
