@@ -1,5 +1,28 @@
 # Asteroid mining
-**Final graphics program**
+
+**Team: dzsungelharcosok**
+
+2. Requirements, project, functionality: **7/10 **points
+
+3. Analysis Model - first version: **15/20** points
+
+4. Analysis Model - final version: **27/30** points
+
+5. Planning the Skeleton: **19/20** points
+
+6. Skeleton program: **19/20** points
+
+7. Concept of Prototype: **20/20 **points
+
+9. Detailed plans: **39/45** points
+
+10. Prototype program: **25/35** points (rushed and late)
+
+11. User interface specification:
+
+12. Creating the Complete part: -
+
+13. Complete program and Summary: 
 
 Humanity has decided to exploit the resources contained in asteroids. In order to do this, the settlers have to build a space station in the asteroid belt. The resources to build a space station would be too expensive to transport there, so the settlers have to mine them from the asteroids.
 
@@ -19,17 +42,5 @@ Using up two units of iron, a single unit of water ice and a single unit of uran
 
 The game can end in two ways. If all the settlers die, the players lose. If, however, they can mine at least three unit of each resource and they collect those materials on a single asteroid, they can build the space station and the players win the game.
 
-**Team: dzsungelharcosok**
-2. Követelmény, projekt, funkcionalitás: 7/10 pont
-3. Analízis modell kidolgozása 1: 15/20 pont
-4. Analízis modell kidolgozása 2: 27/30 pont
-5. Szkeleton tervezése: 19/20 pont
-6. Szkeleton - beadás és a forráskód: 19/20 pont
-7. Prototípus koncepciója: 20/20 pont
-9. Részletes tervek: 39/45 pont
-10. Prototípus - beadás és a forráskód: 25/35 pont (összecsapott, késve leadva xd)
-11. Grafikus felület specifikációja:
-12. Grafikus változat készítése: -
-13. Grafikus változat és Összefoglalás:
 
 ![](https://github.com/borosboyo/dzsungelharcosok/blob/final/dzsungelharcosok.png)
