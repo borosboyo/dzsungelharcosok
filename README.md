@@ -2,6 +2,8 @@
 
 **Team: dzsungelharcosok**
 
+1. Forming teams
+
 2. Requirements, project, functionality: **7/10 **points
 
 3. Analysis Model - first version: **15/20** points
@@ -20,7 +22,7 @@
 
 11. User interface specification:
 
-12. Creating the Complete part: -
+12. Creating the Complete part
 
 13. Complete program and Summary: 
 
