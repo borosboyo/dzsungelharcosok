@@ -52,6 +52,20 @@ public class GamePanel extends JPanel {
 
     class KeyListenerClass implements KeyListener {
 
+        public void moveVertically(int distance) {
+            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                int newY = a.getY() + distance;
+                a.setY(newY);
+            }
+        }
+
+        public void moveHorizontally(int distance) {
+            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                int newX = a.getX() + distance;
+                a.setX(newX);
+            }
+        }
+
         @Override
         public void keyTyped(KeyEvent e) {
         }
@@ -69,31 +83,19 @@ public class GamePanel extends JPanel {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newY = a.getY() - 10;
-                    a.setY(newY);
-                }
+                moveVertically(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_UP) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newY = a.getY() + 10;
-                    a.setY(newY);
-                }
+                moveVertically(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newX = a.getX() - 10;
-                    a.setX(newX);
-                }
+                moveHorizontally(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newX = a.getX() + 10;
-                    a.setX(newX);
-                }
+                moveHorizontally(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
@@ -109,6 +111,9 @@ public class GamePanel extends JPanel {
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
                     ioException.printStackTrace();
                 }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_S) {
+
             }
         }
 
