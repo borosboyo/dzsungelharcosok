@@ -86,6 +86,22 @@ public class GamePanel extends JPanel {
             }
         }
 
+        if(selectedSettler != null){
+            Toolkit t = Toolkit.getDefaultToolkit();
+            Image i = t.getImage("images/gamepanel.png");
+            g.drawImage(i, 824, -20, 200, 300, null);
+
+            for(int j = 0; j < selectedSettler.getInventory().size(); j++){
+                String s = new String("");
+                s += selectedSettler.getInventory().get(j).getName();
+                System.out.println(s);
+                g.setColor(Color.WHITE);
+                g.drawString(s, 840, 20+j*20);
+            }
+        }
+
+
+
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
