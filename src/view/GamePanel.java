@@ -23,6 +23,18 @@ public class GamePanel extends JPanel {
         this.unit = unit;
         //TODO::ez így nem működik
         addKeyListener(new KeyListenerClass());
+        addMouseListener(new MouseListenerClass());
+    }
+
+
+    Asteroid checkboxAsteroid(int x, int y) {
+        Field fi = Game.getInstance().field;
+        for (Asteroid asteroid : fi.getAsteroids()) {
+            if (asteroid.getX() < x && x < asteroid.getX() + unit && asteroid.getY() < y && y < asteroid.getY() + unit) {
+                return asteroid;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -68,47 +80,62 @@ public class GamePanel extends JPanel {
                     ioException.printStackTrace();
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (e.getKeyCode() == KeyEvent.VK_S) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newY = a.getY() - 10;
                     a.setY(newY);
                 }
                 window.repaint();
             }
-            if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (e.getKeyCode() == KeyEvent.VK_W) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newY = a.getY() + 10;
                     a.setY(newY);
                 }
                 window.repaint();
             }
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (e.getKeyCode() == KeyEvent.VK_D) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newX = a.getX() - 10;
                     a.setX(newX);
                 }
                 window.repaint();
             }
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (e.getKeyCode() == KeyEvent.VK_A) {
                 for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                     int newX = a.getX() + 10;
                     a.setX(newX);
                 }
                 window.repaint();
             }
-            if (e.getKeyCode() == KeyEvent.VK_D) {
+            if (e.getKeyCode() == KeyEvent.VK_F) {
                 try {
                     window.playSound(2, 1.0f, 0);
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
                     ioException.printStackTrace();
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_M) {
+            if (e.getKeyCode() == KeyEvent.VK_E) {
                 try {
                     window.playSound(3, 1.0f, 0);
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
                     ioException.printStackTrace();
                 }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                //useteleport
+            }
+            if (e.getKeyCode() == KeyEvent.VK_C) {
+                //placeteleport
+            }
+            if (e.getKeyCode() == KeyEvent.VK_V) {
+                //placematerial
+            }
+            if (e.getKeyCode() == KeyEvent.VK_T) {
+                //maketeleport
+            }
+            if (e.getKeyCode() == KeyEvent.VK_R) {
+                //buildrobot
             }
         }
 
@@ -117,4 +144,34 @@ public class GamePanel extends JPanel {
         }
     }
 
+    class MouseListenerClass implements java.awt.event.MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println(e.getX() + " " + e.getY());
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
+
+
+    //TODO::move -> két kattintás első az entiti második az aszteroidára
+    //TODO:: useteleport -> space billentyű plusz aszteroida kiválasztása
 }
