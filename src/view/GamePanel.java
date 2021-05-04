@@ -57,7 +57,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Field fi = Game.getInstance().field;
-        JTextArea tx = new JTextArea("Welcome");
+
         this.setBackground(Color.DARK_GRAY);
 
         /**
@@ -76,21 +76,11 @@ public class GamePanel extends JPanel {
             }
         }
 
-        if(selectedSettler != null){
-            Toolkit t = Toolkit.getDefaultToolkit();
-            Image i = t.getImage("images/gamepanel.png");
-            g.drawImage(i, 824, -20, 200, 300, null);
-
-            for(int j = 0; j < selectedSettler.getInventory().size(); j++){
-                String s = new String("");
-                s += selectedSettler.getInventory().get(j).getName();
-                System.out.println(s);
-                g.setColor(Color.WHITE);
-                g.drawString(s, 840, 20+j*20);
-            }
-        }
-
-
+        g.setColor(Color.GRAY);
+        g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
+        font = new Font(Font.SERIF, Font.BOLD, (int) (14));
+        g.setFont(font);
+        g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Useteleport: Space,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: T,   Save: M", 3, window.getHeight() - 46);
     }
 
 
@@ -221,24 +211,20 @@ public class GamePanel extends JPanel {
     class MouseListenerClass implements java.awt.event.MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            selectedAsteroid = null;
-            selectedSettler = null;
+
 
             if (e.getButton() == 1) {
+                selectedSettler = null;
 //            checkboxSettler(e.getX(), e.getY());
             }
 
             if (e.getButton() == 3) {
+                selectedAsteroid = null;
                 checkboxAsteroid(e.getX(), e.getY());
                 if (selectedSettler != null && selectedAsteroid != null) {
                     selectedSettler.Move(selectedAsteroid);
                 }
             }
-
-            if (selectedAsteroid != null) {
-                System.out.println("Jobb siker");
-            }
-
         }
 
         @Override
@@ -256,11 +242,6 @@ public class GamePanel extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
         }
-
-
-
-
-
     }
 
 
