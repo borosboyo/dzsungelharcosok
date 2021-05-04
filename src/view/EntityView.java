@@ -1,18 +1,11 @@
 package view;
 
-import model.Asteroid;
 import model.Entity;
 import model.Robot;
 import model.Settler;
 import model.Ufo;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.ImageFilter;
-import java.awt.image.ImageProducer;
-import java.awt.image.RGBImageFilter;
-import java.util.logging.Filter;
 
 public class EntityView implements Drawable {
     private Entity entity;
@@ -37,14 +30,17 @@ public class EntityView implements Drawable {
         int yMove = 0;
 
         if (entity instanceof Settler) {
-            i = t.getImage("images/settler.png");
+            if(((Settler) entity).isSelected()) {
+                i = t.getImage("images/settler-selected.png");
+            }else {
+                i = t.getImage("images/settler.png");
+            }
             xMove = -5;
             yMove = -35;
 
             if (((Settler) entity).isFinishedTurn()) {
                 ((Graphics2D) g).setComposite(setTransparenty(3));
             }
-
         }
 
 
@@ -62,7 +58,7 @@ public class EntityView implements Drawable {
         }
 
 
-        g.drawImage(i, x + xMove, y + yMove, 40, 40, null);
+        g.drawImage(i, x + xMove, y + yMove, unit/2, unit/2, null);
         ((Graphics2D) g).setComposite(setTransparenty(10));
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial Black", Font.BOLD, 15));
