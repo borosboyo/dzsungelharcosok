@@ -52,6 +52,14 @@ public class GamePanel extends JPanel {
 
     class KeyListenerClass implements KeyListener {
 
+        public boolean checkEdge(int bound) {
+            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                if (a.getX() == bound)
+                    return true;
+            }
+            return false;
+        }
+
         public void moveVertically(int distance) {
             for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                 int newY = a.getY() + distance;
@@ -83,18 +91,22 @@ public class GamePanel extends JPanel {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                //if(!checkEdge(0))
                 moveVertically(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_UP) {
+                //if(!checkEdge(0))
                 moveVertically(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                //if(!checkEdge(0))
                 moveHorizontally(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                //if(!checkEdge(50))
                 moveHorizontally(10);
                 window.repaint();
             }
@@ -113,7 +125,11 @@ public class GamePanel extends JPanel {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_S) {
-
+                try {
+                    Game.getInstance().saveGame();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
 
