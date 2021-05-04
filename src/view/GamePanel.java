@@ -91,23 +91,23 @@ public class GamePanel extends JPanel {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-                //if(!checkEdge(0))
-                moveVertically(-10);
+                if (!checkEdge(0))
+                    moveVertically(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_UP) {
-                //if(!checkEdge(0))
-                moveVertically(10);
+                if (!checkEdge(0))
+                    moveVertically(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                //if(!checkEdge(0))
-                moveHorizontally(-10);
+                if (!checkEdge(1024))
+                    moveHorizontally(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                //if(!checkEdge(50))
-                moveHorizontally(10);
+                if (!checkEdge(50))
+                    moveHorizontally(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
