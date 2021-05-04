@@ -14,6 +14,9 @@ public class Field implements Steppable, Serializable {
     private final ArrayList<Ufo> ufos = new ArrayList();
     private int sunstormcounter = 0;
 
+    double sqrt;
+    int side;
+
     /**
      * Field initialization (Add Asteroids, Settlers and Ufos)
      *
@@ -34,15 +37,15 @@ public class Field implements Steppable, Serializable {
             asteroids.add(new Asteroid(i, rand.nextInt(10000000) % maxthickness, rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
         }
 
-        double sqrt = Math.sqrt(settlernumber * 10 + 5);
-        int side = (int) Math.ceil(sqrt);
-        int xunit = 800 / 4;
-        int yunit = 600 / 4;
+        sqrt = Math.sqrt(settlernumber * 10 + 5);
+        side = (int) Math.ceil(sqrt);
+        int xunit = 200;
+        int yunit = 150;
         for (int i = 0; i < side; i++) {
             for (int j = 0; j < side; j++) {
-                if (asteroids.size() > (i * (side-1)) + j) {
-                    asteroids.get(i*(side-1) + j).setY(i*yunit +20);
-                    asteroids.get(i*(side-1) + j).setX(j*xunit+20);
+                if (asteroids.size() > (i * (side - 1)) + j) {
+                    asteroids.get(i * (side - 1) + j).setY(i * yunit + 20);
+                    asteroids.get(i * (side - 1) + j).setX(j * xunit + 20);
                 }
             }
         }
@@ -230,6 +233,16 @@ public class Field implements Steppable, Serializable {
     public ArrayList<Settler> getSettlers() {
         return settlers;
     }
+
+
+    public double getSqrt() {
+        return sqrt;
+    }
+
+    public int getSide() {
+        return side;
+    }
+
 
     /**
      * Robot arraylist getter.
