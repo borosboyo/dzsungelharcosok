@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class Settler extends Entity implements IDrill, IMine{
 
-
     /**
      * Settler's inventory
      */
@@ -18,6 +17,8 @@ public class Settler extends Entity implements IDrill, IMine{
     private ArrayList<Teleport> teleportlist;
 
     private boolean finishedTurn = false; //TODO:a lépésenél bele lehetne tenni azt, hogy csak akkor lpéhet ha ez hamis (így egy körben egy settler biztos csak egyszer léphet)
+    private boolean selected = false;
+
 
     /**
      * Instantiates a new Settler.
@@ -27,7 +28,6 @@ public class Settler extends Entity implements IDrill, IMine{
         inventory= new ArrayList<Material>();
         teleportlist= new ArrayList<Teleport>();
     }
-
 
     /**
      *
@@ -42,7 +42,6 @@ public class Settler extends Entity implements IDrill, IMine{
             a.CheckBase();
         }
     }
-
 
     /**
      * Settler dies when it gets blown away.
@@ -305,6 +304,15 @@ public class Settler extends Entity implements IDrill, IMine{
             }
        }
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
 
 
 }

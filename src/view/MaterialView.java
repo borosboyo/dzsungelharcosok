@@ -15,7 +15,7 @@ public class MaterialView implements Drawable {
 
     @Override
     public void draw(Graphics g, int unit, int x, int y) {
-
+        int coord = unit/2;
         Toolkit t = Toolkit.getDefaultToolkit();
         Image i = null;
         if (material instanceof Ice)
@@ -31,7 +31,7 @@ public class MaterialView implements Drawable {
             i = t.getImage("images/coal.png");
 
 
-        g.drawImage(i, x + 20, y + 20, 30, 30, null);
+        g.drawImage(i, x+coord/2, y +coord/2, coord, coord, null);
 
 
     }
