@@ -33,41 +33,11 @@ public class Field implements Steppable, Serializable {
             Random rand = new Random();
             asteroids.add(new Asteroid(i, rand.nextInt(10000000) % maxthickness, rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
         }
-/*
-        //akkor lesznek szomszedok ha az idjuk osszege oszthato 4el
-        Random rnd = new Random();
-        int x = 0;
-        int y = 0;
 
-        for (Asteroid a : asteroids) {
-            x = rnd.nextInt(1024 - 150) + 50;
-            y = rnd.nextInt(576 - 150) + 50;
-            a.setX(x);
-            a.setY(y);
-            for (int i = 0; i < settlernumber * 10 + 5; i++) {
-                if ((a.getId() + i) % 4 == 0) {
-                    a.getNeigbours().add(asteroids.get(i));
-                }
-            }
-        }
-
-        x = 0;
-        for (Asteroid a : asteroids) {
-            x++;
-            y = 0;
-            for (Asteroid a2 : asteroids) {
-                y++;
-                if (a.getNeigbours().contains(a2)) {
-
-
-                }
-            }
-        }
-*/
         double sqrt = Math.sqrt((settlernumber * 10 + 5));
         int side = (int) Math.ceil(sqrt);
-        int xunit = 800 / 5;
-        int yunit = 600 / 8;
+        int xunit = 800 / 4;
+        int yunit = 600 / 6;
         for (int i = 0; i < side; i++) {
             for (int j = 0; j < side; j++) {
                 if (asteroids.size() > (i * (side-1)) + j) {

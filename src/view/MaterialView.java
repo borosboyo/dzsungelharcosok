@@ -31,7 +31,7 @@ public class MaterialView implements Drawable {
             i = t.getImage("images/coal.png");
 
 
-        g.drawImage(i, x + 10, y + 10, 30, 30, null);
+        g.drawImage(i, x + 20, y + 20, 30, 30, null);
 
 
     }

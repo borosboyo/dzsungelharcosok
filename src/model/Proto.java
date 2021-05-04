@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Proto {
-
-
     /**
      * Scanner for the menu console reading.
      */
