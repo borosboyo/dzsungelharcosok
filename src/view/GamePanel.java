@@ -205,22 +205,19 @@ public class GamePanel extends JPanel {
     class MouseListenerClass implements java.awt.event.MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            selectedAsteroid = null;
-            selectedSettler = null;
+
 
             if (e.getButton() == 1) {
+                selectedSettler = null;
 //            checkboxSettler(e.getX(), e.getY());
             }
 
             if (e.getButton() == 3) {
+                selectedAsteroid = null;
                 checkboxAsteroid(e.getX(), e.getY());
                 if (selectedSettler != null && selectedAsteroid != null) {
                     selectedSettler.Move(selectedAsteroid);
                 }
-            }
-
-            if (selectedAsteroid != null) {
-                System.out.println("Jobb siker");
             }
         }
 
