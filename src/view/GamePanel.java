@@ -122,8 +122,6 @@ public class GamePanel extends JPanel {
         public boolean checkDown() {
             int idx = Game.getInstance().field.getAsteroids().size() - 1;
             int bound = side * 30;
-            System.out.println(bound);
-            System.out.println(Game.getInstance().field.getAsteroids().get(idx).getY());
             if (Game.getInstance().field.getAsteroids().get(idx).getY() == bound)
                 return true;
             return false;
@@ -139,9 +137,6 @@ public class GamePanel extends JPanel {
             int idx = side - 1;
             System.out.println(side);
             int bound = side * -90;
-            System.out.println(bound);
-            System.out.println(Game.getInstance().field.getAsteroids().get(idx).getX());
-
             if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
                 return true;
             return false;
