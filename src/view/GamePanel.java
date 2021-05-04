@@ -21,7 +21,6 @@ public class GamePanel extends JPanel {
     public GamePanel(Window _window, int unit) {
         this.window = _window;
         this.unit = unit;
-        //TODO::ez így nem működik
         addKeyListener(new KeyListenerClass());
         addMouseListener(new MouseListenerClass());
     }
@@ -63,7 +62,7 @@ public class GamePanel extends JPanel {
         /**
          * Asteroids draw
          */
-       fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
+        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
 
         //TODO::itt lehetne fontot is allitani es a szovegek helyet is megkene , mas szovegeket is leheten itt megadni, ha kell
         Font font = new Font(Font.SERIF, Font.PLAIN, (int) (20));
@@ -86,11 +85,39 @@ public class GamePanel extends JPanel {
 
     class KeyListenerClass implements KeyListener {
 
-        public boolean checkEdge(int bound) {
-            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                if (a.getX() == bound)
-                    return true;
-            }
+        int side = Game.getInstance().field.getSide();
+
+        public boolean checkUp() {
+            if (Game.getInstance().field.getAsteroids().get(0).getY() == 50)
+                return true;
+            return false;
+        }
+
+        public boolean checkDown() {
+            int idx = Game.getInstance().field.getAsteroids().size() - 1;
+            int bound = side * 30;
+            System.out.println(bound);
+            System.out.println(Game.getInstance().field.getAsteroids().get(idx).getY());
+            if (Game.getInstance().field.getAsteroids().get(idx).getY() == bound)
+                return true;
+            return false;
+        }
+
+        public boolean checkLeft() {
+            if (Game.getInstance().field.getAsteroids().get(0).getX() == 50)
+                return true;
+            return false;
+        }
+
+        public boolean checkRight() {
+            int idx = side - 1;
+            System.out.println(side);
+            int bound = side * -90;
+            System.out.println(bound);
+            System.out.println(Game.getInstance().field.getAsteroids().get(idx).getX());
+
+            if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
+                return true;
             return false;
         }
 
@@ -124,24 +151,24 @@ public class GamePanel extends JPanel {
                     ioException.printStackTrace();
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_S) {
-                if (!checkEdge(0))
-                    moveVertically(-10);
-                window.repaint();
-            }
             if (e.getKeyCode() == KeyEvent.VK_W) {
-                if (!checkEdge(0))
+                if (!checkUp())
                     moveVertically(10);
                 window.repaint();
             }
-            if (e.getKeyCode() == KeyEvent.VK_D) {
-                if (!checkEdge(1024))
-                    moveHorizontally(-10);
+            if (e.getKeyCode() == KeyEvent.VK_S) {
+                if (!checkDown())
+                    moveVertically(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_A) {
-                if (!checkEdge(50))
+                if (!checkLeft())
                     moveHorizontally(10);
+                window.repaint();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_D) {
+                if (!checkRight())
+                    moveHorizontally(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_F) {
@@ -164,7 +191,7 @@ public class GamePanel extends JPanel {
                     ioException.printStackTrace();
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_S) {
+            if (e.getKeyCode() == KeyEvent.VK_M) {
                 try {
                     Game.getInstance().saveGame();
                 } catch (IOException ioException) {
