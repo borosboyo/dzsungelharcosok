@@ -75,6 +75,12 @@ public class GamePanel extends JPanel {
                 g.drawString(String.valueOf(fi.getSettlers().get(i).getId()), 0, 40 + (i * 20));
             }
         }
+
+        g.setColor(Color.GRAY);
+        g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
+        font = new Font(Font.SERIF, Font.BOLD, (int) (14));
+        g.setFont(font);
+        g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Useteleport: Space,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: T,   Save: M", 3, window.getHeight() - 46);
     }
 
 
@@ -205,22 +211,19 @@ public class GamePanel extends JPanel {
     class MouseListenerClass implements java.awt.event.MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            selectedAsteroid = null;
-            selectedSettler = null;
+
 
             if (e.getButton() == 1) {
+                selectedSettler = null;
 //            checkboxSettler(e.getX(), e.getY());
             }
 
             if (e.getButton() == 3) {
+                selectedAsteroid = null;
                 checkboxAsteroid(e.getX(), e.getY());
                 if (selectedSettler != null && selectedAsteroid != null) {
                     selectedSettler.Move(selectedAsteroid);
                 }
-            }
-
-            if (selectedAsteroid != null) {
-                System.out.println("Jobb siker");
             }
         }
 
