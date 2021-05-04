@@ -35,8 +35,8 @@ public class EntityView implements Drawable {
             }else {
                 i = t.getImage("images/settler.png");
             }
-            xMove = -5;
-            yMove = -35;
+         //   xMove = -5;
+          //  yMove = -35;
 
             if (((Settler) entity).isFinishedTurn()) {
                 ((Graphics2D) g).setComposite(setTransparenty(3));
@@ -46,19 +46,19 @@ public class EntityView implements Drawable {
 
         if (entity instanceof Ufo) {
             i = t.getImage("images/ufo.png");
-            xMove = -5;
-            yMove = 35;
+          //  xMove = -5;
+         //   yMove = 35;
 
         }
 
         if (entity instanceof Robot) {
             i = t.getImage("images/robot.png");
-            xMove = -35;
-            yMove = 0;
+         //   xMove = -35;
+          //  yMove = 0;
         }
 
 
-        g.drawImage(i, x + xMove, y + yMove, unit/2, unit/2, null);
+        g.drawImage(i, x-15 , y-15 , unit/2, unit/2, null);
         ((Graphics2D) g).setComposite(setTransparenty(10));
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial Black", Font.BOLD, 15));
