@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class GamePanel extends JPanel {
     Window window;
-    int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
+    private int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
     Asteroid selectedAsteroid;
     Settler selectedSettler;
 
@@ -80,6 +80,28 @@ public class GamePanel extends JPanel {
 
     class KeyListenerClass implements KeyListener {
 
+        public boolean checkEdge(int bound) {
+            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                if (a.getX() == bound)
+                    return true;
+            }
+            return false;
+        }
+
+        public void moveVertically(int distance) {
+            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                int newY = a.getY() + distance;
+                a.setY(newY);
+            }
+        }
+
+        public void moveHorizontally(int distance) {
+            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
+                int newX = a.getX() + distance;
+                a.setX(newX);
+            }
+        }
+
         @Override
         public void keyTyped(KeyEvent e) {
         }
@@ -97,31 +119,23 @@ public class GamePanel extends JPanel {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_S) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newY = a.getY() - 10;
-                    a.setY(newY);
-                }
+                if (!checkEdge(0))
+                    moveVertically(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_W) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newY = a.getY() + 10;
-                    a.setY(newY);
-                }
+                if (!checkEdge(0))
+                    moveVertically(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newX = a.getX() - 10;
-                    a.setX(newX);
-                }
+                if (!checkEdge(1024))
+                    moveHorizontally(-10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_A) {
-                for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                    int newX = a.getX() + 10;
-                    a.setX(newX);
-                }
+                if (!checkEdge(50))
+                    moveHorizontally(10);
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_F) {
@@ -141,6 +155,13 @@ public class GamePanel extends JPanel {
                 try {
                     window.playSound(3, 1.0f, 0);
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+            if (e.getKeyCode() == KeyEvent.VK_S) {
+                try {
+                    Game.getInstance().saveGame();
+                } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
             }

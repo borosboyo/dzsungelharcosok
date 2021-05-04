@@ -37,7 +37,7 @@ public class Field implements Steppable, Serializable {
         double sqrt = Math.sqrt((settlernumber * 10 + 5));
         int side = (int) Math.ceil(sqrt);
         int xunit = 800 / 4;
-        int yunit = 600 / 6;
+        int yunit = 600 / 4;
         for (int i = 0; i < side; i++) {
             for (int j = 0; j < side; j++) {
                 if (asteroids.size() > (i * (side-1)) + j) {

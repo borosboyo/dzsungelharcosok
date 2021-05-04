@@ -1,9 +1,9 @@
 package view;
 
 import model.Asteroid;
+import model.Entity;
 
 import java.awt.*;
-import java.util.SortedMap;
 
 public class AsteroidView implements Drawable {
     private Asteroid asteroid;
@@ -13,13 +13,15 @@ public class AsteroidView implements Drawable {
         this.asteroid = asteroid;
     }
 
-
     @Override
     public void draw(Graphics g, int unit, int _x, int _y) {
         Toolkit t = Toolkit.getDefaultToolkit();
         Image i;
-
-        i = t.getImage("images/asteroid.png");
+        if(asteroid.isNearSun()) {
+            i = t.getImage("images/asteroid-nearsun.png");
+        }else {
+            i = t.getImage("images/asteroid.png");
+        }
 
         int x = asteroid.getX();
         int y = asteroid.getY();
@@ -27,9 +29,17 @@ public class AsteroidView implements Drawable {
         g.drawImage(i, x, y, unit, unit, null);
 
         /**
-         *  Teleport, Entity, Material draw
+         *Teleport, Entity, Material draw
          */
-        asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y)); //TODO::lehetne azt, hogy amelyik teleps nem lépett az halványan látszódik, de akár fordítva is, ezt is a transparentel lehetne állítani
+        for(int j = 0; j < asteroid.getEntities().size(); j++ ){
+            EntityView e = new EntityView(asteroid.getEntities().get(j));
+            e.draw(g, unit, x, y);
+
+        }
+
+
+
+        asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y));
         asteroid.getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(g, unit, x, y));
         matView = new MaterialView(asteroid.getMaterial());
         matView.draw(g, unit, x, y);
