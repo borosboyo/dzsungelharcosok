@@ -1,9 +1,6 @@
 package view;
 
-import model.Asteroid;
-import model.Field;
-import model.Game;
-import model.MenuState;
+import model.*;
 
 import java.awt.event.*;
 import java.awt.event.KeyEvent;
@@ -11,12 +8,15 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.Console;
 import java.io.IOException;
 
 
 public class GamePanel extends JPanel {
     Window window;
     int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
+    Asteroid selectedAsteroid;
+    Settler selectedSettler;
 
     public GamePanel(Window _window, int unit) {
         this.window = _window;
@@ -27,15 +27,31 @@ public class GamePanel extends JPanel {
     }
 
 
-    Asteroid checkboxAsteroid(int x, int y) {
+    void checkboxAsteroid(int x, int y) {
         Field fi = Game.getInstance().field;
-        for (Asteroid asteroid : fi.getAsteroids()) {
+        Asteroid asteroid;
+        for (int i = 0; i < fi.getAsteroids().size(); i++) {
+            asteroid = fi.getAsteroids().get(i);
             if (asteroid.getX() < x && x < asteroid.getX() + unit && asteroid.getY() < y && y < asteroid.getY() + unit) {
-                return asteroid;
+                selectedAsteroid = asteroid;
+                return;
             }
         }
-        return null;
+        selectedAsteroid = null;
     }
+
+//    void checkboxSettler(int x, int y) {
+//        Field fi = Game.getInstance().field;
+//        Settler settler;
+//        for (int i = 0; i < fi.getSettlers().size(); i++){
+//            settler = fi.getSettlers().get(i);
+//            if (settler.getX() < x && x < settler.getX() + unit && settler.getY() < y && y < settler.getY() + unit) {
+//                selectedSettler =  settler;
+//                return;
+//            }
+//        }
+//        selectedSettler = null;
+//    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -109,6 +125,9 @@ public class GamePanel extends JPanel {
                 window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_F) {
+                if (selectedSettler == null)
+                    return;
+                selectedSettler.Drill();
                 try {
                     window.playSound(2, 1.0f, 0);
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
@@ -116,6 +135,9 @@ public class GamePanel extends JPanel {
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_E) {
+                if (selectedSettler == null)
+                    return;
+                selectedSettler.Mine();
                 try {
                     window.playSound(3, 1.0f, 0);
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
@@ -124,18 +146,33 @@ public class GamePanel extends JPanel {
             }
             if (e.getKeyCode() == KeyEvent.VK_SPACE) {
                 //useteleport
+                if (selectedSettler == null && selectedAsteroid == null)
+                    return;
+                //TODO
             }
             if (e.getKeyCode() == KeyEvent.VK_C) {
                 //placeteleport
+                if (selectedSettler == null)
+                    return;
+                selectedSettler.PlaceTeleport();
             }
             if (e.getKeyCode() == KeyEvent.VK_V) {
                 //placematerial
+                if (selectedSettler == null)
+                    return;
+                selectedSettler.PlaceMaterial();
             }
             if (e.getKeyCode() == KeyEvent.VK_T) {
                 //maketeleport
+                if (selectedSettler == null)
+                    return;
+                selectedSettler.MakeTeleport();
             }
             if (e.getKeyCode() == KeyEvent.VK_R) {
                 //buildrobot
+                if (selectedSettler == null)
+                    return;
+                selectedSettler.BuildRobot();
             }
         }
 
@@ -147,27 +184,39 @@ public class GamePanel extends JPanel {
     class MouseListenerClass implements java.awt.event.MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println(e.getX() + " " + e.getY());
+            selectedAsteroid = null;
+            selectedSettler = null;
+
+            if (e.getButton() == 1) {
+//            checkboxSettler(e.getX(), e.getY());
+            }
+
+            if (e.getButton() == 3) {
+                checkboxAsteroid(e.getX(), e.getY());
+                if (selectedSettler != null && selectedAsteroid != null) {
+                    selectedSettler.Move(selectedAsteroid);
+                }
+            }
+
+            if (selectedAsteroid != null) {
+                System.out.println("Jobb siker");
+            }
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-
         }
     }
 
