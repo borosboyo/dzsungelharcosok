@@ -60,7 +60,7 @@ public class Window extends JFrame {
     public void switchToGame() {
         remove(menuPanel);
         setSize(1024, 576);
-        gamePanel = new GamePanel(this, 10);
+        gamePanel = new GamePanel(this, 70);
         add(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocusInWindow();

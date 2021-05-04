@@ -24,7 +24,7 @@ public class AsteroidView implements Drawable {
         int x = asteroid.getX();
         int y = asteroid.getY();
 
-        g.drawImage(i, x, y, 70, 70, null);
+        g.drawImage(i, x, y, unit, unit, null);
 
         /**
          *  Teleport, Entity, Material draw
