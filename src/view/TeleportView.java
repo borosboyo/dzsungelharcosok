@@ -20,7 +20,7 @@ public class TeleportView implements Drawable {
 
         i = t.getImage("images/teleport.png");
 
-        g.drawImage(i, x + 50, y + 15, unit/3, unit/3, null);
+        g.drawImage(i, x-15 , y-15 , unit/3, unit/3, null);
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial Black", Font.BOLD, 15));
         g.drawString(String.valueOf(teleport.getId()), x + 50, y + 50);
