@@ -8,7 +8,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
-import java.io.Console;
 import java.io.IOException;
 
 
@@ -17,6 +16,7 @@ public class GamePanel extends JPanel {
     private int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
     Asteroid selectedAsteroid;
     Settler selectedSettler;
+    Teleport selectedTeleport;
 
     public GamePanel(Window _window, int unit) {
         this.window = _window;
@@ -27,17 +27,27 @@ public class GamePanel extends JPanel {
     }
 
 
-    void checkboxAsteroid(int x, int y) {
+    void checkboxAsteroidTeleport(int x, int y) {
         Field fi = Game.getInstance().field;
         Asteroid asteroid;
+        Teleport teleport;
+
         for (int i = 0; i < fi.getAsteroids().size(); i++) {
             asteroid = fi.getAsteroids().get(i);
             if (asteroid.getX() < x && x < asteroid.getX() + unit && asteroid.getY() < y && y < asteroid.getY() + unit) {
                 selectedAsteroid = asteroid;
                 return;
             }
+            for (int j = 0; j < asteroid.getTeleports().size(); j++) {
+                teleport = asteroid.getTeleports().get(j);
+                if (asteroid.getX() < x && x < asteroid.getX() + unit && asteroid.getY() < y && y < asteroid.getY() + unit) {
+                    selectedTeleport = teleport;
+                    return;
+                }
+            }
         }
         selectedAsteroid = null;
+        selectedTeleport = null;
     }
 
 //    void checkboxSettler(int x, int y) {
@@ -220,9 +230,14 @@ public class GamePanel extends JPanel {
 
             if (e.getButton() == 3) {
                 selectedAsteroid = null;
-                checkboxAsteroid(e.getX(), e.getY());
+                selectedTeleport = null;
+
+                checkboxAsteroidTeleport(e.getX(), e.getY());
                 if (selectedSettler != null && selectedAsteroid != null) {
                     selectedSettler.Move(selectedAsteroid);
+                }
+                if (selectedSettler != null && selectedTeleport != null) {
+                    selectedSettler.UseTeleport(selectedTeleport);
                 }
             }
         }
