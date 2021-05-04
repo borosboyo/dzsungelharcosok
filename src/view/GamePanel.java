@@ -57,7 +57,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Field fi = Game.getInstance().field;
-
+        JTextArea tx = new JTextArea("Welcome");
         this.setBackground(Color.DARK_GRAY);
 
         /**
@@ -75,6 +75,22 @@ public class GamePanel extends JPanel {
                 g.drawString(String.valueOf(fi.getSettlers().get(i).getId()), 0, 40 + (i * 20));
             }
         }
+
+        if(selectedSettler != null){
+            Toolkit t = Toolkit.getDefaultToolkit();
+            Image i = t.getImage("images/gamepanel.png");
+            g.drawImage(i, 824, -20, 200, 300, null);
+
+            for(int j = 0; j < selectedSettler.getInventory().size(); j++){
+                String s = new String("");
+                s += selectedSettler.getInventory().get(j).getName();
+                System.out.println(s);
+                g.setColor(Color.WHITE);
+                g.drawString(s, 840, 20+j*20);
+            }
+        }
+
+
     }
 
 
@@ -222,6 +238,7 @@ public class GamePanel extends JPanel {
             if (selectedAsteroid != null) {
                 System.out.println("Jobb siker");
             }
+
         }
 
         @Override
@@ -239,6 +256,11 @@ public class GamePanel extends JPanel {
         @Override
         public void mouseExited(MouseEvent e) {
         }
+
+
+
+
+
     }
 
 
