@@ -84,7 +84,6 @@ public class GamePanel extends JPanel {
             for(int j = 0; j < selectedSettler.getInventory().size(); j++){
                 String s = new String("");
                 s += selectedSettler.getInventory().get(j).getName();
-                System.out.println(s);
                 g.setColor(Color.WHITE);
                 g.drawString(s, 840, 20+j*20);
             }
