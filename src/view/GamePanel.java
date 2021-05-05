@@ -11,6 +11,9 @@ import java.awt.*;
 import java.io.IOException;
 
 
+/**
+ * The type Game panel.
+ */
 public class GamePanel extends JPanel {
     Window window;
     private int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
@@ -18,11 +21,62 @@ public class GamePanel extends JPanel {
     Settler selectedSettler;
     Teleport selectedTeleport;
 
+    private JButton menuButton = new JButton();
+    private JButton exitButton = new JButton();
+
+    /**
+     * Keyboard listener. Certain functions can only be accessed with the keyboard:
+     * moving the map, drilling, mining etc..
+     */
+    private KeyListenerClass keyListener = new KeyListenerClass();
+
+    /**
+     * Mouse listener. Used for the endgame buttons
+     * and selecting certain drawable elements settlers, asteroids, teleport.
+     */
+    private MouseListenerClass mouseListener = new MouseListenerClass();
+
+    /**
+     * The constructor for the panel. Initializes the endgame buttons and adds the required listeners.
+     */
     public GamePanel(Window _window, int unit) {
         this.window = _window;
         this.unit = unit;
-        addKeyListener(new KeyListenerClass());
-        addMouseListener(new MouseListenerClass());
+        initButton(menuButton, "menu");
+        initButton(exitButton, "exit");
+        add(menuButton);
+        add(exitButton);
+
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(564 / 2, 0, 0, 0));
+
+
+        addKeyListener(keyListener);
+        addMouseListener(mouseListener);
+    }
+
+    /**
+     * Initializes the buttons that appear when the game finishes.
+     */
+    public void initButton(JButton button, String text) {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setAlignmentY(Component.CENTER_ALIGNMENT);
+        //button.setIcon(imageContainer.get(imageIndex));
+        //button.setBorder(BorderFactory.createEmptyBorder());
+        //button.setMargin(new Insets(0, 0, 0, 0));
+        //button.setOpaque(false);
+        //button.setBorderPainted(false);
+        //button.setContentAreaFilled(false);
+        button.setVisible(false);
+        button.setText(text);
+        button.addActionListener(mouseListener);
+    }
+
+    public void finishGame() {
+        if (Game.getInstance().EndGame() || Game.getInstance().isWin()) {
+            removeKeyListener(keyListener);
+
+        }
     }
 
 
@@ -99,8 +153,6 @@ public class GamePanel extends JPanel {
             }
         }
 
-
-
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
@@ -109,16 +161,28 @@ public class GamePanel extends JPanel {
     }
 
 
+    /**
+     * The type Key listener class.
+     */
     class KeyListenerClass implements KeyListener {
 
+        /**
+         * Stores how many sides the map has, so that the map border calculation is smooth.
+         */
         int side = Game.getInstance().field.getSide();
 
+        /**
+         * Checks if the game has reached the upper map bound.
+         */
         public boolean checkUp() {
             if (Game.getInstance().field.getAsteroids().get(0).getY() == 50)
                 return true;
             return false;
         }
 
+        /**
+         * Checks if the game has reached the lower map bound.
+         */
         public boolean checkDown() {
             int idx = Game.getInstance().field.getAsteroids().size() - 1;
             int bound = side * 30;
@@ -127,21 +191,32 @@ public class GamePanel extends JPanel {
             return false;
         }
 
+        /**
+         * Checks if the game has reached the left map bound.
+         */
         public boolean checkLeft() {
             if (Game.getInstance().field.getAsteroids().get(0).getX() == 50)
                 return true;
             return false;
         }
 
+        /**
+         * Checks if the game has reached the right map bound.
+         */
         public boolean checkRight() {
             int idx = side - 1;
-           // System.out.println(side);
+            // System.out.println(side);
             int bound = side * -90;
             if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
                 return true;
             return false;
         }
 
+        /**
+         * Moves an asteroid vertically with a certain distance.
+         *
+         * @param distance the distance
+         */
         public void moveVertically(int distance) {
             for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                 int newY = a.getY() + distance;
@@ -149,6 +224,11 @@ public class GamePanel extends JPanel {
             }
         }
 
+        /**
+         * Moves an asteroid horizontally with a certain distance.
+         *
+         * @param distance the distance
+         */
         public void moveHorizontally(int distance) {
             for (Asteroid a : Game.getInstance().field.getAsteroids()) {
                 int newX = a.getX() + distance;
@@ -256,11 +336,9 @@ public class GamePanel extends JPanel {
         }
     }
 
-    class MouseListenerClass implements java.awt.event.MouseListener {
+    class MouseListenerClass implements MouseListener, ActionListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-
-
             if (e.getButton() == 1) {
                 selectedSettler = null;
 //            checkboxSettler(e.getX(), e.getY());
@@ -294,6 +372,19 @@ public class GamePanel extends JPanel {
 
         @Override
         public void mouseExited(MouseEvent e) {
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            /**
+             * Handles the buttons that show up, when the game ends.
+             * */
+            if (e.getSource() == menuButton) {
+                window.switchToMenu();
+            }
+            if (e.getSource() == exitButton) {
+                System.exit(0);
+            }
         }
     }
 
