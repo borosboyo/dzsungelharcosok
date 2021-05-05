@@ -14,8 +14,8 @@ public class Field implements Steppable, Serializable {
     private final ArrayList<Ufo> ufos = new ArrayList();
     private int sunstormcounter = 0;
 
-    double sqrt;
-    int side;
+    private double sqrt;
+    private int side;
 
     /**
      * Field initialization (Add Asteroids, Settlers and Ufos)
@@ -41,11 +41,11 @@ public class Field implements Steppable, Serializable {
         side = (int) Math.ceil(sqrt);
         int xunit = 200;
         int yunit = 150;
-        for (int i = 0; i < side; i++) {
-            for (int j = 0; j < side; j++) {
-                if (asteroids.size() > (i * (side - 1)) + j) {
-                    asteroids.get(i * (side - 1) + j).setY(i * yunit + 20);
-                    asteroids.get(i * (side - 1) + j).setX(j * xunit + 20);
+        for (int i = 0; i < side; i++) {    //y   sor
+            for (int j = 0; j < side; j++) {    //x oszlop
+                if (asteroids.size() > (i * (side )) + j) {
+                    asteroids.get(i * (side ) + j).setY(i * yunit + 20);
+                    asteroids.get(i * (side ) + j).setX(j * xunit + 20);
                 }
             }
         }
@@ -65,7 +65,6 @@ public class Field implements Steppable, Serializable {
         asteroids.get(12).addTeleport(new Teleport(4));
         asteroids.get(2).getEntities().add(new Robot(5));
         asteroids.get(2).getEntities().add(new Ufo(5));
-
 
         Random rand = new Random();
         int k = 0;
@@ -95,7 +94,6 @@ public class Field implements Steppable, Serializable {
             Timer.getInstance().AddSteppable(s);
         }
     }
-
 
     /**
      * Game state stepping

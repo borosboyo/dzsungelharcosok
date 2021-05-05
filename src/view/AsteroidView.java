@@ -15,7 +15,7 @@ public class AsteroidView implements Drawable {
     @Override
     public void draw(Graphics g, int unit, int _x, int _y) {
         Toolkit t = Toolkit.getDefaultToolkit();
-        Image i;
+        Image i, i2;
         if (asteroid.isNearSun()) {
             i = t.getImage("images/asteroid-nearsun.png");
         } else {
@@ -26,6 +26,15 @@ public class AsteroidView implements Drawable {
         int y = asteroid.getY();
 
         g.drawImage(i, x, y, unit, unit, null);
+
+
+
+
+            i2 = t.getImage( "images/CrustBar_" +asteroid.getCrustThickness() +".png");
+            g.drawImage(i2, x+5, y+5, unit-10, unit-10, null);
+      //  g.setColor(Color.white);
+       // g.setFont(new Font("Arial Black", Font.BOLD, 15));
+      //  g.drawString(String.valueOf(asteroid.getId()), x + 50, y + 50);
 
         /**
          *Teleport, Entity, Material draw
@@ -47,6 +56,7 @@ public class AsteroidView implements Drawable {
                 }
             }
         }
+
        //asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y));
        //asteroid.getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(g, unit, x, y));
         matView = new MaterialView(asteroid.getMaterial());

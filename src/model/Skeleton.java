@@ -252,7 +252,7 @@ public class Skeleton implements Serializable{
          */
         for (int i = 0; i < g.field.getAsteroids().size(); i++) {
             Asteroid a = g.field.getAsteroids().get(i);
-            System.out.println("Asteroid {" + a.getId() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
+            System.out.println("Asteroid {" + a.getId() +", Coord: " +a.getX()+";" +a.getY() + ",(" + getTelepotokA(a) + ")," + getNyersanyagA(a) + "," + a.getCrustThickness() + "," +
                     Nearsun(a) + ",(" + Szomszedok(a) + "),(" + Entitasok(a) + ")}");
         }
     }
