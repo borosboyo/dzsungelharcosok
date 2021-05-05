@@ -60,8 +60,8 @@ public class EntityView implements Drawable {
 
         g.drawImage(i, x-15 , y-15 , unit/2, unit/2, null);
         ((Graphics2D) g).setComposite(setTransparenty(10));
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial Black", Font.BOLD, 15));
-        g.drawString(String.valueOf(entity.getId()), x + 50, y + 50);
+       // g.setColor(Color.WHITE);
+       // g.setFont(new Font("Arial Black", Font.BOLD, 15));
+      //  g.drawString(String.valueOf(entity.getId()), x + 50, y + 50);
     }
 }

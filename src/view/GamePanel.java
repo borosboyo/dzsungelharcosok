@@ -135,7 +135,7 @@ public class GamePanel extends JPanel {
 
         public boolean checkRight() {
             int idx = side - 1;
-            System.out.println(side);
+           // System.out.println(side);
             int bound = side * -90;
             if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
                 return true;
