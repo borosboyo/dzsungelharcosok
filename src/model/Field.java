@@ -34,7 +34,7 @@ public class Field implements Steppable, Serializable {
         //random aszteroidak, telepesenkent +10db
         for (int i = 5; i < settlernumber * 10 + 5; i++) {
             Random rand = new Random();
-            asteroids.add(new Asteroid(i, rand.nextInt(10000000) % maxthickness, rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
+            asteroids.add(new Asteroid(i, rand.nextInt(maxthickness+1) , rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
         }
 
         sqrt = Math.sqrt(settlernumber * 10 + 5);

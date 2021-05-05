@@ -27,38 +27,35 @@ public class AsteroidView implements Drawable {
 
         g.drawImage(i, x, y, unit, unit, null);
 
-
-
-
-            i2 = t.getImage( "images/CrustBar_" +asteroid.getCrustThickness() +".png");
-            g.drawImage(i2, x+5, y+5, unit-10, unit-10, null);
-      //  g.setColor(Color.white);
-       // g.setFont(new Font("Arial Black", Font.BOLD, 15));
-      //  g.drawString(String.valueOf(asteroid.getId()), x + 50, y + 50);
+        i2 = t.getImage("images/CrustBar_" + asteroid.getCrustThickness() + ".png");
+        g.drawImage(i2, x + 5, y + 5, unit - 10, unit - 10, null);
+        //  g.setColor(Color.white);
+        // g.setFont(new Font("Arial Black", Font.BOLD, 15));
+        //  g.drawString(String.valueOf(asteroid.getId()), x + 50, y + 50);
 
         /**
          *Teleport, Entity, Material draw
          */
         int objects = asteroid.getEntities().size() + asteroid.getTeleports().size();
-        if(objects != 0) {
+        if (objects != 0) {
 
             int r = unit / 2;
             for (int j = 0; j < objects; j++) {
                 double angle = Math.toRadians(360 / objects);
-                int new_x = (int) ((x + r) + ((r+(unit/4))* Math.cos(angle *(j+1)))) ;
-                int new_y = (int) ((y + r) + ((r+(unit/4)) * Math.sin(angle*(j+1))));
+                int new_x = (int) ((x + r) + ((r + (unit / 4)) * Math.cos(angle * (j + 1))));
+                int new_y = (int) ((y + r) + ((r + (unit / 4)) * Math.sin(angle * (j + 1))));
                 if (j < asteroid.getEntities().size()) {
                     EntityView ev = new EntityView(asteroid.getEntities().get(j));
                     ev.draw(g, unit, new_x, new_y);
                 } else {
-                    TeleportView tv = new TeleportView(asteroid.getTeleports().get((j-asteroid.getEntities().size())));
+                    TeleportView tv = new TeleportView(asteroid.getTeleports().get((j - asteroid.getEntities().size())));
                     tv.draw(g, unit, new_x, new_y);
                 }
             }
         }
 
-       //asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y));
-       //asteroid.getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(g, unit, x, y));
+        //asteroid.getEntities().stream().map(entity -> new EntityView(entity)).forEach(entityView -> entityView.draw(g, unit, x, y));
+        //asteroid.getTeleports().stream().map(teleport -> new TeleportView(teleport)).forEach(teleportView -> teleportView.draw(g, unit, x, y));
         matView = new MaterialView(asteroid.getMaterial());
         matView.draw(g, unit, x, y);
     }
