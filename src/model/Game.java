@@ -185,7 +185,7 @@ public class Game implements Serializable {
     public void resetGame(int settler_numb) {
         field = null;
         field = new Field();
-        field.newField(settler_numb, 3);
+        field.newField(settler_numb, 4);
     }
 
     public void setNew_game(boolean new_game) {
