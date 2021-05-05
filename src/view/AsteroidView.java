@@ -28,10 +28,10 @@ public class AsteroidView implements Drawable {
         g.drawImage(i, x, y, unit, unit, null);
 
         i2 = t.getImage("images/CrustBar_" + asteroid.getCrustThickness() + ".png");
-        g.drawImage(i2, x + 5, y + 5, unit - 10, unit - 10, null);
-        //  g.setColor(Color.white);
-        // g.setFont(new Font("Arial Black", Font.BOLD, 15));
-        //  g.drawString(String.valueOf(asteroid.getId()), x + 50, y + 50);
+        g.drawImage(i2, x + 8, y + 8, unit - 15, unit - 15, null);
+          g.setColor(Color.white);
+         g.setFont(new Font("Arial Black", Font.BOLD, 15));
+          g.drawString(String.valueOf(asteroid.getId()), x + 50, y + 50);
 
         /**
          *Teleport, Entity, Material draw
