@@ -16,7 +16,7 @@ public class MenuPanel extends JPanel {
     /**
      * The host Window.
      */
-    Window window;
+    private Window window;
 
     /**
      * The first panel where the user can select Start, Load or Exit.

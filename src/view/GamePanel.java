@@ -64,7 +64,7 @@ public class GamePanel extends JPanel {
     private ArrayList<ImageIcon> endGameIcons = new ArrayList<ImageIcon>();
 
     /**
-     * Initializes the panel which holds the settler inventory.
+     * Initializes the images for the settler inventory and endgame images.
      *
      * @throws IOException the io exception
      */
@@ -74,15 +74,24 @@ public class GamePanel extends JPanel {
         if (im != null)
             bufferedImages.add(im);
 
+        im = ImageIO.read(new File("images/plainbackground.png"));
+        if (im != null)
+            bufferedImages.add(im);
+
+        im = ImageIO.read(new File("images/win.png"));
+        if (im != null)
+            bufferedImages.add(im);
+
+        im = ImageIO.read(new File("images/lose.png"));
+        if (im != null)
+            bufferedImages.add(im);
+
     }
 
     /**
      * Initializes endgame icons
      */
     public void initEndgameIcons() {
-        endGameIcons.add(new ImageIcon("images/plainbackground.png"));
-        endGameIcons.add(new ImageIcon("images/win.png"));
-        endGameIcons.add(new ImageIcon("images/lose.png"));
         endGameIcons.add(new ImageIcon("images/backtomenu.png"));
         endGameIcons.add(new ImageIcon("images/menuexit.png"));
     }
@@ -119,6 +128,9 @@ public class GamePanel extends JPanel {
         this.window = _window;
         this.unit = unit;
 
+        /**
+         * Initialize images.
+         */
         try {
             initImages();
             initEndgameIcons();
@@ -126,15 +138,20 @@ public class GamePanel extends JPanel {
             e.printStackTrace();
         }
 
-        initButton(menuButton, 3);
-        initButton(exitButton, 4);
+        /**
+         * Set up the endgame buttons.
+         */
+        initButton(menuButton, 0);
+        initButton(exitButton, 1);
         add(menuButton);
         add(exitButton);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(BorderFactory.createEmptyBorder(564 / 2, 0, 0, 0));
 
-
+        /**
+         * Set listeners required for any interaction.
+         */
         addKeyListener(keyListener);
         addMouseListener(mouseListener);
     }
@@ -154,18 +171,45 @@ public class GamePanel extends JPanel {
         button.setOpaque(false);
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
-        //button.setVisible(false);
+        button.setVisible(false);
         button.addActionListener(mouseListener);
     }
 
     /**
      * The panel that only appears when the game finishes.
      */
-    public void finishGame() {
+    public void finishGame(Graphics g) {
+
+        BufferedImage i;
+
+        /**
+         * The game ends.
+         */
         if (Game.getInstance().EndGame() || Game.getInstance().isWin()) {
             removeKeyListener(keyListener);
+            menuButton.setVisible(true);
+            exitButton.setVisible(true);
+            i = bufferedImages.get(1);
+            g.drawImage(i, 350, 175, 300, 200, null);
 
         }
+
+        /**
+         * The settlers win.
+         */
+        if (!Game.getInstance().EndGame() && Game.getInstance().isWin()) {
+            i = bufferedImages.get(2);
+            g.drawImage(i, 425, 160, 150, 150, null);
+        }
+        /**
+         * The settlers lose.
+         */
+        if (Game.getInstance().EndGame() && !Game.getInstance().isWin()) {
+            i = bufferedImages.get(3);
+            g.drawImage(i, 405, 140, 200, 200, null);
+
+        }
+
     }
 
 
@@ -225,6 +269,7 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        finishGame(g);
         Field fi = Game.getInstance().field;
 
         this.setBackground(Color.DARK_GRAY);
@@ -303,7 +348,6 @@ public class GamePanel extends JPanel {
                 g.drawString(s, 860, 25 + j * 20);
             }
         }
-
         if(fi.getSunstormcounter() == 1){
             g.setFont( new Font(Font.SERIF, Font.BOLD ,(int) (30)));
             g.setColor(Color.RED);
@@ -370,7 +414,7 @@ public class GamePanel extends JPanel {
          */
         public boolean checkRight() {
             int idx = side - 1;
-            int bound = side * -90;
+            int bound = side * 70;
             if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
                 return true;
             return false;
@@ -409,6 +453,9 @@ public class GamePanel extends JPanel {
          */
         @Override
         public void keyPressed(KeyEvent e) {
+            /**
+             * The player returns to the menu when the escape button is pressed.
+             */
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU); //TODO::itt beállíthatjuk azt, hogyha a menübe visszalépünk esc-el, akkor mentse a játékot
                 Game.getInstance().getMenu().menu_step(0);
@@ -419,22 +466,37 @@ public class GamePanel extends JPanel {
                     ioException.printStackTrace();
                 }
             }
+            /**
+             * The player can move the map upwards with W.
+             */
             if (e.getKeyCode() == KeyEvent.VK_W) {
                 if (!checkUp())
                     moveVertically(10);
             }
+            /**
+             * The player can move the map downwards with S.
+             */
             if (e.getKeyCode() == KeyEvent.VK_S) {
                 if (!checkDown())
                     moveVertically(-10);
             }
+            /**
+             * The player can move the map left with A.
+             */
             if (e.getKeyCode() == KeyEvent.VK_A) {
                 if (!checkLeft())
                     moveHorizontally(10);
             }
+            /**
+             * The player can move the map right with D.
+             */
             if (e.getKeyCode() == KeyEvent.VK_D) {
                 if (!checkRight())
                     moveHorizontally(-10);
             }
+            /**
+             * The player can drill with the selected settler with F.
+             */
             if (e.getKeyCode() == KeyEvent.VK_F) {
                 if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
@@ -447,6 +509,10 @@ public class GamePanel extends JPanel {
                     }
                 }
             }
+
+            /**
+             * The player can mine with the selected settler with E.
+             */
             if (e.getKeyCode() == KeyEvent.VK_E) {
                 if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
@@ -459,6 +525,9 @@ public class GamePanel extends JPanel {
                     }
                 }
             }
+            /**
+             * The player can save the game with M.
+             */
             if (e.getKeyCode() == KeyEvent.VK_M) {
                 try {
                     Game.getInstance().saveGame();
@@ -466,24 +535,40 @@ public class GamePanel extends JPanel {
                     ioException.printStackTrace();
                 }
             }
+
+            /**
+             * The player can place a teleport with the selected settler with C.
+             */
             if (e.getKeyCode() == KeyEvent.VK_C) {
                 //placeteleport
                 if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.PlaceTeleport();
             }
+
+            /**
+             * The player can place material with the selected settler with V.
+             */
             if (e.getKeyCode() == KeyEvent.VK_V) {
                 //placematerial
                 if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.PlaceMaterial();
             }
+
+            /**
+             * The player can make a teleport with the selected settler with T.
+             */
             if (e.getKeyCode() == KeyEvent.VK_T) {
                 //maketeleport
                 if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.MakeTeleport();
             }
+
+            /**
+             * The player can build a robot with the selected settler with R.
+             */
             if (e.getKeyCode() == KeyEvent.VK_R) {
                 //buildrobot
                 if (selectedSettler == null || selectedSettler.isFinishedTurn())
@@ -554,14 +639,20 @@ public class GamePanel extends JPanel {
         public void mouseExited(MouseEvent e) {
         }
 
+        /**
+         * Handles the buttons that show up, when the game ends.
+         */
         @Override
         public void actionPerformed(ActionEvent e) {
             /**
-             * Handles the buttons that show up, when the game ends.
-             * */
+             * Returns to the main menu.
+             */
             if (e.getSource() == menuButton) {
                 window.switchToMenu();
             }
+            /**
+             * Exits the game.
+             */
             if (e.getSource() == exitButton) {
                 System.exit(0);
             }
