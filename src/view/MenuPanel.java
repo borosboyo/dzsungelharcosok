@@ -2,7 +2,6 @@ package view;
 
 import model.Game;
 import model.MenuState;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

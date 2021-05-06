@@ -19,19 +19,55 @@ import java.util.ArrayList;
  * The type Game panel.
  */
 public class GamePanel extends JPanel {
+    /**
+     * The Window.
+     */
     Window window;
     private int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
+    /**
+     * The Selected asteroid.
+     */
     Asteroid selectedAsteroid;
+    /**
+     * The Selected settler.
+     */
     Settler selectedSettler;
+    /**
+     * The Selected teleport.
+     */
     Teleport selectedTeleport;
+    /**
+     * The Entity view.
+     */
     ArrayList<EntityView> entityView = new ArrayList<EntityView>();
+    /**
+     * The Teleport views.
+     */
     ArrayList<TeleportView> teleportViews = new ArrayList<TeleportView>();
+    /**
+     * The Buffered images.
+     */
     ArrayList<BufferedImage> bufferedImages = new ArrayList<BufferedImage>(); //TODO:: ezt meg lehetne csinálni a toolkit image-el és akkor lehet jó lenne az is
 
+    /**
+     * Gets buffered images.
+     *
+     * @return the buffered images
+     */
     public ArrayList<BufferedImage> getBufferedImages() {
         return bufferedImages;
     }
 
+    /**
+     * The list that containts the endgame icons.
+     */
+    private ArrayList<ImageIcon> endGameIcons = new ArrayList<ImageIcon>();
+
+    /**
+     * Initializes the panel which holds the settler inventory.
+     *
+     * @throws IOException the io exception
+     */
     public void initImages() throws IOException {
         BufferedImage im;
         im = ImageIO.read(new File("images/gamepanel.png"));
@@ -40,7 +76,25 @@ public class GamePanel extends JPanel {
 
     }
 
+    /**
+     * Initializes endgame icons
+     */
+    public void initEndgameIcons() {
+        endGameIcons.add(new ImageIcon("images/plainbackground.png"));
+        endGameIcons.add(new ImageIcon("images/win.png"));
+        endGameIcons.add(new ImageIcon("images/lose.png"));
+        endGameIcons.add(new ImageIcon("images/backtomenu.png"));
+        endGameIcons.add(new ImageIcon("images/menuexit.png"));
+    }
+
+    /**
+     * Button that appears at the end of the game and takes the user back to the main menu.
+     */
     private JButton menuButton = new JButton();
+
+    /**
+     * Button that appears at the end of the game and exits the game.
+     */
     private JButton exitButton = new JButton();
 
     /**
@@ -57,23 +111,29 @@ public class GamePanel extends JPanel {
 
     /**
      * The constructor for the panel. Initializes the endgame buttons and adds the required listeners.
+     *
+     * @param _window the window
+     * @param unit    the unit
      */
     public GamePanel(Window _window, int unit) {
         this.window = _window;
         this.unit = unit;
-        initButton(menuButton, "menu");
-        initButton(exitButton, "exit");
+
+        try {
+            initImages();
+            initEndgameIcons();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        initButton(menuButton, 3);
+        initButton(exitButton, 4);
         add(menuButton);
         add(exitButton);
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(BorderFactory.createEmptyBorder(564 / 2, 0, 0, 0));
 
-        try {
-            initImages();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         addKeyListener(keyListener);
         addMouseListener(mouseListener);
@@ -81,21 +141,26 @@ public class GamePanel extends JPanel {
 
     /**
      * Initializes the buttons that appear when the game finishes.
+     *
+     * @param button     the button
+     * @param imageIndex the image index
      */
-    public void initButton(JButton button, String text) {
+    public void initButton(JButton button, int imageIndex) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setAlignmentY(Component.CENTER_ALIGNMENT);
-        //button.setIcon(imageContainer.get(imageIndex));
-        //button.setBorder(BorderFactory.createEmptyBorder());
-        //button.setMargin(new Insets(0, 0, 0, 0));
-        //button.setOpaque(false);
-        //button.setBorderPainted(false);
-        //button.setContentAreaFilled(false);
-        button.setVisible(false);
-        button.setText(text);
+        button.setIcon(endGameIcons.get(imageIndex));
+        button.setBorder(BorderFactory.createEmptyBorder());
+        button.setMargin(new Insets(0, 0, 0, 0));
+        button.setOpaque(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        //button.setVisible(false);
         button.addActionListener(mouseListener);
     }
 
+    /**
+     * The panel that only appears when the game finishes.
+     */
     public void finishGame() {
         if (Game.getInstance().EndGame() || Game.getInstance().isWin()) {
             removeKeyListener(keyListener);
@@ -104,6 +169,12 @@ public class GamePanel extends JPanel {
     }
 
 
+    /**
+     * Checkbox asteroid teleport.
+     *
+     * @param x the x
+     * @param y the y
+     */
     void checkboxAsteroidTeleport(int x, int y) {
         Field fi = Game.getInstance().field;
         Asteroid asteroid;
@@ -130,6 +201,12 @@ public class GamePanel extends JPanel {
         selectedTeleport = null;
     }
 
+    /**
+     * Checkbox settler.
+     *
+     * @param x the x
+     * @param y the y
+     */
     void checkboxSettler(int x, int y) {
         EntityView entV;
         for (int i = 0; i < entityView.size(); i++) {
@@ -242,7 +319,7 @@ public class GamePanel extends JPanel {
 
 
     /**
-     * The type Key listener class.
+     * Certain functions are only accessible with the keyboard so this class handles this functionality.
      */
     class KeyListenerClass implements KeyListener {
 
@@ -253,6 +330,8 @@ public class GamePanel extends JPanel {
 
         /**
          * Checks if the game has reached the upper map bound.
+         *
+         * @return the boolean
          */
         public boolean checkUp() {
             if (Game.getInstance().field.getAsteroids().get(0).getY() == 50)
@@ -262,6 +341,8 @@ public class GamePanel extends JPanel {
 
         /**
          * Checks if the game has reached the lower map bound.
+         *
+         * @return the boolean
          */
         public boolean checkDown() {
             int idx = Game.getInstance().field.getAsteroids().size() - 1;
@@ -273,6 +354,8 @@ public class GamePanel extends JPanel {
 
         /**
          * Checks if the game has reached the left map bound.
+         *
+         * @return the boolean
          */
         public boolean checkLeft() {
             if (Game.getInstance().field.getAsteroids().get(0).getX() == 50)
@@ -282,6 +365,8 @@ public class GamePanel extends JPanel {
 
         /**
          * Checks if the game has reached the right map bound.
+         *
+         * @return the boolean
          */
         public boolean checkRight() {
             int idx = side - 1;
@@ -319,6 +404,9 @@ public class GamePanel extends JPanel {
         public void keyTyped(KeyEvent e) {
         }
 
+        /**
+         * Handles the keyboard events.
+         */
         @Override
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -410,6 +498,9 @@ public class GamePanel extends JPanel {
         }
     }
 
+    /**
+     * The type Mouse listener class.
+     */
     class MouseListenerClass implements MouseListener, ActionListener {
         @Override
         public void mouseClicked(MouseEvent e) {
