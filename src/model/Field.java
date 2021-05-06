@@ -1,5 +1,7 @@
 package model;
 
+import view.GamePanel;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,6 +14,7 @@ public class Field implements Steppable, Serializable {
     private final ArrayList<Settler> settlers = new ArrayList();
     private final ArrayList<Robot> robots = new ArrayList();
     private final ArrayList<Ufo> ufos = new ArrayList();
+
     private int sunstormcounter = 0;
 
     private double sqrt;
@@ -34,7 +37,7 @@ public class Field implements Steppable, Serializable {
         //random aszteroidak, telepesenkent +10db
         for (int i = 5; i < settlernumber * 10 + 5; i++) {
             Random rand = new Random();
-            asteroids.add(new Asteroid(i, rand.nextInt(maxthickness+1) , rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
+            asteroids.add(new Asteroid(i, rand.nextInt(maxthickness + 1), rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
         }
 
         sqrt = Math.sqrt(settlernumber * 10 + 5);
@@ -43,9 +46,9 @@ public class Field implements Steppable, Serializable {
         int yunit = 150;
         for (int i = 0; i < side; i++) {    //y   sor
             for (int j = 0; j < side; j++) {    //x oszlop
-                if (asteroids.size() > (i * (side )) + j) {
-                    asteroids.get(i * (side ) + j).setY(i * yunit + 20);
-                    asteroids.get(i * (side ) + j).setX(j * xunit + 20);
+                if (asteroids.size() > (i * (side)) + j) {
+                    asteroids.get(i * (side) + j).setY(i * yunit + 20);
+                    asteroids.get(i * (side) + j).setX(j * xunit + 20);
                 }
             }
         }
@@ -307,5 +310,13 @@ public class Field implements Steppable, Serializable {
      */
     public void AddAsteroid(Asteroid a) {
         asteroids.add(a);
+    }
+
+    public int getSunstormcounter() {
+        return sunstormcounter;
+    }
+
+    public void setSunstormcounter(int sunstormcounter) {
+        this.sunstormcounter = sunstormcounter;
     }
 }

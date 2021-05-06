@@ -141,7 +141,7 @@ public class GamePanel extends JPanel {
                 return;
             }
         }
-      //  selectedSettler.setSelected(false);
+        //selectedSettler.setSelected(false);
         selectedSettler = null;
     }
 
@@ -227,6 +227,12 @@ public class GamePanel extends JPanel {
             }
         }
 
+        if(fi.getSunstormcounter() == 1){
+            g.setFont( new Font(Font.SERIF, Font.BOLD ,(int) (30)));
+            g.setColor(Color.RED);
+            g.drawString("SUNSTORM", window.getWidth()/3+10, 30);
+        }
+        window.repaint();
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
