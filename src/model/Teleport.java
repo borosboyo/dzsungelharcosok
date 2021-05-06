@@ -33,11 +33,12 @@ public class Teleport implements Steppable, Serializable {
     public boolean getExploded(){
         return exploded;
     }
+
     public void HitBySunstorm(Asteroid a){
-        if (asteroids.get(0) == a){
+        if (asteroids.get(0) == a) {
             firstCrazy = true;
         }
-        if (asteroids.get(1) == a){
+        if (asteroids.get(1) == a) { //TODO::indexoutofr
             secondCrazy = true;
         }
         Step();

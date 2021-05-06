@@ -4,10 +4,13 @@ import model.*;
 
 import java.awt.event.*;
 import java.awt.event.KeyEvent;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,7 +26,19 @@ public class GamePanel extends JPanel {
     Teleport selectedTeleport;
     ArrayList<EntityView> entityView = new ArrayList<EntityView>();
     ArrayList<TeleportView> teleportViews = new ArrayList<TeleportView>();
+    ArrayList<BufferedImage> bufferedImages = new ArrayList<BufferedImage>(); //TODO:: ezt meg lehetne csinálni a toolkit image-el és akkor lehet jó lenne az is
 
+    public ArrayList<BufferedImage> getBufferedImages() {
+        return bufferedImages;
+    }
+
+    public void initImages() throws IOException {
+        BufferedImage im;
+        im = ImageIO.read(new File("images/gamepanel.png"));
+        if (im != null)
+            bufferedImages.add(im);
+
+    }
 
     private JButton menuButton = new JButton();
     private JButton exitButton = new JButton();
@@ -54,6 +69,11 @@ public class GamePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setBorder(BorderFactory.createEmptyBorder(564 / 2, 0, 0, 0));
 
+        try {
+            initImages();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         addKeyListener(keyListener);
         addMouseListener(mouseListener);
@@ -157,7 +177,6 @@ public class GamePanel extends JPanel {
          */
         entityView.clear();
         teleportViews.clear();
-        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid, entityView, teleportViews)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
 
         int j;
 
@@ -167,9 +186,19 @@ public class GamePanel extends JPanel {
                     s.setSelected(false);
                 selectedSettler.setSelected(true);
             }
+        } else {
+            for (Settler s : Game.getInstance().field.getSettlers()) {
+                s.setSelected(false);
+            }
+        }
 
-            Toolkit t = Toolkit.getDefaultToolkit();
-            Image i = t.getImage("images/gamepanel.png");
+        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid, entityView, teleportViews)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
+
+        if (selectedSettler != null) {
+//            Toolkit t = Toolkit.getDefaultToolkit();
+//            Image i = t.getImage("images/gamepanel.png");
+            BufferedImage i = bufferedImages.get(0);
+
             g.drawImage(i, 824, -20, 200, 300, null);
 
             for (j = 0; j < selectedSettler.getInventory().size(); j++) {
@@ -196,17 +225,13 @@ public class GamePanel extends JPanel {
                 g.setColor(Color.WHITE);
                 g.drawString(s, 860, 25 + j * 20);
             }
-        }else {
-            for (Settler s : Game.getInstance().field.getSettlers()) {
-                s.setSelected(false);
-            }
         }
-        window.repaint();
+
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
         g.setFont(font);
-        g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: T,   Save: M", 40, window.getHeight() - 46);
+        g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: R,   Save: M", 40, window.getHeight() - 46);
     }
 
 
