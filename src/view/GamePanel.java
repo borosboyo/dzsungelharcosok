@@ -157,18 +157,34 @@ public class GamePanel extends JPanel {
         teleportViews.clear();
         fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid, entityView, teleportViews)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
 
+        int j;
 
         if (selectedSettler != null) {
             Toolkit t = Toolkit.getDefaultToolkit();
             Image i = t.getImage("images/gamepanel.png");
             g.drawImage(i, 824, -20, 200, 300, null);
 
-            for (int j = 0; j < selectedSettler.getInventory().size(); j++) {
+            for (j = 0; j < selectedSettler.getInventory().size(); j++) {
                 if (selectedSettler.getInventory().get(j) == null)
                     return;
 
                 String s = new String("");
                 s += selectedSettler.getInventory().get(j).getName();
+                g.setColor(Color.WHITE);
+                g.drawString(s, 860, 25 + j * 20);
+            }
+
+            for (int k = 0; k < selectedSettler.getTeleportlist().size(); k++) {
+                if (selectedSettler.getTeleportlist().get(k) == null)
+                    return;
+
+                String s = new String("");
+                s += "Teleport[";
+                if (selectedSettler.getTeleportlist().get(k).getAsteroids().size() == 0) {
+                    s += "2]";
+                } else {
+                    s += "1]";
+                }
                 g.setColor(Color.WHITE);
                 g.drawString(s, 860, 25 + j * 20);
             }
