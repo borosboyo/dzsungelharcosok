@@ -31,7 +31,7 @@ public class Robot extends Entity implements IDrill {
     public void Die() {
         getAsteroid().RemoveEntity(this);
         setAsteroid(null);
-        Timer.getInstance().RemoveSteppable(this);
+        GTimer.getInstance().RemoveSteppable(this);
         Game.getInstance().field.getRobots().remove(this);
     }
 
@@ -44,8 +44,8 @@ public class Robot extends Entity implements IDrill {
         long crust = getAsteroid().getCrustThickness();
         Teleport teleport = getAsteroid().GetRandomTeleport();
 
-        if ((teleport.getAsteroids().size() == 2) && (rand.nextInt(100) < 30)) {  //Ha van szomszédja az aszteroidának és 30% akkor teleportál
-                UseTeleport(teleport);
+        if (teleport != null && (teleport.getAsteroids().size() == 2) && (rand.nextInt(100) < 30)) {  //Ha van szomszédja az aszteroidának és 30% akkor teleportál
+            UseTeleport(teleport);
         } else {
             if (crust != 0) {
                 Drill();

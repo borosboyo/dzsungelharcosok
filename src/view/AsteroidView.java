@@ -1,15 +1,21 @@
 package view;
 
 import model.Asteroid;
+import view.GamePanel;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class AsteroidView implements Drawable {
     private Asteroid asteroid;
     private MaterialView matView;
+    private ArrayList<EntityView> entityViews;
+    private ArrayList<TeleportView> teleportViews;
 
-    public AsteroidView(Asteroid asteroid) {
+    public AsteroidView(Asteroid asteroid, ArrayList<EntityView> entityViews, ArrayList<TeleportView> teleportViews) {
         this.asteroid = asteroid;
+        this.entityViews = entityViews;
+        this.teleportViews = teleportViews;
     }
 
     @Override
@@ -45,11 +51,12 @@ public class AsteroidView implements Drawable {
                 int new_x = (int) ((x + r) + ((r + (unit / 4)) * Math.cos(angle * (j + 1))));
                 int new_y = (int) ((y + r) + ((r + (unit / 4)) * Math.sin(angle * (j + 1))));
                 if (j < asteroid.getEntities().size()) {
-                    EntityView ev = new EntityView(asteroid.getEntities().get(j));
+                    EntityView ev = new EntityView(asteroid.getEntities().get(j), entityViews);
                     ev.draw(g, unit, new_x, new_y);
                 } else {
                     TeleportView tv = new TeleportView(asteroid.getTeleports().get((j - asteroid.getEntities().size())));
                     tv.draw(g, unit, new_x, new_y);
+                    teleportViews.add(tv);
                 }
             }
         }

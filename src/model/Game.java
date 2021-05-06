@@ -63,38 +63,27 @@ public class Game implements Serializable {
      */
     public Field field;
 
-    public boolean isNew_game() {
-        return new_game;
-    }
-
     static boolean new_game = true;
 
     Skeleton s = new Skeleton();
     private int counter = 0;
 
-    public int getCounter() {
-        return counter;
-    }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
-
-    public void step() {
+    public void step() { //TODO:: ha nincsen consolose-os kezelés akkor ez feleslegessé vált
         if (game.EndGame()) {
             game.gameState = GameState.MENU;
             return;
         }
-        
+
         s.writeout(game);
 
         if (game.step_gamer()) {
-           game.setGameState(GameState.MENU);
-           game.menu.setMenuState(MenuState.LOADMENU);
+            game.setGameState(GameState.MENU);
+            game.menu.setMenuState(MenuState.LOADMENU);
         }
 
         if(counter == game.field.getSettlers().size()){
-            Timer.getInstance().Tick();
+            GTimer.getInstance().Tick();
             for(int i = 0; i<game.field.getSettlers().size(); i++){
                 game.field.getSettlers().get(i).setFinishedTurn(false);
             }
@@ -143,17 +132,17 @@ public class Game implements Serializable {
      */
     private Scanner console_read2 = new Scanner(System.in);
 
-    public boolean step_gamer(){
+    public boolean step_gamer() {//TODO:: ha nincsen consolose-os kezelés akkor ez feleslegessé vált
         String in;
         String[] commands;
         boolean end = false;
         boolean cor = false;
 
-        while(!cor) {
+        while (!cor) {
             in = console_read2.nextLine();
             commands = in.split("[ !\"\\#$%&'*+,-./:;<=>?@\\[\\]^_`{|}~]+");
 
-            switch (commands[0]){
+            switch (commands[0]) {
                 case "savegame": {
                     if (commands.length != 1) {
                         cor = false;
@@ -188,18 +177,15 @@ public class Game implements Serializable {
         field.newField(settler_numb, 4);
     }
 
-    public void setNew_game(boolean new_game) {
-        this.new_game = new_game;
-    }
 
-    public boolean read_command(String[] commands){
+    public boolean read_command(String[] commands) {//TODO:: ha nincsen consolose-os kezelés akkor ez feleslegessé vált
         boolean correct = false;
         int enti = 0;
         Settler se = null;
         Ufo uf = null;
         Robot ro = null;
 
-        if(commands[0] == null){
+        if (commands[0] == null) {
             return false;
         }
 

@@ -1,3 +1,4 @@
+//TODO:: ha nincsen consolose-os kezelés akkor ez feleslegessé vált
 package model;
 
 import java.io.*;
@@ -8,6 +9,7 @@ public class Skeleton implements Serializable{
     public Skeleton(){
 
     }
+
     private static String[] splitSentenceByWords(String str){
 
         //if string is empty or null, return empty array
@@ -64,7 +66,7 @@ public class Skeleton implements Serializable{
                 line = br.readLine();
                 String[] words = splitSentenceByWords(line);
 
-               Game.getInstance().read_command(words);
+                Game.getInstance().read_command(words);
                 sb.append(line);
                 sb.append("\n");
             }
@@ -178,7 +180,7 @@ public class Skeleton implements Serializable{
         }
 
         if(!filename.equals("Special.txt")){
-          //  Game.getInstance().read_command(parancs);
+            //  Game.getInstance().read_command(parancs);
         }
         fr.close();
         System.out.println("Test done.");

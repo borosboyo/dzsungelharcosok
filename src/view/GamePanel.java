@@ -9,6 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -20,6 +21,9 @@ public class GamePanel extends JPanel {
     Asteroid selectedAsteroid;
     Settler selectedSettler;
     Teleport selectedTeleport;
+    ArrayList<EntityView> entityView = new ArrayList<EntityView>();
+    ArrayList<TeleportView> teleportViews = new ArrayList<TeleportView>();
+
 
     private JButton menuButton = new JButton();
     private JButton exitButton = new JButton();
@@ -91,30 +95,33 @@ public class GamePanel extends JPanel {
                 selectedAsteroid = asteroid;
                 return;
             }
-            for (int j = 0; j < asteroid.getTeleports().size(); j++) {
-                teleport = asteroid.getTeleports().get(j);
-                if (asteroid.getX() < x && x < asteroid.getX() + unit && asteroid.getY() < y && y < asteroid.getY() + unit) {
-                    selectedTeleport = teleport;
-                    return;
-                }
+        }
+
+        TeleportView telV;
+        for (int i = 0; i < teleportViews.size(); i++) {
+            telV = teleportViews.get(i);
+            if (telV.getX() < x && x < telV.getX() + telV.getSize() && telV.getY() < y && y < telV.getY() + telV.getSize()) {
+                selectedTeleport = telV.getTeleport();
+                return;
             }
         }
+
         selectedAsteroid = null;
         selectedTeleport = null;
     }
 
-//    void checkboxSettler(int x, int y) {
-//        Field fi = Game.getInstance().field;
-//        Settler settler;
-//        for (int i = 0; i < fi.getSettlers().size(); i++){
-//            settler = fi.getSettlers().get(i);
-//            if (settler.getX() < x && x < settler.getX() + unit && settler.getY() < y && y < settler.getY() + unit) {
-//                selectedSettler =  settler;
-//                return;
-//            }
-//        }
-//        selectedSettler = null;
-//    }
+    void checkboxSettler(int x, int y) {
+        EntityView entV;
+        for (int i = 0; i < entityView.size(); i++) {
+            entV = entityView.get(i);
+            if (entV.getX() < x && x < entV.getX() + entV.getSize() && entV.getY() < y && y < entV.getY() + entV.getSize()) {
+                selectedSettler = (Settler) entV.getEntity();
+                window.repaint();
+                return;
+            }
+        }
+        selectedSettler = null;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -123,33 +130,47 @@ public class GamePanel extends JPanel {
 
         this.setBackground(Color.DARK_GRAY);
 
-        /**
-         * Asteroids draw
-         */
-        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
-
-        //TODO::itt lehetne fontot is allitani es a szovegek helyet is megkene , mas szovegeket is leheten itt megadni, ha kell
         Font font = new Font(Font.SERIF, Font.PLAIN, (int) (20));
         g.setFont(font);
-        g.setColor(Color.WHITE);
+        g.setColor(Color.GRAY);
         g.drawString("Settler turn:", 2, 20);
+
+        int count = 0;
         for (int i = 0; i < fi.getSettlers().size(); i++) {
             if (!fi.getSettlers().get(i).isFinishedTurn()) {
+                g.drawString(String.valueOf(fi.getSettlers().get(i).getId()), 0, 40 + (i * 20));
+                count++;
+            }
+        }
+        if (count == 0) {
+            GTimer.getInstance().Tick();
+            for (int i = 0; i < fi.getSettlers().size(); i++) {
+                fi.getSettlers().get(i).setFinishedTurn(false);
                 g.drawString(String.valueOf(fi.getSettlers().get(i).getId()), 0, 40 + (i * 20));
             }
         }
 
-        if(selectedSettler != null){
+        /**
+         * Asteroids draw
+         */
+        entityView.clear();
+        teleportViews.clear();
+        fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid, entityView, teleportViews)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
+
+
+        if (selectedSettler != null) {
             Toolkit t = Toolkit.getDefaultToolkit();
             Image i = t.getImage("images/gamepanel.png");
             g.drawImage(i, 824, -20, 200, 300, null);
 
-            for(int j = 0; j < selectedSettler.getInventory().size(); j++){
+            for (int j = 0; j < selectedSettler.getInventory().size(); j++) {
+                if (selectedSettler.getInventory().get(j) == null)
+                    return;
+
                 String s = new String("");
                 s += selectedSettler.getInventory().get(j).getName();
-                System.out.println(s);
                 g.setColor(Color.WHITE);
-                g.drawString(s, 840, 20+j*20);
+                g.drawString(s, 860, 25 + j * 20);
             }
         }
 
@@ -157,7 +178,7 @@ public class GamePanel extends JPanel {
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
         g.setFont(font);
-        g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Useteleport: Space,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: T,   Save: M", 3, window.getHeight() - 46);
+        g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: T,   Save: M", 40, window.getHeight() - 46);
     }
 
 
@@ -205,7 +226,6 @@ public class GamePanel extends JPanel {
          */
         public boolean checkRight() {
             int idx = side - 1;
-            // System.out.println(side);
             int bound = side * -90;
             if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
                 return true;
@@ -247,7 +267,7 @@ public class GamePanel extends JPanel {
                 Game.getInstance().getMenu().menu_step(0);
                 window.switchToMenu();
                 try {
-                    window.playSound(4, 1.0f, 0); //TODO:ez nem itt lesz, hanem majd a useteleportnál
+                    window.playSound(4, 0.6f, 0); //TODO:ez nem itt lesz, hanem majd a useteleportnál
                 } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
                     ioException.printStackTrace();
                 }
@@ -255,41 +275,41 @@ public class GamePanel extends JPanel {
             if (e.getKeyCode() == KeyEvent.VK_W) {
                 if (!checkUp())
                     moveVertically(10);
-                window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_S) {
                 if (!checkDown())
                     moveVertically(-10);
-                window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_A) {
                 if (!checkLeft())
                     moveHorizontally(10);
-                window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_D) {
                 if (!checkRight())
                     moveHorizontally(-10);
-                window.repaint();
             }
             if (e.getKeyCode() == KeyEvent.VK_F) {
-                if (selectedSettler == null)
+                if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.Drill();
-                try {
-                    window.playSound(2, 1.0f, 0);
-                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
-                    ioException.printStackTrace();
+                if (selectedSettler.isFinishedTurn()) {
+                    try {
+                        window.playSound(2, 0.2f, 0);
+                    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_E) {
-                if (selectedSettler == null)
+                if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.Mine();
-                try {
-                    window.playSound(3, 1.0f, 0);
-                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
-                    ioException.printStackTrace();
+                if (selectedSettler.isFinishedTurn()) {
+                    try {
+                        window.playSound(3, 0.2f, 0);
+                    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                        ioException.printStackTrace();
+                    }
                 }
             }
             if (e.getKeyCode() == KeyEvent.VK_M) {
@@ -299,36 +319,31 @@ public class GamePanel extends JPanel {
                     ioException.printStackTrace();
                 }
             }
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                //useteleport
-                if (selectedSettler == null && selectedAsteroid == null)
-                    return;
-                //TODO
-            }
             if (e.getKeyCode() == KeyEvent.VK_C) {
                 //placeteleport
-                if (selectedSettler == null)
+                if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.PlaceTeleport();
             }
             if (e.getKeyCode() == KeyEvent.VK_V) {
                 //placematerial
-                if (selectedSettler == null)
+                if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.PlaceMaterial();
             }
             if (e.getKeyCode() == KeyEvent.VK_T) {
                 //maketeleport
-                if (selectedSettler == null)
+                if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.MakeTeleport();
             }
             if (e.getKeyCode() == KeyEvent.VK_R) {
                 //buildrobot
-                if (selectedSettler == null)
+                if (selectedSettler == null || selectedSettler.isFinishedTurn())
                     return;
                 selectedSettler.BuildRobot();
             }
+            window.repaint();
         }
 
         @Override
@@ -341,21 +356,36 @@ public class GamePanel extends JPanel {
         public void mouseClicked(MouseEvent e) {
             if (e.getButton() == 1) {
                 selectedSettler = null;
-//            checkboxSettler(e.getX(), e.getY());
+                checkboxSettler(e.getX(), e.getY());
             }
 
             if (e.getButton() == 3) {
-                selectedAsteroid = null;
-                selectedTeleport = null;
-
                 checkboxAsteroidTeleport(e.getX(), e.getY());
-                if (selectedSettler != null && selectedAsteroid != null) {
+                if (selectedSettler != null && selectedAsteroid != null && !selectedSettler.isFinishedTurn()) {
                     selectedSettler.Move(selectedAsteroid);
+                    if (selectedSettler.isFinishedTurn()) {
+                        window.repaint();
+                        selectedSettler = null;
+                    }
+                    return;
                 }
-                if (selectedSettler != null && selectedTeleport != null) {
+
+                if (selectedSettler != null && selectedTeleport != null && !selectedSettler.isFinishedTurn()) {
                     selectedSettler.UseTeleport(selectedTeleport);
+                    if (selectedSettler.isFinishedTurn()) {
+                        try {
+                            window.playSound(4, 0.4f, 0);
+                        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
+                            ioException.printStackTrace();
+                        }
+                        window.repaint();
+                        selectedSettler = null;
+                    }
                 }
             }
+            window.repaint();
+            selectedAsteroid = null;
+            selectedTeleport = null;
         }
 
         @Override

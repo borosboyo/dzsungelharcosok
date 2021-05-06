@@ -61,10 +61,41 @@ public class Field implements Steppable, Serializable {
         }
 
         //csak tesztelés miatt
-        asteroids.get(2).addTeleport(new Teleport(2));
-        asteroids.get(12).addTeleport(new Teleport(4));
-        asteroids.get(2).getEntities().add(new Robot(5));
-        asteroids.get(2).getEntities().add(new Ufo(5));
+        Settler s2 = new Settler(11);
+        s2.getInventory().add(new Ice());
+        s2.getInventory().add(new Coal());
+        s2.getInventory().add(new Iron());
+        s2.getInventory().add(new Iron());
+        s2.getInventory().add(new Uranium());
+        asteroids.get(2).Accept(s2);
+        settlers.add(s2);
+        s2.setAsteroid(asteroids.get(2));
+
+        Teleport tel = new Teleport(0);
+        tel.getAsteroids().add(asteroids.get(2));
+        tel.getAsteroids().add(asteroids.get(4));
+        asteroids.get(2).addTeleport(tel);
+        asteroids.get(4).addTeleport(tel);
+        GTimer.getInstance().AddSteppable(tel);
+
+        tel = new Teleport(4);
+        tel.getAsteroids().add(asteroids.get(12));
+        tel.getAsteroids().add(asteroids.get(5));
+        asteroids.get(12).addTeleport(tel);
+        asteroids.get(5).addTeleport(tel);
+        GTimer.getInstance().AddSteppable(tel);
+
+        Robot ro = new Robot(5);
+        asteroids.get(2).Accept(ro);
+        ro.setAsteroid(asteroids.get(2));
+        GTimer.getInstance().AddSteppable(ro);
+
+        Ufo ufo = new Ufo(5);
+        asteroids.get(2).Accept(ufo);
+        ufo.setAsteroid(asteroids.get(2));
+        GTimer.getInstance().AddSteppable(ufo);
+        //csak tesztelés miatt végea
+
 
         Random rand = new Random();
         int k = 0;
@@ -82,16 +113,16 @@ public class Field implements Steppable, Serializable {
                 randasteroid = rand.nextInt(asteroids.size());
                 asteroids.get(randasteroid).Accept(u);
                 u.setAsteroid(asteroids.get(randasteroid));
-                Timer.getInstance().AddSteppable(u);
+                GTimer.getInstance().AddSteppable(u);
                 ufos.add(u);
                 k++;
             }
         }
 
-        Timer.getInstance().setSettlernumber(settlernumber);
-        Timer.getInstance().AddSteppable(this);
+        GTimer.getInstance().setSettlernumber(settlernumber);
+        GTimer.getInstance().AddSteppable(this);
         for (Settler s : settlers) {
-            Timer.getInstance().AddSteppable(s);
+            GTimer.getInstance().AddSteppable(s);
         }
     }
 

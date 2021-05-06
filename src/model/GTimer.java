@@ -5,23 +5,25 @@ import java.util.ArrayList;
 /**
  * Timer singleton class that determines when the Field and Robot steps.
  */
-public class Timer {
+public class GTimer {//TODO:: ha nincsen main akkor ezt vissza lehet írni Timer-re
     /**
      * The ArrayList that stores all the steppable objects of the game.
      */
     private ArrayList<Steppable> steppables;
-    private int counter=0;
-    private int settlernumber=0;
+    private int counter = 0;
+    private int settlernumber = 0;
 
     /**
      * The constant timer.
      */
-    public static Timer timer = new Timer();
+    public static GTimer GTimer = new GTimer();
 
     /**
      * Private constructor so the Timer stays singleton.
      */
-    private Timer(){ steppables = new ArrayList();}
+    private GTimer() {
+        steppables = new ArrayList();
+    }
 
     public int getCounter() {
         return counter;
@@ -45,8 +47,8 @@ public class Timer {
      *
      * @return the timer
      */
-    public static Timer getInstance(){
-        return timer;
+    public static GTimer getInstance() {
+        return GTimer;
     }
 
     /**

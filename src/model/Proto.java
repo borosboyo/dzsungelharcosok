@@ -1,3 +1,4 @@
+//TODO:: ha nincsen tesztelés akkor ez feleslegessé vált
 package model;
 
 import java.io.IOException;
@@ -239,61 +240,61 @@ public class Proto {
     public void run_all(Skeleton s) throws IOException {
         s.fileRead("EntityMoves.txt");
         s.writeToFile("EntityMoves");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("EntityTriesToMoveOnNotNeighbour.txt");
         s.writeToFile("EntityTriesToMoveOnNotNeighbour");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("EntityTriesToUseUnpairedTeleport.txt");
         s.writeToFile("EntityTriesToUseUnpairedTeleport");
-       // game = new Game();
+        // game = new Game();
         s.fileRead("EntityUsesTeleport.txt");
         s.writeToFile("EntityUsesTeleport");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("RobotDrillsIce.txt");
         s.writeToFile("RobotDrillsIce");
-       // game = new Game();
+        // game = new Game();
         s.fileRead("RobotDrillsNon-trigger.txt");
         s.writeToFile("RobotDrillsNon-trigger");
-      //  game = new Game();
+        //  game = new Game();
         s.fileRead("RobotDrillsRadioactive.txt");
         s.writeToFile("RobotDrillsRadioactive");
-       // game = new Game();
+        // game = new Game();
         s.fileRead("SettlerBuildsRobot.txt");
         s.writeToFile("SettlerBuildsRobot");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("SettlerDrillsIce.txt");
         s.writeToFile("SettlerDrillsIce");
-      //  game = new Game();
+        //  game = new Game();
         s.fileRead("SettlerDrillsNon-trigger.txt");
         s.writeToFile("SettlerDrillsNon-trigger");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("SettlerDrillsRadioactive.txt");
         s.writeToFile("SettlerDrillsRadioactive");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("SettlerMakesTeleport.txt");
         s.writeToFile("SettlerMakesTeleport");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("SettlerMines.txt");
         s.writeToFile("SettlerMines");
-      // game = new Game();
+        // game = new Game();
         s.fileRead("SettlerPlaceMaterial.txt");
         s.writeToFile("SettlerPlaceMaterial");
-    //    game = new Game();
+        //    game = new Game();
         s.fileRead("SettlerPlaceTeleport.txt");
         s.writeToFile("SettlerPlaceTeleport");
-      ///  game = new Game();
+        ///  game = new Game();
         s.fileRead("SettlerTriesToBuildRobotWithoutMaterials.txt");
         s.writeToFile("SettlerTriesToBuildRobotWithoutMaterials");
         //game = new Game();
         s.fileRead("SettlerTriesToMakeTeleportWithFullInventory.txt");
         s.writeToFile("SettlerTriesToMakeTeleportWithFullInventory");
-     //   game = new Game();
+        //   game = new Game();
         s.fileRead("SettlerTriesToMakeTeleportWithNoMaterials.txt");
         s.writeToFile("SettlerTriesToMakeTeleportWithNoMaterials");
-    //    game = new Game();
+        //    game = new Game();
         s.fileRead("SettlerTriesToMineOnInvalidAsteroid.txt");
         s.writeToFile("SettlerTriesToMineOnInvalidAsteroid");
-      //  game = new Game();
+        //  game = new Game();
         s.fileRead("SettlerTriesToMineWithFullyInventory.txt");
         s.writeToFile("SettlerTriesToMineWithFullyInventory");
         //game = new Game();
@@ -302,16 +303,16 @@ public class Proto {
         //game = new Game();
         s.fileRead("SettlerWinsGameWithMove.txt");
         s.writeToFile("SettlerWinsGameWithMove");
-       // Game.game = new Game();
+        // Game.game = new Game();
         s.fileRead("Special.txt");
         s.writeToFile("Special");
-      //  game = new Game();
+        //  game = new Game();
         s.fileRead("SunstormOnAsteroid.txt");
         s.writeToFile("SunstormOnAsteroid");
-       // game = new Game();
+        // game = new Game();
         s.fileRead("UfoMines.txt");
         s.writeToFile("UfoMines");
-      //  game = new Game();
+        //  game = new Game();
         s.fileRead("UfoTriesToMineOnInvalidAsteroid.txt");
         s.writeToFile("UfoTriesToMineOnInvalidAsteroid");
         /*game = new Game();
@@ -320,15 +321,11 @@ public class Proto {
     }
 
 
-
-
     /**
      * Execute instructions received in an array
      * @param commands String block for the commands
      * @return
      */
-
-
 
 
 }

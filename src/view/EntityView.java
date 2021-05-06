@@ -6,12 +6,32 @@ import model.Settler;
 import model.Ufo;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class EntityView implements Drawable {
     private Entity entity;
+    private ArrayList<EntityView> entityViews;
+    private int _x, _y, size;
 
-    public EntityView(Entity entity) {
+    public int getX() {
+        return _x;
+    }
+
+    public int getY() {
+        return _y;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public EntityView(Entity entity, ArrayList<EntityView> entityViews) {
         this.entity = entity;
+        this.entityViews = entityViews;
     }
 
     public AlphaComposite setTransparenty(int i) {
@@ -28,9 +48,9 @@ public class EntityView implements Drawable {
         Image i = null;
 
         if (entity instanceof Settler) {
-            if(((Settler) entity).isSelected()) {
+            if (((Settler) entity).isSelected()) {
                 i = t.getImage("images/settler-selected.png");
-            }else {
+            } else {
                 i = t.getImage("images/settler.png");
             }
 
@@ -38,6 +58,8 @@ public class EntityView implements Drawable {
             if (((Settler) entity).isFinishedTurn()) {
                 ((Graphics2D) g).setComposite(setTransparenty(3));
             }
+
+            entityViews.add(this);
         }
 
 
@@ -52,11 +74,14 @@ public class EntityView implements Drawable {
 
         }
 
+        _x = x - 15;
+        _y = y - 15;
+        size = unit / 2;
 
-        g.drawImage(i, x-15 , y-15 , unit/2, unit/2, null);
+        g.drawImage(i, _x, _y, size, size, null);
         ((Graphics2D) g).setComposite(setTransparenty(10));
         g.setColor(Color.MAGENTA);
         g.setFont(new Font("Arial Black", Font.BOLD, 15));
-       g.drawString(String.valueOf(entity.getId()), x, y + 30);
+        g.drawString(String.valueOf(entity.getId()), x, y + 30);
     }
 }

@@ -10,8 +10,8 @@ public class Teleport implements Steppable, Serializable {
     int id;
     private boolean firstCrazy = false;
     private boolean secondCrazy = false;
-    private boolean exploded=false;
-    private ArrayList<Asteroid> asteroids;
+    private boolean exploded = false;
+    private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 
     /**
      * Constructor of the Teleport
@@ -19,7 +19,6 @@ public class Teleport implements Steppable, Serializable {
      * @param id Teleport Id
      */
     public Teleport(int id) {
-        asteroids = new ArrayList<Asteroid>();
         this.id = id;
     }
 
@@ -50,19 +49,25 @@ public class Teleport implements Steppable, Serializable {
      *
      * @param e the entity using the teleport
      */
-    public void Transfer(Entity e){
+    public void Transfer(Entity e) {
+        if (e.getAsteroid() != asteroids.get(0) && e.getAsteroid() != asteroids.get(1))
+            return;
 
         if (asteroids.size() == 2) {
-            if(asteroids.get(0).equals(e.getAsteroid())) {
+            if (asteroids.get(0).equals(e.getAsteroid())) {
                 asteroids.get(1).Accept(e);
+                asteroids.get(0).getEntities().remove(e);
                 e.setAsteroid(asteroids.get(1));
-            }
-            else {
+            } else {
                 asteroids.get(0).Accept(e);
+                asteroids.get(1).getEntities().remove(e);
                 e.setAsteroid(asteroids.get(0));
             }
-            e.getAsteroid().RemoveEntity(e);
 
+            if (e instanceof Settler) {
+                Settler se = (Settler) e;
+                se.setFinishedTurn(true);
+            }
         }
     }
 

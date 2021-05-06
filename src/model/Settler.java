@@ -129,8 +129,8 @@ public class Settler extends Entity implements IDrill, IMine{
                     }
                 }
                 if(!correct_id) {
-                    for (int i = 0; i  < Game.getInstance().field.getUfos().size(); i++){
-                        if (id != Game.getInstance().field.getUfos().get(i).getId()){
+                    for (int i = 0; i < Game.getInstance().field.getRobots().size(); i++) {
+                        if (id != Game.getInstance().field.getRobots().get(i).getId()) {
                             correct_id = true;
                             break;
                         }
@@ -142,10 +142,9 @@ public class Settler extends Entity implements IDrill, IMine{
 
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
-            Timer.getInstance().AddSteppable(r);
+            GTimer.getInstance().AddSteppable(r);
             Game.getInstance().field.getRobots().add(r);
             setFinishedTurn(true);
-            System.out.println(id + " " + r + " "+ r.getAsteroid());
         }
 
 
@@ -199,7 +198,7 @@ public class Settler extends Entity implements IDrill, IMine{
             }
             Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
             this.teleportlist.add(t);
-            Timer.getInstance().AddSteppable(t);
+            GTimer.getInstance().AddSteppable(t);
             setFinishedTurn(true);
         }
     }
@@ -210,6 +209,9 @@ public class Settler extends Entity implements IDrill, IMine{
     public void Mine() {
         if (getAsteroid().getCrustThickness() == 0 && inventory.size() <= 10 && finishedTurn == false) {
             Material i = getAsteroid().MinedBy();
+            if (i == null)
+                return;
+
             inventory.add(i);
             setFinishedTurn(true);
             getAsteroid().CheckBase();
@@ -234,9 +236,8 @@ public class Settler extends Entity implements IDrill, IMine{
         getAsteroid().BuildTeleport(teleportlist.get(0));
         if (teleportlist.get(0).getAsteroids().size() == 2 && finishedTurn == false) {
             teleportlist.remove(0);
-            setFinishedTurn(true);
         }
-
+        setFinishedTurn(true);
     }
 
     /**
@@ -278,7 +279,6 @@ public class Settler extends Entity implements IDrill, IMine{
 
     public void setFinishedTurn(boolean finishedTurn) {
         this.finishedTurn = finishedTurn;
-        Game.getInstance().setCounter(Game.getInstance().getCounter() + 1);
     }
 
     /**

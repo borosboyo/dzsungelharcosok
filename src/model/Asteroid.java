@@ -63,6 +63,7 @@ public class Asteroid implements Serializable {
      */
 
     public void BuildTeleport(Teleport t){
+        t.getAsteroids().add(this);
         teleports.add(t);
     }
 
