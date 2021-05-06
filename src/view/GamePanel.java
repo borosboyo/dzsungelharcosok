@@ -269,7 +269,8 @@ public class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        finishGame(g);
+
+
         Field fi = Game.getInstance().field;
 
         this.setBackground(Color.DARK_GRAY);
@@ -359,6 +360,7 @@ public class GamePanel extends JPanel {
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
         g.setFont(font);
         g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: R,   Save: M", 40, window.getHeight() - 46);
+        finishGame(g);
     }
 
 
