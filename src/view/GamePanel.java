@@ -63,6 +63,9 @@ public class GamePanel extends JPanel {
      */
     private ArrayList<ImageIcon> endGameIcons = new ArrayList<ImageIcon>();
 
+
+    private boolean savedGame;
+
     /**
      * Initializes the images for the settler inventory and endgame images.
      *
@@ -314,7 +317,6 @@ public class GamePanel extends JPanel {
                 s.setSelected(false);
             }
         }
-
         fi.getAsteroids().stream().map(asteroid -> new AsteroidView(asteroid, entityView, teleportViews)).forEach(asteroidView -> asteroidView.draw(g, unit, 0, 0));
 
         if (selectedSettler != null) {
@@ -350,9 +352,9 @@ public class GamePanel extends JPanel {
             }
         }
         if(fi.getSunstormcounter() == 1){
-            g.setFont( new Font(Font.SERIF, Font.BOLD ,(int) (30)));
+            g.setFont(new Font(Font.SERIF, Font.BOLD, (int) (30)));
             g.setColor(Color.RED);
-            g.drawString("SUNSTORM", window.getWidth()/3+10, 30);
+            g.drawString("SUNSTORM", window.getWidth() / 3 + 10, 30);
         }
         window.repaint();
         g.setColor(Color.GRAY);
@@ -360,6 +362,15 @@ public class GamePanel extends JPanel {
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
         g.setFont(font);
         g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: R,   Save: M", 40, window.getHeight() - 46);
+
+        if (savedGame) {
+            g.setColor(Color.GRAY);
+            font = new Font(Font.SERIF, Font.BOLD, (int) (30));
+            g.setFont(font);
+            g.drawString("Game Saved!", 100, 30);
+            savedGame = false;
+        }
+
         finishGame(g);
     }
 
@@ -533,6 +544,7 @@ public class GamePanel extends JPanel {
             if (e.getKeyCode() == KeyEvent.VK_M) {
                 try {
                     Game.getInstance().saveGame();
+                    savedGame = true;
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
