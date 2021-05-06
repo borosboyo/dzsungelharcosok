@@ -5,7 +5,10 @@ import model.Robot;
 import model.Settler;
 import model.Ufo;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class EntityView implements Drawable {
@@ -49,9 +52,19 @@ public class EntityView implements Drawable {
 
         if (entity instanceof Settler) {
             if (((Settler) entity).isSelected()) {
-                i = t.getImage("images/settlerselected.png");
+                // i = t.getImage("images/settlerselected.png");
+                try {
+                    i = ImageIO.read(new File("images/settlerselected.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                i = t.getImage("images/settler.png");
+                //i = t.getImage("images/settlerselected.png");
+                try {
+                    i = ImageIO.read(new File("images/settler.png"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
 
