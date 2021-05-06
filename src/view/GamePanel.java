@@ -186,6 +186,7 @@ public class GamePanel extends JPanel {
                 s.setSelected(false);
             }
         }
+        window.repaint();
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
