@@ -121,7 +121,7 @@ public class GamePanel extends JPanel {
                 return;
             }
         }
-      //  selectedSettler.setSelected(false);
+        //selectedSettler.setSelected(false);
         selectedSettler = null;
     }
 
@@ -200,6 +200,12 @@ public class GamePanel extends JPanel {
             for (Settler s : Game.getInstance().field.getSettlers()) {
                 s.setSelected(false);
             }
+        }
+
+        if(fi.getSunstormcounter() == 1){
+            g.setFont( new Font(Font.SERIF, Font.BOLD ,(int) (30)));
+            g.setColor(Color.RED);
+            g.drawString("SUNSTORM", window.getWidth()/3+10, 30);
         }
         window.repaint();
         g.setColor(Color.GRAY);
