@@ -49,7 +49,7 @@ public class EntityView implements Drawable {
 
         if (entity instanceof Settler) {
             if (((Settler) entity).isSelected()) {
-                i = t.getImage("images/settler-selected.png");
+                i = t.getImage("images/settlerselected.png");
             } else {
                 i = t.getImage("images/settler.png");
             }
@@ -84,4 +84,5 @@ public class EntityView implements Drawable {
         g.setFont(new Font("Arial Black", Font.BOLD, 15));
         g.drawString(String.valueOf(entity.getId()), x, y + 30);
     }
+
 }

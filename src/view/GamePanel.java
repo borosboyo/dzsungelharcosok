@@ -116,10 +116,12 @@ public class GamePanel extends JPanel {
             entV = entityView.get(i);
             if (entV.getX() < x && x < entV.getX() + entV.getSize() && entV.getY() < y && y < entV.getY() + entV.getSize()) {
                 selectedSettler = (Settler) entV.getEntity();
+                //selectedSettler.setSelected(true);
                 window.repaint();
                 return;
             }
         }
+      //  selectedSettler.setSelected(false);
         selectedSettler = null;
     }
 
@@ -160,6 +162,12 @@ public class GamePanel extends JPanel {
         int j;
 
         if (selectedSettler != null) {
+            for (Settler s : Game.getInstance().field.getSettlers()) {
+                if (s != selectedSettler)
+                    s.setSelected(false);
+                selectedSettler.setSelected(true);
+            }
+
             Toolkit t = Toolkit.getDefaultToolkit();
             Image i = t.getImage("images/gamepanel.png");
             g.drawImage(i, 824, -20, 200, 300, null);
@@ -188,8 +196,12 @@ public class GamePanel extends JPanel {
                 g.setColor(Color.WHITE);
                 g.drawString(s, 860, 25 + j * 20);
             }
+        }else {
+            for (Settler s : Game.getInstance().field.getSettlers()) {
+                s.setSelected(false);
+            }
         }
-
+        window.repaint();
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, (int) (14));
