@@ -9,9 +9,7 @@ public class GTimer {//TODO:: ha nincsen main akkor ezt vissza lehet írni Timer
     /**
      * The ArrayList that stores all the steppable objects of the game.
      */
-    private ArrayList<Steppable> steppables;
-    private int counter = 0;
-    private int settlernumber = 0;
+    private final ArrayList<Steppable> steppables;
 
     /**
      * The constant timer.
@@ -23,23 +21,6 @@ public class GTimer {//TODO:: ha nincsen main akkor ezt vissza lehet írni Timer
      */
     private GTimer() {
         steppables = new ArrayList();
-    }
-
-    public int getCounter() {
-        return counter;
-    }
-
-    public void setCounter(int i){
-        counter=i;
-    }
-
-    /**
-     * Settler number setter
-     *
-     * @param i
-     */
-    public void setSettlernumber(int i){
-        settlernumber=i;
     }
 
     /**
