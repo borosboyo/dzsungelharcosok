@@ -11,7 +11,7 @@ public class Teleport implements Steppable, Serializable {
     private boolean firstCrazy = false;
     private boolean secondCrazy = false;
     private boolean exploded = false;
-    private ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+    private final ArrayList<Asteroid> asteroids = new ArrayList<>();
 
     /**
      * Constructor of the Teleport
@@ -35,10 +35,10 @@ public class Teleport implements Steppable, Serializable {
     }
 
     public void HitBySunstorm(Asteroid a){
-        if (asteroids.get(0) == a) {
+        if (asteroids.size() > 0 && asteroids.get(0) == a) {
             firstCrazy = true;
         }
-        if (asteroids.get(1) == a) { //TODO::indexoutofr
+        if (asteroids.size() > 1 && asteroids.get(1) == a) {
             secondCrazy = true;
         }
         Step();
@@ -96,14 +96,6 @@ public class Teleport implements Steppable, Serializable {
         return asteroids;
     }
 
-    /**
-     * Sets asteroids.
-     *
-     * @param asteroids the asteroids
-     */
-    public void setAsteroids(ArrayList<Asteroid> asteroids) {
-        this.asteroids = asteroids;
-    }
 
     /**
      *The Step function of the teleport.
@@ -111,10 +103,10 @@ public class Teleport implements Steppable, Serializable {
     @Override
     public void Step() {
 
-        if(firstCrazy==true){
+        if (firstCrazy) {
             asteroids.set(0, asteroids.get(0).GetRandomNeighbour());
         }
-        if(secondCrazy==true){
+        if (secondCrazy) {
             asteroids.set(1, asteroids.get(1).GetRandomNeighbour());
         }
     }
