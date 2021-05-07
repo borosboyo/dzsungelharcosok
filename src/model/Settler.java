@@ -235,6 +235,10 @@ public class Settler extends Entity implements IDrill, IMine{
         return inventory;
     }
 
+    public ArrayList<Teleport> getTeleportlist() {
+        return teleportlist;
+    }
+
     public boolean isFinishedTurn() {
         return finishedTurn;
     }
