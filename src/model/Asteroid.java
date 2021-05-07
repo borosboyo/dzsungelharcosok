@@ -11,14 +11,14 @@ public class Asteroid implements Serializable {
     private long crustThickness;
 
 
-    private int id;
+    private final int id;
 
     private int x, y;
-    private  boolean nearSun;
-    private  Material material;
-    private ArrayList<Asteroid> neighbours = new ArrayList();
-    private ArrayList<Teleport> teleports = new ArrayList();
-    private ArrayList<Entity> entities = new ArrayList();
+    private boolean nearSun;
+    private Material material;
+    private final ArrayList<Asteroid> neighbours = new ArrayList<>();
+    private final ArrayList<Teleport> teleports = new ArrayList();
+    private final ArrayList<Entity> entities = new ArrayList();
 
     /**
      * Initializes a new Asteroid.
@@ -235,15 +235,6 @@ public class Asteroid implements Serializable {
     }
 
     /**
-     * Sets neigbours.
-     *
-     * @param neigbours the neigbours
-     */
-    public void setNeigbours(ArrayList<Asteroid> neigbours) {
-        this.neighbours = neigbours;
-    }
-
-    /**
      * Gets teleports.
      *
      * @return the teleports
@@ -252,14 +243,6 @@ public class Asteroid implements Serializable {
         return teleports;
     }
 
-    /**
-     * Sets teleports.
-     *
-     * @param teleports the teleports
-     */
-    public void setTeleports(ArrayList<Teleport> teleports) {
-        this.teleports = teleports;
-    }
 
     public void addTeleport(Teleport t){
         this.teleports.add(t);
@@ -273,15 +256,6 @@ public class Asteroid implements Serializable {
      */
     public ArrayList<Entity> getEntities() {
         return entities;
-    }
-
-    /**
-     * Sets entities.
-     *
-     * @param entities the entities
-     */
-    public void setEntities(ArrayList<Entity> entities) {
-        this.entities = entities;
     }
 
     /**
@@ -312,15 +286,6 @@ public class Asteroid implements Serializable {
     }
 
     /**
-     * Sets crust thickness.
-     *
-     * @param crustThickness the crust thickness
-     */
-    public void setCrustThickness(long crustThickness) {
-        this.crustThickness = crustThickness;
-    }
-
-    /**
      * Is near sun boolean.
      *
      * @return the boolean
@@ -339,15 +304,6 @@ public class Asteroid implements Serializable {
     }
 
     /**
-     * Add neighbour.
-     *
-     * @param a the a
-     */
-    public void AddNeighbour(Asteroid a) {
-        neighbours.add(a);
-    }
-
-    /**
      * Getter ID
      *
      * @return with Asteroid id
@@ -355,15 +311,6 @@ public class Asteroid implements Serializable {
     public int getId() {
         return id;
     }
-
-    /**
-     * Setter Id
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     public int getX() {
         return x;
