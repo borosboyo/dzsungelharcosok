@@ -35,7 +35,7 @@ public class Field implements Steppable, Serializable {
         //random aszteroidak, telepesenkent +10db
         for (int i = 5; i < settlernumber * 10 + 5; i++) {
             Random rand = new Random();
-            asteroids.add(new Asteroid(i, rand.nextInt(maxthickness + 1), rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
+            asteroids.add(new Asteroid(i, rand.nextInt(maxthickness + 1), false, RandomMaterial()));
         }
 
         sqrt = Math.sqrt(settlernumber * 10 + 5);
@@ -60,6 +60,7 @@ public class Field implements Steppable, Serializable {
                     a.getNeigbours().add(a2);
             }
         }
+
 
         //csak tesztelés miatt
         Settler s2 = new Settler(11);
@@ -125,6 +126,7 @@ public class Field implements Steppable, Serializable {
         for (Settler s : settlers) {
             GTimer.getInstance().AddSteppable(s);
         }
+        SetNearSun();
     }
 
     /**
