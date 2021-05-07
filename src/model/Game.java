@@ -1,4 +1,7 @@
+//INNENTOL FOGOM KISZEDNI A FELESLEGES RESZEKET
+
 package model;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -25,6 +28,7 @@ public class Game implements Serializable {
      * Boolean that indicates that the Settlers have won the game yet.
      */
     private boolean win = false;
+
     /**
      * Is win boolean.
      *
@@ -33,6 +37,7 @@ public class Game implements Serializable {
     public boolean isWin() {
         return win;
     }
+
     /**
      * Sets win.
      *
@@ -41,14 +46,17 @@ public class Game implements Serializable {
     public void setWin(boolean win) {
         this.win = win;
     }
+
     /**
      * The constant game.
      */
     public static Game game = new Game();
+
     /**
      * Private constructor so the class is Singleton.
      */
     private Game(){ }
+
     /**
      * Get the only instance of timer.
      *
@@ -102,6 +110,7 @@ public class Game implements Serializable {
         }
         return false;
     }
+
     /**
      * Ends the game if the Settlers collected the required materials and won the game.
      */
@@ -109,6 +118,7 @@ public class Game implements Serializable {
         setWin(true);
         System.out.print("Settlers win!");
     }
+
     /**
      *Load the saved game (if exists)
      * @throws IOException
@@ -118,6 +128,7 @@ public class Game implements Serializable {
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
         field = (Field)input.readObject();
     }
+
     /**
      *Save (Serialization) the game.
      * @throws IOException
@@ -126,6 +137,7 @@ public class Game implements Serializable {
         ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("field_status"));
         output.writeObject(field);
     }
+
     /**
      * Scanner for the commands console reading.
      */
@@ -246,8 +258,7 @@ public class Game implements Serializable {
                         }
                         correct = true;
                         break;
-                    }
-                    else{
+                    } else{
                         correct = false;
                     }
                 }
@@ -292,8 +303,7 @@ public class Game implements Serializable {
                         se.setFinishedTurn(true); //TODO::Useteleportba kéne de az entity
                         correct = true;
                         break;
-                    }
-                    else{
+                    } else{
                         correct = false;
                     }
                 }
