@@ -1,7 +1,5 @@
 package model;
 
-import view.GamePanel;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -162,14 +160,33 @@ public class Field implements Steppable, Serializable {
      */
     public void SetNearSun() {
         Random rnd = new Random();
+        for(Asteroid a: asteroids){
+            a.setNearSun(false);
+        }
+        for(int i = 0; i < settlers.size()/2 ; i++){
+            int id = rnd.nextInt(asteroids.size());
+            System.out.println(i+"edik:  "+id);
+            Asteroid a = asteroids.get(id);
+            a.setNearSun(true);
+            a.CheckTrigger();
+            for(Asteroid a2 : a.getNeigbours()){
+                a2.setNearSun(true);
+                a2.CheckTrigger();
+            }
+        }
+
+
+/*
         for (Asteroid a : asteroids) {
-            if (a.getId() % (rnd.nextInt(asteroids.size() - 1) + 1) == 0) {
+            if ((rnd.nextInt(100) < 50)) {
                 a.setNearSun(true);
                 a.CheckTrigger();
             } else {
                 a.setNearSun(false);
             }
         }
+
+ */
     }
 
     /**
