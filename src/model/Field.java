@@ -121,7 +121,6 @@ public class Field implements Steppable, Serializable {
             }
         }
 
-        GTimer.getInstance().setSettlernumber(settlernumber);
         GTimer.getInstance().AddSteppable(this);
         for (Settler s : settlers) {
             GTimer.getInstance().AddSteppable(s);
@@ -177,7 +176,7 @@ public class Field implements Steppable, Serializable {
             }
         }
 
-
+//TODO::Ez itt kell vagy nem?
 /*
         for (Asteroid a : asteroids) {
             if ((rnd.nextInt(100) < 50)) {
