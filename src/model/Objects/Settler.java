@@ -1,40 +1,44 @@
-package model;
+package model.Objects;
+
+import model.GTimer;
+import model.Game;
+import model.IDrill;
+import model.IMine;
 
 import java.util.ArrayList;
 
 /**
  * The type Settler.
  */
-public class Settler extends Entity implements IDrill, IMine{
+public class Settler extends Entity implements IDrill, IMine {
 
     /**
      * Settler's inventory
      */
-    private ArrayList<Material> inventory;
+    private final ArrayList<Material> inventory;
     /**
      * Teleport list
      */
-    private ArrayList<Teleport> teleportlist;
+    private final ArrayList<Teleport> teleportlist;
 
-    private boolean finishedTurn = false; //TODO:a lépésenél bele lehetne tenni azt, hogy csak akkor lpéhet ha ez hamis (így egy körben egy settler biztos csak egyszer léphet)
+    private boolean finishedTurn = false;
     private boolean selected = false;
 
 
     /**
      * Instantiates a new Settler.
      */
-    public Settler(int id){
+    public Settler(int id) {
         super(id);
-        inventory= new ArrayList<Material>();
-        teleportlist= new ArrayList<Teleport>();
+        inventory = new ArrayList<>();
+        teleportlist = new ArrayList<>();
     }
 
     /**
-     *
      * @param a the asteroid that the entity will move onto
      */
-    public void Move(Asteroid a) {      //TODO::entityben is van move
-        if (this.getAsteroid().CheckNeighbour(a) && finishedTurn == false) {
+    public void Move(Asteroid a) {      //TODO::entityben is van move, ha nem lenne setFinishedTurn akkor jó lenne
+        if (this.getAsteroid().CheckNeighbour(a) && !finishedTurn) {
             this.getAsteroid().RemoveEntity(this);
             a.Accept(this);
             this.setAsteroid(a);
@@ -64,13 +68,12 @@ public class Settler extends Entity implements IDrill, IMine{
     /**
      * Build robot.
      */
-    public void BuildRobot(){
-        int iron=0;
-        int coal=0;
-        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
-        for (Material m : inventory)
-        {
-            if(m instanceof Iron){
+    public void BuildRobot() { //TODO:: Az inventory ellenőrzést és csökkentést ha összetudnán vonni itt és a maketeleportban akkkor szebb lenne a kód
+        int iron = 0;
+        int coal = 0;
+        int uranium = 0;  //Megnézzuk van e elég anyag az építéshez
+        for (Material m : inventory) {
+            if (m instanceof Iron) {
                 iron++;
             }
             if (m instanceof Coal) {
@@ -82,7 +85,7 @@ public class Settler extends Entity implements IDrill, IMine{
         }
 
         //Ha van elég csükkentjuk es letrehozzuk a robotot az aszteroidan
-        if (iron >= 1 && coal >= 1 && uranium >= 1 && finishedTurn == false) {
+        if (iron >= 1 && coal >= 1 && uranium >= 1 && !finishedTurn) {
             boolean deleteiron = true;
             boolean deletecoal = true;
             boolean deleteuranium = true;
@@ -104,48 +107,20 @@ public class Settler extends Entity implements IDrill, IMine{
                     k--;
                 }
 
-                if (deleteiron == false&& deletecoal == false&&deleteuranium == false){
+                if (!deleteiron && !deletecoal && !deleteuranium) {
                     break;
                 }
             }
 
-            boolean correct_id = false;
-            int id = -1;
 
-            while(!correct_id){
-                id++;
-                for (int i = 0; i  < Game.getInstance().field.getSettlers().size(); i++){
-                    if (id != Game.getInstance().field.getSettlers().get(i).getId()){
-                        correct_id = true;
-                        break;
-                    }
-                }
-                if(!correct_id){
-                    for (int i = 0; i  < Game.getInstance().field.getRobots().size(); i++){
-                        if (id != Game.getInstance().field.getRobots().get(i).getId()){
-                            correct_id = true;
-                            break;
-                        }
-                    }
-                }
-                if(!correct_id) {
-                    for (int i = 0; i  < Game.getInstance().field.getUfos().size(); i++){
-                        if (id != Game.getInstance().field.getUfos().get(i).getId()){
-                            correct_id = true;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            Robot r= new Robot(id);
+            int id = AddCorrectID(0);
+            Robot r = new Robot(id);
 
             r.setAsteroid(this.getAsteroid());
             this.getAsteroid().Accept(r);
-            Timer.getInstance().AddSteppable(r);
+            GTimer.getInstance().AddSteppable(r);
             Game.getInstance().field.getRobots().add(r);
             setFinishedTurn(true);
-            System.out.println(id + " " + r + " "+ r.getAsteroid());
         }
 
 
@@ -158,8 +133,7 @@ public class Settler extends Entity implements IDrill, IMine{
         int iron=0;
         int ice=0;
         int uranium=0;  //Megnézzuk van e elég anyag az építéshez
-        for (Material m : inventory)
-        {
+        for (Material m : inventory) {
             if(m instanceof Iron){
                 iron++;
             }
@@ -171,7 +145,7 @@ public class Settler extends Entity implements IDrill, IMine{
             }
         }
         //Ha van elég csükkentjuk es letrehozzuk a teleportot és hozzáadjuk a teleportlisthez
-        if (iron >= 2 && ice >= 1 && uranium >= 1 && EnoughTeleportSpace() == true && finishedTurn == false) { //ha egy vagy semennyi nincs benne akkor tud craftolni
+        if (iron >= 2 && ice >= 1 && uranium >= 1 && EnoughTeleportSpace() && !finishedTurn) { //ha egy vagy semennyi nincs benne akkor tud craftolni
             int deleteiron = 0; //kettot kell belole torolni ezert ezt igy csinalom
             boolean deleteice = true;
             boolean deleteuranium = true;
@@ -193,13 +167,15 @@ public class Settler extends Entity implements IDrill, IMine{
                     k--;
                 }
 
-                if (deleteiron == 2&& !deleteice && !deleteuranium){
+                if (deleteiron == 2 && !deleteice && !deleteuranium) {
                     break;
                 }
             }
-            Teleport t= new Teleport(1);   //TODO: megin a retek id miatt kell valamit átadni....
+
+            int id = AddCorrectID(1);
+            Teleport t = new Teleport(id);
             this.teleportlist.add(t);
-            Timer.getInstance().AddSteppable(t);
+            GTimer.getInstance().AddSteppable(t);
             setFinishedTurn(true);
         }
     }
@@ -208,8 +184,11 @@ public class Settler extends Entity implements IDrill, IMine{
      * Mine.
      */
     public void Mine() {
-        if (getAsteroid().getCrustThickness() == 0 && inventory.size() <= 10 && finishedTurn == false) {
+        if (getAsteroid().getCrustThickness() == 0 && inventory.size() <= 10 && !finishedTurn) {
             Material i = getAsteroid().MinedBy();
+            if (i == null)
+                return;
+
             inventory.add(i);
             setFinishedTurn(true);
             getAsteroid().CheckBase();
@@ -220,7 +199,7 @@ public class Settler extends Entity implements IDrill, IMine{
      * Place material.
      */
     public void PlaceMaterial() {
-        if (getAsteroid().getMaterial() == null && getAsteroid().getCrustThickness() == 0 && finishedTurn == false) {
+        if (getAsteroid().getMaterial() == null && getAsteroid().getCrustThickness() == 0 && !finishedTurn) {
             getAsteroid().AddMaterial(inventory.get(inventory.size() - 1));
             inventory.remove(inventory.get(inventory.size() - 1));
             setFinishedTurn(true);
@@ -232,11 +211,10 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     public void PlaceTeleport(){
         getAsteroid().BuildTeleport(teleportlist.get(0));
-        if (teleportlist.get(0).getAsteroids().size() == 2 && finishedTurn == false) {
+        if (teleportlist.get(0).getAsteroids().size() == 2 && !finishedTurn) {
             teleportlist.remove(0);
-            setFinishedTurn(true);
         }
-
+        setFinishedTurn(true);
     }
 
     /**
@@ -262,15 +240,9 @@ public class Settler extends Entity implements IDrill, IMine{
         return inventory;
     }
 
-    /**
-     * Teleport arraylist getter
-     *
-     * @return with teleport list
-     */
     public ArrayList<Teleport> getTeleportlist() {
         return teleportlist;
     }
-
 
     public boolean isFinishedTurn() {
         return finishedTurn;
@@ -278,7 +250,6 @@ public class Settler extends Entity implements IDrill, IMine{
 
     public void setFinishedTurn(boolean finishedTurn) {
         this.finishedTurn = finishedTurn;
-        Game.getInstance().setCounter(Game.getInstance().getCounter() + 1);
     }
 
     /**
@@ -286,7 +257,7 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     @Override
     public void Drill() {
-        if (this.getAsteroid().getCrustThickness() > 0 && finishedTurn == false) {
+        if (this.getAsteroid().getCrustThickness() > 0 && !finishedTurn) {
             this.getAsteroid().DrilledBy();
             setFinishedTurn(true);
         }
@@ -298,11 +269,11 @@ public class Settler extends Entity implements IDrill, IMine{
      */
     @Override
     public void Step(){
-       for (int i = 0; i < teleportlist.size(); i++){
-            if(teleportlist.get(i).getExploded()==true){
+        for (int i = 0; i < teleportlist.size(); i++){
+            if(teleportlist.get(i).getExploded()) {
                 teleportlist.remove(teleportlist.get(i));
             }
-       }
+        }
     }
 
     public boolean isSelected() {
@@ -314,5 +285,60 @@ public class Settler extends Entity implements IDrill, IMine{
     }
 
 
+    public int AddCorrectID(int ent) {
+        boolean correct_id = false;
+        int id = -1;
+
+//        while(!correct_id){ //TODO:: ez sztem nem kell majd
+//            id++;
+//            for (int i = 0; i  < Game.getInstance().field.getSettlers().size(); i++){ //TODO::ez csak akkor kell ha az entitásoknak nem lehet ugyanaz az id-je, sztem a consoleos rész kiszedése miatt már nem kell
+//                if (id != Game.getInstance().field.getSettlers().get(i).getId()){
+//                    correct_id = true;
+//                    break;
+//                }
+//            }
+//            if(!correct_id){
+//                for (int i = 0; i  < Game.getInstance().field.getRobots().size(); i++){
+//                    if (id != Game.getInstance().field.getRobots().get(i).getId()){
+//                        correct_id = true;
+//                        break;
+//                    }
+//                }
+//            }
+//            if(!correct_id) {
+//                for (int i = 0; i < Game.getInstance().field.getRobots().size(); i++) { //TODO::ez csak akkor kell ha az entitásoknak nem lehet ugyanaz az id-je, sztem a consoleos rész kiszedése miatt már nem kell
+//                    if (id != Game.getInstance().field.getUfos().get(i).getId()) {
+//                        correct_id = true;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+
+        ArrayList<Asteroid> asteroids = Game.getInstance().field.getAsteroids();
+        while (!correct_id) {
+            id++;
+
+            if (ent == 0) { //TODO::ez csak akkor kell ha kellenek robot id-k, ha nem kell akkor paraméter sem kell
+                for (int i = 0; i < Game.getInstance().field.getRobots().size(); i++) {
+                    if (id != Game.getInstance().field.getRobots().get(i).getId()) {
+                        correct_id = true;
+                        break;
+                    }
+                }
+            } else if (ent == 1) {
+                for (int i = 0; i < asteroids.size(); i++) {
+                    for (int j = 0; j < asteroids.get(i).getTeleports().size(); i++) {
+                        if (id != asteroids.get(i).getTeleports().get(j).getId()) {
+                            correct_id = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return id;
+    }
 
 }

@@ -1,4 +1,8 @@
-package model;
+package model.Objects;
+
+import model.GTimer;
+import model.Game;
+import model.IMine;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -53,7 +57,7 @@ public class Ufo extends Entity implements IMine {
     public void Die() {
         getAsteroid().RemoveEntity(this);
         setAsteroid(null);
-        Timer.getInstance().RemoveSteppable(this);
+        GTimer.getInstance().RemoveSteppable(this);
         Game.getInstance().field.getUfos().remove(this);
     }
 

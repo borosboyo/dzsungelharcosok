@@ -1,5 +1,7 @@
 package model;
 
+import model.Objects.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,10 +14,11 @@ public class Field implements Steppable, Serializable {
     private final ArrayList<Settler> settlers = new ArrayList();
     private final ArrayList<Robot> robots = new ArrayList();
     private final ArrayList<Ufo> ufos = new ArrayList();
+
     private int sunstormcounter = 0;
 
-    double sqrt;
-    int side;
+    private double sqrt;
+    private int side;
 
     /**
      * Field initialization (Add Asteroids, Settlers and Ufos)
@@ -34,18 +37,18 @@ public class Field implements Steppable, Serializable {
         //random aszteroidak, telepesenkent +10db
         for (int i = 5; i < settlernumber * 10 + 5; i++) {
             Random rand = new Random();
-            asteroids.add(new Asteroid(i, rand.nextInt(10000000) % maxthickness, rand.nextInt(10000000) % 2 == 0, RandomMaterial()));
+            asteroids.add(new Asteroid(i, rand.nextInt(maxthickness + 1), false, RandomMaterial()));
         }
 
         sqrt = Math.sqrt(settlernumber * 10 + 5);
         side = (int) Math.ceil(sqrt);
         int xunit = 200;
         int yunit = 150;
-        for (int i = 0; i < side; i++) {
-            for (int j = 0; j < side; j++) {
-                if (asteroids.size() > (i * (side - 1)) + j) {
-                    asteroids.get(i * (side - 1) + j).setY(i * yunit + 20);
-                    asteroids.get(i * (side - 1) + j).setX(j * xunit + 20);
+        for (int i = 0; i < side; i++) {    //y   sor
+            for (int j = 0; j < side; j++) {    //x oszlop
+                if (asteroids.size() > (i * (side)) + j) {
+                    asteroids.get(i * (side) + j).setY(i * yunit + 20);
+                    asteroids.get(i * (side) + j).setX(j * xunit + 20);
                 }
             }
         }
@@ -60,11 +63,42 @@ public class Field implements Steppable, Serializable {
             }
         }
 
+
         //csak tesztelés miatt
-        asteroids.get(2).addTeleport(new Teleport(2));
-        asteroids.get(12).addTeleport(new Teleport(4));
-        asteroids.get(2).getEntities().add(new Robot(5));
-        asteroids.get(2).getEntities().add(new Ufo(5));
+        Settler s2 = new Settler(11);
+        s2.getInventory().add(new Ice());
+        s2.getInventory().add(new Coal());
+        s2.getInventory().add(new Iron());
+        s2.getInventory().add(new Iron());
+        s2.getInventory().add(new Uranium());
+        asteroids.get(2).Accept(s2);
+        settlers.add(s2);
+        s2.setAsteroid(asteroids.get(2));
+
+        Teleport tel = new Teleport(0);
+        tel.getAsteroids().add(asteroids.get(2));
+        tel.getAsteroids().add(asteroids.get(4));
+        asteroids.get(2).addTeleport(tel);
+        asteroids.get(4).addTeleport(tel);
+        GTimer.getInstance().AddSteppable(tel);
+
+        tel = new Teleport(4);
+        tel.getAsteroids().add(asteroids.get(12));
+        tel.getAsteroids().add(asteroids.get(5));
+        asteroids.get(12).addTeleport(tel);
+        asteroids.get(5).addTeleport(tel);
+        GTimer.getInstance().AddSteppable(tel);
+
+        Robot ro = new Robot(5);
+        asteroids.get(2).Accept(ro);
+        ro.setAsteroid(asteroids.get(2));
+        GTimer.getInstance().AddSteppable(ro);
+
+        Ufo ufo = new Ufo(5);
+        asteroids.get(2).Accept(ufo);
+        ufo.setAsteroid(asteroids.get(2));
+        GTimer.getInstance().AddSteppable(ufo);
+        //csak tesztelés miatt végea
 
 
         Random rand = new Random();
@@ -83,19 +117,18 @@ public class Field implements Steppable, Serializable {
                 randasteroid = rand.nextInt(asteroids.size());
                 asteroids.get(randasteroid).Accept(u);
                 u.setAsteroid(asteroids.get(randasteroid));
-                Timer.getInstance().AddSteppable(u);
+                GTimer.getInstance().AddSteppable(u);
                 ufos.add(u);
                 k++;
             }
         }
 
-        Timer.getInstance().setSettlernumber(settlernumber);
-        Timer.getInstance().AddSteppable(this);
+        GTimer.getInstance().AddSteppable(this);
         for (Settler s : settlers) {
-            Timer.getInstance().AddSteppable(s);
+            GTimer.getInstance().AddSteppable(s);
         }
+        SetNearSun();
     }
-
 
     /**
      * Game state stepping
@@ -130,14 +163,34 @@ public class Field implements Steppable, Serializable {
      */
     public void SetNearSun() {
         Random rnd = new Random();
+        for(Asteroid a: asteroids){
+            a.setNearSun(false);
+        }
+        for(int i = 0; i < settlers.size()/2 ; i++){
+            int id = rnd.nextInt(asteroids.size());
+            System.out.println(i+"edik:  "+id);
+            Asteroid a = asteroids.get(id);
+            a.setNearSun(true);
+            a.CheckTrigger();
+            for(Asteroid a2 : a.getNeigbours()){
+                a2.setNearSun(true);
+                a2.CheckTrigger();
+            }
+        }
+
+//TODO::Ez itt kell vagy nem?
+        //nem
+/*
         for (Asteroid a : asteroids) {
-            if (a.getId() % (rnd.nextInt(asteroids.size() - 1) + 1) == 0) {
+            if ((rnd.nextInt(100) < 50)) {
                 a.setNearSun(true);
                 a.CheckTrigger();
             } else {
                 a.setNearSun(false);
             }
         }
+
+ */
     }
 
     /**
@@ -165,7 +218,7 @@ public class Field implements Steppable, Serializable {
      * @param a the asteroid on we check if the required materials are on.
      * @return the boolean
      */
-    boolean CheckReqMat(Asteroid a) {
+    public boolean CheckReqMat(Asteroid a) {
         int coal = 3;
         int ice = 3;
         int iron = 3;
@@ -206,11 +259,26 @@ public class Field implements Steppable, Serializable {
 
         int r_num = rand.nextInt(5);
         switch (r_num) {
-            case 0 -> mat = new Uranium();
-            case 1 -> mat = new Ice();
-            case 2 -> mat = new Coal();
-            case 3 -> mat = new Iron();
-            case 4 -> mat = null;
+            case 0: {
+                mat = new Uranium();
+                break;
+            }
+            case 1: {
+                mat = new Ice();
+                break;
+            }
+            case 2: {
+                mat = new Coal();
+                break;
+            }
+            case 3: {
+                mat = new Iron();
+                break;
+            }
+            case 4: {
+                mat = null;
+                break;
+            }
         }
 
         return mat;
@@ -278,5 +346,13 @@ public class Field implements Steppable, Serializable {
      */
     public void AddAsteroid(Asteroid a) {
         asteroids.add(a);
+    }
+
+    public int getSunstormcounter() {
+        return sunstormcounter;
+    }
+
+    public void setSunstormcounter(int sunstormcounter) {
+        this.sunstormcounter = sunstormcounter;
     }
 }

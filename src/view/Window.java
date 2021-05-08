@@ -1,20 +1,26 @@
 package view;
 
-import model.Ufo;
-
-import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
+/**
+ * The application window. Contains the GamePanel and MenuPanel.
+ */
 public class Window extends JFrame {
-    private MenuPanel menuPanel;
+    private final MenuPanel menuPanel;
     private GamePanel gamePanel;
-    private  ArrayList<Clip> clips = new ArrayList();
+    private final ArrayList<Clip> clips = new ArrayList<>();
 
+    /**
+     * Initializes the window: sets up the basic properties and loads thee sounds.
+     *
+     * @throws UnsupportedAudioFileException the unsupported audio file exception
+     * @throws IOException                   the io exception
+     * @throws LineUnavailableException      the line unavailable exception
+     */
     public Window() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         setTitle("Asteroidmining");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -31,6 +37,9 @@ public class Window extends JFrame {
         loadSounds("sound/teleport.wav");
     }
 
+    /**
+     * Loads the sounds for the menu and the game.
+     */
     private void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Clip clip = AudioSystem.getClip();
         File file = new File(filename);
@@ -39,6 +48,16 @@ public class Window extends JFrame {
         clips.add(clip);
     }
 
+    /**
+     * Plays a sound.
+     *
+     * @param i      the
+     * @param volume the volume
+     * @param loop   the loop
+     * @throws IOException                   the io exception
+     * @throws UnsupportedAudioFileException the unsupported audio file exception
+     * @throws LineUnavailableException      the line unavailable exception
+     */
     public void playSound(int i, float volume, int loop) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         clips.get(i).setFramePosition(0);
         clips.get(i).start();
@@ -46,10 +65,21 @@ public class Window extends JFrame {
         setVolume(i, volume);
     }
 
+    /**
+     * Stop a sound.
+     *
+     * @param i the
+     */
     public void stopSound(int i) {
         clips.get(i).stop();
     }
 
+    /**
+     * Sets the volume for the sound.
+     *
+     * @param i      the index of the soundclip.
+     * @param volume the volume
+     */
     public void setVolume(int i, float volume) {
         if (volume < 0f || volume > 1f)
             throw new IllegalArgumentException("Volume not valid: " + volume);
@@ -57,6 +87,9 @@ public class Window extends JFrame {
         gainControl.setValue(20f * (float) Math.log10(volume));
     }
 
+    /**
+     * Switch to game.
+     */
     public void switchToGame() {
         remove(menuPanel);
         setSize(1024, 576);
@@ -72,6 +105,9 @@ public class Window extends JFrame {
         }
     }
 
+    /**
+     * Switch to menu.
+     */
     public void switchToMenu() {
         remove(gamePanel);
         setSize(600, 200);
@@ -86,4 +122,12 @@ public class Window extends JFrame {
         }
     }
 
+    /**
+     * Gets game panel.
+     *
+     * @return the game panel
+     */
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
 }

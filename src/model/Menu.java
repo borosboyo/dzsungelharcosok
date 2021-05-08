@@ -5,10 +5,6 @@ import java.io.IOException;
 public class Menu {
     private MenuState menuState = MenuState.LOADMENU;
 
-    public MenuState getMenuState() {
-        return menuState;
-    }
-
     public void setMenuState(MenuState menuState) {
         this.menuState = menuState;
     }
@@ -25,9 +21,7 @@ public class Menu {
                 Game.getInstance().field = null;
                 try {
                     Game.getInstance().loadGame();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
+                } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 Game.getInstance().setGameState(GameState.GAME);

@@ -1,4 +1,5 @@
-package model;
+package model.Objects;
+import model.Steppable;
 
 import java.io.Serializable;
 
@@ -62,8 +63,8 @@ public abstract class Entity implements Steppable, Serializable {
      *
      * @param a the asteroid that the entity will move onto
      */
-    public void Move(Asteroid a) {   //TODO::
-        if(this.getAsteroid().CheckNeighbour(a)){
+    public void Move(Asteroid a) {
+        if (this.getAsteroid().CheckNeighbour(a)) {
             this.getAsteroid().RemoveEntity(this);
             a.Accept(this);
             this.setAsteroid(a);

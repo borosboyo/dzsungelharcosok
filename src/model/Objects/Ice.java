@@ -1,4 +1,4 @@
-package model;
+package model.Objects;
 
 /**
  * Ice type of Material.

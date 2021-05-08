@@ -1,13 +1,21 @@
-package view;
+package view.ObjectView;
 
-import model.*;
-import model.Robot;
+import model.Objects.*;
+import view.Drawable;
 
 import java.awt.*;
 
+/**
+ * The type Material view.
+ */
 public class MaterialView implements Drawable {
-    private Material material;
+    private final Material material;
 
+    /**
+     * Instantiates a new Material view.
+     *
+     * @param material the material
+     */
     public MaterialView(Material material) {
         this.material = material;
     }
@@ -15,9 +23,10 @@ public class MaterialView implements Drawable {
 
     @Override
     public void draw(Graphics g, int unit, int x, int y) {
-        int coord = unit/2;
+        int coord = unit / 2;
         Toolkit t = Toolkit.getDefaultToolkit();
         Image i = null;
+        //material képének betöltése
         if (material instanceof Ice)
             i = t.getImage("images/ice.png");
 
@@ -30,9 +39,7 @@ public class MaterialView implements Drawable {
         if (material instanceof Coal)
             i = t.getImage("images/coal.png");
 
-
-        g.drawImage(i, x+coord/2, y +coord/2, coord, coord, null);
-
-
+        //material kirajzolása
+        g.drawImage(i, x + coord / 2, y + coord / 2, coord, coord, null);
     }
 }

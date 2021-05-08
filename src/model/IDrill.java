@@ -5,6 +5,5 @@ package model;
  * osztály implementálja, az aszteroida kérgét tudják megfúrni vele.
  */
 public interface IDrill {
-    public void Drill();
-
+     void Drill();
 }

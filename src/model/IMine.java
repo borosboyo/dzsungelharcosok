@@ -5,6 +5,5 @@ package model;
  * Ufo osztály implementálja, az átfúrt aszteroida nyersanyagát lehet vele kinyerni.
  */
 public interface IMine {
-     public  void Mine();
-
+     void Mine();
 }

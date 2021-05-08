@@ -1,4 +1,6 @@
-package model;
+package model.Objects;
+
+import model.Steppable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,8 +12,8 @@ public class Teleport implements Steppable, Serializable {
     int id;
     private boolean firstCrazy = false;
     private boolean secondCrazy = false;
-    private boolean exploded=false;
-    private ArrayList<Asteroid> asteroids;
+    private boolean exploded = false;
+    private final ArrayList<Asteroid> asteroids = new ArrayList<>();
 
     /**
      * Constructor of the Teleport
@@ -19,7 +21,6 @@ public class Teleport implements Steppable, Serializable {
      * @param id Teleport Id
      */
     public Teleport(int id) {
-        asteroids = new ArrayList<Asteroid>();
         this.id = id;
     }
 
@@ -34,11 +35,12 @@ public class Teleport implements Steppable, Serializable {
     public boolean getExploded(){
         return exploded;
     }
+
     public void HitBySunstorm(Asteroid a){
-        if (asteroids.get(0) == a){
+        if (asteroids.size() > 0 && asteroids.get(0) == a) {
             firstCrazy = true;
         }
-        if (asteroids.get(1) == a){
+        if (asteroids.size() > 1 && asteroids.get(1) == a) {
             secondCrazy = true;
         }
         Step();
@@ -50,19 +52,25 @@ public class Teleport implements Steppable, Serializable {
      *
      * @param e the entity using the teleport
      */
-    public void Transfer(Entity e){
+    public void Transfer(Entity e) {
+        if (e.getAsteroid() != asteroids.get(0) && e.getAsteroid() != asteroids.get(1))
+            return;
 
         if (asteroids.size() == 2) {
-            if(asteroids.get(0).equals(e.getAsteroid())) {
+            if (asteroids.get(0).equals(e.getAsteroid())) {
                 asteroids.get(1).Accept(e);
+                asteroids.get(0).getEntities().remove(e);
                 e.setAsteroid(asteroids.get(1));
-            }
-            else {
+            } else {
                 asteroids.get(0).Accept(e);
+                asteroids.get(1).getEntities().remove(e);
                 e.setAsteroid(asteroids.get(0));
             }
-            e.getAsteroid().RemoveEntity(e);
 
+            if (e instanceof Settler) {
+                Settler se = (Settler) e;
+                se.setFinishedTurn(true);
+            }
         }
     }
 
@@ -90,14 +98,6 @@ public class Teleport implements Steppable, Serializable {
         return asteroids;
     }
 
-    /**
-     * Sets asteroids.
-     *
-     * @param asteroids the asteroids
-     */
-    public void setAsteroids(ArrayList<Asteroid> asteroids) {
-        this.asteroids = asteroids;
-    }
 
     /**
      *The Step function of the teleport.
@@ -105,10 +105,10 @@ public class Teleport implements Steppable, Serializable {
     @Override
     public void Step() {
 
-        if(firstCrazy==true){
+        if (firstCrazy) {
             asteroids.set(0, asteroids.get(0).GetRandomNeighbour());
         }
-        if(secondCrazy==true){
+        if (secondCrazy) {
             asteroids.set(1, asteroids.get(1).GetRandomNeighbour());
         }
     }
