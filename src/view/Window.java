@@ -1,19 +1,15 @@
 package view;
 
-import model.Ufo;
-
-import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Window extends JFrame {
-    private MenuPanel menuPanel;
+    private final MenuPanel menuPanel;
     private GamePanel gamePanel;
-    private  ArrayList<Clip> clips = new ArrayList();
+    private final ArrayList<Clip> clips = new ArrayList<>();
 
     public Window() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         setTitle("Asteroidmining");
@@ -86,4 +82,7 @@ public class Window extends JFrame {
         }
     }
 
+    public GamePanel getGamePanel() {
+        return gamePanel;
+    }
 }
