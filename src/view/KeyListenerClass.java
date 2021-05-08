@@ -75,7 +75,7 @@ class KeyListenerClass implements KeyListener {
      */
     public boolean checkRight() {
         int idx = side - 1;
-        int bound = side * 70;
+        int bound = side * 60;
         if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
             return true;
         return false;
