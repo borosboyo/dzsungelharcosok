@@ -40,7 +40,7 @@ public class Window extends JFrame {
     /**
      * Loads the sounds for the menu and the game.
      */
-    private void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public void loadSounds(String filename) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
         Clip clip = AudioSystem.getClip();
         File file = new File(filename);
         AudioInputStream input = AudioSystem.getAudioInputStream(file);
