@@ -1,16 +1,15 @@
 package view;
 
 import model.Asteroid;
-import view.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 public class AsteroidView implements Drawable {
-    private Asteroid asteroid;
+    private final Asteroid asteroid;
     private MaterialView matView;
-    private ArrayList<EntityView> entityViews;
-    private ArrayList<TeleportView> teleportViews;
+    private final ArrayList<EntityView> entityViews;
+    private final ArrayList<TeleportView> teleportViews;
 
     public AsteroidView(Asteroid asteroid, ArrayList<EntityView> entityViews, ArrayList<TeleportView> teleportViews) {
         this.asteroid = asteroid;
