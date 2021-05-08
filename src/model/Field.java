@@ -177,6 +177,7 @@ public class Field implements Steppable, Serializable {
         }
 
 //TODO::Ez itt kell vagy nem?
+        //nem
 /*
         for (Asteroid a : asteroids) {
             if ((rnd.nextInt(100) < 50)) {

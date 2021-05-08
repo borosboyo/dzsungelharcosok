@@ -2,11 +2,7 @@ package view;
 
 import model.*;
 
-import java.awt.event.*;
-import java.awt.event.KeyEvent;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -66,6 +62,11 @@ public class GamePanel extends JPanel {
 
     private boolean savedGame;
 
+    /**
+     * Sets saved game.
+     *
+     * @param savedGame the saved game
+     */
     public void setSavedGame(boolean savedGame) {
         this.savedGame = savedGame;
     }
@@ -113,10 +114,20 @@ public class GamePanel extends JPanel {
      */
     private final JButton exitButton = new JButton();
 
+    /**
+     * Gets menu button.
+     *
+     * @return the menu button
+     */
     public JButton getMenuButton() {
         return menuButton;
     }
 
+    /**
+     * Gets exit button.
+     *
+     * @return the exit button
+     */
     public JButton getExitButton() {
         return exitButton;
     }
@@ -174,17 +185,32 @@ public class GamePanel extends JPanel {
         addMouseListener(mouseListener);
     }
 
+    /**
+     * Selected settler.
+     *
+     * @param selectedSettler the selected settler
+     */
     public void SelectedSettler(Settler selectedSettler) {
         this.selectedSettler = selectedSettler;
         keyListener.setSelectedSettler(selectedSettler);
         mouseListener.setSelectedSettler(selectedSettler);
     }
 
+    /**
+     * Selected teleport.
+     *
+     * @param selectedTeleport the selected teleport
+     */
     public void SelectedTeleport(Teleport selectedTeleport) {
         this.selectedTeleport = selectedTeleport;
         mouseListener.setSelectedTeleport(selectedTeleport);
     }
 
+    /**
+     * Selected asteroid.
+     *
+     * @param selectedAsteroid the selected asteroid
+     */
     public void SelectedAsteroid(Asteroid selectedAsteroid) {
         this.selectedAsteroid = selectedAsteroid;
         mouseListener.setselectedAsteroid(selectedAsteroid);
@@ -211,6 +237,8 @@ public class GamePanel extends JPanel {
 
     /**
      * The panel that only appears when the game finishes.
+     *
+     * @param g the g
      */
     public void finishGame(Graphics g) {
 
