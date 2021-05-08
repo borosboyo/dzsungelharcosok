@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
      * The Window.
      */
     Window window;
-    private int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
+    private final int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
     /**
      * The Selected asteroid.
      */
@@ -39,15 +39,15 @@ public class GamePanel extends JPanel {
     /**
      * The Entity view.
      */
-    ArrayList<EntityView> entityView = new ArrayList<EntityView>();
+    ArrayList<EntityView> entityView = new ArrayList<>();
     /**
      * The Teleport views.
      */
-    ArrayList<TeleportView> teleportViews = new ArrayList<TeleportView>();
+    ArrayList<TeleportView> teleportViews = new ArrayList<>();
     /**
      * The Buffered images.
      */
-    ArrayList<BufferedImage> bufferedImages = new ArrayList<BufferedImage>(); //TODO:: ezt meg lehetne csinálni a toolkit image-el és akkor lehet jó lenne az is
+    ArrayList<BufferedImage> bufferedImages = new ArrayList<>(); //TODO:: ezt meg lehetne csinálni a toolkit image-el és akkor lehet jó lenne az is
 
     /**
      * Gets buffered images.
@@ -61,10 +61,14 @@ public class GamePanel extends JPanel {
     /**
      * The list that containts the endgame icons.
      */
-    private ArrayList<ImageIcon> endGameIcons = new ArrayList<ImageIcon>();
+    private final ArrayList<ImageIcon> endGameIcons = new ArrayList<>();
 
 
     private boolean savedGame;
+
+    public void setSavedGame(boolean savedGame) {
+        this.savedGame = savedGame;
+    }
 
     /**
      * Initializes the images for the settler inventory and endgame images.
@@ -102,24 +106,33 @@ public class GamePanel extends JPanel {
     /**
      * Button that appears at the end of the game and takes the user back to the main menu.
      */
-    private JButton menuButton = new JButton();
+    private final JButton menuButton = new JButton();
 
     /**
      * Button that appears at the end of the game and exits the game.
      */
-    private JButton exitButton = new JButton();
+    private final JButton exitButton = new JButton();
+
+    public JButton getMenuButton() {
+        return menuButton;
+    }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
 
     /**
      * Keyboard listener. Certain functions can only be accessed with the keyboard:
      * moving the map, drilling, mining etc..
      */
-    private KeyListenerClass keyListener = new KeyListenerClass();
+    private final KeyListenerClass keyListener;
 
     /**
      * Mouse listener. Used for the endgame buttons
      * and selecting certain drawable elements settlers, asteroids, teleport.
      */
-    private MouseListenerClass mouseListener = new MouseListenerClass();
+    private final MouseListenerClass mouseListener;
 
     /**
      * The constructor for the panel. Initializes the endgame buttons and adds the required listeners.
@@ -130,6 +143,8 @@ public class GamePanel extends JPanel {
     public GamePanel(Window _window, int unit) {
         this.window = _window;
         this.unit = unit;
+        keyListener = new KeyListenerClass(window, selectedSettler);
+        mouseListener = new MouseListenerClass(window, selectedSettler, selectedTeleport, selectedAsteroid);
 
         /**
          * Initialize images.
@@ -157,6 +172,22 @@ public class GamePanel extends JPanel {
          */
         addKeyListener(keyListener);
         addMouseListener(mouseListener);
+    }
+
+    public void SelectedSettler(Settler selectedSettler) {
+        this.selectedSettler = selectedSettler;
+        keyListener.setSelectedSettler(selectedSettler);
+        mouseListener.setSelectedSettler(selectedSettler);
+    }
+
+    public void SelectedTeleport(Teleport selectedTeleport) {
+        this.selectedTeleport = selectedTeleport;
+        mouseListener.setSelectedTeleport(selectedTeleport);
+    }
+
+    public void SelectedAsteroid(Asteroid selectedAsteroid) {
+        this.selectedAsteroid = selectedAsteroid;
+        mouseListener.setselectedAsteroid(selectedAsteroid);
     }
 
     /**
@@ -225,12 +256,12 @@ public class GamePanel extends JPanel {
     void checkboxAsteroidTeleport(int x, int y) {
         Field fi = Game.getInstance().field;
         Asteroid asteroid;
-        Teleport teleport;
 
         for (int i = 0; i < fi.getAsteroids().size(); i++) {
             asteroid = fi.getAsteroids().get(i);
             if (asteroid.getX() < x && x < asteroid.getX() + unit && asteroid.getY() < y && y < asteroid.getY() + unit) {
-                selectedAsteroid = asteroid;
+                //selectedAsteroid = asteroid;
+                SelectedAsteroid(asteroid);
                 return;
             }
         }
@@ -239,13 +270,16 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < teleportViews.size(); i++) {
             telV = teleportViews.get(i);
             if (telV.getX() < x && x < telV.getX() + telV.getSize() && telV.getY() < y && y < telV.getY() + telV.getSize()) {
-                selectedTeleport = telV.getTeleport();
+                //selectedTeleport = telV.getTeleport();
+                SelectedTeleport(telV.getTeleport());
                 return;
             }
         }
 
-        selectedAsteroid = null;
-        selectedTeleport = null;
+        //selectedAsteroid = null;
+        SelectedAsteroid(null);
+        //selectedTeleport = null;
+        SelectedTeleport(null);
     }
 
     /**
@@ -259,14 +293,16 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < entityView.size(); i++) {
             entV = entityView.get(i);
             if (entV.getX() < x && x < entV.getX() + entV.getSize() && entV.getY() < y && y < entV.getY() + entV.getSize()) {
-                selectedSettler = (Settler) entV.getEntity();
+                //selectedSettler = (Settler) entV.getEntity();
+                SelectedSettler((Settler) entV.getEntity());
                 //selectedSettler.setSelected(true);
                 window.repaint();
                 return;
             }
         }
         //selectedSettler.setSelected(false);
-        selectedSettler = null;
+        //selectedSettler = null;
+        SelectedSettler(null);
     }
 
     @Override
@@ -278,7 +314,7 @@ public class GamePanel extends JPanel {
 
         this.setBackground(Color.DARK_GRAY);
 
-        Font font = new Font(Font.SERIF, Font.PLAIN, (int) (20));
+        Font font = new Font(Font.SERIF, Font.PLAIN, 20);
         g.setFont(font);
         g.setColor(Color.GRAY);
         g.drawString("Settler turn:", 2, 20);
@@ -323,6 +359,7 @@ public class GamePanel extends JPanel {
 //            Toolkit t = Toolkit.getDefaultToolkit();
 //            Image i = t.getImage("images/gamepanel.png");
             BufferedImage i = bufferedImages.get(0);
+            String s;
 
             g.drawImage(i, 824, -20, 200, 300, null);
 
@@ -330,7 +367,7 @@ public class GamePanel extends JPanel {
                 if (selectedSettler.getInventory().get(j) == null)
                     return;
 
-                String s = new String("");
+                s = "";
                 s += selectedSettler.getInventory().get(j).getName();
                 g.setColor(Color.WHITE);
                 g.drawString(s, 860, 25 + j * 20);
@@ -340,7 +377,7 @@ public class GamePanel extends JPanel {
                 if (selectedSettler.getTeleportlist().get(k) == null)
                     return;
 
-                String s = new String("");
+                s = "";
                 s += "Teleport[";
                 if (selectedSettler.getTeleportlist().get(k).getAsteroids().size() == 0) {
                     s += "2]";
@@ -352,20 +389,20 @@ public class GamePanel extends JPanel {
             }
         }
         if(fi.getSunstormcounter() == 1){
-            g.setFont(new Font(Font.SERIF, Font.BOLD, (int) (30)));
+            g.setFont(new Font(Font.SERIF, Font.BOLD, 30));
             g.setColor(Color.RED);
             g.drawString("SUNSTORM", window.getWidth() / 3 + 10, 30);
         }
         window.repaint();
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
-        font = new Font(Font.SERIF, Font.BOLD, (int) (14));
+        font = new Font(Font.SERIF, Font.BOLD, 14);
         g.setFont(font);
         g.drawString("Up: W,  Down: S,  Left: A,  Right: D,    Drill: F,   Mine: E,   Placeteleport: C,   Placematerial: V,   Maketeleport: T,   BuildRobot: R,   Save: M", 40, window.getHeight() - 46);
 
         if (savedGame) {
             g.setColor(Color.GRAY);
-            font = new Font(Font.SERIF, Font.BOLD, (int) (30));
+            font = new Font(Font.SERIF, Font.BOLD, 30);
             g.setFont(font);
             g.drawString("Game Saved!", 100, 30);
             savedGame = false;
@@ -373,307 +410,4 @@ public class GamePanel extends JPanel {
 
         finishGame(g);
     }
-
-
-    /**
-     * Certain functions are only accessible with the keyboard so this class handles this functionality.
-     */
-    class KeyListenerClass implements KeyListener {
-
-        /**
-         * Stores how many sides the map has, so that the map border calculation is smooth.
-         */
-        int side = Game.getInstance().field.getSide();
-
-        /**
-         * Checks if the game has reached the upper map bound.
-         *
-         * @return the boolean
-         */
-        public boolean checkUp() {
-            if (Game.getInstance().field.getAsteroids().get(0).getY() == 50)
-                return true;
-            return false;
-        }
-
-        /**
-         * Checks if the game has reached the lower map bound.
-         *
-         * @return the boolean
-         */
-        public boolean checkDown() {
-            int idx = Game.getInstance().field.getAsteroids().size() - 1;
-            int bound = side * 30;
-            if (Game.getInstance().field.getAsteroids().get(idx).getY() == bound)
-                return true;
-            return false;
-        }
-
-        /**
-         * Checks if the game has reached the left map bound.
-         *
-         * @return the boolean
-         */
-        public boolean checkLeft() {
-            if (Game.getInstance().field.getAsteroids().get(0).getX() == 50)
-                return true;
-            return false;
-        }
-
-        /**
-         * Checks if the game has reached the right map bound.
-         *
-         * @return the boolean
-         */
-        public boolean checkRight() {
-            int idx = side - 1;
-            int bound = side * 70;
-            if (Game.getInstance().field.getAsteroids().get(idx).getX() == bound)
-                return true;
-            return false;
-        }
-
-        /**
-         * Moves an asteroid vertically with a certain distance.
-         *
-         * @param distance the distance
-         */
-        public void moveVertically(int distance) {
-            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                int newY = a.getY() + distance;
-                a.setY(newY);
-            }
-        }
-
-        /**
-         * Moves an asteroid horizontally with a certain distance.
-         *
-         * @param distance the distance
-         */
-        public void moveHorizontally(int distance) {
-            for (Asteroid a : Game.getInstance().field.getAsteroids()) {
-                int newX = a.getX() + distance;
-                a.setX(newX);
-            }
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-        }
-
-        /**
-         * Handles the keyboard events.
-         */
-        @Override
-        public void keyPressed(KeyEvent e) {
-            /**
-             * The player returns to the menu when the escape button is pressed.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU); //TODO::itt beállíthatjuk azt, hogyha a menübe visszalépünk esc-el, akkor mentse a játékot
-                Game.getInstance().getMenu().menu_step(0);
-                window.switchToMenu();
-                try {
-                    window.playSound(4, 0.6f, 0); //TODO:ez nem itt lesz, hanem majd a useteleportnál
-                } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-            /**
-             * The player can move the map upwards with W.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_W) {
-                if (!checkUp())
-                    moveVertically(10);
-            }
-            /**
-             * The player can move the map downwards with S.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_S) {
-                if (!checkDown())
-                    moveVertically(-10);
-            }
-            /**
-             * The player can move the map left with A.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_A) {
-                if (!checkLeft())
-                    moveHorizontally(10);
-            }
-            /**
-             * The player can move the map right with D.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_D) {
-                if (!checkRight())
-                    moveHorizontally(-10);
-            }
-            /**
-             * The player can drill with the selected settler with F.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_F) {
-                if (selectedSettler == null || selectedSettler.isFinishedTurn())
-                    return;
-                selectedSettler.Drill();
-                if (selectedSettler.isFinishedTurn()) {
-                    try {
-                        window.playSound(2, 0.2f, 0);
-                    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            }
-
-            /**
-             * The player can mine with the selected settler with E.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_E) {
-                if (selectedSettler == null || selectedSettler.isFinishedTurn())
-                    return;
-                selectedSettler.Mine();
-                if (selectedSettler.isFinishedTurn()) {
-                    try {
-                        window.playSound(3, 0.2f, 0);
-                    } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
-                        ioException.printStackTrace();
-                    }
-                }
-            }
-            /**
-             * The player can save the game with M.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_M) {
-                try {
-                    Game.getInstance().saveGame();
-                    savedGame = true;
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-
-            /**
-             * The player can place a teleport with the selected settler with C.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_C) {
-                //placeteleport
-                if (selectedSettler == null || selectedSettler.isFinishedTurn())
-                    return;
-                selectedSettler.PlaceTeleport();
-            }
-
-            /**
-             * The player can place material with the selected settler with V.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_V) {
-                //placematerial
-                if (selectedSettler == null || selectedSettler.isFinishedTurn())
-                    return;
-                selectedSettler.PlaceMaterial();
-            }
-
-            /**
-             * The player can make a teleport with the selected settler with T.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_T) {
-                //maketeleport
-                if (selectedSettler == null || selectedSettler.isFinishedTurn())
-                    return;
-                selectedSettler.MakeTeleport();
-            }
-
-            /**
-             * The player can build a robot with the selected settler with R.
-             */
-            if (e.getKeyCode() == KeyEvent.VK_R) {
-                //buildrobot
-                if (selectedSettler == null || selectedSettler.isFinishedTurn())
-                    return;
-                selectedSettler.BuildRobot();
-            }
-            window.repaint();
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-        }
-    }
-
-    /**
-     * The type Mouse listener class.
-     */
-    class MouseListenerClass implements MouseListener, ActionListener {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == 1) {
-                selectedSettler = null;
-                checkboxSettler(e.getX(), e.getY());
-            }
-
-            if (e.getButton() == 3) {
-                checkboxAsteroidTeleport(e.getX(), e.getY());
-                if (selectedSettler != null && selectedAsteroid != null && !selectedSettler.isFinishedTurn()) {
-                    selectedSettler.Move(selectedAsteroid);
-                    if (selectedSettler.isFinishedTurn()) {
-                        window.repaint();
-                        selectedSettler = null;
-                    }
-                    return;
-                }
-
-                if (selectedSettler != null && selectedTeleport != null && !selectedSettler.isFinishedTurn()) {
-                    selectedSettler.UseTeleport(selectedTeleport);
-                    if (selectedSettler.isFinishedTurn()) {
-                        try {
-                            window.playSound(4, 0.4f, 0);
-                        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
-                            ioException.printStackTrace();
-                        }
-                        window.repaint();
-                        selectedSettler = null;
-                    }
-                }
-            }
-            window.repaint();
-            selectedAsteroid = null;
-            selectedTeleport = null;
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
-
-        /**
-         * Handles the buttons that show up, when the game ends.
-         */
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            /**
-             * Returns to the main menu.
-             */
-            if (e.getSource() == menuButton) {
-                window.switchToMenu();
-            }
-            /**
-             * Exits the game.
-             */
-            if (e.getSource() == exitButton) {
-                System.exit(0);
-            }
-        }
-    }
-
-
-    //TODO::move -> két kattintás első az entiti második az aszteroidára
-    //TODO:: useteleport -> space billentyű plusz aszteroida kiválasztása
 }
