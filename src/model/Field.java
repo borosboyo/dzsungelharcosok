@@ -256,11 +256,26 @@ public class Field implements Steppable, Serializable {
 
         int r_num = rand.nextInt(5);
         switch (r_num) {
-            case 0 -> mat = new Uranium();
-            case 1 -> mat = new Ice();
-            case 2 -> mat = new Coal();
-            case 3 -> mat = new Iron();
-            case 4 -> mat = null;
+            case 0: {
+                mat = new Uranium();
+                break;
+            }
+            case 1: {
+                mat = new Ice();
+                break;
+            }
+            case 2: {
+                mat = new Coal();
+                break;
+            }
+            case 3: {
+                mat = new Iron();
+                break;
+            }
+            case 4: {
+                mat = null;
+                break;
+            }
         }
 
         return mat;
