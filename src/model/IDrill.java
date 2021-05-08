@@ -1,9 +1,11 @@
 package model;
 
 /**
- * A fúrást megvalósító interfész fúró függvénye. A Settler és a Robot
- * osztály implementálja, az aszteroida kérgét tudják megfúrni vele.
+ * Steppable interface that the classes Settler and Robot implements.
  */
 public interface IDrill {
+     /**
+      * The Drill function that represents drilling.
+      */
      void Drill();
 }
