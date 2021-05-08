@@ -1,12 +1,11 @@
 package view;
 
-import model.Asteroid;
 import model.Teleport;
 
 import java.awt.*;
 
 public class TeleportView implements Drawable {
-    private Teleport teleport;
+    private final Teleport teleport;
     private int _x, _y, size;
 
     public int getX() {
