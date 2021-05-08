@@ -1,6 +1,7 @@
-package view;
+package view.ObjectView;
 
-import model.Teleport;
+import model.Objects.Teleport;
+import view.Drawable;
 
 import java.awt.*;
 

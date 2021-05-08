@@ -1,4 +1,8 @@
-package model;
+package model.Objects;
+
+import model.GTimer;
+import model.Game;
+import model.IDrill;
 
 import java.util.Random;
 

@@ -1,9 +1,10 @@
 package view;
 
-import model.Asteroid;
+
 import model.Game;
 import model.MenuState;
-import model.Settler;
+import model.Objects.Asteroid;
+import model.Objects.Settler;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;

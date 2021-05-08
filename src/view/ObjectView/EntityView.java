@@ -1,9 +1,11 @@
-package view;
+package view.ObjectView;
 
-import model.Entity;
-import model.Robot;
-import model.Settler;
-import model.Ufo;
+
+import model.Objects.Entity;
+import model.Objects.Settler;
+import model.Objects.Ufo;
+import model.Objects.Robot;
+import view.Drawable;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

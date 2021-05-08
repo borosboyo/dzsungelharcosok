@@ -1,4 +1,8 @@
-package model;
+package model.Objects;
+
+import model.GTimer;
+import model.Game;
+import model.IMine;
 
 import java.util.ArrayList;
 import java.util.Random;

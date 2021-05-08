@@ -1,4 +1,4 @@
-package model;
+package model.Objects;
 
 /**
  * Iron type of material.

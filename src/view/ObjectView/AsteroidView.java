@@ -1,6 +1,7 @@
-package view;
+package view.ObjectView;
 
-import model.Asteroid;
+import model.Objects.Asteroid;
+import view.Drawable;
 
 import java.awt.*;
 import java.util.ArrayList;

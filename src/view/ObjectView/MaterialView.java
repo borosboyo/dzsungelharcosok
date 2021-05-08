@@ -1,6 +1,7 @@
-package view;
+package view.ObjectView;
 
-import model.*;
+import model.Objects.*;
+import view.Drawable;
 
 import java.awt.*;
 

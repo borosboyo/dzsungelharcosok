@@ -1,8 +1,8 @@
 package view;
 
-import model.Asteroid;
-import model.Settler;
-import model.Teleport;
+import model.Objects.Asteroid;
+import model.Objects.Settler;
+import model.Objects.Teleport;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;

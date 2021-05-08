@@ -1,6 +1,12 @@
 package view;
 
 import model.*;
+import model.Objects.Asteroid;
+import model.Objects.Settler;
+import model.Objects.Teleport;
+import view.ObjectView.AsteroidView;
+import view.ObjectView.EntityView;
+import view.ObjectView.TeleportView;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

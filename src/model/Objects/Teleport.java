@@ -1,4 +1,6 @@
-package model;
+package model.Objects;
+
+import model.Steppable;
 
 import java.io.Serializable;
 import java.util.ArrayList;

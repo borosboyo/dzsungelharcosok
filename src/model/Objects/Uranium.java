@@ -1,4 +1,4 @@
-package model;
+package model.Objects;
 
 /**
  * Uranium, the radioactive type of Material.

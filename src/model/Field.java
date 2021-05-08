@@ -1,5 +1,7 @@
 package model;
 
+import model.Objects.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -216,7 +218,7 @@ public class Field implements Steppable, Serializable {
      * @param a the asteroid on we check if the required materials are on.
      * @return the boolean
      */
-    boolean CheckReqMat(Asteroid a) {
+    public boolean CheckReqMat(Asteroid a) {
         int coal = 3;
         int ice = 3;
         int iron = 3;

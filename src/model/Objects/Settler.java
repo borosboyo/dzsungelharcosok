@@ -1,11 +1,16 @@
-package model;
+package model.Objects;
+
+import model.GTimer;
+import model.Game;
+import model.IDrill;
+import model.IMine;
 
 import java.util.ArrayList;
 
 /**
  * The type Settler.
  */
-public class Settler extends Entity implements IDrill, IMine{
+public class Settler extends Entity implements IDrill, IMine {
 
     /**
      * Settler's inventory

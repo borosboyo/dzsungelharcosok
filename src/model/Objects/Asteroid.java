@@ -1,5 +1,6 @@
-package model;
+package model.Objects;
 
+import model.Game;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,10 +10,7 @@ import java.util.Random;
  */
 public class Asteroid implements Serializable {
     private long crustThickness;
-
-
     private final int id;
-
     private int x, y;
     private boolean nearSun;
     private Material material;
@@ -32,7 +30,7 @@ public class Asteroid implements Serializable {
         this.nearSun = nearSun;
         this.material = material;
 
-        if(material != null){
+        if (material != null) {
             material.setAsteroid(this);
         }
         this.id = id;
@@ -43,7 +41,7 @@ public class Asteroid implements Serializable {
      *
      * @param e the e
      */
-    public void Accept(Entity e){
+    public void Accept(Entity e) {
         this.entities.add(e);
     }
 
@@ -52,7 +50,7 @@ public class Asteroid implements Serializable {
      *
      * @param m the m
      */
-    public void AddMaterial(Material m){
+    public void AddMaterial(Material m) {
         this.material = m;
     }
 
@@ -62,7 +60,7 @@ public class Asteroid implements Serializable {
      * @param t the t
      */
 
-    public void BuildTeleport(Teleport t){
+    public void BuildTeleport(Teleport t) {
         t.getAsteroids().add(this);
         teleports.add(t);
     }
@@ -70,8 +68,8 @@ public class Asteroid implements Serializable {
     /**
      * Check base.
      */
-    public void CheckBase(){
-        if(Game.getInstance().field.CheckReqMat(this)){
+    public void CheckBase() {
+        if (Game.getInstance().field.CheckReqMat(this)) {
             Game.getInstance().WinGame();
         }
     }
@@ -79,8 +77,8 @@ public class Asteroid implements Serializable {
     /**
      * Check trigger.
      */
-    public void CheckTrigger(){
-        if(this.nearSun && this.crustThickness == 0 && this.material != null){
+    public void CheckTrigger() {
+        if (this.nearSun && this.crustThickness == 0 && this.material != null) {
             material.Trigger();
         }
     }
@@ -91,7 +89,7 @@ public class Asteroid implements Serializable {
      * @param a the a
      * @return the boolean
      */
-    public boolean CheckNeighbour(Asteroid a){
+    public boolean CheckNeighbour(Asteroid a) {
         for (Asteroid neighbour : neighbours) {
             if (a == neighbour)
                 return true;
@@ -102,7 +100,7 @@ public class Asteroid implements Serializable {
     /**
      * Drilled by.
      */
-    public void DrilledBy(){
+    public void DrilledBy() {
         this.crustThickness--;
         CheckTrigger();
     }
@@ -111,23 +109,23 @@ public class Asteroid implements Serializable {
     /**
      * Explode.
      */
-    public void Explode(){
+    public void Explode() {
         Game.getInstance().field.RemoveAsteroid(this);
 
-        for (int i = 0; i< teleports.size(); i++){
+        for (int i = 0; i < teleports.size(); i++) {
             teleports.get(i).RemoveAsteroid(this);
             teleports.remove(teleports.get(i));
         }
 
-        for (int i = 0; i < entities.size(); i++){
+        for (int i = 0; i < entities.size(); i++) {
             entities.get(i).Blow();
         }
 
-        for(int i = 0; i < neighbours.size(); i++){
+        for (int i = 0; i < neighbours.size(); i++) {
             neighbours.get(i).RemoveNeighbour(this);
         }
 
-        for (int i=0; i< neighbours.size(); i++){
+        for (int i = 0; i < neighbours.size(); i++) {
             neighbours.remove(i);
         }
 
@@ -146,7 +144,7 @@ public class Asteroid implements Serializable {
         Random rand = new Random();
         int r_index = rand.nextInt(neighbours.size());
 
-        return  neighbours.get(r_index);
+        return neighbours.get(r_index);
     }
 
     /**
@@ -154,14 +152,14 @@ public class Asteroid implements Serializable {
      *
      * @return the teleport
      */
-    public Teleport GetRandomTeleport(){
+    public Teleport GetRandomTeleport() {
         if (teleports.size() < 1) {
             return null;
         }
         Random rand = new Random();
         int r_index = rand.nextInt(teleports.size());
 
-        return  teleports.get(r_index);
+        return teleports.get(r_index);
     }
 
     /**
@@ -169,9 +167,9 @@ public class Asteroid implements Serializable {
      *
      * @return the material
      */
-    public Material MinedBy(){
+    public Material MinedBy() {
         Material ret_material = material;
-        if (ret_material != null && crustThickness == 0){
+        if (ret_material != null && crustThickness == 0) {
             RemoveMaterial();
             return ret_material;
         }
@@ -183,14 +181,14 @@ public class Asteroid implements Serializable {
      *
      * @param e the e
      */
-    public void RemoveEntity(Entity e){
+    public void RemoveEntity(Entity e) {
         entities.remove(e);
     }
 
     /**
      * Removes material.
      */
-    public void RemoveMaterial(){
+    public void RemoveMaterial() {
         material = null;
     }
 
@@ -199,25 +197,25 @@ public class Asteroid implements Serializable {
      *
      * @param a the a
      */
-    public void RemoveNeighbour(Asteroid a){
+    public void RemoveNeighbour(Asteroid a) {
         neighbours.remove(a);
     }
 
     /**
      * Sunstorm.
      */
-    public void Sunstorm(){
-        if (!nearSun){
+    public void Sunstorm() {
+        if (!nearSun) {
             return;
         }
-        if(crustThickness != 0 && material != null){
-            for(int i = 0; i < entities.size(); i++){
+        if (crustThickness != 0 && material != null) {
+            for (int i = 0; i < entities.size(); i++) {
                 entities.get(i).Die();
             }
         }
 
         for (int i = 0; i < teleports.size(); i++) {
-            if(teleports.get(i) != null){
+            if (teleports.get(i) != null) {
                 teleports.get(i).HitBySunstorm(this);
             }
         }
@@ -225,6 +223,7 @@ public class Asteroid implements Serializable {
 
 
     //ArrayList Getters Setters
+
     /**
      * Gets neigbours.
      *
@@ -244,7 +243,7 @@ public class Asteroid implements Serializable {
     }
 
 
-    public void addTeleport(Teleport t){
+    public void addTeleport(Teleport t) {
         this.teleports.add(t);
     }
 
@@ -327,6 +326,5 @@ public class Asteroid implements Serializable {
     public void setY(int y) {
         this.y = y;
     }
-
 
 }
