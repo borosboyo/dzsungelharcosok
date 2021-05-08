@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class EntityView implements Drawable {
-    private Entity entity;
-    private ArrayList<EntityView> entityViews;
+    private final Entity entity;
+    private final ArrayList<EntityView> entityViews;
     private int _x, _y, size;
 
     public int getX() {
