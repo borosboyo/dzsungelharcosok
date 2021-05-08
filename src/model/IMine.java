@@ -1,9 +1,11 @@
 package model;
 
 /**
- * A bányászást megvalósító interfész bányászó függvénye. A Settler és az
- * Ufo osztály implementálja, az átfúrt aszteroida nyersanyagát lehet vele kinyerni.
+ * IMine interface, implements Ufo and Settler classes.
  */
 public interface IMine {
+     /**
+      * Mine function represents the mining
+      */
      void Mine();
 }
