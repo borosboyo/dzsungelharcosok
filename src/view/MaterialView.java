@@ -1,12 +1,11 @@
 package view;
 
 import model.*;
-import model.Robot;
 
 import java.awt.*;
 
 public class MaterialView implements Drawable {
-    private Material material;
+    private final Material material;
 
     public MaterialView(Material material) {
         this.material = material;
