@@ -16,18 +16,18 @@ public class MenuPanel extends JPanel {
     /**
      * The host Window.
      */
-    private Window window;
+    private final Window window;
 
     /**
      * The first panel where the user can select Start, Load or Exit.
      */
-    private JPanel buttonsPanel = new JPanel();
+    private final JPanel buttonsPanel = new JPanel();
 
     /**
      * The second panel that appears when the player selects Start.
      * This is where the user can select the number of settlers in the game.
      */
-    private JPanel formPanel = new JPanel();
+    private final JPanel formPanel = new JPanel();
 
     /**
      * The background image.
@@ -37,42 +37,42 @@ public class MenuPanel extends JPanel {
     /**
      * Button that hides the buttonsPanel and reveals the formPanel
      */
-    private JButton startButton = new JButton();
+    private final JButton startButton = new JButton();
 
     /**
      * Button that loads the saved game.
      */
-    private JButton loadButton = new JButton();
+    private final JButton loadButton = new JButton();
 
     /**
      * Exit button.
      */
-    private JButton exitButton = new JButton();
+    private final JButton exitButton = new JButton();
 
     /**
      * The user can confirm the number of settlers selected and start the game with this button.
      */
-    private JButton confirmButton = new JButton();
+    private final JButton confirmButton = new JButton();
 
     /**
      * Takes the user back from the formPanel to the buttonsPanel.
      */
-    private JButton cancelButton = new JButton();
+    private final JButton cancelButton = new JButton();
 
     /**
      * The spinner where the user can select the number of settlers.
      */
-    private JSpinner settlerSpinner = new JSpinner();
+    private final JSpinner settlerSpinner = new JSpinner();
 
     /**
      * Holds the image "Settlers:" in the formPanel.
      */
-    private JLabel settlerLabel = new JLabel();
+    private final JLabel settlerLabel = new JLabel();
 
     /**
      * List of images used in the MenuPanel.
      */
-    private ArrayList<ImageIcon> imageContainer = new ArrayList<ImageIcon>();
+    private final ArrayList<ImageIcon> imageContainer = new ArrayList<>();
 
     /**
      * The constructor of the MenuPanel.
