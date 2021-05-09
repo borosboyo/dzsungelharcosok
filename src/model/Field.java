@@ -39,11 +39,11 @@ public class Field implements Steppable, Serializable {
             Random rand = new Random();
             asteroids.add(new Asteroid(i, rand.nextInt(maxthickness + 1), false, RandomMaterial()));
         }
-
+        //koordináták számolása
         sqrt = Math.sqrt(settlernumber * 10 + 5);
         side = (int) Math.ceil(sqrt);
-        int xunit = 200;
-        int yunit = 150;
+        int xunit = 200;    //x távolság az aszteroidák között
+        int yunit = 150;    //y távolság közöttük
         for (int i = 0; i < side; i++) {    //y   sor
             for (int j = 0; j < side; j++) {    //x oszlop
                 if (asteroids.size() > (i * (side)) + j) {
@@ -53,6 +53,7 @@ public class Field implements Steppable, Serializable {
             }
         }
 
+        //szomszédok beállítása, egymástól lévő távolság alapján
         for (Asteroid a : asteroids) {
             for (Asteroid a2 : asteroids) {
                 int diffX = Math.abs(a.getX() - a2.getX());
@@ -103,7 +104,7 @@ public class Field implements Steppable, Serializable {
 
         Random rand = new Random();
         int k = 0;
-
+        //telepesek létrehozása, és ufok elhelyezése random asteroidára, ID-juk beállítása
         for (int i = 0; i < settlernumber; i++) {
             Settler s = new Settler(k);
             int randasteroid = rand.nextInt(asteroids.size());
@@ -112,7 +113,8 @@ public class Field implements Steppable, Serializable {
             s.setAsteroid(asteroids.get(randasteroid));
             k++;
 
-            if (i % 5 == 0) {
+            //4 telepesenként egy ufo
+            if (i % 4 == 0) {
                 Ufo u = new Ufo(k);
                 randasteroid = rand.nextInt(asteroids.size());
                 asteroids.get(randasteroid).Accept(u);
@@ -122,7 +124,7 @@ public class Field implements Steppable, Serializable {
                 k++;
             }
         }
-
+        //steppable-hez hozzáadjuk a telepeseket
         GTimer.getInstance().AddSteppable(this);
         for (Settler s : settlers) {
             GTimer.getInstance().AddSteppable(s);
@@ -137,6 +139,7 @@ public class Field implements Steppable, Serializable {
     public void Step() {
         SetNearSun();
         sunstormcounter++;
+        //10 körönként napvihar
         if (sunstormcounter == 10) {
             SetSunStorm();
             sunstormcounter = 0;
@@ -146,7 +149,7 @@ public class Field implements Steppable, Serializable {
     /**
      * Set sun storm.
      * <p>
-     * Set sunstorm for all asteroids
+     * Set sunstorm for all nearsun asteroids
      */
     public void SetSunStorm() {
         for (Asteroid a : asteroids) {
@@ -163,34 +166,24 @@ public class Field implements Steppable, Serializable {
      */
     public void SetNearSun() {
         Random rnd = new Random();
-        for(Asteroid a: asteroids){
+        //beállítja az összeset naptávolira
+        for (Asteroid a : asteroids) {
             a.setNearSun(false);
         }
-        for(int i = 0; i < settlers.size()/2 ; i++){
+        //telepesek számától függően kiválaszt néhány aszteroidát, és beállítja napközelire őket és
+        // a szomszédjaikat
+        for (int i = 0; i < settlers.size() / 2; i++) {
             int id = rnd.nextInt(asteroids.size());
-            System.out.println(i+"edik:  "+id);
             Asteroid a = asteroids.get(id);
+            //beállítjuk a kiválasztottat
             a.setNearSun(true);
             a.CheckTrigger();
-            for(Asteroid a2 : a.getNeigbours()){
+            //és a szomszédjait
+            for (Asteroid a2 : a.getNeigbours()) {
                 a2.setNearSun(true);
                 a2.CheckTrigger();
             }
         }
-
-//TODO::Ez itt kell vagy nem?
-        //nem
-/*
-        for (Asteroid a : asteroids) {
-            if ((rnd.nextInt(100) < 50)) {
-                a.setNearSun(true);
-                a.CheckTrigger();
-            } else {
-                a.setNearSun(false);
-            }
-        }
-
- */
     }
 
     /**
@@ -252,7 +245,6 @@ public class Field implements Steppable, Serializable {
      *
      * @return the random material
      */
-
     Material RandomMaterial() {
         Random rand = new Random();
         Material mat = null;
@@ -303,10 +295,20 @@ public class Field implements Steppable, Serializable {
     }
 
 
+    /**
+     * Gets sqrt.
+     *
+     * @return the sqrt
+     */
     public double getSqrt() {
         return sqrt;
     }
 
+    /**
+     * Gets side.
+     *
+     * @return the side
+     */
     public int getSide() {
         return side;
     }
@@ -348,10 +350,20 @@ public class Field implements Steppable, Serializable {
         asteroids.add(a);
     }
 
+    /**
+     * Gets sunstormcounter.
+     *
+     * @return the sunstormcounter
+     */
     public int getSunstormcounter() {
         return sunstormcounter;
     }
 
+    /**
+     * Sets sunstormcounter.
+     *
+     * @param sunstormcounter the sunstormcounter
+     */
     public void setSunstormcounter(int sunstormcounter) {
         this.sunstormcounter = sunstormcounter;
     }

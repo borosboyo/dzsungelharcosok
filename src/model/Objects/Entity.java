@@ -1,4 +1,5 @@
 package model.Objects;
+
 import model.Steppable;
 
 import java.io.Serializable;
@@ -7,46 +8,17 @@ import java.io.Serializable;
  * The type Entity.
  */
 public abstract class Entity implements Steppable, Serializable {
-
     /**
      * The asteroid that the entity is on
      */
     private Asteroid asteroid;
     private int id;
-
-
     public Entity(int id) {
         this.id = id;
     }
-
-    /**
-     * Returns the asteroid that the Entity stands on.
-     *
-     * @return the asteroid
-     */
-    public Asteroid getAsteroid() {
-        return asteroid;
-    }
-
-    /**
-     * Id Getter
-     * @return with the material Id
-     */
-    public int getId(){
-        return id;
-    }
-    /**
-     * Sets asteroid.
-     *
-     * @param asteroid the asteroid
-     */
-    public void setAsteroid(Asteroid asteroid) {
-        this.asteroid = asteroid;
-    }
-
     /**
      * Blow.
-     *
+     * <p>
      * The entity gets blown away if the asteroid explodes.
      */
     public abstract void Blow();
@@ -64,6 +36,7 @@ public abstract class Entity implements Steppable, Serializable {
      * @param a the asteroid that the entity will move onto
      */
     public void Move(Asteroid a) {
+        //ha az aszteroida ahova mozogni akar a szomszédja annak amin van
         if (this.getAsteroid().CheckNeighbour(a)) {
             this.getAsteroid().RemoveEntity(this);
             a.Accept(this);
@@ -79,6 +52,33 @@ public abstract class Entity implements Steppable, Serializable {
      */
     public void UseTeleport(Teleport t) {
         t.Transfer(this);
+    }
+
+    /**
+     * Returns the asteroid that the Entity stands on.
+     *
+     * @return the asteroid
+     */
+    public Asteroid getAsteroid() {
+        return asteroid;
+    }
+
+    /**
+     * Id Getter
+     *
+     * @return with the material Id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets asteroid.
+     *
+     * @param asteroid the asteroid
+     */
+    public void setAsteroid(Asteroid asteroid) {
+        this.asteroid = asteroid;
     }
 
 }

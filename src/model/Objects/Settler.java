@@ -20,7 +20,6 @@ public class Settler extends Entity implements IDrill, IMine {
      * Teleport list
      */
     private final ArrayList<Teleport> teleportlist;
-
     private boolean finishedTurn = false;
     private boolean selected = false;
 
@@ -59,7 +58,7 @@ public class Settler extends Entity implements IDrill, IMine {
      * Settler dies.
      */
     @Override
-    public void Die(){
+    public void Die() {
         getAsteroid().RemoveEntity(this);
         Game.getInstance().field.getSettlers().remove(this);
         setAsteroid(null);
@@ -103,7 +102,7 @@ public class Settler extends Entity implements IDrill, IMine {
                     k--;
                 } else if (inventory.get(k) instanceof Uranium && deleteuranium) {
                     inventory.remove(k);
-                    deleteuranium=false;
+                    deleteuranium = false;
                     k--;
                 }
 
@@ -129,18 +128,18 @@ public class Settler extends Entity implements IDrill, IMine {
     /**
      * Make teleport.
      */
-    public void MakeTeleport(){
-        int iron=0;
-        int ice=0;
-        int uranium=0;  //Megnézzuk van e elég anyag az építéshez
+    public void MakeTeleport() {
+        int iron = 0;
+        int ice = 0;
+        int uranium = 0;  //Megnézzuk van e elég anyag az építéshez
         for (Material m : inventory) {
-            if(m instanceof Iron){
+            if (m instanceof Iron) {
                 iron++;
             }
-            if(m instanceof Ice){
+            if (m instanceof Ice) {
                 ice++;
             }
-            if(m instanceof Uranium){
+            if (m instanceof Uranium) {
                 uranium++;
             }
         }
@@ -209,7 +208,7 @@ public class Settler extends Entity implements IDrill, IMine {
     /**
      * Place teleport.
      */
-    public void PlaceTeleport(){
+    public void PlaceTeleport() {
         getAsteroid().BuildTeleport(teleportlist.get(0));
         if (teleportlist.get(0).getAsteroids().size() == 2 && !finishedTurn) {
             teleportlist.remove(0);
@@ -219,13 +218,14 @@ public class Settler extends Entity implements IDrill, IMine {
 
     /**
      * Check the leleport list size
+     *
      * @return true if there is still room in it
      */
-    public boolean EnoughTeleportSpace(){
-        if(teleportlist.isEmpty()){
+    public boolean EnoughTeleportSpace() {
+        if (teleportlist.isEmpty()) {
             return true;
         }
-        if(teleportlist.get(0).getAsteroids().size()==1){
+        if (teleportlist.get(0).getAsteroids().size() == 1) {
             return true;
         }
         return false;
@@ -268,9 +268,9 @@ public class Settler extends Entity implements IDrill, IMine {
      * The Step function of the Settler.
      */
     @Override
-    public void Step(){
-        for (int i = 0; i < teleportlist.size(); i++){
-            if(teleportlist.get(i).getExploded()) {
+    public void Step() {
+        for (int i = 0; i < teleportlist.size(); i++) {
+            if (teleportlist.get(i).getExploded()) {
                 teleportlist.remove(teleportlist.get(i));
             }
         }
