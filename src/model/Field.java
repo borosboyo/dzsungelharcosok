@@ -19,6 +19,7 @@ public class Field implements Steppable, Serializable {
 
     private double sqrt;
     private int side;
+    private int turnsPerSunstorm= 10;
 
     /**
      * Field initialization (Add Asteroids, Settlers and Ufos)
@@ -132,6 +133,7 @@ public class Field implements Steppable, Serializable {
         SetNearSun();
     }
 
+
     /**
      * Game state stepping
      */
@@ -140,7 +142,7 @@ public class Field implements Steppable, Serializable {
         SetNearSun();
         sunstormcounter++;
         //10 körönként napvihar
-        if (sunstormcounter == 10) {
+        if (sunstormcounter == turnsPerSunstorm) {
             SetSunStorm();
             sunstormcounter = 0;
         }
@@ -359,6 +361,9 @@ public class Field implements Steppable, Serializable {
         return sunstormcounter;
     }
 
+    public int getTurnsPerSunstorm() {
+        return turnsPerSunstorm;
+    }
     /**
      * Sets sunstormcounter.
      *

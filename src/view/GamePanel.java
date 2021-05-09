@@ -422,7 +422,7 @@ public class GamePanel extends JPanel {
                 g.drawString(s, 860, 25 + j * 20);
             }
         }
-        if(fi.getSunstormcounter() == 10){
+        if(fi.getSunstormcounter() == fi.getTurnsPerSunstorm()){
             g.setFont(new Font(Font.SERIF, Font.BOLD, 30));
             g.setColor(Color.RED);
             g.drawString("SUNSTORM", window.getWidth() / 3 + 10, 30);
