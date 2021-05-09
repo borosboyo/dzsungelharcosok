@@ -96,7 +96,7 @@ public class Game implements Serializable {
      * @throws IOException            wrong input file
      * @throws ClassNotFoundException Serializable wrong
      */
-    public void loadGame() throws IOException, ClassNotFoundException { //TODO::ha nincs fájl, akkor térjen vissza a menübe!!!! (Most kifagy hiba dobással)
+    public void loadGame() throws IOException, ClassNotFoundException {
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
         field = (Field) input.readObject();
     }

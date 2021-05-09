@@ -202,7 +202,9 @@ public class MenuPanel extends JPanel {
             if (e.getSource() == loadButton) {
                 Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
                 Game.getInstance().getMenu().menu_step(0);
-                window.switchToGame();
+                if (Game.getInstance().field != null) {
+                    window.switchToGame();
+                }
             }
 
             /**

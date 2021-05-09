@@ -177,20 +177,6 @@ public class Field implements Steppable, Serializable {
                 a2.CheckTrigger();
             }
         }
-
-//TODO::Ez itt kell vagy nem?
-        //nem
-/*
-        for (Asteroid a : asteroids) {
-            if ((rnd.nextInt(100) < 50)) {
-                a.setNearSun(true);
-                a.CheckTrigger();
-            } else {
-                a.setNearSun(false);
-            }
-        }
-
- */
     }
 
     /**

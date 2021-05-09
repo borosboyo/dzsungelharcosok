@@ -39,8 +39,13 @@ public class Menu {
                 } catch (IOException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }
-                Game.getInstance().setGameState(GameState.GAME);
-                Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
+                if (Game.getInstance().field == null) {
+                    Game.getInstance().setGameState(GameState.MENU);
+                    Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
+                } else {
+                    Game.getInstance().setGameState(GameState.GAME);
+                    Game.getInstance().getMenu().setMenuState(MenuState.LOADGAME);
+                }
                 break;
             }
             //Loadmenu state
