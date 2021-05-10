@@ -19,7 +19,7 @@ public class Field implements Steppable, Serializable {
 
     private double sqrt;
     private int side;
-    private int turnsPerSunstorm= 10;
+    private int turnsPerSunstorm = 10;
 
     /**
      * Field initialization (Add Asteroids, Settlers and Ufos)
@@ -65,14 +65,16 @@ public class Field implements Steppable, Serializable {
             }
         }
 
-/*
+
         //csak tesztelés miatt
         Settler s2 = new Settler(11);
         s2.getInventory().add(new Ice());
         s2.getInventory().add(new Coal());
         s2.getInventory().add(new Iron());
         s2.getInventory().add(new Iron());
-        s2.getInventory().add(new Uranium());
+        Uranium urr = new Uranium();
+        urr.setExponation(3);
+        s2.getInventory().add(urr);
         asteroids.get(2).Accept(s2);
         settlers.add(s2);
         s2.setAsteroid(asteroids.get(2));
@@ -101,7 +103,7 @@ public class Field implements Steppable, Serializable {
         ufo.setAsteroid(asteroids.get(2));
         GTimer.getInstance().AddSteppable(ufo);
         //csak tesztelés miatt végea
-*/
+
 
         Random rand = new Random();
         int k = 0;
@@ -115,7 +117,7 @@ public class Field implements Steppable, Serializable {
             k++;
 
             //4 telepesenként egy ufo
-            if (i % 4 == 0) {
+            if (i % 10 == 0) {
                 Ufo u = new Ufo(k);
                 randasteroid = rand.nextInt(asteroids.size());
                 asteroids.get(randasteroid).Accept(u);
@@ -172,6 +174,7 @@ public class Field implements Steppable, Serializable {
         for (Asteroid a : asteroids) {
             a.setNearSun(false);
         }
+
         //telepesek számától függően kiválaszt néhány aszteroidát, és beállítja napközelire őket és
         // a szomszédjaikat
         for (int i = 0; i < settlers.size() / 2; i++) {
@@ -181,10 +184,16 @@ public class Field implements Steppable, Serializable {
             a.setNearSun(true);
             a.CheckTrigger();
             //és a szomszédjait
-            for (Asteroid a2 : a.getNeigbours()) {
+            for (int j = 0; j < a.getNeigbours().size(); j++) {
+                Asteroid a2 = a.getNeigbours().get(j);
                 a2.setNearSun(true);
                 a2.CheckTrigger();
             }
+
+            //  for (Asteroid a2 : a.getNeigbours()) {
+            //      a2.setNearSun(true);
+            //   a2.CheckTrigger();
+            //}
         }
     }
 
@@ -364,6 +373,7 @@ public class Field implements Steppable, Serializable {
     public int getTurnsPerSunstorm() {
         return turnsPerSunstorm;
     }
+
     /**
      * Sets sunstormcounter.
      *
