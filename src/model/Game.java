@@ -128,7 +128,7 @@ public class Game implements Serializable {
         }
 
 
-        //TODO::ez akkor kell ha rendes idő szerint is akarjuk léptetni a léptetős dolgokat, Szerintem nagyon epikus ha nem csak azután lépnek miután az összes settler lelépte a sajátját, ha kíváncsi vagy rá akkor kommentezd ki ;)
+        //ez akkor kell ha rendes idő szerint is akarjuk léptetni a léptetős dolgokat, Szerintem nagyon epikus ha nem csak azután lépnek miután az összes settler lelépte a sajátját, ha kíváncsi vagy rá akkor kommentezd ki ;)
 //        java.util.Timer timer = new Timer();
 //        timer.schedule(new TimerTask() {
 //            @Override
@@ -138,7 +138,7 @@ public class Game implements Serializable {
 //                    window.repaint();
 //                }
 //            }
-//        }, 1000, 10000); //TODO:ezeket az értékeket lehet átkell majd állítani
+//        }, 1000, 30000);
     }
 
 }

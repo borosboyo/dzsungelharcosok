@@ -65,7 +65,7 @@ public class Field implements Steppable, Serializable {
             }
         }
 
-
+/*
         //csak tesztelés miatt
         Settler s2 = new Settler(11);
         s2.getInventory().add(new Ice());
@@ -101,7 +101,7 @@ public class Field implements Steppable, Serializable {
         ufo.setAsteroid(asteroids.get(2));
         GTimer.getInstance().AddSteppable(ufo);
         //csak tesztelés miatt végea
-
+*/
 
         Random rand = new Random();
         int k = 0;

@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
      * The Window.
      */
     Window window;
-    private final int unit; //TODO:ehhez arányosan kéne majd az x,y,width,high értkékeket beállítani (asteroida megkapja, a többi még nem)
+    private final int unit;
     /**
      * The Selected asteroid.
      */
@@ -49,7 +49,7 @@ public class GamePanel extends JPanel {
     /**
      * The Buffered images.
      */
-    ArrayList<BufferedImage> bufferedImages = new ArrayList<>(); //TODO:: ezt meg lehetne csinálni a toolkit image-el és akkor lehet jó lenne az is
+    ArrayList<BufferedImage> bufferedImages = new ArrayList<>();
 
     /**
      * Gets buffered images.
@@ -351,20 +351,20 @@ public class GamePanel extends JPanel {
         Font font = new Font(Font.SERIF, Font.PLAIN, 20);
         g.setFont(font);
         g.setColor(Color.GRAY);
-        g.drawString("Settler turn:", 2, 20);
+        g.drawString("Settlers left:", 2, 20);
 
         int count = 0;
         for (int i = 0; i < fi.getSettlers().size(); i++) {
             if (!fi.getSettlers().get(i).isFinishedTurn()) {
-                g.drawString(String.valueOf(fi.getSettlers().get(i).getId()), 0, 40 + (i * 20));
                 count++;
             }
         }
+         g.drawString(String.valueOf(count), 0, 40);
+
         if (count == 0) {
             GTimer.getInstance().Tick();
             for (int i = 0; i < fi.getSettlers().size(); i++) {
                 fi.getSettlers().get(i).setFinishedTurn(false);
-                g.drawString(String.valueOf(fi.getSettlers().get(i).getId()), 0, 40 + (i * 20));
             }
         }
 
@@ -422,12 +422,12 @@ public class GamePanel extends JPanel {
                 g.drawString(s, 860, 25 + j * 20);
             }
         }
-        if(fi.getSunstormcounter() == fi.getTurnsPerSunstorm()){
+        if (fi.getSunstormcounter() == fi.getTurnsPerSunstorm()) {
             g.setFont(new Font(Font.SERIF, Font.BOLD, 30));
             g.setColor(Color.RED);
             g.drawString("SUNSTORM", window.getWidth() / 3 + 10, 30);
         }
-        window.repaint();
+
         g.setColor(Color.GRAY);
         g.drawLine(0, window.getHeight() - 60, window.getWidth(), window.getHeight() - 60);
         font = new Font(Font.SERIF, Font.BOLD, 14);

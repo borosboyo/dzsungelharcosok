@@ -118,11 +118,11 @@ class KeyListenerClass implements KeyListener {
          * The player returns to the menu when the escape button is pressed.
          */
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU); //TODO::itt beállíthatjuk azt, hogyha a menübe visszalépünk esc-el, akkor mentse a játékot
+            Game.getInstance().getMenu().setMenuState(MenuState.LOADMENU);
             Game.getInstance().getMenu().menu_step(0);
             window.switchToMenu();
             try {
-                window.playSound(4, 0.6f, 0); //TODO:ez nem itt lesz, hanem majd a useteleportnál
+                window.playSound(4, 0.6f, 0);
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ioException) {
                 ioException.printStackTrace();
             }

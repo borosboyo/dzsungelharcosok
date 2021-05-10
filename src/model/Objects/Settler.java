@@ -36,7 +36,7 @@ public class Settler extends Entity implements IDrill, IMine {
     /**
      * @param a the asteroid that the entity will move onto
      */
-    public void Move(Asteroid a) {      //TODO::entityben is van move, ha nem lenne setFinishedTurn akkor jó lenne
+    public void Move(Asteroid a) {
         if (this.getAsteroid().CheckNeighbour(a) && !finishedTurn) {
             this.getAsteroid().RemoveEntity(this);
             a.Accept(this);
@@ -67,7 +67,7 @@ public class Settler extends Entity implements IDrill, IMine {
     /**
      * Build robot.
      */
-    public void BuildRobot() { //TODO:: Az inventory ellenőrzést és csökkentést ha összetudnán vonni itt és a maketeleportban akkkor szebb lenne a kód
+    public void BuildRobot() {
         int iron = 0;
         int coal = 0;
         int uranium = 0;  //Megnézzuk van e elég anyag az építéshez
@@ -289,37 +289,11 @@ public class Settler extends Entity implements IDrill, IMine {
         boolean correct_id = false;
         int id = -1;
 
-//        while(!correct_id){ //TODO:: ez sztem nem kell majd
-//            id++;
-//            for (int i = 0; i  < Game.getInstance().field.getSettlers().size(); i++){ //TODO::ez csak akkor kell ha az entitásoknak nem lehet ugyanaz az id-je, sztem a consoleos rész kiszedése miatt már nem kell
-//                if (id != Game.getInstance().field.getSettlers().get(i).getId()){
-//                    correct_id = true;
-//                    break;
-//                }
-//            }
-//            if(!correct_id){
-//                for (int i = 0; i  < Game.getInstance().field.getRobots().size(); i++){
-//                    if (id != Game.getInstance().field.getRobots().get(i).getId()){
-//                        correct_id = true;
-//                        break;
-//                    }
-//                }
-//            }
-//            if(!correct_id) {
-//                for (int i = 0; i < Game.getInstance().field.getRobots().size(); i++) { //TODO::ez csak akkor kell ha az entitásoknak nem lehet ugyanaz az id-je, sztem a consoleos rész kiszedése miatt már nem kell
-//                    if (id != Game.getInstance().field.getUfos().get(i).getId()) {
-//                        correct_id = true;
-//                        break;
-//                    }
-//                }
-//            }
-//        }
-
         ArrayList<Asteroid> asteroids = Game.getInstance().field.getAsteroids();
         while (!correct_id) {
             id++;
 
-            if (ent == 0) { //TODO::ez csak akkor kell ha kellenek robot id-k, ha nem kell akkor paraméter sem kell
+            if (ent == 0) {
                 for (int i = 0; i < Game.getInstance().field.getRobots().size(); i++) {
                     if (id != Game.getInstance().field.getRobots().get(i).getId()) {
                         correct_id = true;

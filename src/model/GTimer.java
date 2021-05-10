@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Timer singleton class that determines when the Field and Robot steps.
  */
-public class GTimer {//TODO:: ha nincsen main akkor ezt vissza lehet írni Timer-re
+public class GTimer {
     /**
      * The ArrayList that stores all the steppable objects of the game.
      */

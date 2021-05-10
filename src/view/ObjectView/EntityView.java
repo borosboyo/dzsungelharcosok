@@ -89,11 +89,6 @@ public class EntityView implements Drawable {
         //kirajzoltatás
         g.drawImage(i, _x, _y, size, size, null);
         ((Graphics2D) g).setComposite(setTransparenty(10));
-
-        //TODO: id kiiratasa nem kell a legvégén
-        g.setColor(Color.MAGENTA);
-        g.setFont(new Font("Arial Black", Font.BOLD, 15));
-        g.drawString(String.valueOf(entity.getId()), x, y + 30);
     }
 
     /**
