@@ -2,6 +2,8 @@
 
 **Team: dzsungelharcosok**
 
+[**Visualization video**](https://www.youtube.com/watch?v=EXSUGSOW5o0)
+
 1. Forming teams
 
 2. Requirements, project, functionality: **7/10** points
