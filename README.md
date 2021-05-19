@@ -2,6 +2,8 @@
 
 **Team: dzsungelharcosok**
 
+[**Visualization video**](https://www.youtube.com/watch?v=EXSUGSOW5o0)
+
 1. Forming teams
 
 2. Requirements, project, functionality: **7/10** points
@@ -20,7 +22,7 @@
 
 10. Prototype program: **25/35** points (rushed and late)
 
-11. User interface specification: **30/30**
+11. User interface specification: **30/30** points
 
 12. Creating the Complete part
 
