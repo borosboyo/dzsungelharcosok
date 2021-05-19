@@ -99,6 +99,7 @@ public class Game implements Serializable {
     public void loadGame() throws IOException, ClassNotFoundException {
         final ObjectInputStream input = new ObjectInputStream(new FileInputStream("field_status"));
         field = (Field) input.readObject();
+        input.close();
     }
 
     /**
@@ -108,6 +109,7 @@ public class Game implements Serializable {
     public void saveGame() throws IOException{
         ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream("field_status"));
         output.writeObject(field);
+        output.close();
     }
 
 
@@ -126,6 +128,7 @@ public class Game implements Serializable {
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
+
 
 
         //ez akkor kell ha rendes idő szerint is akarjuk léptetni a léptetős dolgokat, Szerintem nagyon epikus ha nem csak azután lépnek miután az összes settler lelépte a sajátját, ha kíváncsi vagy rá akkor kommentezd ki ;)

@@ -114,6 +114,7 @@ class KeyListenerClass implements KeyListener {
      */
     @Override
     public void keyPressed(KeyEvent e) {
+
         /**
          * The player returns to the menu when the escape button is pressed.
          */
