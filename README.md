@@ -24,9 +24,9 @@
 
 11. User interface specification: **30/30** points
 
-12. Creating the Complete part
+12. Creating the Complete part:  **39/40** points
 
-13. Complete program and Summary: 
+13. Complete program and Summary:  **30/30** points
 
 Project assignment:
 
